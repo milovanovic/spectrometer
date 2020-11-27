@@ -46,11 +46,11 @@ class SpectrometerVanilla(params: SpectrometerVanillaParameters) extends LazyMod
 
   val plfg      = LazyModule(new PLFGDspBlockMem(params.plfgAddress, params.plfgRAM, params.plfgParams, params.beatBytes))  
   val nco       = LazyModule(new AXI4NCOLazyModuleBlock(params.ncoParams, params.ncoAddress, params.beatBytes))
-  val buff_nco  = LazyModule(new AXI4StreamBuffer(BufferParams(2, false, false), beatBytes = 4))
+  val buff_nco  = LazyModule(new StreamBuffer(BufferParams(2, false, false), beatBytes = 4))
   val fft       = LazyModule(new AXI4FFTBlock(address = params.fftAddress, params = params.fftParams, _beatBytes = params.beatBytes))
-  val buff_fft  = LazyModule(new AXI4StreamBuffer(BufferParams(2, false, false), beatBytes = 4))
+  val buff_fft  = LazyModule(new StreamBuffer(BufferParams(2, false, false), beatBytes = 4))
   val mag       = LazyModule(new AXI4LogMagMuxBlock(params.magParams, params.magAddress, _beatBytes = params.beatBytes))
-  val buff_mag  = LazyModule(new AXI4StreamBuffer(BufferParams(2, false, false), beatBytes = 4))
+  val buff_mag  = LazyModule(new StreamBuffer(BufferParams(2, false, false), beatBytes = 4))
   val acc       = LazyModule(new AccumulatorChain(params.accParams, params.accAddress, params.accQueueBase, params.beatBytes))
 
   // define mem

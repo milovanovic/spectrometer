@@ -57,7 +57,7 @@ class SpectrometerTestWithBuffers(params: SpectrometerTestWithBuffersParameters)
 
   val in_adapt  = AXI4StreamWidthAdapter.nToOne(params.beatBytes)
   val in_split  = LazyModule(new AXI4Splitter(address = params.inSplitAddress, beatBytes = params.beatBytes))
-  val in_queue  = LazyModule(new AXI4StreamBuffer(BufferParams(1, true, true), beatBytes = 1))
+  val in_queue  = LazyModule(new StreamBuffer(BufferParams(1, true, true), beatBytes = 1))
 
   val plfg      = LazyModule(new PLFGDspBlockMem(params.plfgAddress, params.plfgRAM, params.plfgParams, params.beatBytes))  
   val nco       = LazyModule(new AXI4NCOLazyModuleBlock(params.ncoParams, params.ncoAddress, params.beatBytes))
@@ -89,14 +89,14 @@ class SpectrometerTestWithBuffers(params: SpectrometerTestWithBuffersParameters)
 
   val acc       = LazyModule(new AccumulatorChain(params.accParams, params.accAddress, params.accQueueBase, params.beatBytes))
   val acc_adapt = AXI4StreamWidthAdapter.nToOne(params.beatBytes/2)
-  val acc_queue = LazyModule(new AXI4StreamBuffer(BufferParams(1, true, true), beatBytes = 4))
+  val acc_queue = LazyModule(new StreamBuffer(BufferParams(1, true, true), beatBytes = 4))
 
   val out_mux   = LazyModule(new AXI4StreamMux(address = params.outMuxAddress, beatBytes = params.beatBytes))
-  val out_queue = LazyModule(new AXI4StreamBuffer(BufferParams(1, true, true), beatBytes = params.beatBytes))
+  val out_queue = LazyModule(new StreamBuffer(BufferParams(1, true, true), beatBytes = params.beatBytes))
   val out_adapt = AXI4StreamWidthAdapter.oneToN(params.beatBytes)
   val out_rdy   = LazyModule(new AlwaysReady)
 
-  val uTx_queue = LazyModule(new AXI4StreamBuffer(BufferParams(params.beatBytes), beatBytes = params.beatBytes))
+  val uTx_queue = LazyModule(new StreamBuffer(BufferParams(params.beatBytes), beatBytes = params.beatBytes))
   val uTx_adapt = AXI4StreamWidthAdapter.oneToN(params.beatBytes)
   val uRx_adapt = AXI4StreamWidthAdapter.nToOne(params.beatBytes)
   val uRx_split = LazyModule(new AXI4Splitter(address = params.uRxSplitAddress, beatBytes = params.beatBytes))

@@ -90,7 +90,7 @@ class AlwaysReady extends LazyModule()(Parameters.empty) {
     }
 }
 
-class AXI4StreamBuffer(params: BufferParams, beatBytes: Int) extends LazyModule()(Parameters.empty){
+class StreamBuffer(params: BufferParams, beatBytes: Int) extends LazyModule()(Parameters.empty){
   val innode  = AXI4StreamSlaveNode(AXI4StreamSlaveParameters())
   val outnode = AXI4StreamMasterNode(Seq(AXI4StreamMasterPortParameters(Seq(AXI4StreamMasterParameters( "buffer", n = beatBytes)))))
   val node = NodeHandle(innode, outnode)
@@ -111,7 +111,7 @@ class SpectrometerTest(params: SpectrometerTestParameters) extends LazyModule()(
 
   val in_adapt  = AXI4StreamWidthAdapter.nToOne(params.beatBytes)
   val in_split  = LazyModule(new AXI4Splitter(address = params.inSplitAddress, beatBytes = params.beatBytes))
-  val in_queue  = LazyModule(new AXI4StreamBuffer(BufferParams(1, true, true), beatBytes = 1))
+  val in_queue  = LazyModule(new StreamBuffer(BufferParams(1, true, true), beatBytes = 1))
 
   val plfg       = LazyModule(new PLFGDspBlockMem(params.plfgAddress, params.plfgRAM, params.plfgParams, params.beatBytes))  
   val plfg_split = LazyModule(new AXI4Splitter(address  = params.plfgSplitAddress, beatBytes = params.beatBytes))
@@ -151,14 +151,14 @@ class SpectrometerTest(params: SpectrometerTestParameters) extends LazyModule()(
 
   val acc       = LazyModule(new AccumulatorChain(params.accParams, params.accAddress, params.accQueueBase, params.beatBytes))
   val acc_adapt = AXI4StreamWidthAdapter.nToOne(params.beatBytes/2)
-  val acc_queue = LazyModule(new AXI4StreamBuffer(BufferParams(1, true, true), beatBytes = 4))
+  val acc_queue = LazyModule(new StreamBuffer(BufferParams(1, true, true), beatBytes = 4))
 
   val out_mux   = LazyModule(new AXI4StreamMux(address = params.outMuxAddress, beatBytes = params.beatBytes))
-  val out_queue = LazyModule(new AXI4StreamBuffer(BufferParams(1, true, true), beatBytes = params.beatBytes))
+  val out_queue = LazyModule(new StreamBuffer(BufferParams(1, true, true), beatBytes = params.beatBytes))
   val out_adapt = AXI4StreamWidthAdapter.oneToN(params.beatBytes)
   val out_rdy   = LazyModule(new AlwaysReady)
 
-  val uTx_queue = LazyModule(new AXI4StreamBuffer(BufferParams(params.beatBytes), beatBytes = params.beatBytes))
+  val uTx_queue = LazyModule(new StreamBuffer(BufferParams(params.beatBytes), beatBytes = params.beatBytes))
   val uTx_adapt = AXI4StreamWidthAdapter.oneToN(params.beatBytes)
   val uRx_adapt = AXI4StreamWidthAdapter.nToOne(params.beatBytes)
   val uRx_split = LazyModule(new AXI4Splitter(address = params.uRxSplitAddress, beatBytes = params.beatBytes))
