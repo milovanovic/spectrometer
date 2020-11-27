@@ -87,14 +87,14 @@ class SpectrometerTestSpec extends FlatSpec with Matchers {
     fftParams = FFTParams.fixed(
       dataWidth = 16,
       twiddleWidth = 16,
-      numPoints = 1024,
-      useBitReverse  = false,
+      numPoints = 512,
+      useBitReverse = false,
       runTime = true,
       numAddPipes = 1,
       numMulPipes = 1,
-      expandLogic = Array.fill(log2Up(1024))(0),
-      keepMSBorLSB = Array.fill(log2Up(1024))(true),
-      minSRAMdepth = 1024,
+      expandLogic = Array.fill(log2Up(512))(0),
+      keepMSBorLSB = Array.fill(log2Up(512))(true),
+      minSRAMdepth = 512,
       binPoint = 0
     ),
     magParams = MAGParams.fixed(
@@ -108,33 +108,51 @@ class SpectrometerTestSpec extends FlatSpec with Matchers {
       numMulPipes     = 1
     ),
     accParams = AccParams(
-      proto    = FixedPoint(16.W, 0.BP),
+      proto = FixedPoint(16.W, 0.BP),
       protoAcc = FixedPoint(32.W, 0.BP),
+      accDepth = 512
     ),
-    inSplitAddress  = AddressSet(0x30000010, 0xF),
-    plfgAddress     = AddressSet(0x30000200, 0xFF),
-    plfgRAM         = AddressSet(0x30001000, 0xFFF),
-    ncoAddress      = AddressSet(0x30000020, 0xF),
-    ncoSplitAddress = AddressSet(0x30000030, 0xF),
-    ncoMuxAddress0  = AddressSet(0x30000040, 0xF),
-    ncoMuxAddress1  = AddressSet(0x30000050, 0xF),
-    fftAddress      = AddressSet(0x30000300, 0xFF),
-    fftRAM          = AddressSet(0x30002000, 0xFFF),
-    fftSplitAddress = AddressSet(0x30000060, 0xF),
-    fftMuxAddress0  = AddressSet(0x30000070, 0xF),
-    fftMuxAddress1  = AddressSet(0x30000080, 0xF),
-    magAddress      = AddressSet(0x30000400, 0xFF),
-    magSplitAddress = AddressSet(0x30000090, 0xF),
-    magMuxAddress0  = AddressSet(0x300000A0, 0xF),
-    magMuxAddress1  = AddressSet(0x300000B0, 0xF),
-    accAddress      = AddressSet(0x300000C0, 0xF),
-    accQueueBase    = 0x30004000,
-    outMuxAddress   = AddressSet(0x300000E0, 0xF),
-    uartParams      = UARTParams(address = 0x30000700, nTxEntries = 256, nRxEntries = 256),
-    uRxSplitAddress = AddressSet(0x30000110, 0xF),
-    divisorInit    = (2).toInt,
-    beatBytes      = 4)
+    inSplitAddress   = AddressSet(0x30000000, 0xF),
+    plfgRAM          = AddressSet(0x30001000, 0xFFF),
+    plfgAddress      = AddressSet(0x30002100, 0xFF),
+    plfgSplitAddress = AddressSet(0x30002200, 0xF),
+    plfgMuxAddress0  = AddressSet(0x30002210, 0xF),
+    plfgMuxAddress1  = AddressSet(0x30002220, 0xF),
+    ncoAddress       = AddressSet(0x30003000, 0xF),
+    ncoSplitAddress  = AddressSet(0x30003100, 0xF),
+    ncoMuxAddress0   = AddressSet(0x30003110, 0xF),
+    ncoMuxAddress1   = AddressSet(0x30003120, 0xF),
+    fftAddress       = AddressSet(0x30004000, 0xFF),
+    fftSplitAddress  = AddressSet(0x30004100, 0xF),
+    fftMuxAddress0   = AddressSet(0x30004110, 0xF),
+    fftMuxAddress1   = AddressSet(0x30004120, 0xF),
+    magAddress       = AddressSet(0x30005000, 0xFF),
+    magSplitAddress  = AddressSet(0x30005100, 0xF),
+    magMuxAddress0   = AddressSet(0x30005110, 0xF),
+    magMuxAddress1   = AddressSet(0x30005120, 0xF),
+    accQueueBase     =            0x30006000,
+    accAddress       = AddressSet(0x30007000, 0xF),
+    outMuxAddress    = AddressSet(0x30008000, 0xF),
+    uartParams       = UARTParams(address = 0x30009000, nTxEntries = 256, nRxEntries = 256),
+    uRxSplitAddress  = AddressSet(0x30009100, 0xF),
+    divisorInit      = (173).toInt,
+    beatBytes        = 4)
     
+
+  //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  // NCO -> FFT -> MAG -> ACC -> parallel_out
+  //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  behavior of "PLFG_NCO_FFT_MAG_ACC_POUT_Spectrometer" 
+  
+  it should "work" in {
+    
+    val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
+    chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/plfg_nco_fft_mag_acc_pout", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
+      c => new PLFG_NCO_FFT_MAG_ACC_POUT_SpectrometerTester(lazyDut, params, true)
+    } should be (true)
+  }
+
   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   // NCO -> parallel_out
   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
