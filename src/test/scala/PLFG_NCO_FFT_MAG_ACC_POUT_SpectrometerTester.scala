@@ -45,8 +45,8 @@ class PLFG_NCO_FFT_MAG_ACC_POUT_SpectrometerTester
   def memAXI: AXI4Bundle = dut.ioMem.get
 
   // Splitters
-  // memWriteWord(params.ncoSplitAddress.base + 0x0, 0)  // set ready to AND
   // memWriteWord(params.plfgSplitAddress.base + 0x0, 0) // set ready to AND
+  // memWriteWord(params.ncoSplitAddress.base + 0x0, 0)  // set ready to AND
   // memWriteWord(params.fftSplitAddress.base + 0x0, 0)  // set ready to AND
   // memWriteWord(params.magSplitAddress.base + 0x0, 0)  // set ready to AND
   // memWriteWord(params.uRxSplitAddress.base + 0x0, 0)  // set ready to AND
@@ -129,6 +129,9 @@ class PLFG_NCO_FFT_MAG_ACC_POUT_SpectrometerTester
   // Output data
   val chiselFFTForPlot = realSeq.map(c => c.toLong).toSeq
 
+  // Plot accelerator data
+  SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PLFG -> NCO -> FFT -> MAG -> ACC -> POUT", fileName = "SpectrometerTest/plfg_nco_fft_mag_acc_pout/plot.pdf")
+
   // Write output data to text file
   val file = new File("./test_run_dir/SpectrometerTest/plfg_nco_fft_mag_acc_pout/data.txt")
   val w = new BufferedWriter(new FileWriter(file))
@@ -136,7 +139,4 @@ class PLFG_NCO_FFT_MAG_ACC_POUT_SpectrometerTester
     w.write(f"${realSeq(i)}%04x" + "\n")
   }
   w.close
-
-  // Plot accelerator data
-  SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PLFG -> NCO -> FFT -> MAG -> ACC -> POUT", fileName = "SpectrometerTest/plfg_nco_fft_mag_acc_pout/plot.pdf")
 }

@@ -32,9 +32,9 @@ import accumulator._
 import java.io._
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
-// NCO -> FFT -> MAG -> parallel_out
+// PLFG -> NCO -> FFT -> MAG -> parallel_out
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
-class NCO_FFT_MAG_POUT_SpectrometerTester
+class PLFG_NCO_FFT_MAG_POUT_SpectrometerTester
 (
   dut: SpectrometerTest with SpectrometerTestPins,
   params: SpectrometerTestParameters,
@@ -45,6 +45,7 @@ class NCO_FFT_MAG_POUT_SpectrometerTester
   def memAXI: AXI4Bundle = dut.ioMem.get
 
   // Splitters
+  // memWriteWord(params.plfgSplitAddress.base + 0x0, 0) // set ready to AND
   // memWriteWord(params.ncoSplitAddress.base + 0x0, 0) // set ready to AND
   // memWriteWord(params.fftSplitAddress.base + 0x0, 0) // set ready to AND
   // memWriteWord(params.magSplitAddress.base + 0x0, 0) // set ready to AND
@@ -67,28 +68,27 @@ class NCO_FFT_MAG_POUT_SpectrometerTester
   memWriteWord(params.plfgAddress.base, 1)                                 // enable bit becomes 1
   
   // Mux
+  memWriteWord(params.plfgMuxAddress1.base,       0x0) // output0
+  // memWriteWord(params.plfgMuxAddress1.base + 0x4, 0x0) // output1
   memWriteWord(params.ncoMuxAddress1.base,       0x0) // output0
   // memWriteWord(params.ncoMuxAddress1.base + 0x4, 0x0) // output1
-
   memWriteWord(params.fftMuxAddress1.base,       0x0) // output0
   // memWriteWord(params.fftMuxAddress1.base + 0x4, 0x0) // output1
-
     // memWriteWord(params.magMuxAddress1.base,       0x0) // output0
   memWriteWord(params.magMuxAddress1.base + 0x4, 0x0) // output1
 
+  memWriteWord(params.plfgMuxAddress0.base,       0x0) // output0
+  // memWriteWord(params.plfgMuxAddress0.base + 0x4, 0x0) // output1
   memWriteWord(params.ncoMuxAddress0.base,       0x0) // output0
   // memWriteWord(params.ncoMuxAddress0.base + 0x4, 0x0) // output1
-
   memWriteWord(params.fftMuxAddress0.base,       0x0) // output0
   // memWriteWord(params.fftMuxAddress0.base + 0x4, 0x0) // output1
-
   // memWriteWord(params.magMuxAddress0.base,       0x0) // output0
   memWriteWord(params.magMuxAddress0.base + 0x4, 0x0) // output1
 
   memWriteWord(params.outMuxAddress.base,       0x1) // output0
   // memWriteWord(params.outMuxAddress.base + 0x4, 0x0) // output1
   // memWriteWord(params.outMuxAddress.base + 0x8, 0x3) // output2
-  // memWriteWord(params.outMuxAddress.base + 0xC, 0x3) // output3
   
   // magAddress
   memWriteWord(params.magAddress.base, 0x2) // set jpl magnitude
@@ -121,5 +121,13 @@ class NCO_FFT_MAG_POUT_SpectrometerTester
   }
 
   // Plot accelerator data
-  SpectrometerTesterUtils.plot_data(inputData = imagSeq.map(c => c.toInt), plotName = "NCO -> FFT -> MAG -> POUT", fileName = "SpectrometerTest/nco_fft_mag_pout.pdf")
+  SpectrometerTesterUtils.plot_data(inputData = imagSeq.map(c => c.toInt), plotName = "PLFG -> NCO -> FFT -> MAG -> POUT", fileName = "SpectrometerTest/plfg_nco_fft_mag_pout/data.pdf")
+
+  // Write output data to text file
+  val file = new File("./test_run_dir/SpectrometerTest/plfg_nco_fft_mag_pout/data.txt")
+  val w = new BufferedWriter(new FileWriter(file))
+  for (i <- 0 until realSeq.length ) {
+    w.write(f"${realSeq(i)}%04x" + f"${imagSeq(i)}%04x" + "\n")
+  }
+  w.close
 }
