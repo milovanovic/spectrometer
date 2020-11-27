@@ -64,10 +64,6 @@ class AllOnes(beatBytes: Int) extends LazyModule()(Parameters.empty) {
         out.ready := DontCare
         out.bits.data := -1.S((beatBytes*8).W).asUInt
         out.bits.last := false.B
-        dontTouch(out.bits.data)// Avoid code optimization i.e. optimizator will remove this block
-        dontTouch(out.bits.last)// Avoid code optimization i.e. optimizator will remove this block
-        dontTouch(out.ready)    // Avoid code optimization i.e. optimizator will remove this block
-        dontTouch(out.valid)    // Avoid code optimization i.e. optimizator will remove this block
     }
 }
 
@@ -79,10 +75,6 @@ class AllZeros(beatBytes: Int) extends LazyModule()(Parameters.empty) {
         out.ready := DontCare
         out.bits.data := 0.U
         out.bits.last := false.B
-        dontTouch(out.bits.data)// Avoid code optimization i.e. optimizator will remove this block
-        dontTouch(out.bits.last)// Avoid code optimization i.e. optimizator will remove this block
-        dontTouch(out.ready)    // Avoid code optimization i.e. optimizator will remove this block
-        dontTouch(out.valid)    // Avoid code optimization i.e. optimizator will remove this block
     }
 }
 
@@ -95,10 +87,6 @@ class AlwaysReady extends LazyModule()(Parameters.empty) {
         in.ready := true.B
         in.bits.data := DontCare
         in.bits.last := DontCare
-        dontTouch(in.bits.data) // Avoid code optimization i.e. optimizator will remove this block
-        dontTouch(in.bits.last) // Avoid code optimization i.e. optimizator will remove this block
-        dontTouch(in.ready)     // Avoid code optimization i.e. optimizator will remove this block
-        dontTouch(in.valid)     // Avoid code optimization i.e. optimizator will remove this block
     }
 }
 
@@ -115,21 +103,6 @@ class AXI4StreamBuffer(params: BufferParams, beatBytes: Int) extends LazyModule(
     val queue = Queue.irrevocable(in, params.depth, pipe=params.pipe, flow=params.flow)
     out.valid := queue.valid
     out.bits := queue.bits
-    queue.ready := out.ready
-  }
-}
-
-class ConnectNodes(params: BufferParams, beatBytes: Int) extends LazyModule()(Parameters.empty){
-  val innode  = AXI4StreamSlaveNode(AXI4StreamSlaveParameters())
-  val outnode = AXI4StreamMasterNode(Seq(AXI4StreamMasterPortParameters(Seq(AXI4StreamMasterParameters( "buffer", n = beatBytes)))))
-
-  lazy val module = new LazyModuleImp(this) {
-    val (in, _)  = innode.in(0)
-    val (out, _) = outnode.out(0)
-
-    val queue = Queue.irrevocable(in, params.depth, pipe=params.pipe, flow=params.flow)
-    out.valid   := queue.valid
-    out.bits    := queue.bits
     queue.ready := out.ready
   }
 }
