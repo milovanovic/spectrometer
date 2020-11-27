@@ -29,14 +29,16 @@ case class SpectrometerTestParameters (
     magParams       : MAGParams[FixedPoint],
     accParams       : AccParams[FixedPoint],
     inSplitAddress  : AddressSet,
-    plfgAddress     : AddressSet,
     plfgRAM         : AddressSet,
+    plfgAddress     : AddressSet,
+    plfgSplitAddress: AddressSet,
+    plfgMuxAddress0 : AddressSet,
+    plfgMuxAddress1 : AddressSet,
     ncoAddress      : AddressSet,
     ncoSplitAddress : AddressSet,
     ncoMuxAddress0  : AddressSet,
     ncoMuxAddress1  : AddressSet,
     fftAddress      : AddressSet,
-    fftRAM          : AddressSet,
     fftSplitAddress : AddressSet,
     fftMuxAddress0  : AddressSet,
     fftMuxAddress1  : AddressSet,
@@ -44,8 +46,8 @@ case class SpectrometerTestParameters (
     magSplitAddress : AddressSet,
     magMuxAddress0  : AddressSet,
     magMuxAddress1  : AddressSet,
-    accAddress      : AddressSet,
     accQueueBase    : BigInt,
+    accAddress      : AddressSet,
     outMuxAddress   : AddressSet,
     uartParams      : UARTParams,
     uRxSplitAddress : AddressSet,
@@ -138,7 +140,15 @@ class SpectrometerTest(params: SpectrometerTestParameters) extends LazyModule()(
   val in_split  = LazyModule(new AXI4Splitter(address = params.inSplitAddress, beatBytes = params.beatBytes))
   val in_queue  = LazyModule(new AXI4StreamBuffer(BufferParams(1, true, true), beatBytes = 1))
 
-  val plfg      = LazyModule(new PLFGDspBlockMem(params.plfgAddress, params.plfgRAM, params.plfgParams, params.beatBytes))  
+  val plfg       = LazyModule(new PLFGDspBlockMem(params.plfgAddress, params.plfgRAM, params.plfgParams, params.beatBytes))  
+  val plfg_split = LazyModule(new AXI4Splitter(address  = params.plfgSplitAddress, beatBytes = params.beatBytes))
+  val plfg_mux_0 = LazyModule(new AXI4StreamMux(address = params.plfgMuxAddress0,  beatBytes = params.beatBytes))
+  val plfg_mux_1 = LazyModule(new AXI4StreamMux(address = params.plfgMuxAddress1,  beatBytes = params.beatBytes))
+  val plfg_rdy_1 = LazyModule(new AlwaysReady)
+  val plfg_ones  = LazyModule(new AllOnes(beatBytes = params.beatBytes))
+  val plfg_zeros = LazyModule(new AllZeros(beatBytes = params.beatBytes))
+  val plfg_rdy_0 = LazyModule(new AlwaysReady)
+  
   val nco       = LazyModule(new AXI4NCOLazyModuleBlock(params.ncoParams, params.ncoAddress, params.beatBytes))
   val nco_split = LazyModule(new AXI4Splitter(address  = params.ncoSplitAddress, beatBytes = params.beatBytes))
   val nco_mux_0 = LazyModule(new AXI4StreamMux(address = params.ncoMuxAddress0,  beatBytes = params.beatBytes))
@@ -192,7 +202,7 @@ class SpectrometerTest(params: SpectrometerTestParameters) extends LazyModule()(
   })
 
   // define mem
-  lazy val blocks = Seq(in_split, plfg, nco, nco_split, nco_mux_0, nco_mux_1, fft, fft_split, fft_mux_0, fft_mux_1, mag, mag_split, mag_mux_0, mag_mux_1, out_mux, uart, uRx_split)
+  lazy val blocks = Seq(in_split, plfg, plfg_split, plfg_mux_0, plfg_mux_1, nco, nco_split, nco_mux_0, nco_mux_1, fft, fft_split, fft_mux_0, fft_mux_1, mag, mag_split, mag_mux_0, mag_mux_1, out_mux, uart, uRx_split)
   val bus = LazyModule(new AXI4Xbar)
   val mem = Some(bus.node)
   for (b <- blocks) {
@@ -201,65 +211,75 @@ class SpectrometerTest(params: SpectrometerTestParameters) extends LazyModule()(
   acc.mem.get := bus.node
 
   // connect nodes
-  in_split.streamNode  := in_adapt := in_queue.node
-  
-  nco.freq.get         := plfg.streamNode          // plfg       -----> nco
+  in_split.streamNode  := in_adapt := in_queue.node // in_queue    -----> in_adapt   -----> in_split
 
-  nco_split.streamNode := nco.streamNode           // nco        -----> nco_split
-  nco_mux_1.streamNode := nco_split.streamNode     // nco_split  -----> nco_mux_1  
-  nco_rdy_1.streamNode := nco_mux_1.streamNode     // nco_mux_1  --0--> nco_rdy_1
+  plfg_split.streamNode := plfg.streamNode          // plfg        -----> plfg_split
+  plfg_mux_1.streamNode := plfg_split.streamNode    // plfg_split  -----> plfg_mux_1  
+  plfg_rdy_1.streamNode := plfg_mux_1.streamNode    // plfg_mux_1  --0--> plfg_rdy_1
 
-  nco_mux_0.streamNode := nco_split.streamNode      // nco_split --0--> nco_mux_0
-  nco_mux_0.streamNode := in_split.streamNode       // in_split  --1--> nco_mux_0
-  nco_mux_0.streamNode := uRx_split.streamNode      // uRx_split --2--> nco_mux_0
-  nco_mux_0.streamNode := nco_ones.streamNode       // nco_ones  --3--> nco_mux_0
-  nco_mux_0.streamNode := nco_zeros.streamNode      // nco_zeros --4--> nco_mux_0
-  fft.streamNode       := nco_mux_0.streamNode      // nco_mux_0 --0--> fft
-  nco_rdy_0.streamNode := nco_mux_0.streamNode      // nco_mux_0 --1--> nco_rdy_0
+  plfg_mux_0.streamNode := plfg_split.streamNode    // plfg_split  --0--> plfg_mux_0
+  plfg_mux_0.streamNode := in_split.streamNode      // in_split    --1--> plfg_mux_0
+  plfg_mux_0.streamNode := uRx_split.streamNode     // uRx_split   --2--> plfg_mux_0
+  plfg_mux_0.streamNode := plfg_ones.streamNode     // plfg_ones   --3--> plfg_mux_0
+  plfg_mux_0.streamNode := plfg_zeros.streamNode    // plfg_zeros  --4--> plfg_mux_0
+  nco.freq.get          := plfg_mux_0.streamNode    // plfg_mux_0  --0--> nco
+  plfg_rdy_0.streamNode := plfg_mux_0.streamNode    // plfg_mux_0  --1--> plfg_rdy_0
 
-  fft_split.streamNode := fft.streamNode            // fft       --0--> fft_split  
-  fft_mux_1.streamNode := fft_split.streamNode      // fft_split -----> fft_mux_1  
-  fft_rdy_1.streamNode := fft_mux_1.streamNode      // fft_mux_1 --0--> fft_rdy_1
+  nco_split.streamNode  := nco.streamNode           // nco         -----> nco_split
+  nco_mux_1.streamNode  := nco_split.streamNode     // nco_split   -----> nco_mux_1  
+  nco_rdy_1.streamNode  := nco_mux_1.streamNode     // nco_mux_1   --0--> nco_rdy_1
 
-  fft_mux_0.streamNode := fft_split.streamNode      // fft_split --0--> fft_mux_0
-  fft_mux_0.streamNode := in_split.streamNode       // in_split  --1--> fft_mux_0
-  fft_mux_0.streamNode := uRx_split.streamNode      // uRx_split --2--> fft_mux_0
-  fft_mux_0.streamNode := fft_ones.streamNode       // fft_ones  --3--> fft_mux_0
-  fft_mux_0.streamNode := fft_zeros.streamNode      // fft_zeros --4--> fft_mux_0
-  mag.streamNode       := fft_mux_0.streamNode      // fft_mux_0 --0--> mag
-  fft_rdy_0.streamNode := fft_mux_0.streamNode      // fft_mux_0 --1--> fft_rdy_0
+  nco_mux_0.streamNode  := nco_split.streamNode     // nco_split  --0--> nco_mux_0
+  nco_mux_0.streamNode  := in_split.streamNode      // in_split   --1--> nco_mux_0
+  nco_mux_0.streamNode  := uRx_split.streamNode     // uRx_split  --2--> nco_mux_0
+  nco_mux_0.streamNode  := nco_ones.streamNode      // nco_ones   --3--> nco_mux_0
+  nco_mux_0.streamNode  := nco_zeros.streamNode     // nco_zeros  --4--> nco_mux_0
+  fft.streamNode        := nco_mux_0.streamNode     // nco_mux_0  --0--> fft
+  nco_rdy_0.streamNode  := nco_mux_0.streamNode     // nco_mux_0  --1--> nco_rdy_0
 
-  mag_split.streamNode := mag.streamNode            // mag       --0--> mag_split  
-  mag_mux_1.streamNode := mag_split.streamNode      // mag_split -----> mag_mux_1  
-  mag_rdy_1.streamNode := mag_mux_1.streamNode      // mag_mux_1 --0--> mag_rdy_1
+  fft_split.streamNode  := fft.streamNode           // fft        -----> fft_split  
+  fft_mux_1.streamNode  := fft_split.streamNode     // fft_split  -----> fft_mux_1  
+  fft_rdy_1.streamNode  := fft_mux_1.streamNode     // fft_mux_1  --0--> fft_rdy_1
 
-  mag_mux_0.streamNode := mag_split.streamNode      // mag_split --0--> mag_mux_0
-  mag_mux_0.streamNode := in_split.streamNode       // in_split  --1--> mag_mux_0
-  mag_mux_0.streamNode := uRx_split.streamNode      // uRx_split --2--> mag_mux_0
-  mag_mux_0.streamNode := mag_ones.streamNode       // mag_ones  --3--> mag_mux_0
-  mag_mux_0.streamNode := mag_zeros.streamNode      // mag_zeros --4--> mag_mux_0
-  acc.streamNode       := mag_mux_0.streamNode      // mag_mux_0 --0--> acc
-  mag_rdy_0.streamNode := mag_mux_0.streamNode      // mag_mux_0 --1--> mag_rdy_0
+  fft_mux_0.streamNode  := fft_split.streamNode     // fft_split  --0--> fft_mux_0
+  fft_mux_0.streamNode  := in_split.streamNode      // in_split   --1--> fft_mux_0
+  fft_mux_0.streamNode  := uRx_split.streamNode     // uRx_split  --2--> fft_mux_0
+  fft_mux_0.streamNode  := fft_ones.streamNode      // fft_ones   --3--> fft_mux_0
+  fft_mux_0.streamNode  := fft_zeros.streamNode     // fft_zeros  --4--> fft_mux_0
+  mag.streamNode        := fft_mux_0.streamNode     // fft_mux_0  --0--> mag
+  fft_rdy_0.streamNode  := fft_mux_0.streamNode     // fft_mux_0  --1--> fft_rdy_0
+
+  mag_split.streamNode  := mag.streamNode           // mag        -----> mag_split  
+  mag_mux_1.streamNode  := mag_split.streamNode     // mag_split  -----> mag_mux_1  
+  mag_rdy_1.streamNode  := mag_mux_1.streamNode     // mag_mux_1  --0--> mag_rdy_1
+
+  mag_mux_0.streamNode  := mag_split.streamNode     // mag_split  --0--> mag_mux_0
+  mag_mux_0.streamNode  := in_split.streamNode      // in_split   --1--> mag_mux_0
+  mag_mux_0.streamNode  := uRx_split.streamNode     // uRx_split  --2--> mag_mux_0
+  mag_mux_0.streamNode  := mag_ones.streamNode      // mag_ones   --3--> mag_mux_0
+  mag_mux_0.streamNode  := mag_zeros.streamNode     // mag_zeros  --4--> mag_mux_0
+  acc.streamNode        := mag_mux_0.streamNode     // mag_mux_0  --0--> acc
+  mag_rdy_0.streamNode  := mag_mux_0.streamNode     // mag_mux_0  --1--> mag_rdy_0
 
   acc_queue.node := acc_adapt := acc.streamNode
 
-  out_mux.streamNode   := acc_queue.node            // acc       --0--> out_mux
-  out_mux.streamNode   := mag_mux_1.streamNode      // mag_mux_1 --1--> out_mux
-  out_mux.streamNode   := fft_mux_1.streamNode      // fft_mux_1 --2--> out_mux
-  out_mux.streamNode   := nco_mux_1.streamNode      // nco_mux_1 --3--> out_mux
-  out_mux.streamNode   := in_split.streamNode       // in_split  --4--> out_mux
-  out_mux.streamNode   := uRx_split.streamNode      // uRx_split --5--> out_mux
-  out_queue.node       := out_mux.streamNode        // out_mux   --0--> out_queue
-  uTx_adapt := uTx_queue.node := out_mux.streamNode // out_mux   --1--> uTx_queue -----> uTx_adapt  
-  out_rdy.streamNode   := out_mux.streamNode        // out_mux   --2--> out_rdy
+  out_mux.streamNode    := acc_queue.node           // acc        --0--> out_mux
+  out_mux.streamNode    := mag_mux_1.streamNode     // mag_mux_1  --1--> out_mux
+  out_mux.streamNode    := fft_mux_1.streamNode     // fft_mux_1  --2--> out_mux
+  out_mux.streamNode    := nco_mux_1.streamNode     // nco_mux_1  --3--> out_mux
+  out_mux.streamNode    := plfg_mux_1.streamNode    // plfg_mux_1 --4--> out_mux
+  out_mux.streamNode    := in_split.streamNode      // in_split   --5--> out_mux
+  out_mux.streamNode    := uRx_split.streamNode     // uRx_split  --6--> out_mux
+  out_queue.node        := out_mux.streamNode       // out_mux    --0--> out_queue
+  uTx_adapt := uTx_queue.node := out_mux.streamNode // out_mux    --1--> uTx_queue -----> uTx_adapt  
+  out_rdy.streamNode    := out_mux.streamNode       // out_mux    --2--> out_rdy
 
-  out_adapt := out_queue.node                       // out_queue ----> out_adapt
+  out_adapt := out_queue.node                       // out_queue  ----> out_adapt
 
-  uRx_adapt := uart.streamNode := uTx_adapt         // uTx_adapt -----> uart      -----> uRx_adapt
-  uRx_split.streamNode := uRx_adapt                 // uRx_adapt -----> uRx_split
+  uRx_adapt := uart.streamNode := uTx_adapt         // uTx_adapt  -----> uart      -----> uRx_adapt
+  uRx_split.streamNode  := uRx_adapt                // uRx_adapt  -----> uRx_split
 
   lazy val module = new LazyModuleImp(this) {
-
     // generate interrupt output
     val int = IO(Output(uart.ioInt.cloneType))
     int := uart.ioInt
@@ -303,14 +323,14 @@ object SpectrometerTestApp extends App
     fftParams = FFTParams.fixed(
       dataWidth = 16,
       twiddleWidth = 16,
-      numPoints = 1024,
-      useBitReverse  = false,
+      numPoints = 512,
+      useBitReverse = false,
       runTime = true,
       numAddPipes = 1,
       numMulPipes = 1,
-      expandLogic = Array.fill(log2Up(1024))(0),
-      keepMSBorLSB = Array.fill(log2Up(1024))(true),
-      minSRAMdepth = 1024,
+      expandLogic = Array.fill(log2Up(512))(0),
+      keepMSBorLSB = Array.fill(log2Up(512))(true),
+      minSRAMdepth = 512,
       binPoint = 0
     ),
     magParams = MAGParams.fixed(
@@ -324,32 +344,35 @@ object SpectrometerTestApp extends App
       numMulPipes     = 1
     ),
     accParams = AccParams(
-      proto    = FixedPoint(16.W, 0.BP),
+      proto = FixedPoint(16.W, 0.BP),
       protoAcc = FixedPoint(32.W, 0.BP),
+      accDepth = 512
     ),
-    inSplitAddress  = AddressSet(0x30000010, 0xF),
-    plfgAddress     = AddressSet(0x30000200, 0xFF),
-    plfgRAM         = AddressSet(0x30001000, 0xFFF),
-    ncoAddress      = AddressSet(0x30000020, 0xF),
-    ncoSplitAddress = AddressSet(0x30000030, 0xF),
-    ncoMuxAddress0  = AddressSet(0x30000040, 0xF),
-    ncoMuxAddress1  = AddressSet(0x30000050, 0xF),
-    fftAddress      = AddressSet(0x30000300, 0xFF),
-    fftRAM          = AddressSet(0x30002000, 0xFFF),
-    fftSplitAddress = AddressSet(0x30000060, 0xF),
-    fftMuxAddress0  = AddressSet(0x30000070, 0xF),
-    fftMuxAddress1  = AddressSet(0x30000080, 0xF),
-    magAddress      = AddressSet(0x30000400, 0xFF),
-    magSplitAddress = AddressSet(0x30000090, 0xF),
-    magMuxAddress0  = AddressSet(0x300000A0, 0xF),
-    magMuxAddress1  = AddressSet(0x300000B0, 0xF),
-    accAddress      = AddressSet(0x300000C0, 0xF),
-    accQueueBase    = 0x30004000,
-    outMuxAddress   = AddressSet(0x300000E0, 0xF),
-    uartParams      = UARTParams(address = 0x30000700, nTxEntries = 256, nRxEntries = 256),
-    uRxSplitAddress = AddressSet(0x30000110, 0xF),
-    divisorInit    = (2).toInt,
-    beatBytes      = 4)
+    inSplitAddress   = AddressSet(0x30000000, 0xF),
+    plfgRAM          = AddressSet(0x30001000, 0xFFF),
+    plfgAddress      = AddressSet(0x30002100, 0xFF),
+    plfgSplitAddress = AddressSet(0x30002200, 0xF),
+    plfgMuxAddress0  = AddressSet(0x30002210, 0xF),
+    plfgMuxAddress1  = AddressSet(0x30002220, 0xF),
+    ncoAddress       = AddressSet(0x30003000, 0xF),
+    ncoSplitAddress  = AddressSet(0x30003100, 0xF),
+    ncoMuxAddress0   = AddressSet(0x30003110, 0xF),
+    ncoMuxAddress1   = AddressSet(0x30003120, 0xF),
+    fftAddress       = AddressSet(0x30004000, 0xFF),
+    fftSplitAddress  = AddressSet(0x30004100, 0xF),
+    fftMuxAddress0   = AddressSet(0x30004110, 0xF),
+    fftMuxAddress1   = AddressSet(0x30004120, 0xF),
+    magAddress       = AddressSet(0x30005000, 0xFF),
+    magSplitAddress  = AddressSet(0x30005100, 0xF),
+    magMuxAddress0   = AddressSet(0x30005110, 0xF),
+    magMuxAddress1   = AddressSet(0x30005120, 0xF),
+    accQueueBase     =            0x30006000,
+    accAddress       = AddressSet(0x30007000, 0xF),
+    outMuxAddress    = AddressSet(0x30008000, 0xF),
+    uartParams       = UARTParams(address = 0x30009000, nTxEntries = 256, nRxEntries = 256),
+    uRxSplitAddress  = AddressSet(0x30009100, 0xF),
+    divisorInit      = (173).toInt,
+    beatBytes        = 4)
 
   implicit val p: Parameters = Parameters.empty
   val standaloneModule = LazyModule(new SpectrometerTest(params) {
@@ -372,5 +395,5 @@ object SpectrometerTestApp extends App
     in_queue.node := BundleBridgeToAXI4Stream(AXI4StreamMasterParameters(n = 1)) := ioparallelin
     val inStream = InModuleBody { ioparallelin.makeIO() }
   })
-  chisel3.Driver.execute(Array("--target-dir", "./verilog/rtl", "--top-name", "SpectrometerTest"), ()=> standaloneModule.module) // generate verilog code
+  chisel3.Driver.execute(Array("--target-dir", "./verilog/SpectrometerTest", "--top-name", "SpectrometerTest"), ()=> standaloneModule.module) // generate verilog code
 }
