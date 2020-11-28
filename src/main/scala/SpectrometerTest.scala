@@ -49,6 +49,7 @@ case class SpectrometerTestParameters (
     accQueueBase    : BigInt,
     accAddress      : AddressSet,
     outMuxAddress   : AddressSet,
+    outSplitAddress : AddressSet,
     uartParams      : UARTParams,
     uRxSplitAddress : AddressSet,
     divisorInit     : Int,
@@ -154,6 +155,7 @@ class SpectrometerTest(params: SpectrometerTestParameters) extends LazyModule()(
   val acc_queue = LazyModule(new StreamBuffer(BufferParams(1, true, true), beatBytes = 4))
 
   val out_mux   = LazyModule(new AXI4StreamMux(address = params.outMuxAddress, beatBytes = params.beatBytes))
+  val out_split = LazyModule(new AXI4Splitter(address  = params.outSplitAddress, beatBytes = params.beatBytes))
   val out_queue = LazyModule(new StreamBuffer(BufferParams(1, true, true), beatBytes = params.beatBytes))
   val out_adapt = AXI4StreamWidthAdapter.oneToN(params.beatBytes)
   val out_rdy   = LazyModule(new AlwaysReady)
@@ -175,7 +177,7 @@ class SpectrometerTest(params: SpectrometerTestParameters) extends LazyModule()(
   })
 
   // define mem
-  lazy val blocks = Seq(in_split, plfg, plfg_split, plfg_mux_0, plfg_mux_1, nco, nco_split, nco_mux_0, nco_mux_1, fft, fft_split, fft_mux_0, fft_mux_1, mag, mag_split, mag_mux_0, mag_mux_1, out_mux, uart, uRx_split)
+  lazy val blocks = Seq(in_split, plfg, plfg_split, plfg_mux_0, plfg_mux_1, nco, nco_split, nco_mux_0, nco_mux_1, fft, fft_split, fft_mux_0, fft_mux_1, mag, mag_split, mag_mux_0, mag_mux_1, out_mux, out_split, uart, uRx_split)
   val bus = LazyModule(new AXI4Xbar)
   val mem = Some(bus.node)
   for (b <- blocks) {
@@ -247,7 +249,8 @@ class SpectrometerTest(params: SpectrometerTestParameters) extends LazyModule()(
   uTx_adapt := uTx_queue.node := out_mux.streamNode // out_mux    --1--> uTx_queue -----> uTx_adapt  
   out_rdy.streamNode    := out_mux.streamNode       // out_mux    --2--> out_rdy
 
-  out_adapt := out_queue.node                       // out_queue  ----> out_adapt
+  out_split.streamNode  := out_queue.node           // out_queue  ----> out_split
+  out_adapt             := out_split.streamNode     // out_split  --0-> out_adapt
 
   uRx_adapt := uart.streamNode := uTx_adapt         // uTx_adapt  -----> uart      -----> uRx_adapt
   uRx_split.streamNode  := uRx_adapt                // uRx_adapt  -----> uRx_split
@@ -342,9 +345,10 @@ object SpectrometerTestApp extends App
     accQueueBase     =            0x30006000,
     accAddress       = AddressSet(0x30007000, 0xF),
     outMuxAddress    = AddressSet(0x30008000, 0xF),
+    outSplitAddress  = AddressSet(0x30008010, 0xF),
     uartParams       = UARTParams(address = 0x30009000, nTxEntries = 256, nRxEntries = 256),
     uRxSplitAddress  = AddressSet(0x30009100, 0xF),
-    divisorInit      = (173).toInt,
+    divisorInit      = (173).toInt, // baudrate = 115200 for 20MHz
     beatBytes        = 4)
 
   implicit val p: Parameters = Parameters.empty
@@ -364,9 +368,20 @@ object SpectrometerTestApp extends App
     ioStreamNode := AXI4StreamToBundleBridge(AXI4StreamSlaveParameters()) := out_adapt
     val outStream = InModuleBody { ioStreamNode.makeIO() }
 
+    // Generate AXI-stream input
     val ioparallelin = BundleBridgeSource(() => new AXI4StreamBundle(AXI4StreamBundleParameters(n = 1)))
     in_queue.node := BundleBridgeToAXI4Stream(AXI4StreamMasterParameters(n = 1)) := ioparallelin
     val inStream = InModuleBody { ioparallelin.makeIO() }
+
+    // Generate AXI-stream output for LA, input side
+    val ioLANode1 = BundleBridgeSink[AXI4StreamBundle]()
+    ioLANode1 := AXI4StreamToBundleBridge(AXI4StreamSlaveParameters()) := in_split.streamNode
+    val laInside = InModuleBody { ioLANode1.makeIO() }
+
+    // Generate AXI-stream output for LA, output side
+    val ioLANode2 = BundleBridgeSink[AXI4StreamBundle]()
+    ioLANode2 := AXI4StreamToBundleBridge(AXI4StreamSlaveParameters()) := out_split.streamNode
+    val laOutside = InModuleBody { ioLANode2.makeIO() }
   })
   chisel3.Driver.execute(Array("--target-dir", "./verilog/SpectrometerTest", "--top-name", "SpectrometerTest"), ()=> standaloneModule.module) // generate verilog code
 }
