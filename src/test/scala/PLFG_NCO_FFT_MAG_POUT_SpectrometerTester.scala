@@ -44,12 +44,18 @@ class PLFG_NCO_FFT_MAG_POUT_SpectrometerTester
   val mod = dut.module
   def memAXI: AXI4Bundle = dut.ioMem.get
 
+  // This signals should be always ready!
+  poke(dut.laInside.ready, true.B)
+  poke(dut.laOutside.ready, true.B)
+
   // Splitters
+  // memWriteWord(params.inSplitAddress.base + 0x0, 0)   // set ready to AND
   // memWriteWord(params.plfgSplitAddress.base + 0x0, 0) // set ready to AND
-  // memWriteWord(params.ncoSplitAddress.base + 0x0, 0) // set ready to AND
-  // memWriteWord(params.fftSplitAddress.base + 0x0, 0) // set ready to AND
-  // memWriteWord(params.magSplitAddress.base + 0x0, 0) // set ready to AND
-  // memWriteWord(params.uRxSplitAddress.base + 0x0, 0) // set ready to AND
+  // memWriteWord(params.ncoSplitAddress.base + 0x0, 0)  // set ready to AND
+  // memWriteWord(params.fftSplitAddress.base + 0x0, 0)  // set ready to AND
+  // memWriteWord(params.magSplitAddress.base + 0x0, 0)  // set ready to AND
+  // memWriteWord(params.uRxSplitAddress.base + 0x0, 0)  // set ready to AND
+  // memWriteWord(params.outSplitAddress.base + 0x0, 0)  // set ready to AND
 
   // plfg setup
   val segmentNumsArrayOffset = 6 * params.beatBytes

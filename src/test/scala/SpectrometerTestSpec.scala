@@ -33,26 +33,6 @@ import java.io._
 
 // perhaps some of the inclusions are not necessary
 
-trait SpectrometerTestPins extends SpectrometerTest {
-  // Generate AXI4 slave output
-  def standaloneParams = AXI4BundleParameters(addrBits = 32, dataBits = 32, idBits = 1)
-  val ioMem = mem.map { m => {
-    val ioMemNode = BundleBridgeSource(() => AXI4Bundle(standaloneParams))
-    m := BundleBridgeToAXI4(AXI4MasterPortParameters(Seq(AXI4MasterParameters("bundleBridgeToAXI4")))) := ioMemNode
-    val ioMem = InModuleBody { ioMemNode.makeIO() }
-    ioMem
-  }}
-
-  // Generate AXI-stream output
-  val ioStreamNode = BundleBridgeSink[AXI4StreamBundle]()
-  ioStreamNode := AXI4StreamToBundleBridge(AXI4StreamSlaveParameters()) := out_adapt
-  val outStream = InModuleBody { ioStreamNode.makeIO() }
-
-  val ioparallelin = BundleBridgeSource(() => new AXI4StreamBundle(AXI4StreamBundleParameters(n = 1)))
-  in_queue.node := BundleBridgeToAXI4Stream(AXI4StreamMasterParameters(n = 1)) := ioparallelin
-  val inStream = InModuleBody { ioparallelin.makeIO() }
-}
-
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // SPEC
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -133,9 +113,10 @@ class SpectrometerTestSpec extends FlatSpec with Matchers {
     accQueueBase     =            0x30006000,
     accAddress       = AddressSet(0x30007000, 0xF),
     outMuxAddress    = AddressSet(0x30008000, 0xF),
+    outSplitAddress  = AddressSet(0x30008010, 0xF),
     uartParams       = UARTParams(address = 0x30009000, nTxEntries = 256, nRxEntries = 256),
     uRxSplitAddress  = AddressSet(0x30009100, 0xF),
-    divisorInit      = (173).toInt,
+    divisorInit      = (173).toInt, // baudrate = 115200 for 20MHz
     beatBytes        = 4)
     
   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
