@@ -173,6 +173,20 @@ class SpectrometerTestSpec extends FlatSpec with Matchers {
     } should be (true)
   }
 
+  //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  // PLFG -> NCO -> FFT -> MAG -> ACC -> uTx
+  //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  behavior of "PLFG_NCO_FFT_MAG_ACC_UTX_Spectrometer" 
+  
+  it should "work" in {
+    
+    val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
+    chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/plfg_nco_fft_mag_acc_utx", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
+      c => new PLFG_NCO_FFT_MAG_ACC_UTX_SpectrometerTester(lazyDut, params, true)
+    } should be (true)
+  }
+
 // //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //   // PIN -> POUT
 //   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
