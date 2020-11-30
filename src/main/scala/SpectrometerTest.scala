@@ -303,88 +303,91 @@ trait SpectrometerTestPins extends SpectrometerTest {
     val laOutside = InModuleBody { ioLANode2.makeIO() }
 }
 
+class SpectrometerTestParams {
+ val params = 
+    SpectrometerTestParameters (
+      plfgParams = FixedPLFGParams(
+        maxNumOfSegments = 4,
+        maxNumOfDifferentChirps = 8,
+        maxNumOfRepeatedChirps = 8,
+        maxChirpOrdinalNum = 4,
+        maxNumOfFrames = 4,
+        maxNumOfSamplesWidth = 8,
+        outputWidthInt = 16,
+        outputWidthFrac = 0
+      ),
+      ncoParams = FixedNCOParams(
+        tableSize = 128,
+        tableWidth = 16,
+        phaseWidth = 9,
+        rasterizedMode = false,
+        nInterpolationTerms = 0,
+        ditherEnable = false,
+        syncROMEnable = false,
+        phaseAccEnable = true,
+        roundingMode = RoundHalfUp,
+        pincType = Streaming,
+        poffType = Fixed
+      ),
+      fftParams = FFTParams.fixed(
+        dataWidth = 16,
+        twiddleWidth = 16,
+        numPoints = 64,
+        useBitReverse = false,
+        runTime = true,
+        numAddPipes = 1,
+        numMulPipes = 1,
+        expandLogic = Array.fill(log2Up(64))(0),
+        keepMSBorLSB = Array.fill(log2Up(64))(true),
+        minSRAMdepth = 64,
+        binPoint = 0
+      ),
+      magParams = MAGParams.fixed(
+        dataWidth       = 16,
+        binPoint        = 0,
+        dataWidthLog    = 16,
+        binPointLog     = 9,
+        log2LookUpWidth = 9,
+        useLast         = true,
+        numAddPipes     = 1,
+        numMulPipes     = 1
+      ),
+      accParams = AccParams(
+        proto = FixedPoint(16.W, 0.BP),
+        protoAcc = FixedPoint(32.W, 0.BP),
+        accDepth = 64
+      ),
+      inSplitAddress   = AddressSet(0x30000000, 0xF),
+      plfgRAM          = AddressSet(0x30001000, 0xFFF),
+      plfgAddress      = AddressSet(0x30002100, 0xFF),
+      plfgSplitAddress = AddressSet(0x30002200, 0xF),
+      plfgMuxAddress0  = AddressSet(0x30002210, 0xF),
+      plfgMuxAddress1  = AddressSet(0x30002220, 0xF),
+      ncoAddress       = AddressSet(0x30003000, 0xF),
+      ncoSplitAddress  = AddressSet(0x30003100, 0xF),
+      ncoMuxAddress0   = AddressSet(0x30003110, 0xF),
+      ncoMuxAddress1   = AddressSet(0x30003120, 0xF),
+      fftAddress       = AddressSet(0x30004000, 0xFF),
+      fftSplitAddress  = AddressSet(0x30004100, 0xF),
+      fftMuxAddress0   = AddressSet(0x30004110, 0xF),
+      fftMuxAddress1   = AddressSet(0x30004120, 0xF),
+      magAddress       = AddressSet(0x30005000, 0xFF),
+      magSplitAddress  = AddressSet(0x30005100, 0xF),
+      magMuxAddress0   = AddressSet(0x30005110, 0xF),
+      magMuxAddress1   = AddressSet(0x30005120, 0xF),
+      accQueueBase     =            0x30006000,
+      accAddress       = AddressSet(0x30007000, 0xF),
+      outMuxAddress    = AddressSet(0x30008000, 0xF),
+      outSplitAddress  = AddressSet(0x30008010, 0xF),
+      uartParams       = UARTParams(address = 0x30009000, nTxEntries = 256, nRxEntries = 256),
+      uRxSplitAddress  = AddressSet(0x30009100, 0xF),
+      divisorInit      = (173).toInt, // baudrate = 115200 for 20MHz
+      beatBytes        = 4)
+}
 
 object SpectrometerTestApp extends App
 {
-  // here just define parameters
-  val params = SpectrometerTestParameters (
-    plfgParams = FixedPLFGParams(
-      maxNumOfSegments = 4,
-      maxNumOfDifferentChirps = 8,
-      maxNumOfRepeatedChirps = 8,
-      maxChirpOrdinalNum = 4,
-      maxNumOfFrames = 4,
-      maxNumOfSamplesWidth = 8,
-      outputWidthInt = 16,
-      outputWidthFrac = 0
-    ),
-    ncoParams = FixedNCOParams(
-      tableSize = 128,
-      tableWidth = 16,
-      phaseWidth = 9,
-      rasterizedMode = false,
-      nInterpolationTerms = 0,
-      ditherEnable = false,
-      syncROMEnable = false,
-      phaseAccEnable = true,
-      roundingMode = RoundHalfUp,
-      pincType = Streaming,
-      poffType = Fixed
-	  ),
-    fftParams = FFTParams.fixed(
-      dataWidth = 16,
-      twiddleWidth = 16,
-      numPoints = 512,
-      useBitReverse = false,
-      runTime = true,
-      numAddPipes = 1,
-      numMulPipes = 1,
-      expandLogic = Array.fill(log2Up(512))(0),
-      keepMSBorLSB = Array.fill(log2Up(512))(true),
-      minSRAMdepth = 512,
-      binPoint = 0
-    ),
-    magParams = MAGParams.fixed(
-      dataWidth       = 16,
-      binPoint        = 0,
-      dataWidthLog    = 16,
-      binPointLog     = 9,
-      log2LookUpWidth = 9,
-      useLast         = true,
-      numAddPipes     = 1,
-      numMulPipes     = 1
-    ),
-    accParams = AccParams(
-      proto = FixedPoint(16.W, 0.BP),
-      protoAcc = FixedPoint(32.W, 0.BP),
-      accDepth = 512
-    ),
-    inSplitAddress   = AddressSet(0x30000000, 0xF),
-    plfgRAM          = AddressSet(0x30001000, 0xFFF),
-    plfgAddress      = AddressSet(0x30002100, 0xFF),
-    plfgSplitAddress = AddressSet(0x30002200, 0xF),
-    plfgMuxAddress0  = AddressSet(0x30002210, 0xF),
-    plfgMuxAddress1  = AddressSet(0x30002220, 0xF),
-    ncoAddress       = AddressSet(0x30003000, 0xF),
-    ncoSplitAddress  = AddressSet(0x30003100, 0xF),
-    ncoMuxAddress0   = AddressSet(0x30003110, 0xF),
-    ncoMuxAddress1   = AddressSet(0x30003120, 0xF),
-    fftAddress       = AddressSet(0x30004000, 0xFF),
-    fftSplitAddress  = AddressSet(0x30004100, 0xF),
-    fftMuxAddress0   = AddressSet(0x30004110, 0xF),
-    fftMuxAddress1   = AddressSet(0x30004120, 0xF),
-    magAddress       = AddressSet(0x30005000, 0xFF),
-    magSplitAddress  = AddressSet(0x30005100, 0xF),
-    magMuxAddress0   = AddressSet(0x30005110, 0xF),
-    magMuxAddress1   = AddressSet(0x30005120, 0xF),
-    accQueueBase     =            0x30006000,
-    accAddress       = AddressSet(0x30007000, 0xF),
-    outMuxAddress    = AddressSet(0x30008000, 0xF),
-    outSplitAddress  = AddressSet(0x30008010, 0xF),
-    uartParams       = UARTParams(address = 0x30009000, nTxEntries = 256, nRxEntries = 256),
-    uRxSplitAddress  = AddressSet(0x30009100, 0xF),
-    divisorInit      = (173).toInt, // baudrate = 115200 for 20MHz
-    beatBytes        = 4)
+  val params = (new SpectrometerTestParams).params
 
   implicit val p: Parameters = Parameters.empty
   val standaloneModule = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
