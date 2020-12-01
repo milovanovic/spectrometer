@@ -209,7 +209,7 @@ class SpectrometerTest(params: SpectrometerTestParameters) extends LazyModule()(
   nco_mux_0.streamNode  := uRx_split.streamNode                           // uRx_split  --2--> nco_mux_0
   nco_mux_0.streamNode  := nco_ones.streamNode                            // nco_ones   --3--> nco_mux_0
   nco_mux_0.streamNode  := nco_zeros.streamNode                           // nco_zeros  --4--> nco_mux_0
-  fft.streamNode        := nco_mux_0.streamNode                           // nco_mux_0  --0--> fft
+  fft.streamNode        := AXI4StreamBuffer() := nco_mux_0.streamNode     // nco_mux_0  --0--> fft
   nco_rdy_0.streamNode  := nco_mux_0.streamNode                           // nco_mux_0  --1--> nco_rdy_0
 
   fft_split.streamNode  := fft.streamNode                                 // fft        -----> fft_split  

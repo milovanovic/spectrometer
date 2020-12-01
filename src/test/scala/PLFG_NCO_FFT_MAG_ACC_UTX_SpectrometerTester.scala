@@ -74,7 +74,7 @@ class PLFG_NCO_FFT_MAG_ACC_UTX_SpectrometerTester
   memWriteWord(params.plfgAddress.base + chirpOrdinalNumsArrayOffset, 0) 
   memWriteWord(params.plfgAddress.base + params.beatBytes, 0)              // set reset bit to zero
   memWriteWord(params.plfgAddress.base, 1)                                 // enable bit becomes 1
-
+  
   // Mux
   memWriteWord(params.plfgMuxAddress1.base,       0x0) // output0
   // memWriteWord(params.plfgMuxAddress1.base + 0x4, 0x0) // output1
@@ -100,7 +100,10 @@ class PLFG_NCO_FFT_MAG_ACC_UTX_SpectrometerTester
   memWriteWord(params.magMuxAddress0.base,       0x0) // output0
   // memWriteWord(params.magMuxAddress0.base + 0x4, 0x0) // output1
 
-  
+    // memWriteWord(params.outMuxAddress.base,       0x0) // output0
+  memWriteWord(params.outMuxAddress.base + 0x4, 0x0) // output1
+  // memWriteWord(params.outMuxAddress.base + 0x8, 0x3) // output2
+
   // magAddress
   memWriteWord(params.magAddress.base, 0x2) // set jpl magnitude
   
@@ -109,11 +112,6 @@ class PLFG_NCO_FFT_MAG_ACC_UTX_SpectrometerTester
 
   // UART
   memWriteWord(params.uartParams.address + 0x08, 1) // enable Tx
-  memWriteWord(params.uartParams.address + 0x0c, 1) // enable Rx
-
-    // memWriteWord(params.outMuxAddress.base,       0x0) // output0
-  memWriteWord(params.outMuxAddress.base + 0x4, 0x0) // output1
-  // memWriteWord(params.outMuxAddress.base + 0x8, 0x3) // output2
 
   var outSeq = Seq[Int]()
   var uartSeq = Seq[Int]()
@@ -121,22 +119,20 @@ class PLFG_NCO_FFT_MAG_ACC_UTX_SpectrometerTester
 
   var dataCnt = 0
   var readUart = 0
-  var oldRead = 0
-  var newRead = 0
+  var oldRead = 1
+  var newRead = 1
 
   // check only one fft window 
   while (uartSeq.length < params.fftParams.numPoints * 16) {
-    newRead = 0
-    oldRead = 0
+    newRead = 1
+    oldRead = 1
     while (readUart == 0){
       oldRead = peek(dut.module.uTx).toInt
       step(1)
       newRead = peek(dut.module.uTx).toInt
       if (newRead == 0 && oldRead == 1){
         readUart = 1
-      }
-      else {
-        step(1)
+        // poke(dut.outStream.ready, true.B)
       }
     }
       readUart = 0  // set flag back to 0

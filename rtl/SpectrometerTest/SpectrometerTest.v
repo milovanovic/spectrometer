@@ -12884,6 +12884,7 @@ module AXI4Xbar_1(
   output        auto_out_1_w_valid,
   output [31:0] auto_out_1_w_bits_data,
   output [3:0]  auto_out_1_w_bits_strb,
+  output        auto_out_1_w_bits_last,
   output        auto_out_1_b_ready,
   input         auto_out_1_b_valid,
   input         auto_out_1_b_bits_id,
@@ -12908,6 +12909,7 @@ module AXI4Xbar_1(
   output        auto_out_0_w_valid,
   output [31:0] auto_out_0_w_bits_data,
   output [3:0]  auto_out_0_w_bits_strb,
+  output        auto_out_0_w_bits_last,
   output        auto_out_0_b_ready,
   input         auto_out_0_b_valid,
   input         auto_out_0_b_bits_id,
@@ -13182,6 +13184,7 @@ module AXI4Xbar_1(
   assign auto_out_1_w_valid = in_0_w_valid & requestWIO_0_1; // @[LazyModule.scala 173:49]
   assign auto_out_1_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_1_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_1_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_1_b_ready = auto_in_b_ready & _T_363_1; // @[LazyModule.scala 173:49]
   assign auto_out_1_ar_valid = in_0_ar_valid & requestARIO_0_1; // @[LazyModule.scala 173:49]
   assign auto_out_1_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -13195,6 +13198,7 @@ module AXI4Xbar_1(
   assign auto_out_0_w_valid = in_0_w_valid & requestWIO_0_0; // @[LazyModule.scala 173:49]
   assign auto_out_0_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_0_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_0_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_0_b_ready = auto_in_b_ready & _T_363_0; // @[LazyModule.scala 173:49]
   assign auto_out_0_ar_valid = in_0_ar_valid & requestARIO_0_0; // @[LazyModule.scala 173:49]
   assign auto_out_0_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -13785,10 +13789,12 @@ module Queue_26(
   input         io_enq_valid,
   input  [31:0] io_enq_bits_data,
   input  [3:0]  io_enq_bits_strb,
+  input         io_enq_bits_last,
   input         io_deq_ready,
   output        io_deq_valid,
   output [31:0] io_deq_bits_data,
-  output [3:0]  io_deq_bits_strb
+  output [3:0]  io_deq_bits_strb,
+  output        io_deq_bits_last
 );
   reg [31:0] _T_data [0:1]; // @[Decoupled.scala 218:24]
   reg [31:0] _RAND_0;
@@ -13806,12 +13812,20 @@ module Queue_26(
   wire  _T_strb__T_10_addr; // @[Decoupled.scala 218:24]
   wire  _T_strb__T_10_mask; // @[Decoupled.scala 218:24]
   wire  _T_strb__T_10_en; // @[Decoupled.scala 218:24]
-  reg  value; // @[Counter.scala 29:33]
+  reg  _T_last [0:1]; // @[Decoupled.scala 218:24]
   reg [31:0] _RAND_2;
-  reg  value_1; // @[Counter.scala 29:33]
+  wire  _T_last__T_18_data; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_18_addr; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_data; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_addr; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_mask; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_en; // @[Decoupled.scala 218:24]
+  reg  value; // @[Counter.scala 29:33]
   reg [31:0] _RAND_3;
-  reg  _T_1; // @[Decoupled.scala 221:35]
+  reg  value_1; // @[Counter.scala 29:33]
   reg [31:0] _RAND_4;
+  reg  _T_1; // @[Decoupled.scala 221:35]
+  reg [31:0] _RAND_5;
   wire  _T_2 = value == value_1; // @[Decoupled.scala 223:41]
   wire  _T_3 = ~_T_1; // @[Decoupled.scala 224:36]
   wire  _T_4 = _T_2 & _T_3; // @[Decoupled.scala 224:33]
@@ -13833,10 +13847,17 @@ module Queue_26(
   assign _T_strb__T_10_addr = value;
   assign _T_strb__T_10_mask = 1'h1;
   assign _T_strb__T_10_en = io_enq_ready & io_enq_valid;
+  assign _T_last__T_18_addr = value_1;
+  assign _T_last__T_18_data = _T_last[_T_last__T_18_addr]; // @[Decoupled.scala 218:24]
+  assign _T_last__T_10_data = io_enq_bits_last;
+  assign _T_last__T_10_addr = value;
+  assign _T_last__T_10_mask = 1'h1;
+  assign _T_last__T_10_en = io_enq_ready & io_enq_valid;
   assign io_enq_ready = ~_T_5; // @[Decoupled.scala 241:16]
   assign io_deq_valid = ~_T_4; // @[Decoupled.scala 240:16]
   assign io_deq_bits_data = _T_data__T_18_data; // @[Decoupled.scala 242:15]
   assign io_deq_bits_strb = _T_strb__T_18_data; // @[Decoupled.scala 242:15]
+  assign io_deq_bits_last = _T_last__T_18_data; // @[Decoupled.scala 242:15]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -13878,17 +13899,22 @@ initial begin
   for (initvar = 0; initvar < 2; initvar = initvar+1)
     _T_strb[initvar] = _RAND_1[3:0];
   `endif // RANDOMIZE_MEM_INIT
-  `ifdef RANDOMIZE_REG_INIT
   _RAND_2 = {1{`RANDOM}};
-  value = _RAND_2[0:0];
-  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_MEM_INIT
+  for (initvar = 0; initvar < 2; initvar = initvar+1)
+    _T_last[initvar] = _RAND_2[0:0];
+  `endif // RANDOMIZE_MEM_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_3 = {1{`RANDOM}};
-  value_1 = _RAND_3[0:0];
+  value = _RAND_3[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_4 = {1{`RANDOM}};
-  _T_1 = _RAND_4[0:0];
+  value_1 = _RAND_4[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_5 = {1{`RANDOM}};
+  _T_1 = _RAND_5[0:0];
   `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -13899,6 +13925,9 @@ end // initial
     end
     if(_T_strb__T_10_en & _T_strb__T_10_mask) begin
       _T_strb[_T_strb__T_10_addr] <= _T_strb__T_10_data; // @[Decoupled.scala 218:24]
+    end
+    if(_T_last__T_10_en & _T_last__T_10_mask) begin
+      _T_last[_T_last__T_10_addr] <= _T_last__T_10_data; // @[Decoupled.scala 218:24]
     end
     if (reset) begin
       value <= 1'h0;
@@ -13923,6 +13952,7 @@ module Queue_27(
   output       io_enq_ready,
   input        io_enq_valid,
   input        io_enq_bits_id,
+  input  [1:0] io_enq_bits_resp,
   input        io_deq_ready,
   output       io_deq_valid,
   output       io_deq_bits_id,
@@ -13967,7 +13997,7 @@ module Queue_27(
   assign _T_id__T_10_en = io_enq_ready & io_enq_valid;
   assign _T_resp__T_18_addr = value_1;
   assign _T_resp__T_18_data = _T_resp[_T_resp__T_18_addr]; // @[Decoupled.scala 218:24]
-  assign _T_resp__T_10_data = 2'h0;
+  assign _T_resp__T_10_data = io_enq_bits_resp;
   assign _T_resp__T_10_addr = value;
   assign _T_resp__T_10_mask = 1'h1;
   assign _T_resp__T_10_en = io_enq_ready & io_enq_valid;
@@ -14062,6 +14092,8 @@ module Queue_29(
   input         io_enq_valid,
   input         io_enq_bits_id,
   input  [31:0] io_enq_bits_data,
+  input  [1:0]  io_enq_bits_resp,
+  input         io_enq_bits_last,
   input         io_deq_ready,
   output        io_deq_valid,
   output        io_deq_bits_id,
@@ -14130,13 +14162,13 @@ module Queue_29(
   assign _T_data__T_10_en = io_enq_ready & io_enq_valid;
   assign _T_resp__T_18_addr = value_1;
   assign _T_resp__T_18_data = _T_resp[_T_resp__T_18_addr]; // @[Decoupled.scala 218:24]
-  assign _T_resp__T_10_data = 2'h0;
+  assign _T_resp__T_10_data = io_enq_bits_resp;
   assign _T_resp__T_10_addr = value;
   assign _T_resp__T_10_mask = 1'h1;
   assign _T_resp__T_10_en = io_enq_ready & io_enq_valid;
   assign _T_last__T_18_addr = value_1;
   assign _T_last__T_18_data = _T_last[_T_last__T_18_addr]; // @[Decoupled.scala 218:24]
-  assign _T_last__T_10_data = 1'h1;
+  assign _T_last__T_10_data = io_enq_bits_last;
   assign _T_last__T_10_addr = value;
   assign _T_last__T_10_mask = 1'h1;
   assign _T_last__T_10_en = io_enq_ready & io_enq_valid;
@@ -14254,6 +14286,7 @@ module AXI4Buffer(
   input         auto_in_w_valid,
   input  [31:0] auto_in_w_bits_data,
   input  [3:0]  auto_in_w_bits_strb,
+  input         auto_in_w_bits_last,
   input         auto_in_b_ready,
   output        auto_in_b_valid,
   output        auto_in_b_bits_id,
@@ -14277,9 +14310,11 @@ module AXI4Buffer(
   output        auto_out_w_valid,
   output [31:0] auto_out_w_bits_data,
   output [3:0]  auto_out_w_bits_strb,
+  output        auto_out_w_bits_last,
   output        auto_out_b_ready,
   input         auto_out_b_valid,
   input         auto_out_b_bits_id,
+  input  [1:0]  auto_out_b_bits_resp,
   input         auto_out_ar_ready,
   output        auto_out_ar_valid,
   output        auto_out_ar_bits_id,
@@ -14288,7 +14323,9 @@ module AXI4Buffer(
   output        auto_out_r_ready,
   input         auto_out_r_valid,
   input         auto_out_r_bits_id,
-  input  [31:0] auto_out_r_bits_data
+  input  [31:0] auto_out_r_bits_data,
+  input  [1:0]  auto_out_r_bits_resp,
+  input         auto_out_r_bits_last
 );
   wire  Queue_clock; // @[Decoupled.scala 296:21]
   wire  Queue_reset; // @[Decoupled.scala 296:21]
@@ -14308,15 +14345,18 @@ module AXI4Buffer(
   wire  Queue_1_io_enq_valid; // @[Decoupled.scala 296:21]
   wire [31:0] Queue_1_io_enq_bits_data; // @[Decoupled.scala 296:21]
   wire [3:0] Queue_1_io_enq_bits_strb; // @[Decoupled.scala 296:21]
+  wire  Queue_1_io_enq_bits_last; // @[Decoupled.scala 296:21]
   wire  Queue_1_io_deq_ready; // @[Decoupled.scala 296:21]
   wire  Queue_1_io_deq_valid; // @[Decoupled.scala 296:21]
   wire [31:0] Queue_1_io_deq_bits_data; // @[Decoupled.scala 296:21]
   wire [3:0] Queue_1_io_deq_bits_strb; // @[Decoupled.scala 296:21]
+  wire  Queue_1_io_deq_bits_last; // @[Decoupled.scala 296:21]
   wire  Queue_2_clock; // @[Decoupled.scala 296:21]
   wire  Queue_2_reset; // @[Decoupled.scala 296:21]
   wire  Queue_2_io_enq_ready; // @[Decoupled.scala 296:21]
   wire  Queue_2_io_enq_valid; // @[Decoupled.scala 296:21]
   wire  Queue_2_io_enq_bits_id; // @[Decoupled.scala 296:21]
+  wire [1:0] Queue_2_io_enq_bits_resp; // @[Decoupled.scala 296:21]
   wire  Queue_2_io_deq_ready; // @[Decoupled.scala 296:21]
   wire  Queue_2_io_deq_valid; // @[Decoupled.scala 296:21]
   wire  Queue_2_io_deq_bits_id; // @[Decoupled.scala 296:21]
@@ -14339,6 +14379,8 @@ module AXI4Buffer(
   wire  Queue_4_io_enq_valid; // @[Decoupled.scala 296:21]
   wire  Queue_4_io_enq_bits_id; // @[Decoupled.scala 296:21]
   wire [31:0] Queue_4_io_enq_bits_data; // @[Decoupled.scala 296:21]
+  wire [1:0] Queue_4_io_enq_bits_resp; // @[Decoupled.scala 296:21]
+  wire  Queue_4_io_enq_bits_last; // @[Decoupled.scala 296:21]
   wire  Queue_4_io_deq_ready; // @[Decoupled.scala 296:21]
   wire  Queue_4_io_deq_valid; // @[Decoupled.scala 296:21]
   wire  Queue_4_io_deq_bits_id; // @[Decoupled.scala 296:21]
@@ -14366,10 +14408,12 @@ module AXI4Buffer(
     .io_enq_valid(Queue_1_io_enq_valid),
     .io_enq_bits_data(Queue_1_io_enq_bits_data),
     .io_enq_bits_strb(Queue_1_io_enq_bits_strb),
+    .io_enq_bits_last(Queue_1_io_enq_bits_last),
     .io_deq_ready(Queue_1_io_deq_ready),
     .io_deq_valid(Queue_1_io_deq_valid),
     .io_deq_bits_data(Queue_1_io_deq_bits_data),
-    .io_deq_bits_strb(Queue_1_io_deq_bits_strb)
+    .io_deq_bits_strb(Queue_1_io_deq_bits_strb),
+    .io_deq_bits_last(Queue_1_io_deq_bits_last)
   );
   Queue_27 Queue_2 ( // @[Decoupled.scala 296:21]
     .clock(Queue_2_clock),
@@ -14377,6 +14421,7 @@ module AXI4Buffer(
     .io_enq_ready(Queue_2_io_enq_ready),
     .io_enq_valid(Queue_2_io_enq_valid),
     .io_enq_bits_id(Queue_2_io_enq_bits_id),
+    .io_enq_bits_resp(Queue_2_io_enq_bits_resp),
     .io_deq_ready(Queue_2_io_deq_ready),
     .io_deq_valid(Queue_2_io_deq_valid),
     .io_deq_bits_id(Queue_2_io_deq_bits_id),
@@ -14403,6 +14448,8 @@ module AXI4Buffer(
     .io_enq_valid(Queue_4_io_enq_valid),
     .io_enq_bits_id(Queue_4_io_enq_bits_id),
     .io_enq_bits_data(Queue_4_io_enq_bits_data),
+    .io_enq_bits_resp(Queue_4_io_enq_bits_resp),
+    .io_enq_bits_last(Queue_4_io_enq_bits_last),
     .io_deq_ready(Queue_4_io_deq_ready),
     .io_deq_valid(Queue_4_io_deq_valid),
     .io_deq_bits_id(Queue_4_io_deq_bits_id),
@@ -14427,6 +14474,7 @@ module AXI4Buffer(
   assign auto_out_w_valid = Queue_1_io_deq_valid; // @[LazyModule.scala 173:49]
   assign auto_out_w_bits_data = Queue_1_io_deq_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_w_bits_strb = Queue_1_io_deq_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_w_bits_last = Queue_1_io_deq_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_b_ready = Queue_2_io_enq_ready; // @[LazyModule.scala 173:49]
   assign auto_out_ar_valid = Queue_3_io_deq_valid; // @[LazyModule.scala 173:49]
   assign auto_out_ar_bits_id = Queue_3_io_deq_bits_id; // @[LazyModule.scala 173:49]
@@ -14445,11 +14493,13 @@ module AXI4Buffer(
   assign Queue_1_io_enq_valid = auto_in_w_valid; // @[Decoupled.scala 297:22]
   assign Queue_1_io_enq_bits_data = auto_in_w_bits_data; // @[Decoupled.scala 298:21]
   assign Queue_1_io_enq_bits_strb = auto_in_w_bits_strb; // @[Decoupled.scala 298:21]
+  assign Queue_1_io_enq_bits_last = auto_in_w_bits_last; // @[Decoupled.scala 298:21]
   assign Queue_1_io_deq_ready = auto_out_w_ready; // @[Decoupled.scala 320:15]
   assign Queue_2_clock = clock;
   assign Queue_2_reset = reset;
   assign Queue_2_io_enq_valid = auto_out_b_valid; // @[Decoupled.scala 297:22]
   assign Queue_2_io_enq_bits_id = auto_out_b_bits_id; // @[Decoupled.scala 298:21]
+  assign Queue_2_io_enq_bits_resp = auto_out_b_bits_resp; // @[Decoupled.scala 298:21]
   assign Queue_2_io_deq_ready = auto_in_b_ready; // @[Decoupled.scala 320:15]
   assign Queue_3_clock = clock;
   assign Queue_3_reset = reset;
@@ -14463,6 +14513,8 @@ module AXI4Buffer(
   assign Queue_4_io_enq_valid = auto_out_r_valid; // @[Decoupled.scala 297:22]
   assign Queue_4_io_enq_bits_id = auto_out_r_bits_id; // @[Decoupled.scala 298:21]
   assign Queue_4_io_enq_bits_data = auto_out_r_bits_data; // @[Decoupled.scala 298:21]
+  assign Queue_4_io_enq_bits_resp = auto_out_r_bits_resp; // @[Decoupled.scala 298:21]
+  assign Queue_4_io_enq_bits_last = auto_out_r_bits_last; // @[Decoupled.scala 298:21]
   assign Queue_4_io_deq_ready = auto_in_r_ready; // @[Decoupled.scala 320:15]
 endmodule
 module AccumulatorChain(
@@ -14594,6 +14646,7 @@ module AccumulatorChain(
   wire  bus_auto_out_1_w_valid; // @[AccChain.scala 44:23]
   wire [31:0] bus_auto_out_1_w_bits_data; // @[AccChain.scala 44:23]
   wire [3:0] bus_auto_out_1_w_bits_strb; // @[AccChain.scala 44:23]
+  wire  bus_auto_out_1_w_bits_last; // @[AccChain.scala 44:23]
   wire  bus_auto_out_1_b_ready; // @[AccChain.scala 44:23]
   wire  bus_auto_out_1_b_valid; // @[AccChain.scala 44:23]
   wire  bus_auto_out_1_b_bits_id; // @[AccChain.scala 44:23]
@@ -14618,6 +14671,7 @@ module AccumulatorChain(
   wire  bus_auto_out_0_w_valid; // @[AccChain.scala 44:23]
   wire [31:0] bus_auto_out_0_w_bits_data; // @[AccChain.scala 44:23]
   wire [3:0] bus_auto_out_0_w_bits_strb; // @[AccChain.scala 44:23]
+  wire  bus_auto_out_0_w_bits_last; // @[AccChain.scala 44:23]
   wire  bus_auto_out_0_b_ready; // @[AccChain.scala 44:23]
   wire  bus_auto_out_0_b_valid; // @[AccChain.scala 44:23]
   wire  bus_auto_out_0_b_bits_id; // @[AccChain.scala 44:23]
@@ -14644,6 +14698,7 @@ module AccumulatorChain(
   wire  axi4buf_auto_in_w_valid; // @[Buffer.scala 58:29]
   wire [31:0] axi4buf_auto_in_w_bits_data; // @[Buffer.scala 58:29]
   wire [3:0] axi4buf_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_in_w_bits_last; // @[Buffer.scala 58:29]
   wire  axi4buf_auto_in_b_ready; // @[Buffer.scala 58:29]
   wire  axi4buf_auto_in_b_valid; // @[Buffer.scala 58:29]
   wire  axi4buf_auto_in_b_bits_id; // @[Buffer.scala 58:29]
@@ -14667,9 +14722,11 @@ module AccumulatorChain(
   wire  axi4buf_auto_out_w_valid; // @[Buffer.scala 58:29]
   wire [31:0] axi4buf_auto_out_w_bits_data; // @[Buffer.scala 58:29]
   wire [3:0] axi4buf_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_out_w_bits_last; // @[Buffer.scala 58:29]
   wire  axi4buf_auto_out_b_ready; // @[Buffer.scala 58:29]
   wire  axi4buf_auto_out_b_valid; // @[Buffer.scala 58:29]
   wire  axi4buf_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
   wire  axi4buf_auto_out_ar_ready; // @[Buffer.scala 58:29]
   wire  axi4buf_auto_out_ar_valid; // @[Buffer.scala 58:29]
   wire  axi4buf_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
@@ -14679,6 +14736,8 @@ module AccumulatorChain(
   wire  axi4buf_auto_out_r_valid; // @[Buffer.scala 58:29]
   wire  axi4buf_auto_out_r_bits_id; // @[Buffer.scala 58:29]
   wire [31:0] axi4buf_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_out_r_bits_last; // @[Buffer.scala 58:29]
   wire  axi4buf_1_clock; // @[Buffer.scala 58:29]
   wire  axi4buf_1_reset; // @[Buffer.scala 58:29]
   wire  axi4buf_1_auto_in_aw_ready; // @[Buffer.scala 58:29]
@@ -14690,6 +14749,7 @@ module AccumulatorChain(
   wire  axi4buf_1_auto_in_w_valid; // @[Buffer.scala 58:29]
   wire [31:0] axi4buf_1_auto_in_w_bits_data; // @[Buffer.scala 58:29]
   wire [3:0] axi4buf_1_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_in_w_bits_last; // @[Buffer.scala 58:29]
   wire  axi4buf_1_auto_in_b_ready; // @[Buffer.scala 58:29]
   wire  axi4buf_1_auto_in_b_valid; // @[Buffer.scala 58:29]
   wire  axi4buf_1_auto_in_b_bits_id; // @[Buffer.scala 58:29]
@@ -14713,9 +14773,11 @@ module AccumulatorChain(
   wire  axi4buf_1_auto_out_w_valid; // @[Buffer.scala 58:29]
   wire [31:0] axi4buf_1_auto_out_w_bits_data; // @[Buffer.scala 58:29]
   wire [3:0] axi4buf_1_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_out_w_bits_last; // @[Buffer.scala 58:29]
   wire  axi4buf_1_auto_out_b_ready; // @[Buffer.scala 58:29]
   wire  axi4buf_1_auto_out_b_valid; // @[Buffer.scala 58:29]
   wire  axi4buf_1_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_1_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
   wire  axi4buf_1_auto_out_ar_ready; // @[Buffer.scala 58:29]
   wire  axi4buf_1_auto_out_ar_valid; // @[Buffer.scala 58:29]
   wire  axi4buf_1_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
@@ -14725,6 +14787,8 @@ module AccumulatorChain(
   wire  axi4buf_1_auto_out_r_valid; // @[Buffer.scala 58:29]
   wire  axi4buf_1_auto_out_r_bits_id; // @[Buffer.scala 58:29]
   wire [31:0] axi4buf_1_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_1_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_out_r_bits_last; // @[Buffer.scala 58:29]
   AXI4AccumulatorBlock accumulator ( // @[AccChain.scala 27:30]
     .clock(accumulator_clock),
     .reset(accumulator_reset),
@@ -14824,6 +14888,7 @@ module AccumulatorChain(
     .auto_out_1_w_valid(bus_auto_out_1_w_valid),
     .auto_out_1_w_bits_data(bus_auto_out_1_w_bits_data),
     .auto_out_1_w_bits_strb(bus_auto_out_1_w_bits_strb),
+    .auto_out_1_w_bits_last(bus_auto_out_1_w_bits_last),
     .auto_out_1_b_ready(bus_auto_out_1_b_ready),
     .auto_out_1_b_valid(bus_auto_out_1_b_valid),
     .auto_out_1_b_bits_id(bus_auto_out_1_b_bits_id),
@@ -14848,6 +14913,7 @@ module AccumulatorChain(
     .auto_out_0_w_valid(bus_auto_out_0_w_valid),
     .auto_out_0_w_bits_data(bus_auto_out_0_w_bits_data),
     .auto_out_0_w_bits_strb(bus_auto_out_0_w_bits_strb),
+    .auto_out_0_w_bits_last(bus_auto_out_0_w_bits_last),
     .auto_out_0_b_ready(bus_auto_out_0_b_ready),
     .auto_out_0_b_valid(bus_auto_out_0_b_valid),
     .auto_out_0_b_bits_id(bus_auto_out_0_b_bits_id),
@@ -14876,6 +14942,7 @@ module AccumulatorChain(
     .auto_in_w_valid(axi4buf_auto_in_w_valid),
     .auto_in_w_bits_data(axi4buf_auto_in_w_bits_data),
     .auto_in_w_bits_strb(axi4buf_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_auto_in_w_bits_last),
     .auto_in_b_ready(axi4buf_auto_in_b_ready),
     .auto_in_b_valid(axi4buf_auto_in_b_valid),
     .auto_in_b_bits_id(axi4buf_auto_in_b_bits_id),
@@ -14899,9 +14966,11 @@ module AccumulatorChain(
     .auto_out_w_valid(axi4buf_auto_out_w_valid),
     .auto_out_w_bits_data(axi4buf_auto_out_w_bits_data),
     .auto_out_w_bits_strb(axi4buf_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_auto_out_w_bits_last),
     .auto_out_b_ready(axi4buf_auto_out_b_ready),
     .auto_out_b_valid(axi4buf_auto_out_b_valid),
     .auto_out_b_bits_id(axi4buf_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_auto_out_b_bits_resp),
     .auto_out_ar_ready(axi4buf_auto_out_ar_ready),
     .auto_out_ar_valid(axi4buf_auto_out_ar_valid),
     .auto_out_ar_bits_id(axi4buf_auto_out_ar_bits_id),
@@ -14910,7 +14979,9 @@ module AccumulatorChain(
     .auto_out_r_ready(axi4buf_auto_out_r_ready),
     .auto_out_r_valid(axi4buf_auto_out_r_valid),
     .auto_out_r_bits_id(axi4buf_auto_out_r_bits_id),
-    .auto_out_r_bits_data(axi4buf_auto_out_r_bits_data)
+    .auto_out_r_bits_data(axi4buf_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_auto_out_r_bits_last)
   );
   AXI4Buffer axi4buf_1 ( // @[Buffer.scala 58:29]
     .clock(axi4buf_1_clock),
@@ -14924,6 +14995,7 @@ module AccumulatorChain(
     .auto_in_w_valid(axi4buf_1_auto_in_w_valid),
     .auto_in_w_bits_data(axi4buf_1_auto_in_w_bits_data),
     .auto_in_w_bits_strb(axi4buf_1_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_1_auto_in_w_bits_last),
     .auto_in_b_ready(axi4buf_1_auto_in_b_ready),
     .auto_in_b_valid(axi4buf_1_auto_in_b_valid),
     .auto_in_b_bits_id(axi4buf_1_auto_in_b_bits_id),
@@ -14947,9 +15019,11 @@ module AccumulatorChain(
     .auto_out_w_valid(axi4buf_1_auto_out_w_valid),
     .auto_out_w_bits_data(axi4buf_1_auto_out_w_bits_data),
     .auto_out_w_bits_strb(axi4buf_1_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_1_auto_out_w_bits_last),
     .auto_out_b_ready(axi4buf_1_auto_out_b_ready),
     .auto_out_b_valid(axi4buf_1_auto_out_b_valid),
     .auto_out_b_bits_id(axi4buf_1_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_1_auto_out_b_bits_resp),
     .auto_out_ar_ready(axi4buf_1_auto_out_ar_ready),
     .auto_out_ar_valid(axi4buf_1_auto_out_ar_valid),
     .auto_out_ar_bits_id(axi4buf_1_auto_out_ar_bits_id),
@@ -14958,7 +15032,9 @@ module AccumulatorChain(
     .auto_out_r_ready(axi4buf_1_auto_out_r_ready),
     .auto_out_r_valid(axi4buf_1_auto_out_r_valid),
     .auto_out_r_bits_id(axi4buf_1_auto_out_r_bits_id),
-    .auto_out_r_bits_data(axi4buf_1_auto_out_r_bits_data)
+    .auto_out_r_bits_data(axi4buf_1_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_1_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_1_auto_out_r_bits_last)
   );
   assign auto_bus_in_aw_ready = bus_auto_in_aw_ready; // @[LazyModule.scala 173:31]
   assign auto_bus_in_w_ready = bus_auto_in_w_ready; // @[LazyModule.scala 173:31]
@@ -15056,6 +15132,7 @@ module AccumulatorChain(
   assign axi4buf_auto_in_w_valid = bus_auto_out_0_w_valid; // @[LazyModule.scala 167:57]
   assign axi4buf_auto_in_w_bits_data = bus_auto_out_0_w_bits_data; // @[LazyModule.scala 167:57]
   assign axi4buf_auto_in_w_bits_strb = bus_auto_out_0_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_auto_in_w_bits_last = bus_auto_out_0_w_bits_last; // @[LazyModule.scala 167:57]
   assign axi4buf_auto_in_b_ready = bus_auto_out_0_b_ready; // @[LazyModule.scala 167:57]
   assign axi4buf_auto_in_ar_valid = bus_auto_out_0_ar_valid; // @[LazyModule.scala 167:57]
   assign axi4buf_auto_in_ar_bits_id = bus_auto_out_0_ar_bits_id; // @[LazyModule.scala 167:57]
@@ -15066,10 +15143,13 @@ module AccumulatorChain(
   assign axi4buf_auto_out_w_ready = dspQueue_auto_in_w_ready; // @[LazyModule.scala 167:31]
   assign axi4buf_auto_out_b_valid = dspQueue_auto_in_b_valid; // @[LazyModule.scala 167:31]
   assign axi4buf_auto_out_b_bits_id = dspQueue_auto_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
   assign axi4buf_auto_out_ar_ready = dspQueue_auto_in_ar_ready; // @[LazyModule.scala 167:31]
   assign axi4buf_auto_out_r_valid = dspQueue_auto_in_r_valid; // @[LazyModule.scala 167:31]
   assign axi4buf_auto_out_r_bits_id = dspQueue_auto_in_r_bits_id; // @[LazyModule.scala 167:31]
   assign axi4buf_auto_out_r_bits_data = dspQueue_auto_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
   assign axi4buf_1_clock = clock;
   assign axi4buf_1_reset = reset;
   assign axi4buf_1_auto_in_aw_valid = bus_auto_out_1_aw_valid; // @[LazyModule.scala 167:57]
@@ -15079,6 +15159,7 @@ module AccumulatorChain(
   assign axi4buf_1_auto_in_w_valid = bus_auto_out_1_w_valid; // @[LazyModule.scala 167:57]
   assign axi4buf_1_auto_in_w_bits_data = bus_auto_out_1_w_bits_data; // @[LazyModule.scala 167:57]
   assign axi4buf_1_auto_in_w_bits_strb = bus_auto_out_1_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_1_auto_in_w_bits_last = bus_auto_out_1_w_bits_last; // @[LazyModule.scala 167:57]
   assign axi4buf_1_auto_in_b_ready = bus_auto_out_1_b_ready; // @[LazyModule.scala 167:57]
   assign axi4buf_1_auto_in_ar_valid = bus_auto_out_1_ar_valid; // @[LazyModule.scala 167:57]
   assign axi4buf_1_auto_in_ar_bits_id = bus_auto_out_1_ar_bits_id; // @[LazyModule.scala 167:57]
@@ -15089,10 +15170,13 @@ module AccumulatorChain(
   assign axi4buf_1_auto_out_w_ready = accumulator_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
   assign axi4buf_1_auto_out_b_valid = accumulator_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
   assign axi4buf_1_auto_out_b_bits_id = accumulator_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_1_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
   assign axi4buf_1_auto_out_ar_ready = accumulator_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
   assign axi4buf_1_auto_out_r_valid = accumulator_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
   assign axi4buf_1_auto_out_r_bits_id = accumulator_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
   assign axi4buf_1_auto_out_r_bits_data = accumulator_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_1_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_1_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
 endmodule
 module AXI4StreamWidthAdapater_2_to_1(
   input         clock,
@@ -15541,6 +15625,7 @@ module AXI4StreamMux_8(
   output        auto_stream_in_6_ready,
   input         auto_stream_in_6_valid,
   input  [31:0] auto_stream_in_6_bits_data,
+  input         auto_stream_in_6_bits_last,
   output        auto_stream_in_5_ready,
   input         auto_stream_in_5_valid,
   input  [31:0] auto_stream_in_5_bits_data,
@@ -15747,10 +15832,10 @@ module AXI4StreamMux_8(
   assign auto_stream_in_0_ready = _T_25 | _GEN_71; // @[LazyModule.scala 173:31]
   assign auto_stream_out_1_valid = _T_19 ? auto_stream_in_6_valid : _GEN_115; // @[LazyModule.scala 173:49]
   assign auto_stream_out_1_bits_data = _T_19 ? auto_stream_in_6_bits_data : _GEN_114; // @[LazyModule.scala 173:49]
-  assign auto_stream_out_1_bits_last = _T_19 ? 1'h0 : _GEN_111; // @[LazyModule.scala 173:49]
+  assign auto_stream_out_1_bits_last = _T_19 ? auto_stream_in_6_bits_last : _GEN_111; // @[LazyModule.scala 173:49]
   assign auto_stream_out_0_valid = _T_9 ? auto_stream_in_6_valid : _GEN_52; // @[LazyModule.scala 173:49]
   assign auto_stream_out_0_bits_data = _T_9 ? auto_stream_in_6_bits_data : _GEN_51; // @[LazyModule.scala 173:49]
-  assign auto_stream_out_0_bits_last = _T_9 ? 1'h0 : _GEN_48; // @[LazyModule.scala 173:49]
+  assign auto_stream_out_0_bits_last = _T_9 ? auto_stream_in_6_bits_last : _GEN_48; // @[LazyModule.scala 173:49]
   assign Queue_clock = clock;
   assign Queue_reset = reset;
   assign Queue_io_enq_valid = auto_register_in_ar_valid | _T_33; // @[Decoupled.scala 297:22]
@@ -18171,13 +18256,16 @@ module AXI4Xbar_2(
   output        auto_out_20_aw_valid,
   output        auto_out_20_aw_bits_id,
   output [29:0] auto_out_20_aw_bits_addr,
+  output [2:0]  auto_out_20_aw_bits_size,
   input         auto_out_20_w_ready,
   output        auto_out_20_w_valid,
   output [31:0] auto_out_20_w_bits_data,
   output [3:0]  auto_out_20_w_bits_strb,
+  output        auto_out_20_w_bits_last,
   output        auto_out_20_b_ready,
   input         auto_out_20_b_valid,
   input         auto_out_20_b_bits_id,
+  input  [1:0]  auto_out_20_b_bits_resp,
   input         auto_out_20_ar_ready,
   output        auto_out_20_ar_valid,
   output        auto_out_20_ar_bits_id,
@@ -18187,17 +18275,22 @@ module AXI4Xbar_2(
   input         auto_out_20_r_valid,
   input         auto_out_20_r_bits_id,
   input  [31:0] auto_out_20_r_bits_data,
+  input  [1:0]  auto_out_20_r_bits_resp,
+  input         auto_out_20_r_bits_last,
   input         auto_out_19_aw_ready,
   output        auto_out_19_aw_valid,
   output        auto_out_19_aw_bits_id,
   output [29:0] auto_out_19_aw_bits_addr,
+  output [2:0]  auto_out_19_aw_bits_size,
   input         auto_out_19_w_ready,
   output        auto_out_19_w_valid,
   output [31:0] auto_out_19_w_bits_data,
   output [3:0]  auto_out_19_w_bits_strb,
+  output        auto_out_19_w_bits_last,
   output        auto_out_19_b_ready,
   input         auto_out_19_b_valid,
   input         auto_out_19_b_bits_id,
+  input  [1:0]  auto_out_19_b_bits_resp,
   input         auto_out_19_ar_ready,
   output        auto_out_19_ar_valid,
   output        auto_out_19_ar_bits_id,
@@ -18207,17 +18300,22 @@ module AXI4Xbar_2(
   input         auto_out_19_r_valid,
   input         auto_out_19_r_bits_id,
   input  [31:0] auto_out_19_r_bits_data,
+  input  [1:0]  auto_out_19_r_bits_resp,
+  input         auto_out_19_r_bits_last,
   input         auto_out_18_aw_ready,
   output        auto_out_18_aw_valid,
   output        auto_out_18_aw_bits_id,
   output [29:0] auto_out_18_aw_bits_addr,
+  output [2:0]  auto_out_18_aw_bits_size,
   input         auto_out_18_w_ready,
   output        auto_out_18_w_valid,
   output [31:0] auto_out_18_w_bits_data,
   output [3:0]  auto_out_18_w_bits_strb,
+  output        auto_out_18_w_bits_last,
   output        auto_out_18_b_ready,
   input         auto_out_18_b_valid,
   input         auto_out_18_b_bits_id,
+  input  [1:0]  auto_out_18_b_bits_resp,
   input         auto_out_18_ar_ready,
   output        auto_out_18_ar_valid,
   output        auto_out_18_ar_bits_id,
@@ -18227,17 +18325,22 @@ module AXI4Xbar_2(
   input         auto_out_18_r_valid,
   input         auto_out_18_r_bits_id,
   input  [31:0] auto_out_18_r_bits_data,
+  input  [1:0]  auto_out_18_r_bits_resp,
+  input         auto_out_18_r_bits_last,
   input         auto_out_17_aw_ready,
   output        auto_out_17_aw_valid,
   output        auto_out_17_aw_bits_id,
   output [29:0] auto_out_17_aw_bits_addr,
+  output [2:0]  auto_out_17_aw_bits_size,
   input         auto_out_17_w_ready,
   output        auto_out_17_w_valid,
   output [31:0] auto_out_17_w_bits_data,
   output [3:0]  auto_out_17_w_bits_strb,
+  output        auto_out_17_w_bits_last,
   output        auto_out_17_b_ready,
   input         auto_out_17_b_valid,
   input         auto_out_17_b_bits_id,
+  input  [1:0]  auto_out_17_b_bits_resp,
   input         auto_out_17_ar_ready,
   output        auto_out_17_ar_valid,
   output        auto_out_17_ar_bits_id,
@@ -18247,17 +18350,22 @@ module AXI4Xbar_2(
   input         auto_out_17_r_valid,
   input         auto_out_17_r_bits_id,
   input  [31:0] auto_out_17_r_bits_data,
+  input  [1:0]  auto_out_17_r_bits_resp,
+  input         auto_out_17_r_bits_last,
   input         auto_out_16_aw_ready,
   output        auto_out_16_aw_valid,
   output        auto_out_16_aw_bits_id,
   output [29:0] auto_out_16_aw_bits_addr,
+  output [2:0]  auto_out_16_aw_bits_size,
   input         auto_out_16_w_ready,
   output        auto_out_16_w_valid,
   output [31:0] auto_out_16_w_bits_data,
   output [3:0]  auto_out_16_w_bits_strb,
+  output        auto_out_16_w_bits_last,
   output        auto_out_16_b_ready,
   input         auto_out_16_b_valid,
   input         auto_out_16_b_bits_id,
+  input  [1:0]  auto_out_16_b_bits_resp,
   input         auto_out_16_ar_ready,
   output        auto_out_16_ar_valid,
   output        auto_out_16_ar_bits_id,
@@ -18267,17 +18375,22 @@ module AXI4Xbar_2(
   input         auto_out_16_r_valid,
   input         auto_out_16_r_bits_id,
   input  [31:0] auto_out_16_r_bits_data,
+  input  [1:0]  auto_out_16_r_bits_resp,
+  input         auto_out_16_r_bits_last,
   input         auto_out_15_aw_ready,
   output        auto_out_15_aw_valid,
   output        auto_out_15_aw_bits_id,
   output [29:0] auto_out_15_aw_bits_addr,
+  output [2:0]  auto_out_15_aw_bits_size,
   input         auto_out_15_w_ready,
   output        auto_out_15_w_valid,
   output [31:0] auto_out_15_w_bits_data,
   output [3:0]  auto_out_15_w_bits_strb,
+  output        auto_out_15_w_bits_last,
   output        auto_out_15_b_ready,
   input         auto_out_15_b_valid,
   input         auto_out_15_b_bits_id,
+  input  [1:0]  auto_out_15_b_bits_resp,
   input         auto_out_15_ar_ready,
   output        auto_out_15_ar_valid,
   output        auto_out_15_ar_bits_id,
@@ -18287,17 +18400,22 @@ module AXI4Xbar_2(
   input         auto_out_15_r_valid,
   input         auto_out_15_r_bits_id,
   input  [31:0] auto_out_15_r_bits_data,
+  input  [1:0]  auto_out_15_r_bits_resp,
+  input         auto_out_15_r_bits_last,
   input         auto_out_14_aw_ready,
   output        auto_out_14_aw_valid,
   output        auto_out_14_aw_bits_id,
   output [29:0] auto_out_14_aw_bits_addr,
+  output [2:0]  auto_out_14_aw_bits_size,
   input         auto_out_14_w_ready,
   output        auto_out_14_w_valid,
   output [31:0] auto_out_14_w_bits_data,
   output [3:0]  auto_out_14_w_bits_strb,
+  output        auto_out_14_w_bits_last,
   output        auto_out_14_b_ready,
   input         auto_out_14_b_valid,
   input         auto_out_14_b_bits_id,
+  input  [1:0]  auto_out_14_b_bits_resp,
   input         auto_out_14_ar_ready,
   output        auto_out_14_ar_valid,
   output        auto_out_14_ar_bits_id,
@@ -18307,17 +18425,22 @@ module AXI4Xbar_2(
   input         auto_out_14_r_valid,
   input         auto_out_14_r_bits_id,
   input  [31:0] auto_out_14_r_bits_data,
+  input  [1:0]  auto_out_14_r_bits_resp,
+  input         auto_out_14_r_bits_last,
   input         auto_out_13_aw_ready,
   output        auto_out_13_aw_valid,
   output        auto_out_13_aw_bits_id,
   output [29:0] auto_out_13_aw_bits_addr,
+  output [2:0]  auto_out_13_aw_bits_size,
   input         auto_out_13_w_ready,
   output        auto_out_13_w_valid,
   output [31:0] auto_out_13_w_bits_data,
   output [3:0]  auto_out_13_w_bits_strb,
+  output        auto_out_13_w_bits_last,
   output        auto_out_13_b_ready,
   input         auto_out_13_b_valid,
   input         auto_out_13_b_bits_id,
+  input  [1:0]  auto_out_13_b_bits_resp,
   input         auto_out_13_ar_ready,
   output        auto_out_13_ar_valid,
   output        auto_out_13_ar_bits_id,
@@ -18327,17 +18450,22 @@ module AXI4Xbar_2(
   input         auto_out_13_r_valid,
   input         auto_out_13_r_bits_id,
   input  [31:0] auto_out_13_r_bits_data,
+  input  [1:0]  auto_out_13_r_bits_resp,
+  input         auto_out_13_r_bits_last,
   input         auto_out_12_aw_ready,
   output        auto_out_12_aw_valid,
   output        auto_out_12_aw_bits_id,
   output [29:0] auto_out_12_aw_bits_addr,
+  output [2:0]  auto_out_12_aw_bits_size,
   input         auto_out_12_w_ready,
   output        auto_out_12_w_valid,
   output [31:0] auto_out_12_w_bits_data,
   output [3:0]  auto_out_12_w_bits_strb,
+  output        auto_out_12_w_bits_last,
   output        auto_out_12_b_ready,
   input         auto_out_12_b_valid,
   input         auto_out_12_b_bits_id,
+  input  [1:0]  auto_out_12_b_bits_resp,
   input         auto_out_12_ar_ready,
   output        auto_out_12_ar_valid,
   output        auto_out_12_ar_bits_id,
@@ -18347,17 +18475,22 @@ module AXI4Xbar_2(
   input         auto_out_12_r_valid,
   input         auto_out_12_r_bits_id,
   input  [31:0] auto_out_12_r_bits_data,
+  input  [1:0]  auto_out_12_r_bits_resp,
+  input         auto_out_12_r_bits_last,
   input         auto_out_11_aw_ready,
   output        auto_out_11_aw_valid,
   output        auto_out_11_aw_bits_id,
   output [29:0] auto_out_11_aw_bits_addr,
+  output [2:0]  auto_out_11_aw_bits_size,
   input         auto_out_11_w_ready,
   output        auto_out_11_w_valid,
   output [31:0] auto_out_11_w_bits_data,
   output [3:0]  auto_out_11_w_bits_strb,
+  output        auto_out_11_w_bits_last,
   output        auto_out_11_b_ready,
   input         auto_out_11_b_valid,
   input         auto_out_11_b_bits_id,
+  input  [1:0]  auto_out_11_b_bits_resp,
   input         auto_out_11_ar_ready,
   output        auto_out_11_ar_valid,
   output        auto_out_11_ar_bits_id,
@@ -18367,17 +18500,22 @@ module AXI4Xbar_2(
   input         auto_out_11_r_valid,
   input         auto_out_11_r_bits_id,
   input  [31:0] auto_out_11_r_bits_data,
+  input  [1:0]  auto_out_11_r_bits_resp,
+  input         auto_out_11_r_bits_last,
   input         auto_out_10_aw_ready,
   output        auto_out_10_aw_valid,
   output        auto_out_10_aw_bits_id,
   output [29:0] auto_out_10_aw_bits_addr,
+  output [2:0]  auto_out_10_aw_bits_size,
   input         auto_out_10_w_ready,
   output        auto_out_10_w_valid,
   output [31:0] auto_out_10_w_bits_data,
   output [3:0]  auto_out_10_w_bits_strb,
+  output        auto_out_10_w_bits_last,
   output        auto_out_10_b_ready,
   input         auto_out_10_b_valid,
   input         auto_out_10_b_bits_id,
+  input  [1:0]  auto_out_10_b_bits_resp,
   input         auto_out_10_ar_ready,
   output        auto_out_10_ar_valid,
   output        auto_out_10_ar_bits_id,
@@ -18387,17 +18525,22 @@ module AXI4Xbar_2(
   input         auto_out_10_r_valid,
   input         auto_out_10_r_bits_id,
   input  [31:0] auto_out_10_r_bits_data,
+  input  [1:0]  auto_out_10_r_bits_resp,
+  input         auto_out_10_r_bits_last,
   input         auto_out_9_aw_ready,
   output        auto_out_9_aw_valid,
   output        auto_out_9_aw_bits_id,
   output [29:0] auto_out_9_aw_bits_addr,
+  output [2:0]  auto_out_9_aw_bits_size,
   input         auto_out_9_w_ready,
   output        auto_out_9_w_valid,
   output [31:0] auto_out_9_w_bits_data,
   output [3:0]  auto_out_9_w_bits_strb,
+  output        auto_out_9_w_bits_last,
   output        auto_out_9_b_ready,
   input         auto_out_9_b_valid,
   input         auto_out_9_b_bits_id,
+  input  [1:0]  auto_out_9_b_bits_resp,
   input         auto_out_9_ar_ready,
   output        auto_out_9_ar_valid,
   output        auto_out_9_ar_bits_id,
@@ -18407,17 +18550,22 @@ module AXI4Xbar_2(
   input         auto_out_9_r_valid,
   input         auto_out_9_r_bits_id,
   input  [31:0] auto_out_9_r_bits_data,
+  input  [1:0]  auto_out_9_r_bits_resp,
+  input         auto_out_9_r_bits_last,
   input         auto_out_8_aw_ready,
   output        auto_out_8_aw_valid,
   output        auto_out_8_aw_bits_id,
   output [29:0] auto_out_8_aw_bits_addr,
+  output [2:0]  auto_out_8_aw_bits_size,
   input         auto_out_8_w_ready,
   output        auto_out_8_w_valid,
   output [31:0] auto_out_8_w_bits_data,
   output [3:0]  auto_out_8_w_bits_strb,
+  output        auto_out_8_w_bits_last,
   output        auto_out_8_b_ready,
   input         auto_out_8_b_valid,
   input         auto_out_8_b_bits_id,
+  input  [1:0]  auto_out_8_b_bits_resp,
   input         auto_out_8_ar_ready,
   output        auto_out_8_ar_valid,
   output        auto_out_8_ar_bits_id,
@@ -18427,17 +18575,22 @@ module AXI4Xbar_2(
   input         auto_out_8_r_valid,
   input         auto_out_8_r_bits_id,
   input  [31:0] auto_out_8_r_bits_data,
+  input  [1:0]  auto_out_8_r_bits_resp,
+  input         auto_out_8_r_bits_last,
   input         auto_out_7_aw_ready,
   output        auto_out_7_aw_valid,
   output        auto_out_7_aw_bits_id,
   output [29:0] auto_out_7_aw_bits_addr,
+  output [2:0]  auto_out_7_aw_bits_size,
   input         auto_out_7_w_ready,
   output        auto_out_7_w_valid,
   output [31:0] auto_out_7_w_bits_data,
   output [3:0]  auto_out_7_w_bits_strb,
+  output        auto_out_7_w_bits_last,
   output        auto_out_7_b_ready,
   input         auto_out_7_b_valid,
   input         auto_out_7_b_bits_id,
+  input  [1:0]  auto_out_7_b_bits_resp,
   input         auto_out_7_ar_ready,
   output        auto_out_7_ar_valid,
   output        auto_out_7_ar_bits_id,
@@ -18447,17 +18600,22 @@ module AXI4Xbar_2(
   input         auto_out_7_r_valid,
   input         auto_out_7_r_bits_id,
   input  [31:0] auto_out_7_r_bits_data,
+  input  [1:0]  auto_out_7_r_bits_resp,
+  input         auto_out_7_r_bits_last,
   input         auto_out_6_aw_ready,
   output        auto_out_6_aw_valid,
   output        auto_out_6_aw_bits_id,
   output [29:0] auto_out_6_aw_bits_addr,
+  output [2:0]  auto_out_6_aw_bits_size,
   input         auto_out_6_w_ready,
   output        auto_out_6_w_valid,
   output [31:0] auto_out_6_w_bits_data,
   output [3:0]  auto_out_6_w_bits_strb,
+  output        auto_out_6_w_bits_last,
   output        auto_out_6_b_ready,
   input         auto_out_6_b_valid,
   input         auto_out_6_b_bits_id,
+  input  [1:0]  auto_out_6_b_bits_resp,
   input         auto_out_6_ar_ready,
   output        auto_out_6_ar_valid,
   output        auto_out_6_ar_bits_id,
@@ -18467,17 +18625,47 @@ module AXI4Xbar_2(
   input         auto_out_6_r_valid,
   input         auto_out_6_r_bits_id,
   input  [31:0] auto_out_6_r_bits_data,
+  input  [1:0]  auto_out_6_r_bits_resp,
+  input         auto_out_6_r_bits_last,
+  input         auto_out_5_aw_ready,
+  output        auto_out_5_aw_valid,
+  output        auto_out_5_aw_bits_id,
+  output [29:0] auto_out_5_aw_bits_addr,
+  output [2:0]  auto_out_5_aw_bits_size,
+  input         auto_out_5_w_ready,
+  output        auto_out_5_w_valid,
+  output [31:0] auto_out_5_w_bits_data,
+  output [3:0]  auto_out_5_w_bits_strb,
+  output        auto_out_5_w_bits_last,
+  output        auto_out_5_b_ready,
+  input         auto_out_5_b_valid,
+  input         auto_out_5_b_bits_id,
+  input  [1:0]  auto_out_5_b_bits_resp,
+  input         auto_out_5_ar_ready,
+  output        auto_out_5_ar_valid,
+  output        auto_out_5_ar_bits_id,
+  output [29:0] auto_out_5_ar_bits_addr,
+  output [2:0]  auto_out_5_ar_bits_size,
+  output        auto_out_5_r_ready,
+  input         auto_out_5_r_valid,
+  input         auto_out_5_r_bits_id,
+  input  [31:0] auto_out_5_r_bits_data,
+  input  [1:0]  auto_out_5_r_bits_resp,
+  input         auto_out_5_r_bits_last,
   input         auto_out_4_aw_ready,
   output        auto_out_4_aw_valid,
   output        auto_out_4_aw_bits_id,
   output [29:0] auto_out_4_aw_bits_addr,
+  output [2:0]  auto_out_4_aw_bits_size,
   input         auto_out_4_w_ready,
   output        auto_out_4_w_valid,
   output [31:0] auto_out_4_w_bits_data,
   output [3:0]  auto_out_4_w_bits_strb,
+  output        auto_out_4_w_bits_last,
   output        auto_out_4_b_ready,
   input         auto_out_4_b_valid,
   input         auto_out_4_b_bits_id,
+  input  [1:0]  auto_out_4_b_bits_resp,
   input         auto_out_4_ar_ready,
   output        auto_out_4_ar_valid,
   output        auto_out_4_ar_bits_id,
@@ -18487,17 +18675,22 @@ module AXI4Xbar_2(
   input         auto_out_4_r_valid,
   input         auto_out_4_r_bits_id,
   input  [31:0] auto_out_4_r_bits_data,
+  input  [1:0]  auto_out_4_r_bits_resp,
+  input         auto_out_4_r_bits_last,
   input         auto_out_3_aw_ready,
   output        auto_out_3_aw_valid,
   output        auto_out_3_aw_bits_id,
   output [29:0] auto_out_3_aw_bits_addr,
+  output [2:0]  auto_out_3_aw_bits_size,
   input         auto_out_3_w_ready,
   output        auto_out_3_w_valid,
   output [31:0] auto_out_3_w_bits_data,
   output [3:0]  auto_out_3_w_bits_strb,
+  output        auto_out_3_w_bits_last,
   output        auto_out_3_b_ready,
   input         auto_out_3_b_valid,
   input         auto_out_3_b_bits_id,
+  input  [1:0]  auto_out_3_b_bits_resp,
   input         auto_out_3_ar_ready,
   output        auto_out_3_ar_valid,
   output        auto_out_3_ar_bits_id,
@@ -18507,17 +18700,22 @@ module AXI4Xbar_2(
   input         auto_out_3_r_valid,
   input         auto_out_3_r_bits_id,
   input  [31:0] auto_out_3_r_bits_data,
+  input  [1:0]  auto_out_3_r_bits_resp,
+  input         auto_out_3_r_bits_last,
   input         auto_out_2_aw_ready,
   output        auto_out_2_aw_valid,
   output        auto_out_2_aw_bits_id,
   output [29:0] auto_out_2_aw_bits_addr,
+  output [2:0]  auto_out_2_aw_bits_size,
   input         auto_out_2_w_ready,
   output        auto_out_2_w_valid,
   output [31:0] auto_out_2_w_bits_data,
   output [3:0]  auto_out_2_w_bits_strb,
+  output        auto_out_2_w_bits_last,
   output        auto_out_2_b_ready,
   input         auto_out_2_b_valid,
   input         auto_out_2_b_bits_id,
+  input  [1:0]  auto_out_2_b_bits_resp,
   input         auto_out_2_ar_ready,
   output        auto_out_2_ar_valid,
   output        auto_out_2_ar_bits_id,
@@ -18527,10 +18725,13 @@ module AXI4Xbar_2(
   input         auto_out_2_r_valid,
   input         auto_out_2_r_bits_id,
   input  [31:0] auto_out_2_r_bits_data,
+  input  [1:0]  auto_out_2_r_bits_resp,
+  input         auto_out_2_r_bits_last,
   input         auto_out_1_aw_ready,
   output        auto_out_1_aw_valid,
   output        auto_out_1_aw_bits_id,
   output [29:0] auto_out_1_aw_bits_addr,
+  output [2:0]  auto_out_1_aw_bits_size,
   input         auto_out_1_w_ready,
   output        auto_out_1_w_valid,
   output [31:0] auto_out_1_w_bits_data,
@@ -18538,6 +18739,7 @@ module AXI4Xbar_2(
   output        auto_out_1_w_bits_last,
   output        auto_out_1_b_ready,
   input         auto_out_1_b_valid,
+  input         auto_out_1_b_bits_id,
   input  [1:0]  auto_out_1_b_bits_resp,
   input         auto_out_1_ar_ready,
   output        auto_out_1_ar_valid,
@@ -18546,6 +18748,7 @@ module AXI4Xbar_2(
   output [2:0]  auto_out_1_ar_bits_size,
   output        auto_out_1_r_ready,
   input         auto_out_1_r_valid,
+  input         auto_out_1_r_bits_id,
   input  [31:0] auto_out_1_r_bits_data,
   input  [1:0]  auto_out_1_r_bits_resp,
   input         auto_out_1_r_bits_last,
@@ -18553,13 +18756,16 @@ module AXI4Xbar_2(
   output        auto_out_0_aw_valid,
   output        auto_out_0_aw_bits_id,
   output [29:0] auto_out_0_aw_bits_addr,
+  output [2:0]  auto_out_0_aw_bits_size,
   input         auto_out_0_w_ready,
   output        auto_out_0_w_valid,
   output [31:0] auto_out_0_w_bits_data,
   output [3:0]  auto_out_0_w_bits_strb,
+  output        auto_out_0_w_bits_last,
   output        auto_out_0_b_ready,
   input         auto_out_0_b_valid,
   input         auto_out_0_b_bits_id,
+  input  [1:0]  auto_out_0_b_bits_resp,
   input         auto_out_0_ar_ready,
   output        auto_out_0_ar_valid,
   output        auto_out_0_ar_bits_id,
@@ -18568,7 +18774,9 @@ module AXI4Xbar_2(
   output        auto_out_0_r_ready,
   input         auto_out_0_r_valid,
   input         auto_out_0_r_bits_id,
-  input  [31:0] auto_out_0_r_bits_data
+  input  [31:0] auto_out_0_r_bits_data,
+  input  [1:0]  auto_out_0_r_bits_resp,
+  input         auto_out_0_r_bits_last
 );
   wire  awIn_0_clock; // @[Xbar.scala 55:47]
   wire  awIn_0_reset; // @[Xbar.scala 55:47]
@@ -18773,9 +18981,11 @@ module AXI4Xbar_2(
   wire  _T_242 = $signed(_T_241) == 31'sh0; // @[Parameters.scala 137:67]
   wire  requestAWIO_0_21 = _T_237 | _T_242; // @[Xbar.scala 52:97]
   wire  requestROI_0_0 = ~auto_out_0_r_bits_id; // @[Parameters.scala 47:9]
+  wire  requestROI_1_0 = ~auto_out_1_r_bits_id; // @[Parameters.scala 47:9]
   wire  requestROI_2_0 = ~auto_out_2_r_bits_id; // @[Parameters.scala 47:9]
   wire  requestROI_3_0 = ~auto_out_3_r_bits_id; // @[Parameters.scala 47:9]
   wire  requestROI_4_0 = ~auto_out_4_r_bits_id; // @[Parameters.scala 47:9]
+  wire  requestROI_5_0 = ~auto_out_5_r_bits_id; // @[Parameters.scala 47:9]
   wire  requestROI_6_0 = ~auto_out_6_r_bits_id; // @[Parameters.scala 47:9]
   wire  requestROI_7_0 = ~auto_out_7_r_bits_id; // @[Parameters.scala 47:9]
   wire  requestROI_8_0 = ~auto_out_8_r_bits_id; // @[Parameters.scala 47:9]
@@ -18792,9 +19002,11 @@ module AXI4Xbar_2(
   wire  requestROI_19_0 = ~auto_out_19_r_bits_id; // @[Parameters.scala 47:9]
   wire  requestROI_20_0 = ~auto_out_20_r_bits_id; // @[Parameters.scala 47:9]
   wire  requestBOI_0_0 = ~auto_out_0_b_bits_id; // @[Parameters.scala 47:9]
+  wire  requestBOI_1_0 = ~auto_out_1_b_bits_id; // @[Parameters.scala 47:9]
   wire  requestBOI_2_0 = ~auto_out_2_b_bits_id; // @[Parameters.scala 47:9]
   wire  requestBOI_3_0 = ~auto_out_3_b_bits_id; // @[Parameters.scala 47:9]
   wire  requestBOI_4_0 = ~auto_out_4_b_bits_id; // @[Parameters.scala 47:9]
+  wire  requestBOI_5_0 = ~auto_out_5_b_bits_id; // @[Parameters.scala 47:9]
   wire  requestBOI_6_0 = ~auto_out_6_b_bits_id; // @[Parameters.scala 47:9]
   wire  requestBOI_7_0 = ~auto_out_7_b_bits_id; // @[Parameters.scala 47:9]
   wire  requestBOI_8_0 = ~auto_out_8_b_bits_id; // @[Parameters.scala 47:9]
@@ -18820,6 +19032,7 @@ module AXI4Xbar_2(
   wire  requestWIO_0_2 = awIn_0_io_deq_bits[2]; // @[Xbar.scala 65:73]
   wire  requestWIO_0_3 = awIn_0_io_deq_bits[3]; // @[Xbar.scala 65:73]
   wire  requestWIO_0_4 = awIn_0_io_deq_bits[4]; // @[Xbar.scala 65:73]
+  wire  requestWIO_0_5 = awIn_0_io_deq_bits[5]; // @[Xbar.scala 65:73]
   wire  requestWIO_0_6 = awIn_0_io_deq_bits[6]; // @[Xbar.scala 65:73]
   wire  requestWIO_0_7 = awIn_0_io_deq_bits[7]; // @[Xbar.scala 65:73]
   wire  requestWIO_0_8 = awIn_0_io_deq_bits[8]; // @[Xbar.scala 65:73]
@@ -18869,8 +19082,10 @@ module AXI4Xbar_2(
   wire  _T_476 = _T_475 | _T_455; // @[Mux.scala 27:72]
   wire  _T_456 = requestARIO_0_4 & auto_out_4_ar_ready; // @[Mux.scala 27:72]
   wire  _T_477 = _T_476 | _T_456; // @[Mux.scala 27:72]
+  wire  _T_457 = requestARIO_0_5 & auto_out_5_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_478 = _T_477 | _T_457; // @[Mux.scala 27:72]
   wire  _T_458 = requestARIO_0_6 & auto_out_6_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_479 = _T_477 | _T_458; // @[Mux.scala 27:72]
+  wire  _T_479 = _T_478 | _T_458; // @[Mux.scala 27:72]
   wire  _T_459 = requestARIO_0_7 & auto_out_7_ar_ready; // @[Mux.scala 27:72]
   wire  _T_480 = _T_479 | _T_459; // @[Mux.scala 27:72]
   wire  _T_460 = requestARIO_0_8 & auto_out_8_ar_ready; // @[Mux.scala 27:72]
@@ -18915,15 +19130,18 @@ module AXI4Xbar_2(
   reg  _T_1686; // @[Xbar.scala 242:23]
   reg [31:0] _RAND_2;
   wire  _T_631 = auto_out_0_r_valid & requestROI_0_0; // @[Xbar.scala 222:40]
-  wire  _T_1687 = _T_631 | auto_out_1_r_valid; // @[Xbar.scala 246:36]
+  wire  _T_633 = auto_out_1_r_valid & requestROI_1_0; // @[Xbar.scala 222:40]
+  wire  _T_1687 = _T_631 | _T_633; // @[Xbar.scala 246:36]
   wire  _T_635 = auto_out_2_r_valid & requestROI_2_0; // @[Xbar.scala 222:40]
   wire  _T_1688 = _T_1687 | _T_635; // @[Xbar.scala 246:36]
   wire  _T_637 = auto_out_3_r_valid & requestROI_3_0; // @[Xbar.scala 222:40]
   wire  _T_1689 = _T_1688 | _T_637; // @[Xbar.scala 246:36]
   wire  _T_639 = auto_out_4_r_valid & requestROI_4_0; // @[Xbar.scala 222:40]
   wire  _T_1690 = _T_1689 | _T_639; // @[Xbar.scala 246:36]
+  wire  _T_641 = auto_out_5_r_valid & requestROI_5_0; // @[Xbar.scala 222:40]
+  wire  _T_1691 = _T_1690 | _T_641; // @[Xbar.scala 246:36]
   wire  _T_643 = auto_out_6_r_valid & requestROI_6_0; // @[Xbar.scala 222:40]
-  wire  _T_1692 = _T_1690 | _T_643; // @[Xbar.scala 246:36]
+  wire  _T_1692 = _T_1691 | _T_643; // @[Xbar.scala 246:36]
   wire  _T_645 = auto_out_7_r_valid & requestROI_7_0; // @[Xbar.scala 222:40]
   wire  _T_1693 = _T_1692 | _T_645; // @[Xbar.scala 246:36]
   wire  _T_647 = auto_out_8_r_valid & requestROI_8_0; // @[Xbar.scala 222:40]
@@ -18958,7 +19176,7 @@ module AXI4Xbar_2(
   wire  _T_1988 = _T_1962_0 & _T_631; // @[Mux.scala 27:72]
   reg  _T_1962_1; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_4;
-  wire  _T_1989 = _T_1962_1 & auto_out_1_r_valid; // @[Mux.scala 27:72]
+  wire  _T_1989 = _T_1962_1 & _T_633; // @[Mux.scala 27:72]
   wire  _T_2010 = _T_1988 | _T_1989; // @[Mux.scala 27:72]
   reg  _T_1962_2; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_5;
@@ -18972,78 +19190,82 @@ module AXI4Xbar_2(
   reg [31:0] _RAND_7;
   wire  _T_1992 = _T_1962_4 & _T_639; // @[Mux.scala 27:72]
   wire  _T_2013 = _T_2012 | _T_1992; // @[Mux.scala 27:72]
-  reg  _T_1962_6; // @[Xbar.scala 261:24]
+  reg  _T_1962_5; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_8;
-  wire  _T_1994 = _T_1962_6 & _T_643; // @[Mux.scala 27:72]
-  wire  _T_2015 = _T_2013 | _T_1994; // @[Mux.scala 27:72]
-  reg  _T_1962_7; // @[Xbar.scala 261:24]
+  wire  _T_1993 = _T_1962_5 & _T_641; // @[Mux.scala 27:72]
+  wire  _T_2014 = _T_2013 | _T_1993; // @[Mux.scala 27:72]
+  reg  _T_1962_6; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_9;
+  wire  _T_1994 = _T_1962_6 & _T_643; // @[Mux.scala 27:72]
+  wire  _T_2015 = _T_2014 | _T_1994; // @[Mux.scala 27:72]
+  reg  _T_1962_7; // @[Xbar.scala 261:24]
+  reg [31:0] _RAND_10;
   wire  _T_1995 = _T_1962_7 & _T_645; // @[Mux.scala 27:72]
   wire  _T_2016 = _T_2015 | _T_1995; // @[Mux.scala 27:72]
   reg  _T_1962_8; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_10;
+  reg [31:0] _RAND_11;
   wire  _T_1996 = _T_1962_8 & _T_647; // @[Mux.scala 27:72]
   wire  _T_2017 = _T_2016 | _T_1996; // @[Mux.scala 27:72]
   reg  _T_1962_9; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_11;
+  reg [31:0] _RAND_12;
   wire  _T_1997 = _T_1962_9 & _T_649; // @[Mux.scala 27:72]
   wire  _T_2018 = _T_2017 | _T_1997; // @[Mux.scala 27:72]
   reg  _T_1962_10; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_12;
+  reg [31:0] _RAND_13;
   wire  _T_1998 = _T_1962_10 & _T_651; // @[Mux.scala 27:72]
   wire  _T_2019 = _T_2018 | _T_1998; // @[Mux.scala 27:72]
   reg  _T_1962_11; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_13;
+  reg [31:0] _RAND_14;
   wire  _T_1999 = _T_1962_11 & _T_653; // @[Mux.scala 27:72]
   wire  _T_2020 = _T_2019 | _T_1999; // @[Mux.scala 27:72]
   reg  _T_1962_12; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_14;
+  reg [31:0] _RAND_15;
   wire  _T_2000 = _T_1962_12 & _T_655; // @[Mux.scala 27:72]
   wire  _T_2021 = _T_2020 | _T_2000; // @[Mux.scala 27:72]
   reg  _T_1962_13; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_15;
+  reg [31:0] _RAND_16;
   wire  _T_2001 = _T_1962_13 & _T_657; // @[Mux.scala 27:72]
   wire  _T_2022 = _T_2021 | _T_2001; // @[Mux.scala 27:72]
   reg  _T_1962_14; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_16;
+  reg [31:0] _RAND_17;
   wire  _T_2002 = _T_1962_14 & _T_659; // @[Mux.scala 27:72]
   wire  _T_2023 = _T_2022 | _T_2002; // @[Mux.scala 27:72]
   reg  _T_1962_15; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_17;
+  reg [31:0] _RAND_18;
   wire  _T_2003 = _T_1962_15 & _T_661; // @[Mux.scala 27:72]
   wire  _T_2024 = _T_2023 | _T_2003; // @[Mux.scala 27:72]
   reg  _T_1962_16; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_18;
+  reg [31:0] _RAND_19;
   wire  _T_2004 = _T_1962_16 & _T_663; // @[Mux.scala 27:72]
   wire  _T_2025 = _T_2024 | _T_2004; // @[Mux.scala 27:72]
   reg  _T_1962_17; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_19;
+  reg [31:0] _RAND_20;
   wire  _T_2005 = _T_1962_17 & _T_665; // @[Mux.scala 27:72]
   wire  _T_2026 = _T_2025 | _T_2005; // @[Mux.scala 27:72]
   reg  _T_1962_18; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_20;
+  reg [31:0] _RAND_21;
   wire  _T_2006 = _T_1962_18 & _T_667; // @[Mux.scala 27:72]
   wire  _T_2027 = _T_2026 | _T_2006; // @[Mux.scala 27:72]
   reg  _T_1962_19; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_21;
+  reg [31:0] _RAND_22;
   wire  _T_2007 = _T_1962_19 & _T_669; // @[Mux.scala 27:72]
   wire  _T_2028 = _T_2027 | _T_2007; // @[Mux.scala 27:72]
   reg  _T_1962_20; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_22;
+  reg [31:0] _RAND_23;
   wire  _T_2008 = _T_1962_20 & _T_671; // @[Mux.scala 27:72]
   wire  _T_2029 = _T_2028 | _T_2008; // @[Mux.scala 27:72]
   reg  _T_1962_21; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_23;
+  reg [31:0] _RAND_24;
   wire  _T_2009 = _T_1962_21 & auto_out_21_r_valid; // @[Mux.scala 27:72]
   wire  _T_2030 = _T_2029 | _T_2009; // @[Mux.scala 27:72]
   wire  in_0_r_valid = _T_1686 ? _T_1707 : _T_2030; // @[Xbar.scala 278:22]
   wire  _T_357 = auto_in_r_ready & in_0_r_valid; // @[Decoupled.scala 40:37]
   wire [4:0] _T_1721 = {_T_661,_T_659,_T_657,_T_655,_T_653}; // @[Cat.scala 29:58]
-  wire [4:0] _T_1711 = {_T_639,_T_637,_T_635,auto_out_1_r_valid,_T_631}; // @[Cat.scala 29:58]
-  wire [10:0] _T_1717 = {_T_651,_T_649,_T_647,_T_645,_T_643,1'h0,_T_1711}; // @[Cat.scala 29:58]
+  wire [4:0] _T_1711 = {_T_639,_T_637,_T_635,_T_633,_T_631}; // @[Cat.scala 29:58]
+  wire [10:0] _T_1717 = {_T_651,_T_649,_T_647,_T_645,_T_643,_T_641,_T_1711}; // @[Cat.scala 29:58]
   wire [21:0] _T_1728 = {auto_out_21_r_valid,_T_671,_T_669,_T_667,_T_665,_T_663,_T_1721,_T_1717}; // @[Cat.scala 29:58]
   reg [21:0] _T_1735; // @[Arbiter.scala 20:23]
-  reg [31:0] _RAND_24;
+  reg [31:0] _RAND_25;
   wire [21:0] _T_1736 = ~_T_1735; // @[Arbiter.scala 21:30]
   wire [21:0] _T_1737 = _T_1728 & _T_1736; // @[Arbiter.scala 21:28]
   wire [43:0] _T_1738 = {_T_1737,auto_out_21_r_valid,_T_671,_T_669,_T_667,_T_665,_T_663,_T_1721,_T_1717}; // @[Cat.scala 29:58]
@@ -19064,101 +19286,106 @@ module AXI4Xbar_2(
   wire [21:0] _T_1756 = ~_T_1755; // @[Arbiter.scala 23:18]
   wire  _T_1800 = _T_1756[0] & _T_631; // @[Xbar.scala 250:63]
   wire  _T_1963_0 = _T_1686 ? _T_1800 : _T_1962_0; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2035 = {auto_out_0_r_bits_id,auto_out_0_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2035 = {auto_out_0_r_bits_id,auto_out_0_r_bits_data,auto_out_0_r_bits_resp,auto_out_0_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2036 = _T_1963_0 ? _T_2035 : 36'h0; // @[Mux.scala 27:72]
-  wire  _T_1801 = _T_1756[1] & auto_out_1_r_valid; // @[Xbar.scala 250:63]
+  wire  _T_1801 = _T_1756[1] & _T_633; // @[Xbar.scala 250:63]
   wire  _T_1963_1 = _T_1686 ? _T_1801 : _T_1962_1; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2039 = {1'h0,auto_out_1_r_bits_data,auto_out_1_r_bits_resp,auto_out_1_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2039 = {auto_out_1_r_bits_id,auto_out_1_r_bits_data,auto_out_1_r_bits_resp,auto_out_1_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2040 = _T_1963_1 ? _T_2039 : 36'h0; // @[Mux.scala 27:72]
   wire [35:0] _T_2121 = _T_2036 | _T_2040; // @[Mux.scala 27:72]
   wire  _T_1802 = _T_1756[2] & _T_635; // @[Xbar.scala 250:63]
   wire  _T_1963_2 = _T_1686 ? _T_1802 : _T_1962_2; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2043 = {auto_out_2_r_bits_id,auto_out_2_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2043 = {auto_out_2_r_bits_id,auto_out_2_r_bits_data,auto_out_2_r_bits_resp,auto_out_2_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2044 = _T_1963_2 ? _T_2043 : 36'h0; // @[Mux.scala 27:72]
   wire [35:0] _T_2122 = _T_2121 | _T_2044; // @[Mux.scala 27:72]
   wire  _T_1803 = _T_1756[3] & _T_637; // @[Xbar.scala 250:63]
   wire  _T_1963_3 = _T_1686 ? _T_1803 : _T_1962_3; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2047 = {auto_out_3_r_bits_id,auto_out_3_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2047 = {auto_out_3_r_bits_id,auto_out_3_r_bits_data,auto_out_3_r_bits_resp,auto_out_3_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2048 = _T_1963_3 ? _T_2047 : 36'h0; // @[Mux.scala 27:72]
   wire [35:0] _T_2123 = _T_2122 | _T_2048; // @[Mux.scala 27:72]
   wire  _T_1804 = _T_1756[4] & _T_639; // @[Xbar.scala 250:63]
   wire  _T_1963_4 = _T_1686 ? _T_1804 : _T_1962_4; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2051 = {auto_out_4_r_bits_id,auto_out_4_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2051 = {auto_out_4_r_bits_id,auto_out_4_r_bits_data,auto_out_4_r_bits_resp,auto_out_4_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2052 = _T_1963_4 ? _T_2051 : 36'h0; // @[Mux.scala 27:72]
   wire [35:0] _T_2124 = _T_2123 | _T_2052; // @[Mux.scala 27:72]
+  wire  _T_1805 = _T_1756[5] & _T_641; // @[Xbar.scala 250:63]
+  wire  _T_1963_5 = _T_1686 ? _T_1805 : _T_1962_5; // @[Xbar.scala 262:23]
+  wire [35:0] _T_2055 = {auto_out_5_r_bits_id,auto_out_5_r_bits_data,auto_out_5_r_bits_resp,auto_out_5_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2056 = _T_1963_5 ? _T_2055 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2125 = _T_2124 | _T_2056; // @[Mux.scala 27:72]
   wire  _T_1806 = _T_1756[6] & _T_643; // @[Xbar.scala 250:63]
   wire  _T_1963_6 = _T_1686 ? _T_1806 : _T_1962_6; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2059 = {auto_out_6_r_bits_id,auto_out_6_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2059 = {auto_out_6_r_bits_id,auto_out_6_r_bits_data,auto_out_6_r_bits_resp,auto_out_6_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2060 = _T_1963_6 ? _T_2059 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2126 = _T_2124 | _T_2060; // @[Mux.scala 27:72]
+  wire [35:0] _T_2126 = _T_2125 | _T_2060; // @[Mux.scala 27:72]
   wire  _T_1807 = _T_1756[7] & _T_645; // @[Xbar.scala 250:63]
   wire  _T_1963_7 = _T_1686 ? _T_1807 : _T_1962_7; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2063 = {auto_out_7_r_bits_id,auto_out_7_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2063 = {auto_out_7_r_bits_id,auto_out_7_r_bits_data,auto_out_7_r_bits_resp,auto_out_7_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2064 = _T_1963_7 ? _T_2063 : 36'h0; // @[Mux.scala 27:72]
   wire [35:0] _T_2127 = _T_2126 | _T_2064; // @[Mux.scala 27:72]
   wire  _T_1808 = _T_1756[8] & _T_647; // @[Xbar.scala 250:63]
   wire  _T_1963_8 = _T_1686 ? _T_1808 : _T_1962_8; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2067 = {auto_out_8_r_bits_id,auto_out_8_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2067 = {auto_out_8_r_bits_id,auto_out_8_r_bits_data,auto_out_8_r_bits_resp,auto_out_8_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2068 = _T_1963_8 ? _T_2067 : 36'h0; // @[Mux.scala 27:72]
   wire [35:0] _T_2128 = _T_2127 | _T_2068; // @[Mux.scala 27:72]
   wire  _T_1809 = _T_1756[9] & _T_649; // @[Xbar.scala 250:63]
   wire  _T_1963_9 = _T_1686 ? _T_1809 : _T_1962_9; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2071 = {auto_out_9_r_bits_id,auto_out_9_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2071 = {auto_out_9_r_bits_id,auto_out_9_r_bits_data,auto_out_9_r_bits_resp,auto_out_9_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2072 = _T_1963_9 ? _T_2071 : 36'h0; // @[Mux.scala 27:72]
   wire [35:0] _T_2129 = _T_2128 | _T_2072; // @[Mux.scala 27:72]
   wire  _T_1810 = _T_1756[10] & _T_651; // @[Xbar.scala 250:63]
   wire  _T_1963_10 = _T_1686 ? _T_1810 : _T_1962_10; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2075 = {auto_out_10_r_bits_id,auto_out_10_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2075 = {auto_out_10_r_bits_id,auto_out_10_r_bits_data,auto_out_10_r_bits_resp,auto_out_10_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2076 = _T_1963_10 ? _T_2075 : 36'h0; // @[Mux.scala 27:72]
   wire [35:0] _T_2130 = _T_2129 | _T_2076; // @[Mux.scala 27:72]
   wire  _T_1811 = _T_1756[11] & _T_653; // @[Xbar.scala 250:63]
   wire  _T_1963_11 = _T_1686 ? _T_1811 : _T_1962_11; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2079 = {auto_out_11_r_bits_id,auto_out_11_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2079 = {auto_out_11_r_bits_id,auto_out_11_r_bits_data,auto_out_11_r_bits_resp,auto_out_11_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2080 = _T_1963_11 ? _T_2079 : 36'h0; // @[Mux.scala 27:72]
   wire [35:0] _T_2131 = _T_2130 | _T_2080; // @[Mux.scala 27:72]
   wire  _T_1812 = _T_1756[12] & _T_655; // @[Xbar.scala 250:63]
   wire  _T_1963_12 = _T_1686 ? _T_1812 : _T_1962_12; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2083 = {auto_out_12_r_bits_id,auto_out_12_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2083 = {auto_out_12_r_bits_id,auto_out_12_r_bits_data,auto_out_12_r_bits_resp,auto_out_12_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2084 = _T_1963_12 ? _T_2083 : 36'h0; // @[Mux.scala 27:72]
   wire [35:0] _T_2132 = _T_2131 | _T_2084; // @[Mux.scala 27:72]
   wire  _T_1813 = _T_1756[13] & _T_657; // @[Xbar.scala 250:63]
   wire  _T_1963_13 = _T_1686 ? _T_1813 : _T_1962_13; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2087 = {auto_out_13_r_bits_id,auto_out_13_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2087 = {auto_out_13_r_bits_id,auto_out_13_r_bits_data,auto_out_13_r_bits_resp,auto_out_13_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2088 = _T_1963_13 ? _T_2087 : 36'h0; // @[Mux.scala 27:72]
   wire [35:0] _T_2133 = _T_2132 | _T_2088; // @[Mux.scala 27:72]
   wire  _T_1814 = _T_1756[14] & _T_659; // @[Xbar.scala 250:63]
   wire  _T_1963_14 = _T_1686 ? _T_1814 : _T_1962_14; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2091 = {auto_out_14_r_bits_id,auto_out_14_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2091 = {auto_out_14_r_bits_id,auto_out_14_r_bits_data,auto_out_14_r_bits_resp,auto_out_14_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2092 = _T_1963_14 ? _T_2091 : 36'h0; // @[Mux.scala 27:72]
   wire [35:0] _T_2134 = _T_2133 | _T_2092; // @[Mux.scala 27:72]
   wire  _T_1815 = _T_1756[15] & _T_661; // @[Xbar.scala 250:63]
   wire  _T_1963_15 = _T_1686 ? _T_1815 : _T_1962_15; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2095 = {auto_out_15_r_bits_id,auto_out_15_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2095 = {auto_out_15_r_bits_id,auto_out_15_r_bits_data,auto_out_15_r_bits_resp,auto_out_15_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2096 = _T_1963_15 ? _T_2095 : 36'h0; // @[Mux.scala 27:72]
   wire [35:0] _T_2135 = _T_2134 | _T_2096; // @[Mux.scala 27:72]
   wire  _T_1816 = _T_1756[16] & _T_663; // @[Xbar.scala 250:63]
   wire  _T_1963_16 = _T_1686 ? _T_1816 : _T_1962_16; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2099 = {auto_out_16_r_bits_id,auto_out_16_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2099 = {auto_out_16_r_bits_id,auto_out_16_r_bits_data,auto_out_16_r_bits_resp,auto_out_16_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2100 = _T_1963_16 ? _T_2099 : 36'h0; // @[Mux.scala 27:72]
   wire [35:0] _T_2136 = _T_2135 | _T_2100; // @[Mux.scala 27:72]
   wire  _T_1817 = _T_1756[17] & _T_665; // @[Xbar.scala 250:63]
   wire  _T_1963_17 = _T_1686 ? _T_1817 : _T_1962_17; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2103 = {auto_out_17_r_bits_id,auto_out_17_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2103 = {auto_out_17_r_bits_id,auto_out_17_r_bits_data,auto_out_17_r_bits_resp,auto_out_17_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2104 = _T_1963_17 ? _T_2103 : 36'h0; // @[Mux.scala 27:72]
   wire [35:0] _T_2137 = _T_2136 | _T_2104; // @[Mux.scala 27:72]
   wire  _T_1818 = _T_1756[18] & _T_667; // @[Xbar.scala 250:63]
   wire  _T_1963_18 = _T_1686 ? _T_1818 : _T_1962_18; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2107 = {auto_out_18_r_bits_id,auto_out_18_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2107 = {auto_out_18_r_bits_id,auto_out_18_r_bits_data,auto_out_18_r_bits_resp,auto_out_18_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2108 = _T_1963_18 ? _T_2107 : 36'h0; // @[Mux.scala 27:72]
   wire [35:0] _T_2138 = _T_2137 | _T_2108; // @[Mux.scala 27:72]
   wire  _T_1819 = _T_1756[19] & _T_669; // @[Xbar.scala 250:63]
   wire  _T_1963_19 = _T_1686 ? _T_1819 : _T_1962_19; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2111 = {auto_out_19_r_bits_id,auto_out_19_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2111 = {auto_out_19_r_bits_id,auto_out_19_r_bits_data,auto_out_19_r_bits_resp,auto_out_19_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2112 = _T_1963_19 ? _T_2111 : 36'h0; // @[Mux.scala 27:72]
   wire [35:0] _T_2139 = _T_2138 | _T_2112; // @[Mux.scala 27:72]
   wire  _T_1820 = _T_1756[20] & _T_671; // @[Xbar.scala 250:63]
   wire  _T_1963_20 = _T_1686 ? _T_1820 : _T_1962_20; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2115 = {auto_out_20_r_bits_id,auto_out_20_r_bits_data,3'h1}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2115 = {auto_out_20_r_bits_id,auto_out_20_r_bits_data,auto_out_20_r_bits_resp,auto_out_20_r_bits_last}; // @[Mux.scala 27:72]
   wire [35:0] _T_2116 = _T_1963_20 ? _T_2115 : 36'h0; // @[Mux.scala 27:72]
   wire [35:0] _T_2140 = _T_2139 | _T_2116; // @[Mux.scala 27:72]
   wire  _T_1821 = _T_1756[21] & auto_out_21_r_valid; // @[Xbar.scala 250:63]
@@ -19190,8 +19417,10 @@ module AXI4Xbar_2(
   wire  _T_543 = _T_542 | _T_522; // @[Mux.scala 27:72]
   wire  _T_523 = requestAWIO_0_4 & auto_out_4_aw_ready; // @[Mux.scala 27:72]
   wire  _T_544 = _T_543 | _T_523; // @[Mux.scala 27:72]
+  wire  _T_524 = requestAWIO_0_5 & auto_out_5_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_545 = _T_544 | _T_524; // @[Mux.scala 27:72]
   wire  _T_525 = requestAWIO_0_6 & auto_out_6_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_546 = _T_544 | _T_525; // @[Mux.scala 27:72]
+  wire  _T_546 = _T_545 | _T_525; // @[Mux.scala 27:72]
   wire  _T_526 = requestAWIO_0_7 & auto_out_7_aw_ready; // @[Mux.scala 27:72]
   wire  _T_547 = _T_546 | _T_526; // @[Mux.scala 27:72]
   wire  _T_527 = requestAWIO_0_8 & auto_out_8_aw_ready; // @[Mux.scala 27:72]
@@ -19223,14 +19452,14 @@ module AXI4Xbar_2(
   wire  _T_540 = requestAWIO_0_21 & auto_out_21_aw_ready; // @[Mux.scala 27:72]
   wire  in_0_aw_ready = _T_560 | _T_540; // @[Mux.scala 27:72]
   reg  _T_414; // @[Xbar.scala 137:30]
-  reg [31:0] _RAND_25;
+  reg [31:0] _RAND_26;
   wire  _T_418 = _T_414 | awIn_0_io_enq_ready; // @[Xbar.scala 139:57]
   wire  _T_419 = in_0_aw_ready & _T_418; // @[Xbar.scala 139:45]
   reg [2:0] _T_388; // @[Xbar.scala 104:34]
-  reg [31:0] _RAND_26;
+  reg [31:0] _RAND_27;
   wire  _T_407 = _T_388 == 3'h0; // @[Xbar.scala 112:22]
   reg [4:0] _T_389; // @[Xbar.scala 105:29]
-  reg [31:0] _RAND_27;
+  reg [31:0] _RAND_28;
   wire  _T_406 = _T_389 == _T_354; // @[Xbar.scala 111:75]
   wire  _T_408 = _T_407 | _T_406; // @[Xbar.scala 112:34]
   wire  _T_409 = _T_388 != 3'h7; // @[Xbar.scala 112:80]
@@ -19238,17 +19467,20 @@ module AXI4Xbar_2(
   wire  io_in_0_aw_ready = _T_419 & _T_411; // @[Xbar.scala 139:82]
   wire  _T_384 = io_in_0_aw_ready & auto_in_aw_valid; // @[Decoupled.scala 40:37]
   reg  _T_2148; // @[Xbar.scala 242:23]
-  reg [31:0] _RAND_28;
+  reg [31:0] _RAND_29;
   wire  _T_675 = auto_out_0_b_valid & requestBOI_0_0; // @[Xbar.scala 222:40]
-  wire  _T_2149 = _T_675 | auto_out_1_b_valid; // @[Xbar.scala 246:36]
+  wire  _T_677 = auto_out_1_b_valid & requestBOI_1_0; // @[Xbar.scala 222:40]
+  wire  _T_2149 = _T_675 | _T_677; // @[Xbar.scala 246:36]
   wire  _T_679 = auto_out_2_b_valid & requestBOI_2_0; // @[Xbar.scala 222:40]
   wire  _T_2150 = _T_2149 | _T_679; // @[Xbar.scala 246:36]
   wire  _T_681 = auto_out_3_b_valid & requestBOI_3_0; // @[Xbar.scala 222:40]
   wire  _T_2151 = _T_2150 | _T_681; // @[Xbar.scala 246:36]
   wire  _T_683 = auto_out_4_b_valid & requestBOI_4_0; // @[Xbar.scala 222:40]
   wire  _T_2152 = _T_2151 | _T_683; // @[Xbar.scala 246:36]
+  wire  _T_685 = auto_out_5_b_valid & requestBOI_5_0; // @[Xbar.scala 222:40]
+  wire  _T_2153 = _T_2152 | _T_685; // @[Xbar.scala 246:36]
   wire  _T_687 = auto_out_6_b_valid & requestBOI_6_0; // @[Xbar.scala 222:40]
-  wire  _T_2154 = _T_2152 | _T_687; // @[Xbar.scala 246:36]
+  wire  _T_2154 = _T_2153 | _T_687; // @[Xbar.scala 246:36]
   wire  _T_689 = auto_out_7_b_valid & requestBOI_7_0; // @[Xbar.scala 222:40]
   wire  _T_2155 = _T_2154 | _T_689; // @[Xbar.scala 246:36]
   wire  _T_691 = auto_out_8_b_valid & requestBOI_8_0; // @[Xbar.scala 222:40]
@@ -19279,86 +19511,90 @@ module AXI4Xbar_2(
   wire  _T_2168 = _T_2167 | _T_715; // @[Xbar.scala 246:36]
   wire  _T_2169 = _T_2168 | auto_out_21_b_valid; // @[Xbar.scala 246:36]
   reg  _T_2424_0; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_29;
+  reg [31:0] _RAND_30;
   wire  _T_2450 = _T_2424_0 & _T_675; // @[Mux.scala 27:72]
   reg  _T_2424_1; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_30;
-  wire  _T_2451 = _T_2424_1 & auto_out_1_b_valid; // @[Mux.scala 27:72]
+  reg [31:0] _RAND_31;
+  wire  _T_2451 = _T_2424_1 & _T_677; // @[Mux.scala 27:72]
   wire  _T_2472 = _T_2450 | _T_2451; // @[Mux.scala 27:72]
   reg  _T_2424_2; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_31;
+  reg [31:0] _RAND_32;
   wire  _T_2452 = _T_2424_2 & _T_679; // @[Mux.scala 27:72]
   wire  _T_2473 = _T_2472 | _T_2452; // @[Mux.scala 27:72]
   reg  _T_2424_3; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_32;
+  reg [31:0] _RAND_33;
   wire  _T_2453 = _T_2424_3 & _T_681; // @[Mux.scala 27:72]
   wire  _T_2474 = _T_2473 | _T_2453; // @[Mux.scala 27:72]
   reg  _T_2424_4; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_33;
+  reg [31:0] _RAND_34;
   wire  _T_2454 = _T_2424_4 & _T_683; // @[Mux.scala 27:72]
   wire  _T_2475 = _T_2474 | _T_2454; // @[Mux.scala 27:72]
-  reg  _T_2424_6; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_34;
-  wire  _T_2456 = _T_2424_6 & _T_687; // @[Mux.scala 27:72]
-  wire  _T_2477 = _T_2475 | _T_2456; // @[Mux.scala 27:72]
-  reg  _T_2424_7; // @[Xbar.scala 261:24]
+  reg  _T_2424_5; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_35;
+  wire  _T_2455 = _T_2424_5 & _T_685; // @[Mux.scala 27:72]
+  wire  _T_2476 = _T_2475 | _T_2455; // @[Mux.scala 27:72]
+  reg  _T_2424_6; // @[Xbar.scala 261:24]
+  reg [31:0] _RAND_36;
+  wire  _T_2456 = _T_2424_6 & _T_687; // @[Mux.scala 27:72]
+  wire  _T_2477 = _T_2476 | _T_2456; // @[Mux.scala 27:72]
+  reg  _T_2424_7; // @[Xbar.scala 261:24]
+  reg [31:0] _RAND_37;
   wire  _T_2457 = _T_2424_7 & _T_689; // @[Mux.scala 27:72]
   wire  _T_2478 = _T_2477 | _T_2457; // @[Mux.scala 27:72]
   reg  _T_2424_8; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_36;
+  reg [31:0] _RAND_38;
   wire  _T_2458 = _T_2424_8 & _T_691; // @[Mux.scala 27:72]
   wire  _T_2479 = _T_2478 | _T_2458; // @[Mux.scala 27:72]
   reg  _T_2424_9; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_37;
+  reg [31:0] _RAND_39;
   wire  _T_2459 = _T_2424_9 & _T_693; // @[Mux.scala 27:72]
   wire  _T_2480 = _T_2479 | _T_2459; // @[Mux.scala 27:72]
   reg  _T_2424_10; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_38;
+  reg [31:0] _RAND_40;
   wire  _T_2460 = _T_2424_10 & _T_695; // @[Mux.scala 27:72]
   wire  _T_2481 = _T_2480 | _T_2460; // @[Mux.scala 27:72]
   reg  _T_2424_11; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_39;
+  reg [31:0] _RAND_41;
   wire  _T_2461 = _T_2424_11 & _T_697; // @[Mux.scala 27:72]
   wire  _T_2482 = _T_2481 | _T_2461; // @[Mux.scala 27:72]
   reg  _T_2424_12; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_40;
+  reg [31:0] _RAND_42;
   wire  _T_2462 = _T_2424_12 & _T_699; // @[Mux.scala 27:72]
   wire  _T_2483 = _T_2482 | _T_2462; // @[Mux.scala 27:72]
   reg  _T_2424_13; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_41;
+  reg [31:0] _RAND_43;
   wire  _T_2463 = _T_2424_13 & _T_701; // @[Mux.scala 27:72]
   wire  _T_2484 = _T_2483 | _T_2463; // @[Mux.scala 27:72]
   reg  _T_2424_14; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_42;
+  reg [31:0] _RAND_44;
   wire  _T_2464 = _T_2424_14 & _T_703; // @[Mux.scala 27:72]
   wire  _T_2485 = _T_2484 | _T_2464; // @[Mux.scala 27:72]
   reg  _T_2424_15; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_43;
+  reg [31:0] _RAND_45;
   wire  _T_2465 = _T_2424_15 & _T_705; // @[Mux.scala 27:72]
   wire  _T_2486 = _T_2485 | _T_2465; // @[Mux.scala 27:72]
   reg  _T_2424_16; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_44;
+  reg [31:0] _RAND_46;
   wire  _T_2466 = _T_2424_16 & _T_707; // @[Mux.scala 27:72]
   wire  _T_2487 = _T_2486 | _T_2466; // @[Mux.scala 27:72]
   reg  _T_2424_17; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_45;
+  reg [31:0] _RAND_47;
   wire  _T_2467 = _T_2424_17 & _T_709; // @[Mux.scala 27:72]
   wire  _T_2488 = _T_2487 | _T_2467; // @[Mux.scala 27:72]
   reg  _T_2424_18; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_46;
+  reg [31:0] _RAND_48;
   wire  _T_2468 = _T_2424_18 & _T_711; // @[Mux.scala 27:72]
   wire  _T_2489 = _T_2488 | _T_2468; // @[Mux.scala 27:72]
   reg  _T_2424_19; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_47;
+  reg [31:0] _RAND_49;
   wire  _T_2469 = _T_2424_19 & _T_713; // @[Mux.scala 27:72]
   wire  _T_2490 = _T_2489 | _T_2469; // @[Mux.scala 27:72]
   reg  _T_2424_20; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_48;
+  reg [31:0] _RAND_50;
   wire  _T_2470 = _T_2424_20 & _T_715; // @[Mux.scala 27:72]
   wire  _T_2491 = _T_2490 | _T_2470; // @[Mux.scala 27:72]
   reg  _T_2424_21; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_49;
+  reg [31:0] _RAND_51;
   wire  _T_2471 = _T_2424_21 & auto_out_21_b_valid; // @[Mux.scala 27:72]
   wire  _T_2492 = _T_2491 | _T_2471; // @[Mux.scala 27:72]
   wire  in_0_b_valid = _T_2148 ? _T_2169 : _T_2492; // @[Xbar.scala 278:22]
@@ -19393,8 +19629,10 @@ module AXI4Xbar_2(
   wire  _T_610 = _T_609 | _T_589; // @[Mux.scala 27:72]
   wire  _T_590 = requestWIO_0_4 & auto_out_4_w_ready; // @[Mux.scala 27:72]
   wire  _T_611 = _T_610 | _T_590; // @[Mux.scala 27:72]
+  wire  _T_591 = requestWIO_0_5 & auto_out_5_w_ready; // @[Mux.scala 27:72]
+  wire  _T_612 = _T_611 | _T_591; // @[Mux.scala 27:72]
   wire  _T_592 = requestWIO_0_6 & auto_out_6_w_ready; // @[Mux.scala 27:72]
-  wire  _T_613 = _T_611 | _T_592; // @[Mux.scala 27:72]
+  wire  _T_613 = _T_612 | _T_592; // @[Mux.scala 27:72]
   wire  _T_593 = requestWIO_0_7 & auto_out_7_w_ready; // @[Mux.scala 27:72]
   wire  _T_614 = _T_613 | _T_593; // @[Mux.scala 27:72]
   wire  _T_594 = requestWIO_0_8 & auto_out_8_w_ready; // @[Mux.scala 27:72]
@@ -19663,7 +19901,8 @@ module AXI4Xbar_2(
   wire  _T_1825 = _T_1824 | _T_1802; // @[Xbar.scala 255:50]
   wire  _T_1826 = _T_1825 | _T_1803; // @[Xbar.scala 255:50]
   wire  _T_1827 = _T_1826 | _T_1804; // @[Xbar.scala 255:50]
-  wire  _T_1829 = _T_1827 | _T_1806; // @[Xbar.scala 255:50]
+  wire  _T_1828 = _T_1827 | _T_1805; // @[Xbar.scala 255:50]
+  wire  _T_1829 = _T_1828 | _T_1806; // @[Xbar.scala 255:50]
   wire  _T_1830 = _T_1829 | _T_1807; // @[Xbar.scala 255:50]
   wire  _T_1831 = _T_1830 | _T_1808; // @[Xbar.scala 255:50]
   wire  _T_1832 = _T_1831 | _T_1809; // @[Xbar.scala 255:50]
@@ -19692,8 +19931,11 @@ module AXI4Xbar_2(
   wire  _T_1858 = ~_T_1804; // @[Xbar.scala 256:60]
   wire  _T_1859 = _T_1857 | _T_1858; // @[Xbar.scala 256:57]
   wire  _T_1860 = ~_T_1827; // @[Xbar.scala 256:54]
+  wire  _T_1861 = ~_T_1805; // @[Xbar.scala 256:60]
+  wire  _T_1862 = _T_1860 | _T_1861; // @[Xbar.scala 256:57]
+  wire  _T_1863 = ~_T_1828; // @[Xbar.scala 256:54]
   wire  _T_1864 = ~_T_1806; // @[Xbar.scala 256:60]
-  wire  _T_1865 = _T_1860 | _T_1864; // @[Xbar.scala 256:57]
+  wire  _T_1865 = _T_1863 | _T_1864; // @[Xbar.scala 256:57]
   wire  _T_1866 = ~_T_1829; // @[Xbar.scala 256:54]
   wire  _T_1867 = ~_T_1807; // @[Xbar.scala 256:60]
   wire  _T_1868 = _T_1866 | _T_1867; // @[Xbar.scala 256:57]
@@ -19742,7 +19984,8 @@ module AXI4Xbar_2(
   wire  _T_1912 = _T_1850 & _T_1853; // @[Xbar.scala 256:75]
   wire  _T_1913 = _T_1912 & _T_1856; // @[Xbar.scala 256:75]
   wire  _T_1914 = _T_1913 & _T_1859; // @[Xbar.scala 256:75]
-  wire  _T_1916 = _T_1914 & _T_1865; // @[Xbar.scala 256:75]
+  wire  _T_1915 = _T_1914 & _T_1862; // @[Xbar.scala 256:75]
+  wire  _T_1916 = _T_1915 & _T_1865; // @[Xbar.scala 256:75]
   wire  _T_1917 = _T_1916 & _T_1868; // @[Xbar.scala 256:75]
   wire  _T_1918 = _T_1917 & _T_1871; // @[Xbar.scala 256:75]
   wire  _T_1919 = _T_1918 & _T_1874; // @[Xbar.scala 256:75]
@@ -19771,6 +20014,7 @@ module AXI4Xbar_2(
   wire  _T_1965_2 = _T_1686 ? _T_1756[2] : _T_1962_2; // @[Xbar.scala 270:24]
   wire  _T_1965_3 = _T_1686 ? _T_1756[3] : _T_1962_3; // @[Xbar.scala 270:24]
   wire  _T_1965_4 = _T_1686 ? _T_1756[4] : _T_1962_4; // @[Xbar.scala 270:24]
+  wire  _T_1965_5 = _T_1686 ? _T_1756[5] : _T_1962_5; // @[Xbar.scala 270:24]
   wire  _T_1965_6 = _T_1686 ? _T_1756[6] : _T_1962_6; // @[Xbar.scala 270:24]
   wire  _T_1965_7 = _T_1686 ? _T_1756[7] : _T_1962_7; // @[Xbar.scala 270:24]
   wire  _T_1965_8 = _T_1686 ? _T_1756[8] : _T_1962_8; // @[Xbar.scala 270:24]
@@ -19787,12 +20031,12 @@ module AXI4Xbar_2(
   wire  _T_1965_19 = _T_1686 ? _T_1756[19] : _T_1962_19; // @[Xbar.scala 270:24]
   wire  _T_1965_20 = _T_1686 ? _T_1756[20] : _T_1962_20; // @[Xbar.scala 270:24]
   wire  _T_1965_21 = _T_1686 ? _T_1756[21] : _T_1962_21; // @[Xbar.scala 270:24]
-  wire [4:0] _T_2173 = {_T_683,_T_681,_T_679,auto_out_1_b_valid,_T_675}; // @[Cat.scala 29:58]
-  wire [10:0] _T_2179 = {_T_695,_T_693,_T_691,_T_689,_T_687,1'h0,_T_2173}; // @[Cat.scala 29:58]
+  wire [4:0] _T_2173 = {_T_683,_T_681,_T_679,_T_677,_T_675}; // @[Cat.scala 29:58]
+  wire [10:0] _T_2179 = {_T_695,_T_693,_T_691,_T_689,_T_687,_T_685,_T_2173}; // @[Cat.scala 29:58]
   wire [4:0] _T_2183 = {_T_705,_T_703,_T_701,_T_699,_T_697}; // @[Cat.scala 29:58]
   wire [21:0] _T_2190 = {auto_out_21_b_valid,_T_715,_T_713,_T_711,_T_709,_T_707,_T_2183,_T_2179}; // @[Cat.scala 29:58]
   reg [21:0] _T_2197; // @[Arbiter.scala 20:23]
-  reg [31:0] _RAND_50;
+  reg [31:0] _RAND_52;
   wire [21:0] _T_2198 = ~_T_2197; // @[Arbiter.scala 21:30]
   wire [21:0] _T_2199 = _T_2190 & _T_2198; // @[Arbiter.scala 21:28]
   wire [43:0] _T_2200 = {_T_2199,auto_out_21_b_valid,_T_715,_T_713,_T_711,_T_709,_T_707,_T_2183,_T_2179}; // @[Cat.scala 29:58]
@@ -19825,10 +20069,11 @@ module AXI4Xbar_2(
   wire [37:0] _T_2234 = {_T_2233, 16'h0}; // @[package.scala 199:48]
   wire [21:0] _T_2236 = _T_2233 | _T_2234[21:0]; // @[package.scala 199:43]
   wire  _T_2262 = _T_2218[0] & _T_675; // @[Xbar.scala 250:63]
-  wire  _T_2263 = _T_2218[1] & auto_out_1_b_valid; // @[Xbar.scala 250:63]
+  wire  _T_2263 = _T_2218[1] & _T_677; // @[Xbar.scala 250:63]
   wire  _T_2264 = _T_2218[2] & _T_679; // @[Xbar.scala 250:63]
   wire  _T_2265 = _T_2218[3] & _T_681; // @[Xbar.scala 250:63]
   wire  _T_2266 = _T_2218[4] & _T_683; // @[Xbar.scala 250:63]
+  wire  _T_2267 = _T_2218[5] & _T_685; // @[Xbar.scala 250:63]
   wire  _T_2268 = _T_2218[6] & _T_687; // @[Xbar.scala 250:63]
   wire  _T_2269 = _T_2218[7] & _T_689; // @[Xbar.scala 250:63]
   wire  _T_2270 = _T_2218[8] & _T_691; // @[Xbar.scala 250:63]
@@ -19849,7 +20094,8 @@ module AXI4Xbar_2(
   wire  _T_2287 = _T_2286 | _T_2264; // @[Xbar.scala 255:50]
   wire  _T_2288 = _T_2287 | _T_2265; // @[Xbar.scala 255:50]
   wire  _T_2289 = _T_2288 | _T_2266; // @[Xbar.scala 255:50]
-  wire  _T_2291 = _T_2289 | _T_2268; // @[Xbar.scala 255:50]
+  wire  _T_2290 = _T_2289 | _T_2267; // @[Xbar.scala 255:50]
+  wire  _T_2291 = _T_2290 | _T_2268; // @[Xbar.scala 255:50]
   wire  _T_2292 = _T_2291 | _T_2269; // @[Xbar.scala 255:50]
   wire  _T_2293 = _T_2292 | _T_2270; // @[Xbar.scala 255:50]
   wire  _T_2294 = _T_2293 | _T_2271; // @[Xbar.scala 255:50]
@@ -19878,8 +20124,11 @@ module AXI4Xbar_2(
   wire  _T_2320 = ~_T_2266; // @[Xbar.scala 256:60]
   wire  _T_2321 = _T_2319 | _T_2320; // @[Xbar.scala 256:57]
   wire  _T_2322 = ~_T_2289; // @[Xbar.scala 256:54]
+  wire  _T_2323 = ~_T_2267; // @[Xbar.scala 256:60]
+  wire  _T_2324 = _T_2322 | _T_2323; // @[Xbar.scala 256:57]
+  wire  _T_2325 = ~_T_2290; // @[Xbar.scala 256:54]
   wire  _T_2326 = ~_T_2268; // @[Xbar.scala 256:60]
-  wire  _T_2327 = _T_2322 | _T_2326; // @[Xbar.scala 256:57]
+  wire  _T_2327 = _T_2325 | _T_2326; // @[Xbar.scala 256:57]
   wire  _T_2328 = ~_T_2291; // @[Xbar.scala 256:54]
   wire  _T_2329 = ~_T_2269; // @[Xbar.scala 256:60]
   wire  _T_2330 = _T_2328 | _T_2329; // @[Xbar.scala 256:57]
@@ -19928,7 +20177,8 @@ module AXI4Xbar_2(
   wire  _T_2374 = _T_2312 & _T_2315; // @[Xbar.scala 256:75]
   wire  _T_2375 = _T_2374 & _T_2318; // @[Xbar.scala 256:75]
   wire  _T_2376 = _T_2375 & _T_2321; // @[Xbar.scala 256:75]
-  wire  _T_2378 = _T_2376 & _T_2327; // @[Xbar.scala 256:75]
+  wire  _T_2377 = _T_2376 & _T_2324; // @[Xbar.scala 256:75]
+  wire  _T_2378 = _T_2377 & _T_2327; // @[Xbar.scala 256:75]
   wire  _T_2379 = _T_2378 & _T_2330; // @[Xbar.scala 256:75]
   wire  _T_2380 = _T_2379 & _T_2333; // @[Xbar.scala 256:75]
   wire  _T_2381 = _T_2380 & _T_2336; // @[Xbar.scala 256:75]
@@ -19955,6 +20205,7 @@ module AXI4Xbar_2(
   wire  _T_2425_2 = _T_2148 ? _T_2264 : _T_2424_2; // @[Xbar.scala 262:23]
   wire  _T_2425_3 = _T_2148 ? _T_2265 : _T_2424_3; // @[Xbar.scala 262:23]
   wire  _T_2425_4 = _T_2148 ? _T_2266 : _T_2424_4; // @[Xbar.scala 262:23]
+  wire  _T_2425_5 = _T_2148 ? _T_2267 : _T_2424_5; // @[Xbar.scala 262:23]
   wire  _T_2425_6 = _T_2148 ? _T_2268 : _T_2424_6; // @[Xbar.scala 262:23]
   wire  _T_2425_7 = _T_2148 ? _T_2269 : _T_2424_7; // @[Xbar.scala 262:23]
   wire  _T_2425_8 = _T_2148 ? _T_2270 : _T_2424_8; // @[Xbar.scala 262:23]
@@ -19978,6 +20229,7 @@ module AXI4Xbar_2(
   wire  _T_2427_2 = _T_2148 ? _T_2218[2] : _T_2424_2; // @[Xbar.scala 270:24]
   wire  _T_2427_3 = _T_2148 ? _T_2218[3] : _T_2424_3; // @[Xbar.scala 270:24]
   wire  _T_2427_4 = _T_2148 ? _T_2218[4] : _T_2424_4; // @[Xbar.scala 270:24]
+  wire  _T_2427_5 = _T_2148 ? _T_2218[5] : _T_2424_5; // @[Xbar.scala 270:24]
   wire  _T_2427_6 = _T_2148 ? _T_2218[6] : _T_2424_6; // @[Xbar.scala 270:24]
   wire  _T_2427_7 = _T_2148 ? _T_2218[7] : _T_2424_7; // @[Xbar.scala 270:24]
   wire  _T_2427_8 = _T_2148 ? _T_2218[8] : _T_2424_8; // @[Xbar.scala 270:24]
@@ -19994,45 +20246,47 @@ module AXI4Xbar_2(
   wire  _T_2427_19 = _T_2148 ? _T_2218[19] : _T_2424_19; // @[Xbar.scala 270:24]
   wire  _T_2427_20 = _T_2148 ? _T_2218[20] : _T_2424_20; // @[Xbar.scala 270:24]
   wire  _T_2427_21 = _T_2148 ? _T_2218[21] : _T_2424_21; // @[Xbar.scala 270:24]
-  wire [2:0] _T_2495 = {auto_out_0_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2495 = {auto_out_0_b_bits_id,auto_out_0_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2496 = _T_2425_0 ? _T_2495 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2497 = {1'h0,auto_out_1_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2497 = {auto_out_1_b_bits_id,auto_out_1_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2498 = _T_2425_1 ? _T_2497 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2499 = {auto_out_2_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2499 = {auto_out_2_b_bits_id,auto_out_2_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2500 = _T_2425_2 ? _T_2499 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2501 = {auto_out_3_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2501 = {auto_out_3_b_bits_id,auto_out_3_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2502 = _T_2425_3 ? _T_2501 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2503 = {auto_out_4_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2503 = {auto_out_4_b_bits_id,auto_out_4_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2504 = _T_2425_4 ? _T_2503 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2507 = {auto_out_6_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2505 = {auto_out_5_b_bits_id,auto_out_5_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2506 = _T_2425_5 ? _T_2505 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2507 = {auto_out_6_b_bits_id,auto_out_6_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2508 = _T_2425_6 ? _T_2507 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2509 = {auto_out_7_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2509 = {auto_out_7_b_bits_id,auto_out_7_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2510 = _T_2425_7 ? _T_2509 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2511 = {auto_out_8_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2511 = {auto_out_8_b_bits_id,auto_out_8_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2512 = _T_2425_8 ? _T_2511 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2513 = {auto_out_9_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2513 = {auto_out_9_b_bits_id,auto_out_9_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2514 = _T_2425_9 ? _T_2513 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2515 = {auto_out_10_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2515 = {auto_out_10_b_bits_id,auto_out_10_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2516 = _T_2425_10 ? _T_2515 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2517 = {auto_out_11_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2517 = {auto_out_11_b_bits_id,auto_out_11_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2518 = _T_2425_11 ? _T_2517 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2519 = {auto_out_12_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2519 = {auto_out_12_b_bits_id,auto_out_12_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2520 = _T_2425_12 ? _T_2519 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2521 = {auto_out_13_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2521 = {auto_out_13_b_bits_id,auto_out_13_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2522 = _T_2425_13 ? _T_2521 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2523 = {auto_out_14_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2523 = {auto_out_14_b_bits_id,auto_out_14_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2524 = _T_2425_14 ? _T_2523 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2525 = {auto_out_15_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2525 = {auto_out_15_b_bits_id,auto_out_15_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2526 = _T_2425_15 ? _T_2525 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2527 = {auto_out_16_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2527 = {auto_out_16_b_bits_id,auto_out_16_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2528 = _T_2425_16 ? _T_2527 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2529 = {auto_out_17_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2529 = {auto_out_17_b_bits_id,auto_out_17_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2530 = _T_2425_17 ? _T_2529 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2531 = {auto_out_18_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2531 = {auto_out_18_b_bits_id,auto_out_18_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2532 = _T_2425_18 ? _T_2531 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2533 = {auto_out_19_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2533 = {auto_out_19_b_bits_id,auto_out_19_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2534 = _T_2425_19 ? _T_2533 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2535 = {auto_out_20_b_bits_id,2'h0}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2535 = {auto_out_20_b_bits_id,auto_out_20_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2536 = _T_2425_20 ? _T_2535 : 3'h0; // @[Mux.scala 27:72]
   wire [2:0] _T_2537 = {1'h0,auto_out_21_b_bits_resp}; // @[Mux.scala 27:72]
   wire [2:0] _T_2538 = _T_2425_21 ? _T_2537 : 3'h0; // @[Mux.scala 27:72]
@@ -20040,7 +20294,8 @@ module AXI4Xbar_2(
   wire [2:0] _T_2540 = _T_2539 | _T_2500; // @[Mux.scala 27:72]
   wire [2:0] _T_2541 = _T_2540 | _T_2502; // @[Mux.scala 27:72]
   wire [2:0] _T_2542 = _T_2541 | _T_2504; // @[Mux.scala 27:72]
-  wire [2:0] _T_2544 = _T_2542 | _T_2508; // @[Mux.scala 27:72]
+  wire [2:0] _T_2543 = _T_2542 | _T_2506; // @[Mux.scala 27:72]
+  wire [2:0] _T_2544 = _T_2543 | _T_2508; // @[Mux.scala 27:72]
   wire [2:0] _T_2545 = _T_2544 | _T_2510; // @[Mux.scala 27:72]
   wire [2:0] _T_2546 = _T_2545 | _T_2512; // @[Mux.scala 27:72]
   wire [2:0] _T_2547 = _T_2546 | _T_2514; // @[Mux.scala 27:72]
@@ -20092,9 +20347,11 @@ module AXI4Xbar_2(
   assign auto_out_20_aw_valid = in_0_aw_valid & requestAWIO_0_20; // @[LazyModule.scala 173:49]
   assign auto_out_20_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_20_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_20_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_20_w_valid = in_0_w_valid & requestWIO_0_20; // @[LazyModule.scala 173:49]
   assign auto_out_20_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_20_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_20_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_20_b_ready = auto_in_b_ready & _T_2427_20; // @[LazyModule.scala 173:49]
   assign auto_out_20_ar_valid = in_0_ar_valid & requestARIO_0_20; // @[LazyModule.scala 173:49]
   assign auto_out_20_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -20104,9 +20361,11 @@ module AXI4Xbar_2(
   assign auto_out_19_aw_valid = in_0_aw_valid & requestAWIO_0_19; // @[LazyModule.scala 173:49]
   assign auto_out_19_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_19_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_19_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_19_w_valid = in_0_w_valid & requestWIO_0_19; // @[LazyModule.scala 173:49]
   assign auto_out_19_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_19_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_19_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_19_b_ready = auto_in_b_ready & _T_2427_19; // @[LazyModule.scala 173:49]
   assign auto_out_19_ar_valid = in_0_ar_valid & requestARIO_0_19; // @[LazyModule.scala 173:49]
   assign auto_out_19_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -20116,9 +20375,11 @@ module AXI4Xbar_2(
   assign auto_out_18_aw_valid = in_0_aw_valid & requestAWIO_0_18; // @[LazyModule.scala 173:49]
   assign auto_out_18_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_18_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_18_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_18_w_valid = in_0_w_valid & requestWIO_0_18; // @[LazyModule.scala 173:49]
   assign auto_out_18_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_18_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_18_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_18_b_ready = auto_in_b_ready & _T_2427_18; // @[LazyModule.scala 173:49]
   assign auto_out_18_ar_valid = in_0_ar_valid & requestARIO_0_18; // @[LazyModule.scala 173:49]
   assign auto_out_18_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -20128,9 +20389,11 @@ module AXI4Xbar_2(
   assign auto_out_17_aw_valid = in_0_aw_valid & requestAWIO_0_17; // @[LazyModule.scala 173:49]
   assign auto_out_17_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_17_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_17_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_17_w_valid = in_0_w_valid & requestWIO_0_17; // @[LazyModule.scala 173:49]
   assign auto_out_17_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_17_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_17_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_17_b_ready = auto_in_b_ready & _T_2427_17; // @[LazyModule.scala 173:49]
   assign auto_out_17_ar_valid = in_0_ar_valid & requestARIO_0_17; // @[LazyModule.scala 173:49]
   assign auto_out_17_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -20140,9 +20403,11 @@ module AXI4Xbar_2(
   assign auto_out_16_aw_valid = in_0_aw_valid & requestAWIO_0_16; // @[LazyModule.scala 173:49]
   assign auto_out_16_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_16_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_16_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_16_w_valid = in_0_w_valid & requestWIO_0_16; // @[LazyModule.scala 173:49]
   assign auto_out_16_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_16_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_16_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_16_b_ready = auto_in_b_ready & _T_2427_16; // @[LazyModule.scala 173:49]
   assign auto_out_16_ar_valid = in_0_ar_valid & requestARIO_0_16; // @[LazyModule.scala 173:49]
   assign auto_out_16_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -20152,9 +20417,11 @@ module AXI4Xbar_2(
   assign auto_out_15_aw_valid = in_0_aw_valid & requestAWIO_0_15; // @[LazyModule.scala 173:49]
   assign auto_out_15_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_15_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_15_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_15_w_valid = in_0_w_valid & requestWIO_0_15; // @[LazyModule.scala 173:49]
   assign auto_out_15_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_15_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_15_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_15_b_ready = auto_in_b_ready & _T_2427_15; // @[LazyModule.scala 173:49]
   assign auto_out_15_ar_valid = in_0_ar_valid & requestARIO_0_15; // @[LazyModule.scala 173:49]
   assign auto_out_15_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -20164,9 +20431,11 @@ module AXI4Xbar_2(
   assign auto_out_14_aw_valid = in_0_aw_valid & requestAWIO_0_14; // @[LazyModule.scala 173:49]
   assign auto_out_14_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_14_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_14_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_14_w_valid = in_0_w_valid & requestWIO_0_14; // @[LazyModule.scala 173:49]
   assign auto_out_14_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_14_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_14_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_14_b_ready = auto_in_b_ready & _T_2427_14; // @[LazyModule.scala 173:49]
   assign auto_out_14_ar_valid = in_0_ar_valid & requestARIO_0_14; // @[LazyModule.scala 173:49]
   assign auto_out_14_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -20176,9 +20445,11 @@ module AXI4Xbar_2(
   assign auto_out_13_aw_valid = in_0_aw_valid & requestAWIO_0_13; // @[LazyModule.scala 173:49]
   assign auto_out_13_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_13_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_13_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_13_w_valid = in_0_w_valid & requestWIO_0_13; // @[LazyModule.scala 173:49]
   assign auto_out_13_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_13_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_13_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_13_b_ready = auto_in_b_ready & _T_2427_13; // @[LazyModule.scala 173:49]
   assign auto_out_13_ar_valid = in_0_ar_valid & requestARIO_0_13; // @[LazyModule.scala 173:49]
   assign auto_out_13_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -20188,9 +20459,11 @@ module AXI4Xbar_2(
   assign auto_out_12_aw_valid = in_0_aw_valid & requestAWIO_0_12; // @[LazyModule.scala 173:49]
   assign auto_out_12_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_12_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_12_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_12_w_valid = in_0_w_valid & requestWIO_0_12; // @[LazyModule.scala 173:49]
   assign auto_out_12_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_12_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_12_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_12_b_ready = auto_in_b_ready & _T_2427_12; // @[LazyModule.scala 173:49]
   assign auto_out_12_ar_valid = in_0_ar_valid & requestARIO_0_12; // @[LazyModule.scala 173:49]
   assign auto_out_12_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -20200,9 +20473,11 @@ module AXI4Xbar_2(
   assign auto_out_11_aw_valid = in_0_aw_valid & requestAWIO_0_11; // @[LazyModule.scala 173:49]
   assign auto_out_11_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_11_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_11_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_11_w_valid = in_0_w_valid & requestWIO_0_11; // @[LazyModule.scala 173:49]
   assign auto_out_11_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_11_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_11_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_11_b_ready = auto_in_b_ready & _T_2427_11; // @[LazyModule.scala 173:49]
   assign auto_out_11_ar_valid = in_0_ar_valid & requestARIO_0_11; // @[LazyModule.scala 173:49]
   assign auto_out_11_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -20212,9 +20487,11 @@ module AXI4Xbar_2(
   assign auto_out_10_aw_valid = in_0_aw_valid & requestAWIO_0_10; // @[LazyModule.scala 173:49]
   assign auto_out_10_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_10_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_10_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_10_w_valid = in_0_w_valid & requestWIO_0_10; // @[LazyModule.scala 173:49]
   assign auto_out_10_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_10_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_10_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_10_b_ready = auto_in_b_ready & _T_2427_10; // @[LazyModule.scala 173:49]
   assign auto_out_10_ar_valid = in_0_ar_valid & requestARIO_0_10; // @[LazyModule.scala 173:49]
   assign auto_out_10_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -20224,9 +20501,11 @@ module AXI4Xbar_2(
   assign auto_out_9_aw_valid = in_0_aw_valid & requestAWIO_0_9; // @[LazyModule.scala 173:49]
   assign auto_out_9_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_9_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_9_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_9_w_valid = in_0_w_valid & requestWIO_0_9; // @[LazyModule.scala 173:49]
   assign auto_out_9_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_9_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_9_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_9_b_ready = auto_in_b_ready & _T_2427_9; // @[LazyModule.scala 173:49]
   assign auto_out_9_ar_valid = in_0_ar_valid & requestARIO_0_9; // @[LazyModule.scala 173:49]
   assign auto_out_9_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -20236,9 +20515,11 @@ module AXI4Xbar_2(
   assign auto_out_8_aw_valid = in_0_aw_valid & requestAWIO_0_8; // @[LazyModule.scala 173:49]
   assign auto_out_8_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_8_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_8_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_8_w_valid = in_0_w_valid & requestWIO_0_8; // @[LazyModule.scala 173:49]
   assign auto_out_8_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_8_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_8_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_8_b_ready = auto_in_b_ready & _T_2427_8; // @[LazyModule.scala 173:49]
   assign auto_out_8_ar_valid = in_0_ar_valid & requestARIO_0_8; // @[LazyModule.scala 173:49]
   assign auto_out_8_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -20248,9 +20529,11 @@ module AXI4Xbar_2(
   assign auto_out_7_aw_valid = in_0_aw_valid & requestAWIO_0_7; // @[LazyModule.scala 173:49]
   assign auto_out_7_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_7_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_7_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_7_w_valid = in_0_w_valid & requestWIO_0_7; // @[LazyModule.scala 173:49]
   assign auto_out_7_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_7_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_7_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_7_b_ready = auto_in_b_ready & _T_2427_7; // @[LazyModule.scala 173:49]
   assign auto_out_7_ar_valid = in_0_ar_valid & requestARIO_0_7; // @[LazyModule.scala 173:49]
   assign auto_out_7_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -20260,21 +20543,39 @@ module AXI4Xbar_2(
   assign auto_out_6_aw_valid = in_0_aw_valid & requestAWIO_0_6; // @[LazyModule.scala 173:49]
   assign auto_out_6_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_6_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_6_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_6_w_valid = in_0_w_valid & requestWIO_0_6; // @[LazyModule.scala 173:49]
   assign auto_out_6_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_6_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_6_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_6_b_ready = auto_in_b_ready & _T_2427_6; // @[LazyModule.scala 173:49]
   assign auto_out_6_ar_valid = in_0_ar_valid & requestARIO_0_6; // @[LazyModule.scala 173:49]
   assign auto_out_6_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_6_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_6_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_6_r_ready = auto_in_r_ready & _T_1965_6; // @[LazyModule.scala 173:49]
+  assign auto_out_5_aw_valid = in_0_aw_valid & requestAWIO_0_5; // @[LazyModule.scala 173:49]
+  assign auto_out_5_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
+  assign auto_out_5_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_5_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
+  assign auto_out_5_w_valid = in_0_w_valid & requestWIO_0_5; // @[LazyModule.scala 173:49]
+  assign auto_out_5_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
+  assign auto_out_5_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_5_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
+  assign auto_out_5_b_ready = auto_in_b_ready & _T_2427_5; // @[LazyModule.scala 173:49]
+  assign auto_out_5_ar_valid = in_0_ar_valid & requestARIO_0_5; // @[LazyModule.scala 173:49]
+  assign auto_out_5_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
+  assign auto_out_5_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_5_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
+  assign auto_out_5_r_ready = auto_in_r_ready & _T_1965_5; // @[LazyModule.scala 173:49]
   assign auto_out_4_aw_valid = in_0_aw_valid & requestAWIO_0_4; // @[LazyModule.scala 173:49]
   assign auto_out_4_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_4_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_4_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_4_w_valid = in_0_w_valid & requestWIO_0_4; // @[LazyModule.scala 173:49]
   assign auto_out_4_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_4_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_4_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_4_b_ready = auto_in_b_ready & _T_2427_4; // @[LazyModule.scala 173:49]
   assign auto_out_4_ar_valid = in_0_ar_valid & requestARIO_0_4; // @[LazyModule.scala 173:49]
   assign auto_out_4_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -20284,9 +20585,11 @@ module AXI4Xbar_2(
   assign auto_out_3_aw_valid = in_0_aw_valid & requestAWIO_0_3; // @[LazyModule.scala 173:49]
   assign auto_out_3_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_3_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_3_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_3_w_valid = in_0_w_valid & requestWIO_0_3; // @[LazyModule.scala 173:49]
   assign auto_out_3_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_3_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_3_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_3_b_ready = auto_in_b_ready & _T_2427_3; // @[LazyModule.scala 173:49]
   assign auto_out_3_ar_valid = in_0_ar_valid & requestARIO_0_3; // @[LazyModule.scala 173:49]
   assign auto_out_3_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -20296,9 +20599,11 @@ module AXI4Xbar_2(
   assign auto_out_2_aw_valid = in_0_aw_valid & requestAWIO_0_2; // @[LazyModule.scala 173:49]
   assign auto_out_2_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_2_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_2_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_2_w_valid = in_0_w_valid & requestWIO_0_2; // @[LazyModule.scala 173:49]
   assign auto_out_2_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_2_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_2_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_2_b_ready = auto_in_b_ready & _T_2427_2; // @[LazyModule.scala 173:49]
   assign auto_out_2_ar_valid = in_0_ar_valid & requestARIO_0_2; // @[LazyModule.scala 173:49]
   assign auto_out_2_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -20308,6 +20613,7 @@ module AXI4Xbar_2(
   assign auto_out_1_aw_valid = in_0_aw_valid & requestAWIO_0_1; // @[LazyModule.scala 173:49]
   assign auto_out_1_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_1_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_1_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_1_w_valid = in_0_w_valid & requestWIO_0_1; // @[LazyModule.scala 173:49]
   assign auto_out_1_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_1_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
@@ -20321,9 +20627,11 @@ module AXI4Xbar_2(
   assign auto_out_0_aw_valid = in_0_aw_valid & requestAWIO_0_0; // @[LazyModule.scala 173:49]
   assign auto_out_0_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_0_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
+  assign auto_out_0_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
   assign auto_out_0_w_valid = in_0_w_valid & requestWIO_0_0; // @[LazyModule.scala 173:49]
   assign auto_out_0_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_0_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
+  assign auto_out_0_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
   assign auto_out_0_b_ready = auto_in_b_ready & _T_2427_0; // @[LazyModule.scala 173:49]
   assign auto_out_0_ar_valid = in_0_ar_valid & requestARIO_0_0; // @[LazyModule.scala 173:49]
   assign auto_out_0_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
@@ -20400,175 +20708,183 @@ initial begin
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_8 = {1{`RANDOM}};
-  _T_1962_6 = _RAND_8[0:0];
+  _T_1962_5 = _RAND_8[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_9 = {1{`RANDOM}};
-  _T_1962_7 = _RAND_9[0:0];
+  _T_1962_6 = _RAND_9[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_10 = {1{`RANDOM}};
-  _T_1962_8 = _RAND_10[0:0];
+  _T_1962_7 = _RAND_10[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_11 = {1{`RANDOM}};
-  _T_1962_9 = _RAND_11[0:0];
+  _T_1962_8 = _RAND_11[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_12 = {1{`RANDOM}};
-  _T_1962_10 = _RAND_12[0:0];
+  _T_1962_9 = _RAND_12[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_13 = {1{`RANDOM}};
-  _T_1962_11 = _RAND_13[0:0];
+  _T_1962_10 = _RAND_13[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_14 = {1{`RANDOM}};
-  _T_1962_12 = _RAND_14[0:0];
+  _T_1962_11 = _RAND_14[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_15 = {1{`RANDOM}};
-  _T_1962_13 = _RAND_15[0:0];
+  _T_1962_12 = _RAND_15[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_16 = {1{`RANDOM}};
-  _T_1962_14 = _RAND_16[0:0];
+  _T_1962_13 = _RAND_16[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_17 = {1{`RANDOM}};
-  _T_1962_15 = _RAND_17[0:0];
+  _T_1962_14 = _RAND_17[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_18 = {1{`RANDOM}};
-  _T_1962_16 = _RAND_18[0:0];
+  _T_1962_15 = _RAND_18[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_19 = {1{`RANDOM}};
-  _T_1962_17 = _RAND_19[0:0];
+  _T_1962_16 = _RAND_19[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_20 = {1{`RANDOM}};
-  _T_1962_18 = _RAND_20[0:0];
+  _T_1962_17 = _RAND_20[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_21 = {1{`RANDOM}};
-  _T_1962_19 = _RAND_21[0:0];
+  _T_1962_18 = _RAND_21[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_22 = {1{`RANDOM}};
-  _T_1962_20 = _RAND_22[0:0];
+  _T_1962_19 = _RAND_22[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_23 = {1{`RANDOM}};
-  _T_1962_21 = _RAND_23[0:0];
+  _T_1962_20 = _RAND_23[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_24 = {1{`RANDOM}};
-  _T_1735 = _RAND_24[21:0];
+  _T_1962_21 = _RAND_24[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_25 = {1{`RANDOM}};
-  _T_414 = _RAND_25[0:0];
+  _T_1735 = _RAND_25[21:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_26 = {1{`RANDOM}};
-  _T_388 = _RAND_26[2:0];
+  _T_414 = _RAND_26[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_27 = {1{`RANDOM}};
-  _T_389 = _RAND_27[4:0];
+  _T_388 = _RAND_27[2:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_28 = {1{`RANDOM}};
-  _T_2148 = _RAND_28[0:0];
+  _T_389 = _RAND_28[4:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_29 = {1{`RANDOM}};
-  _T_2424_0 = _RAND_29[0:0];
+  _T_2148 = _RAND_29[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_30 = {1{`RANDOM}};
-  _T_2424_1 = _RAND_30[0:0];
+  _T_2424_0 = _RAND_30[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_31 = {1{`RANDOM}};
-  _T_2424_2 = _RAND_31[0:0];
+  _T_2424_1 = _RAND_31[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_32 = {1{`RANDOM}};
-  _T_2424_3 = _RAND_32[0:0];
+  _T_2424_2 = _RAND_32[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_33 = {1{`RANDOM}};
-  _T_2424_4 = _RAND_33[0:0];
+  _T_2424_3 = _RAND_33[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_34 = {1{`RANDOM}};
-  _T_2424_6 = _RAND_34[0:0];
+  _T_2424_4 = _RAND_34[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_35 = {1{`RANDOM}};
-  _T_2424_7 = _RAND_35[0:0];
+  _T_2424_5 = _RAND_35[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_36 = {1{`RANDOM}};
-  _T_2424_8 = _RAND_36[0:0];
+  _T_2424_6 = _RAND_36[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_37 = {1{`RANDOM}};
-  _T_2424_9 = _RAND_37[0:0];
+  _T_2424_7 = _RAND_37[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_38 = {1{`RANDOM}};
-  _T_2424_10 = _RAND_38[0:0];
+  _T_2424_8 = _RAND_38[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_39 = {1{`RANDOM}};
-  _T_2424_11 = _RAND_39[0:0];
+  _T_2424_9 = _RAND_39[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_40 = {1{`RANDOM}};
-  _T_2424_12 = _RAND_40[0:0];
+  _T_2424_10 = _RAND_40[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_41 = {1{`RANDOM}};
-  _T_2424_13 = _RAND_41[0:0];
+  _T_2424_11 = _RAND_41[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_42 = {1{`RANDOM}};
-  _T_2424_14 = _RAND_42[0:0];
+  _T_2424_12 = _RAND_42[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_43 = {1{`RANDOM}};
-  _T_2424_15 = _RAND_43[0:0];
+  _T_2424_13 = _RAND_43[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_44 = {1{`RANDOM}};
-  _T_2424_16 = _RAND_44[0:0];
+  _T_2424_14 = _RAND_44[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_45 = {1{`RANDOM}};
-  _T_2424_17 = _RAND_45[0:0];
+  _T_2424_15 = _RAND_45[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_46 = {1{`RANDOM}};
-  _T_2424_18 = _RAND_46[0:0];
+  _T_2424_16 = _RAND_46[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_47 = {1{`RANDOM}};
-  _T_2424_19 = _RAND_47[0:0];
+  _T_2424_17 = _RAND_47[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_48 = {1{`RANDOM}};
-  _T_2424_20 = _RAND_48[0:0];
+  _T_2424_18 = _RAND_48[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_49 = {1{`RANDOM}};
-  _T_2424_21 = _RAND_49[0:0];
+  _T_2424_19 = _RAND_49[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_50 = {1{`RANDOM}};
-  _T_2197 = _RAND_50[21:0];
+  _T_2424_20 = _RAND_50[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_51 = {1{`RANDOM}};
+  _T_2424_21 = _RAND_51[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_52 = {1{`RANDOM}};
+  _T_2197 = _RAND_52[21:0];
   `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -20607,6 +20923,11 @@ end // initial
       _T_1962_4 <= 1'h0;
     end else if (_T_1686) begin
       _T_1962_4 <= _T_1804;
+    end
+    if (reset) begin
+      _T_1962_5 <= 1'h0;
+    end else if (_T_1686) begin
+      _T_1962_5 <= _T_1805;
     end
     if (reset) begin
       _T_1962_6 <= 1'h0;
@@ -20733,6 +21054,11 @@ end // initial
       _T_2424_4 <= 1'h0;
     end else if (_T_2148) begin
       _T_2424_4 <= _T_2266;
+    end
+    if (reset) begin
+      _T_2424_5 <= 1'h0;
+    end else if (_T_2148) begin
+      _T_2424_5 <= _T_2267;
     end
     if (reset) begin
       _T_2424_6 <= 1'h0;
@@ -21965,6 +22291,1110 @@ end // initial
     `endif // SYNTHESIS
   end
 endmodule
+module Queue_147(
+  input         clock,
+  input         reset,
+  output        io_enq_ready,
+  input         io_enq_valid,
+  input  [31:0] io_enq_bits_data,
+  input         io_enq_bits_last,
+  input         io_deq_ready,
+  output        io_deq_valid,
+  output [31:0] io_deq_bits_data,
+  output        io_deq_bits_last
+);
+  reg [31:0] _T_data [0:1]; // @[Decoupled.scala 218:24]
+  reg [31:0] _RAND_0;
+  wire [31:0] _T_data__T_18_data; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_18_addr; // @[Decoupled.scala 218:24]
+  wire [31:0] _T_data__T_10_data; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_10_addr; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_10_mask; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_10_en; // @[Decoupled.scala 218:24]
+  reg  _T_last [0:1]; // @[Decoupled.scala 218:24]
+  reg [31:0] _RAND_1;
+  wire  _T_last__T_18_data; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_18_addr; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_data; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_addr; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_mask; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_en; // @[Decoupled.scala 218:24]
+  reg  value; // @[Counter.scala 29:33]
+  reg [31:0] _RAND_2;
+  reg  value_1; // @[Counter.scala 29:33]
+  reg [31:0] _RAND_3;
+  reg  _T_1; // @[Decoupled.scala 221:35]
+  reg [31:0] _RAND_4;
+  wire  _T_2 = value == value_1; // @[Decoupled.scala 223:41]
+  wire  _T_3 = ~_T_1; // @[Decoupled.scala 224:36]
+  wire  _T_4 = _T_2 & _T_3; // @[Decoupled.scala 224:33]
+  wire  _T_5 = _T_2 & _T_1; // @[Decoupled.scala 225:32]
+  wire  _T_6 = io_enq_ready & io_enq_valid; // @[Decoupled.scala 40:37]
+  wire  _T_8 = io_deq_ready & io_deq_valid; // @[Decoupled.scala 40:37]
+  wire  _T_12 = value + 1'h1; // @[Counter.scala 39:22]
+  wire  _T_14 = value_1 + 1'h1; // @[Counter.scala 39:22]
+  wire  _T_15 = _T_6 != _T_8; // @[Decoupled.scala 236:16]
+  assign _T_data__T_18_addr = value_1;
+  assign _T_data__T_18_data = _T_data[_T_data__T_18_addr]; // @[Decoupled.scala 218:24]
+  assign _T_data__T_10_data = io_enq_bits_data;
+  assign _T_data__T_10_addr = value;
+  assign _T_data__T_10_mask = 1'h1;
+  assign _T_data__T_10_en = io_enq_ready & io_enq_valid;
+  assign _T_last__T_18_addr = value_1;
+  assign _T_last__T_18_data = _T_last[_T_last__T_18_addr]; // @[Decoupled.scala 218:24]
+  assign _T_last__T_10_data = io_enq_bits_last;
+  assign _T_last__T_10_addr = value;
+  assign _T_last__T_10_mask = 1'h1;
+  assign _T_last__T_10_en = io_enq_ready & io_enq_valid;
+  assign io_enq_ready = ~_T_5; // @[Decoupled.scala 241:16]
+  assign io_deq_valid = ~_T_4; // @[Decoupled.scala 240:16]
+  assign io_deq_bits_data = _T_data__T_18_data; // @[Decoupled.scala 242:15]
+  assign io_deq_bits_last = _T_last__T_18_data; // @[Decoupled.scala 242:15]
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+  _RAND_0 = {1{`RANDOM}};
+  `ifdef RANDOMIZE_MEM_INIT
+  for (initvar = 0; initvar < 2; initvar = initvar+1)
+    _T_data[initvar] = _RAND_0[31:0];
+  `endif // RANDOMIZE_MEM_INIT
+  _RAND_1 = {1{`RANDOM}};
+  `ifdef RANDOMIZE_MEM_INIT
+  for (initvar = 0; initvar < 2; initvar = initvar+1)
+    _T_last[initvar] = _RAND_1[0:0];
+  `endif // RANDOMIZE_MEM_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_2 = {1{`RANDOM}};
+  value = _RAND_2[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_3 = {1{`RANDOM}};
+  value_1 = _RAND_3[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_4 = {1{`RANDOM}};
+  _T_1 = _RAND_4[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`endif // SYNTHESIS
+  always @(posedge clock) begin
+    if(_T_data__T_10_en & _T_data__T_10_mask) begin
+      _T_data[_T_data__T_10_addr] <= _T_data__T_10_data; // @[Decoupled.scala 218:24]
+    end
+    if(_T_last__T_10_en & _T_last__T_10_mask) begin
+      _T_last[_T_last__T_10_addr] <= _T_last__T_10_data; // @[Decoupled.scala 218:24]
+    end
+    if (reset) begin
+      value <= 1'h0;
+    end else if (_T_6) begin
+      value <= _T_12;
+    end
+    if (reset) begin
+      value_1 <= 1'h0;
+    end else if (_T_8) begin
+      value_1 <= _T_14;
+    end
+    if (reset) begin
+      _T_1 <= 1'h0;
+    end else if (_T_15) begin
+      _T_1 <= _T_6;
+    end
+  end
+endmodule
+module AXI4StreamBuffer(
+  input         clock,
+  input         reset,
+  output        auto_in_ready,
+  input         auto_in_valid,
+  input  [31:0] auto_in_bits_data,
+  input         auto_in_bits_last,
+  input         auto_out_ready,
+  output        auto_out_valid,
+  output [31:0] auto_out_bits_data,
+  output        auto_out_bits_last
+);
+  wire  Queue_clock; // @[Decoupled.scala 296:21]
+  wire  Queue_reset; // @[Decoupled.scala 296:21]
+  wire  Queue_io_enq_ready; // @[Decoupled.scala 296:21]
+  wire  Queue_io_enq_valid; // @[Decoupled.scala 296:21]
+  wire [31:0] Queue_io_enq_bits_data; // @[Decoupled.scala 296:21]
+  wire  Queue_io_enq_bits_last; // @[Decoupled.scala 296:21]
+  wire  Queue_io_deq_ready; // @[Decoupled.scala 296:21]
+  wire  Queue_io_deq_valid; // @[Decoupled.scala 296:21]
+  wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
+  wire  Queue_io_deq_bits_last; // @[Decoupled.scala 296:21]
+  Queue_147 Queue ( // @[Decoupled.scala 296:21]
+    .clock(Queue_clock),
+    .reset(Queue_reset),
+    .io_enq_ready(Queue_io_enq_ready),
+    .io_enq_valid(Queue_io_enq_valid),
+    .io_enq_bits_data(Queue_io_enq_bits_data),
+    .io_enq_bits_last(Queue_io_enq_bits_last),
+    .io_deq_ready(Queue_io_deq_ready),
+    .io_deq_valid(Queue_io_deq_valid),
+    .io_deq_bits_data(Queue_io_deq_bits_data),
+    .io_deq_bits_last(Queue_io_deq_bits_last)
+  );
+  assign auto_in_ready = Queue_io_enq_ready; // @[LazyModule.scala 173:31]
+  assign auto_out_valid = Queue_io_deq_valid; // @[LazyModule.scala 173:49]
+  assign auto_out_bits_data = Queue_io_deq_bits_data; // @[LazyModule.scala 173:49]
+  assign auto_out_bits_last = Queue_io_deq_bits_last; // @[LazyModule.scala 173:49]
+  assign Queue_clock = clock;
+  assign Queue_reset = reset;
+  assign Queue_io_enq_valid = auto_in_valid; // @[Decoupled.scala 297:22]
+  assign Queue_io_enq_bits_data = auto_in_bits_data; // @[Decoupled.scala 298:21]
+  assign Queue_io_enq_bits_last = auto_in_bits_last; // @[Decoupled.scala 298:21]
+  assign Queue_io_deq_ready = auto_out_ready; // @[Decoupled.scala 320:15]
+endmodule
+module Queue_148(
+  input         clock,
+  input         reset,
+  output        io_enq_ready,
+  input         io_enq_valid,
+  input  [31:0] io_enq_bits_data,
+  input         io_enq_bits_last,
+  input         io_deq_ready,
+  output        io_deq_valid,
+  output [31:0] io_deq_bits_data,
+  output        io_deq_bits_last
+);
+  reg [31:0] _T_data [0:1]; // @[Decoupled.scala 218:24]
+  reg [31:0] _RAND_0;
+  wire [31:0] _T_data__T_18_data; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_18_addr; // @[Decoupled.scala 218:24]
+  wire [31:0] _T_data__T_10_data; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_10_addr; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_10_mask; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_10_en; // @[Decoupled.scala 218:24]
+  reg  _T_last [0:1]; // @[Decoupled.scala 218:24]
+  reg [31:0] _RAND_1;
+  wire  _T_last__T_18_data; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_18_addr; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_data; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_addr; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_mask; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_en; // @[Decoupled.scala 218:24]
+  reg  value; // @[Counter.scala 29:33]
+  reg [31:0] _RAND_2;
+  reg  value_1; // @[Counter.scala 29:33]
+  reg [31:0] _RAND_3;
+  reg  _T_1; // @[Decoupled.scala 221:35]
+  reg [31:0] _RAND_4;
+  wire  _T_2 = value == value_1; // @[Decoupled.scala 223:41]
+  wire  _T_3 = ~_T_1; // @[Decoupled.scala 224:36]
+  wire  _T_4 = _T_2 & _T_3; // @[Decoupled.scala 224:33]
+  wire  _T_5 = _T_2 & _T_1; // @[Decoupled.scala 225:32]
+  wire  _T_6 = io_enq_ready & io_enq_valid; // @[Decoupled.scala 40:37]
+  wire  _T_8 = io_deq_ready & io_deq_valid; // @[Decoupled.scala 40:37]
+  wire  _T_12 = value + 1'h1; // @[Counter.scala 39:22]
+  wire  _T_14 = value_1 + 1'h1; // @[Counter.scala 39:22]
+  wire  _T_15 = _T_6 != _T_8; // @[Decoupled.scala 236:16]
+  assign _T_data__T_18_addr = value_1;
+  assign _T_data__T_18_data = _T_data[_T_data__T_18_addr]; // @[Decoupled.scala 218:24]
+  assign _T_data__T_10_data = io_enq_bits_data;
+  assign _T_data__T_10_addr = value;
+  assign _T_data__T_10_mask = 1'h1;
+  assign _T_data__T_10_en = io_enq_ready & io_enq_valid;
+  assign _T_last__T_18_addr = value_1;
+  assign _T_last__T_18_data = _T_last[_T_last__T_18_addr]; // @[Decoupled.scala 218:24]
+  assign _T_last__T_10_data = io_enq_bits_last;
+  assign _T_last__T_10_addr = value;
+  assign _T_last__T_10_mask = 1'h1;
+  assign _T_last__T_10_en = io_enq_ready & io_enq_valid;
+  assign io_enq_ready = ~_T_5; // @[Decoupled.scala 241:16]
+  assign io_deq_valid = ~_T_4; // @[Decoupled.scala 240:16]
+  assign io_deq_bits_data = _T_data__T_18_data; // @[Decoupled.scala 242:15]
+  assign io_deq_bits_last = _T_last__T_18_data; // @[Decoupled.scala 242:15]
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+  _RAND_0 = {1{`RANDOM}};
+  `ifdef RANDOMIZE_MEM_INIT
+  for (initvar = 0; initvar < 2; initvar = initvar+1)
+    _T_data[initvar] = _RAND_0[31:0];
+  `endif // RANDOMIZE_MEM_INIT
+  _RAND_1 = {1{`RANDOM}};
+  `ifdef RANDOMIZE_MEM_INIT
+  for (initvar = 0; initvar < 2; initvar = initvar+1)
+    _T_last[initvar] = _RAND_1[0:0];
+  `endif // RANDOMIZE_MEM_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_2 = {1{`RANDOM}};
+  value = _RAND_2[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_3 = {1{`RANDOM}};
+  value_1 = _RAND_3[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_4 = {1{`RANDOM}};
+  _T_1 = _RAND_4[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`endif // SYNTHESIS
+  always @(posedge clock) begin
+    if(_T_data__T_10_en & _T_data__T_10_mask) begin
+      _T_data[_T_data__T_10_addr] <= _T_data__T_10_data; // @[Decoupled.scala 218:24]
+    end
+    if(_T_last__T_10_en & _T_last__T_10_mask) begin
+      _T_last[_T_last__T_10_addr] <= _T_last__T_10_data; // @[Decoupled.scala 218:24]
+    end
+    if (reset) begin
+      value <= 1'h0;
+    end else if (_T_6) begin
+      value <= _T_12;
+    end
+    if (reset) begin
+      value_1 <= 1'h0;
+    end else if (_T_8) begin
+      value_1 <= _T_14;
+    end
+    if (reset) begin
+      _T_1 <= 1'h0;
+    end else if (_T_15) begin
+      _T_1 <= _T_6;
+    end
+  end
+endmodule
+module AXI4StreamBuffer_1(
+  input         clock,
+  input         reset,
+  output        auto_in_ready,
+  input         auto_in_valid,
+  input  [31:0] auto_in_bits_data,
+  input         auto_in_bits_last,
+  input         auto_out_ready,
+  output        auto_out_valid,
+  output [31:0] auto_out_bits_data,
+  output        auto_out_bits_last
+);
+  wire  Queue_clock; // @[Decoupled.scala 296:21]
+  wire  Queue_reset; // @[Decoupled.scala 296:21]
+  wire  Queue_io_enq_ready; // @[Decoupled.scala 296:21]
+  wire  Queue_io_enq_valid; // @[Decoupled.scala 296:21]
+  wire [31:0] Queue_io_enq_bits_data; // @[Decoupled.scala 296:21]
+  wire  Queue_io_enq_bits_last; // @[Decoupled.scala 296:21]
+  wire  Queue_io_deq_ready; // @[Decoupled.scala 296:21]
+  wire  Queue_io_deq_valid; // @[Decoupled.scala 296:21]
+  wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
+  wire  Queue_io_deq_bits_last; // @[Decoupled.scala 296:21]
+  Queue_148 Queue ( // @[Decoupled.scala 296:21]
+    .clock(Queue_clock),
+    .reset(Queue_reset),
+    .io_enq_ready(Queue_io_enq_ready),
+    .io_enq_valid(Queue_io_enq_valid),
+    .io_enq_bits_data(Queue_io_enq_bits_data),
+    .io_enq_bits_last(Queue_io_enq_bits_last),
+    .io_deq_ready(Queue_io_deq_ready),
+    .io_deq_valid(Queue_io_deq_valid),
+    .io_deq_bits_data(Queue_io_deq_bits_data),
+    .io_deq_bits_last(Queue_io_deq_bits_last)
+  );
+  assign auto_in_ready = Queue_io_enq_ready; // @[LazyModule.scala 173:31]
+  assign auto_out_valid = Queue_io_deq_valid; // @[LazyModule.scala 173:49]
+  assign auto_out_bits_data = Queue_io_deq_bits_data; // @[LazyModule.scala 173:49]
+  assign auto_out_bits_last = Queue_io_deq_bits_last; // @[LazyModule.scala 173:49]
+  assign Queue_clock = clock;
+  assign Queue_reset = reset;
+  assign Queue_io_enq_valid = auto_in_valid; // @[Decoupled.scala 297:22]
+  assign Queue_io_enq_bits_data = auto_in_bits_data; // @[Decoupled.scala 298:21]
+  assign Queue_io_enq_bits_last = auto_in_bits_last; // @[Decoupled.scala 298:21]
+  assign Queue_io_deq_ready = auto_out_ready; // @[Decoupled.scala 320:15]
+endmodule
+module Queue_149(
+  input         clock,
+  input         reset,
+  output        io_enq_ready,
+  input         io_enq_valid,
+  input  [31:0] io_enq_bits_data,
+  input         io_enq_bits_last,
+  input         io_deq_ready,
+  output        io_deq_valid,
+  output [31:0] io_deq_bits_data,
+  output        io_deq_bits_last
+);
+  reg [31:0] _T_data [0:1]; // @[Decoupled.scala 218:24]
+  reg [31:0] _RAND_0;
+  wire [31:0] _T_data__T_18_data; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_18_addr; // @[Decoupled.scala 218:24]
+  wire [31:0] _T_data__T_10_data; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_10_addr; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_10_mask; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_10_en; // @[Decoupled.scala 218:24]
+  reg  _T_last [0:1]; // @[Decoupled.scala 218:24]
+  reg [31:0] _RAND_1;
+  wire  _T_last__T_18_data; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_18_addr; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_data; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_addr; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_mask; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_en; // @[Decoupled.scala 218:24]
+  reg  value; // @[Counter.scala 29:33]
+  reg [31:0] _RAND_2;
+  reg  value_1; // @[Counter.scala 29:33]
+  reg [31:0] _RAND_3;
+  reg  _T_1; // @[Decoupled.scala 221:35]
+  reg [31:0] _RAND_4;
+  wire  _T_2 = value == value_1; // @[Decoupled.scala 223:41]
+  wire  _T_3 = ~_T_1; // @[Decoupled.scala 224:36]
+  wire  _T_4 = _T_2 & _T_3; // @[Decoupled.scala 224:33]
+  wire  _T_5 = _T_2 & _T_1; // @[Decoupled.scala 225:32]
+  wire  _T_6 = io_enq_ready & io_enq_valid; // @[Decoupled.scala 40:37]
+  wire  _T_8 = io_deq_ready & io_deq_valid; // @[Decoupled.scala 40:37]
+  wire  _T_12 = value + 1'h1; // @[Counter.scala 39:22]
+  wire  _T_14 = value_1 + 1'h1; // @[Counter.scala 39:22]
+  wire  _T_15 = _T_6 != _T_8; // @[Decoupled.scala 236:16]
+  assign _T_data__T_18_addr = value_1;
+  assign _T_data__T_18_data = _T_data[_T_data__T_18_addr]; // @[Decoupled.scala 218:24]
+  assign _T_data__T_10_data = io_enq_bits_data;
+  assign _T_data__T_10_addr = value;
+  assign _T_data__T_10_mask = 1'h1;
+  assign _T_data__T_10_en = io_enq_ready & io_enq_valid;
+  assign _T_last__T_18_addr = value_1;
+  assign _T_last__T_18_data = _T_last[_T_last__T_18_addr]; // @[Decoupled.scala 218:24]
+  assign _T_last__T_10_data = io_enq_bits_last;
+  assign _T_last__T_10_addr = value;
+  assign _T_last__T_10_mask = 1'h1;
+  assign _T_last__T_10_en = io_enq_ready & io_enq_valid;
+  assign io_enq_ready = ~_T_5; // @[Decoupled.scala 241:16]
+  assign io_deq_valid = ~_T_4; // @[Decoupled.scala 240:16]
+  assign io_deq_bits_data = _T_data__T_18_data; // @[Decoupled.scala 242:15]
+  assign io_deq_bits_last = _T_last__T_18_data; // @[Decoupled.scala 242:15]
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+  _RAND_0 = {1{`RANDOM}};
+  `ifdef RANDOMIZE_MEM_INIT
+  for (initvar = 0; initvar < 2; initvar = initvar+1)
+    _T_data[initvar] = _RAND_0[31:0];
+  `endif // RANDOMIZE_MEM_INIT
+  _RAND_1 = {1{`RANDOM}};
+  `ifdef RANDOMIZE_MEM_INIT
+  for (initvar = 0; initvar < 2; initvar = initvar+1)
+    _T_last[initvar] = _RAND_1[0:0];
+  `endif // RANDOMIZE_MEM_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_2 = {1{`RANDOM}};
+  value = _RAND_2[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_3 = {1{`RANDOM}};
+  value_1 = _RAND_3[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_4 = {1{`RANDOM}};
+  _T_1 = _RAND_4[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`endif // SYNTHESIS
+  always @(posedge clock) begin
+    if(_T_data__T_10_en & _T_data__T_10_mask) begin
+      _T_data[_T_data__T_10_addr] <= _T_data__T_10_data; // @[Decoupled.scala 218:24]
+    end
+    if(_T_last__T_10_en & _T_last__T_10_mask) begin
+      _T_last[_T_last__T_10_addr] <= _T_last__T_10_data; // @[Decoupled.scala 218:24]
+    end
+    if (reset) begin
+      value <= 1'h0;
+    end else if (_T_6) begin
+      value <= _T_12;
+    end
+    if (reset) begin
+      value_1 <= 1'h0;
+    end else if (_T_8) begin
+      value_1 <= _T_14;
+    end
+    if (reset) begin
+      _T_1 <= 1'h0;
+    end else if (_T_15) begin
+      _T_1 <= _T_6;
+    end
+  end
+endmodule
+module AXI4StreamBuffer_2(
+  input         clock,
+  input         reset,
+  output        auto_in_ready,
+  input         auto_in_valid,
+  input  [31:0] auto_in_bits_data,
+  input         auto_in_bits_last,
+  input         auto_out_ready,
+  output        auto_out_valid,
+  output [31:0] auto_out_bits_data,
+  output        auto_out_bits_last
+);
+  wire  Queue_clock; // @[Decoupled.scala 296:21]
+  wire  Queue_reset; // @[Decoupled.scala 296:21]
+  wire  Queue_io_enq_ready; // @[Decoupled.scala 296:21]
+  wire  Queue_io_enq_valid; // @[Decoupled.scala 296:21]
+  wire [31:0] Queue_io_enq_bits_data; // @[Decoupled.scala 296:21]
+  wire  Queue_io_enq_bits_last; // @[Decoupled.scala 296:21]
+  wire  Queue_io_deq_ready; // @[Decoupled.scala 296:21]
+  wire  Queue_io_deq_valid; // @[Decoupled.scala 296:21]
+  wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
+  wire  Queue_io_deq_bits_last; // @[Decoupled.scala 296:21]
+  Queue_149 Queue ( // @[Decoupled.scala 296:21]
+    .clock(Queue_clock),
+    .reset(Queue_reset),
+    .io_enq_ready(Queue_io_enq_ready),
+    .io_enq_valid(Queue_io_enq_valid),
+    .io_enq_bits_data(Queue_io_enq_bits_data),
+    .io_enq_bits_last(Queue_io_enq_bits_last),
+    .io_deq_ready(Queue_io_deq_ready),
+    .io_deq_valid(Queue_io_deq_valid),
+    .io_deq_bits_data(Queue_io_deq_bits_data),
+    .io_deq_bits_last(Queue_io_deq_bits_last)
+  );
+  assign auto_in_ready = Queue_io_enq_ready; // @[LazyModule.scala 173:31]
+  assign auto_out_valid = Queue_io_deq_valid; // @[LazyModule.scala 173:49]
+  assign auto_out_bits_data = Queue_io_deq_bits_data; // @[LazyModule.scala 173:49]
+  assign auto_out_bits_last = Queue_io_deq_bits_last; // @[LazyModule.scala 173:49]
+  assign Queue_clock = clock;
+  assign Queue_reset = reset;
+  assign Queue_io_enq_valid = auto_in_valid; // @[Decoupled.scala 297:22]
+  assign Queue_io_enq_bits_data = auto_in_bits_data; // @[Decoupled.scala 298:21]
+  assign Queue_io_enq_bits_last = auto_in_bits_last; // @[Decoupled.scala 298:21]
+  assign Queue_io_deq_ready = auto_out_ready; // @[Decoupled.scala 320:15]
+endmodule
+module Queue_151(
+  input         clock,
+  input         reset,
+  output        io_enq_ready,
+  input         io_enq_valid,
+  input  [31:0] io_enq_bits_data,
+  input         io_enq_bits_last,
+  input         io_deq_ready,
+  output        io_deq_valid,
+  output [31:0] io_deq_bits_data,
+  output        io_deq_bits_last
+);
+  reg [31:0] _T_data [0:1]; // @[Decoupled.scala 218:24]
+  reg [31:0] _RAND_0;
+  wire [31:0] _T_data__T_18_data; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_18_addr; // @[Decoupled.scala 218:24]
+  wire [31:0] _T_data__T_10_data; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_10_addr; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_10_mask; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_10_en; // @[Decoupled.scala 218:24]
+  reg  _T_last [0:1]; // @[Decoupled.scala 218:24]
+  reg [31:0] _RAND_1;
+  wire  _T_last__T_18_data; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_18_addr; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_data; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_addr; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_mask; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_en; // @[Decoupled.scala 218:24]
+  reg  value; // @[Counter.scala 29:33]
+  reg [31:0] _RAND_2;
+  reg  value_1; // @[Counter.scala 29:33]
+  reg [31:0] _RAND_3;
+  reg  _T_1; // @[Decoupled.scala 221:35]
+  reg [31:0] _RAND_4;
+  wire  _T_2 = value == value_1; // @[Decoupled.scala 223:41]
+  wire  _T_3 = ~_T_1; // @[Decoupled.scala 224:36]
+  wire  _T_4 = _T_2 & _T_3; // @[Decoupled.scala 224:33]
+  wire  _T_5 = _T_2 & _T_1; // @[Decoupled.scala 225:32]
+  wire  _T_6 = io_enq_ready & io_enq_valid; // @[Decoupled.scala 40:37]
+  wire  _T_8 = io_deq_ready & io_deq_valid; // @[Decoupled.scala 40:37]
+  wire  _T_12 = value + 1'h1; // @[Counter.scala 39:22]
+  wire  _T_14 = value_1 + 1'h1; // @[Counter.scala 39:22]
+  wire  _T_15 = _T_6 != _T_8; // @[Decoupled.scala 236:16]
+  assign _T_data__T_18_addr = value_1;
+  assign _T_data__T_18_data = _T_data[_T_data__T_18_addr]; // @[Decoupled.scala 218:24]
+  assign _T_data__T_10_data = io_enq_bits_data;
+  assign _T_data__T_10_addr = value;
+  assign _T_data__T_10_mask = 1'h1;
+  assign _T_data__T_10_en = io_enq_ready & io_enq_valid;
+  assign _T_last__T_18_addr = value_1;
+  assign _T_last__T_18_data = _T_last[_T_last__T_18_addr]; // @[Decoupled.scala 218:24]
+  assign _T_last__T_10_data = io_enq_bits_last;
+  assign _T_last__T_10_addr = value;
+  assign _T_last__T_10_mask = 1'h1;
+  assign _T_last__T_10_en = io_enq_ready & io_enq_valid;
+  assign io_enq_ready = ~_T_5; // @[Decoupled.scala 241:16]
+  assign io_deq_valid = ~_T_4; // @[Decoupled.scala 240:16]
+  assign io_deq_bits_data = _T_data__T_18_data; // @[Decoupled.scala 242:15]
+  assign io_deq_bits_last = _T_last__T_18_data; // @[Decoupled.scala 242:15]
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+  _RAND_0 = {1{`RANDOM}};
+  `ifdef RANDOMIZE_MEM_INIT
+  for (initvar = 0; initvar < 2; initvar = initvar+1)
+    _T_data[initvar] = _RAND_0[31:0];
+  `endif // RANDOMIZE_MEM_INIT
+  _RAND_1 = {1{`RANDOM}};
+  `ifdef RANDOMIZE_MEM_INIT
+  for (initvar = 0; initvar < 2; initvar = initvar+1)
+    _T_last[initvar] = _RAND_1[0:0];
+  `endif // RANDOMIZE_MEM_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_2 = {1{`RANDOM}};
+  value = _RAND_2[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_3 = {1{`RANDOM}};
+  value_1 = _RAND_3[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_4 = {1{`RANDOM}};
+  _T_1 = _RAND_4[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`endif // SYNTHESIS
+  always @(posedge clock) begin
+    if(_T_data__T_10_en & _T_data__T_10_mask) begin
+      _T_data[_T_data__T_10_addr] <= _T_data__T_10_data; // @[Decoupled.scala 218:24]
+    end
+    if(_T_last__T_10_en & _T_last__T_10_mask) begin
+      _T_last[_T_last__T_10_addr] <= _T_last__T_10_data; // @[Decoupled.scala 218:24]
+    end
+    if (reset) begin
+      value <= 1'h0;
+    end else if (_T_6) begin
+      value <= _T_12;
+    end
+    if (reset) begin
+      value_1 <= 1'h0;
+    end else if (_T_8) begin
+      value_1 <= _T_14;
+    end
+    if (reset) begin
+      _T_1 <= 1'h0;
+    end else if (_T_15) begin
+      _T_1 <= _T_6;
+    end
+  end
+endmodule
+module AXI4StreamBuffer_4(
+  input         clock,
+  input         reset,
+  output        auto_in_ready,
+  input         auto_in_valid,
+  input  [31:0] auto_in_bits_data,
+  input         auto_in_bits_last,
+  input         auto_out_ready,
+  output        auto_out_valid,
+  output [31:0] auto_out_bits_data,
+  output        auto_out_bits_last
+);
+  wire  Queue_clock; // @[Decoupled.scala 296:21]
+  wire  Queue_reset; // @[Decoupled.scala 296:21]
+  wire  Queue_io_enq_ready; // @[Decoupled.scala 296:21]
+  wire  Queue_io_enq_valid; // @[Decoupled.scala 296:21]
+  wire [31:0] Queue_io_enq_bits_data; // @[Decoupled.scala 296:21]
+  wire  Queue_io_enq_bits_last; // @[Decoupled.scala 296:21]
+  wire  Queue_io_deq_ready; // @[Decoupled.scala 296:21]
+  wire  Queue_io_deq_valid; // @[Decoupled.scala 296:21]
+  wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
+  wire  Queue_io_deq_bits_last; // @[Decoupled.scala 296:21]
+  Queue_151 Queue ( // @[Decoupled.scala 296:21]
+    .clock(Queue_clock),
+    .reset(Queue_reset),
+    .io_enq_ready(Queue_io_enq_ready),
+    .io_enq_valid(Queue_io_enq_valid),
+    .io_enq_bits_data(Queue_io_enq_bits_data),
+    .io_enq_bits_last(Queue_io_enq_bits_last),
+    .io_deq_ready(Queue_io_deq_ready),
+    .io_deq_valid(Queue_io_deq_valid),
+    .io_deq_bits_data(Queue_io_deq_bits_data),
+    .io_deq_bits_last(Queue_io_deq_bits_last)
+  );
+  assign auto_in_ready = Queue_io_enq_ready; // @[LazyModule.scala 173:31]
+  assign auto_out_valid = Queue_io_deq_valid; // @[LazyModule.scala 173:49]
+  assign auto_out_bits_data = Queue_io_deq_bits_data; // @[LazyModule.scala 173:49]
+  assign auto_out_bits_last = Queue_io_deq_bits_last; // @[LazyModule.scala 173:49]
+  assign Queue_clock = clock;
+  assign Queue_reset = reset;
+  assign Queue_io_enq_valid = auto_in_valid; // @[Decoupled.scala 297:22]
+  assign Queue_io_enq_bits_data = auto_in_bits_data; // @[Decoupled.scala 298:21]
+  assign Queue_io_enq_bits_last = auto_in_bits_last; // @[Decoupled.scala 298:21]
+  assign Queue_io_deq_ready = auto_out_ready; // @[Decoupled.scala 320:15]
+endmodule
+module Queue_152(
+  input         clock,
+  input         reset,
+  output        io_enq_ready,
+  input         io_enq_valid,
+  input  [31:0] io_enq_bits_data,
+  input         io_enq_bits_last,
+  input         io_deq_ready,
+  output        io_deq_valid,
+  output [31:0] io_deq_bits_data,
+  output        io_deq_bits_last
+);
+  reg [31:0] _T_data [0:1]; // @[Decoupled.scala 218:24]
+  reg [31:0] _RAND_0;
+  wire [31:0] _T_data__T_18_data; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_18_addr; // @[Decoupled.scala 218:24]
+  wire [31:0] _T_data__T_10_data; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_10_addr; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_10_mask; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_10_en; // @[Decoupled.scala 218:24]
+  reg  _T_last [0:1]; // @[Decoupled.scala 218:24]
+  reg [31:0] _RAND_1;
+  wire  _T_last__T_18_data; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_18_addr; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_data; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_addr; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_mask; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_en; // @[Decoupled.scala 218:24]
+  reg  value; // @[Counter.scala 29:33]
+  reg [31:0] _RAND_2;
+  reg  value_1; // @[Counter.scala 29:33]
+  reg [31:0] _RAND_3;
+  reg  _T_1; // @[Decoupled.scala 221:35]
+  reg [31:0] _RAND_4;
+  wire  _T_2 = value == value_1; // @[Decoupled.scala 223:41]
+  wire  _T_3 = ~_T_1; // @[Decoupled.scala 224:36]
+  wire  _T_4 = _T_2 & _T_3; // @[Decoupled.scala 224:33]
+  wire  _T_5 = _T_2 & _T_1; // @[Decoupled.scala 225:32]
+  wire  _T_6 = io_enq_ready & io_enq_valid; // @[Decoupled.scala 40:37]
+  wire  _T_8 = io_deq_ready & io_deq_valid; // @[Decoupled.scala 40:37]
+  wire  _T_12 = value + 1'h1; // @[Counter.scala 39:22]
+  wire  _T_14 = value_1 + 1'h1; // @[Counter.scala 39:22]
+  wire  _T_15 = _T_6 != _T_8; // @[Decoupled.scala 236:16]
+  assign _T_data__T_18_addr = value_1;
+  assign _T_data__T_18_data = _T_data[_T_data__T_18_addr]; // @[Decoupled.scala 218:24]
+  assign _T_data__T_10_data = io_enq_bits_data;
+  assign _T_data__T_10_addr = value;
+  assign _T_data__T_10_mask = 1'h1;
+  assign _T_data__T_10_en = io_enq_ready & io_enq_valid;
+  assign _T_last__T_18_addr = value_1;
+  assign _T_last__T_18_data = _T_last[_T_last__T_18_addr]; // @[Decoupled.scala 218:24]
+  assign _T_last__T_10_data = io_enq_bits_last;
+  assign _T_last__T_10_addr = value;
+  assign _T_last__T_10_mask = 1'h1;
+  assign _T_last__T_10_en = io_enq_ready & io_enq_valid;
+  assign io_enq_ready = ~_T_5; // @[Decoupled.scala 241:16]
+  assign io_deq_valid = ~_T_4; // @[Decoupled.scala 240:16]
+  assign io_deq_bits_data = _T_data__T_18_data; // @[Decoupled.scala 242:15]
+  assign io_deq_bits_last = _T_last__T_18_data; // @[Decoupled.scala 242:15]
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+  _RAND_0 = {1{`RANDOM}};
+  `ifdef RANDOMIZE_MEM_INIT
+  for (initvar = 0; initvar < 2; initvar = initvar+1)
+    _T_data[initvar] = _RAND_0[31:0];
+  `endif // RANDOMIZE_MEM_INIT
+  _RAND_1 = {1{`RANDOM}};
+  `ifdef RANDOMIZE_MEM_INIT
+  for (initvar = 0; initvar < 2; initvar = initvar+1)
+    _T_last[initvar] = _RAND_1[0:0];
+  `endif // RANDOMIZE_MEM_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_2 = {1{`RANDOM}};
+  value = _RAND_2[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_3 = {1{`RANDOM}};
+  value_1 = _RAND_3[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_4 = {1{`RANDOM}};
+  _T_1 = _RAND_4[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`endif // SYNTHESIS
+  always @(posedge clock) begin
+    if(_T_data__T_10_en & _T_data__T_10_mask) begin
+      _T_data[_T_data__T_10_addr] <= _T_data__T_10_data; // @[Decoupled.scala 218:24]
+    end
+    if(_T_last__T_10_en & _T_last__T_10_mask) begin
+      _T_last[_T_last__T_10_addr] <= _T_last__T_10_data; // @[Decoupled.scala 218:24]
+    end
+    if (reset) begin
+      value <= 1'h0;
+    end else if (_T_6) begin
+      value <= _T_12;
+    end
+    if (reset) begin
+      value_1 <= 1'h0;
+    end else if (_T_8) begin
+      value_1 <= _T_14;
+    end
+    if (reset) begin
+      _T_1 <= 1'h0;
+    end else if (_T_15) begin
+      _T_1 <= _T_6;
+    end
+  end
+endmodule
+module AXI4StreamBuffer_5(
+  input         clock,
+  input         reset,
+  output        auto_in_ready,
+  input         auto_in_valid,
+  input  [31:0] auto_in_bits_data,
+  input         auto_in_bits_last,
+  input         auto_out_ready,
+  output        auto_out_valid,
+  output [31:0] auto_out_bits_data,
+  output        auto_out_bits_last
+);
+  wire  Queue_clock; // @[Decoupled.scala 296:21]
+  wire  Queue_reset; // @[Decoupled.scala 296:21]
+  wire  Queue_io_enq_ready; // @[Decoupled.scala 296:21]
+  wire  Queue_io_enq_valid; // @[Decoupled.scala 296:21]
+  wire [31:0] Queue_io_enq_bits_data; // @[Decoupled.scala 296:21]
+  wire  Queue_io_enq_bits_last; // @[Decoupled.scala 296:21]
+  wire  Queue_io_deq_ready; // @[Decoupled.scala 296:21]
+  wire  Queue_io_deq_valid; // @[Decoupled.scala 296:21]
+  wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
+  wire  Queue_io_deq_bits_last; // @[Decoupled.scala 296:21]
+  Queue_152 Queue ( // @[Decoupled.scala 296:21]
+    .clock(Queue_clock),
+    .reset(Queue_reset),
+    .io_enq_ready(Queue_io_enq_ready),
+    .io_enq_valid(Queue_io_enq_valid),
+    .io_enq_bits_data(Queue_io_enq_bits_data),
+    .io_enq_bits_last(Queue_io_enq_bits_last),
+    .io_deq_ready(Queue_io_deq_ready),
+    .io_deq_valid(Queue_io_deq_valid),
+    .io_deq_bits_data(Queue_io_deq_bits_data),
+    .io_deq_bits_last(Queue_io_deq_bits_last)
+  );
+  assign auto_in_ready = Queue_io_enq_ready; // @[LazyModule.scala 173:31]
+  assign auto_out_valid = Queue_io_deq_valid; // @[LazyModule.scala 173:49]
+  assign auto_out_bits_data = Queue_io_deq_bits_data; // @[LazyModule.scala 173:49]
+  assign auto_out_bits_last = Queue_io_deq_bits_last; // @[LazyModule.scala 173:49]
+  assign Queue_clock = clock;
+  assign Queue_reset = reset;
+  assign Queue_io_enq_valid = auto_in_valid; // @[Decoupled.scala 297:22]
+  assign Queue_io_enq_bits_data = auto_in_bits_data; // @[Decoupled.scala 298:21]
+  assign Queue_io_enq_bits_last = auto_in_bits_last; // @[Decoupled.scala 298:21]
+  assign Queue_io_deq_ready = auto_out_ready; // @[Decoupled.scala 320:15]
+endmodule
+module Queue_156(
+  input         clock,
+  input         reset,
+  output        io_enq_ready,
+  input         io_enq_valid,
+  input  [31:0] io_enq_bits_data,
+  input         io_enq_bits_last,
+  input         io_deq_ready,
+  output        io_deq_valid,
+  output [31:0] io_deq_bits_data,
+  output        io_deq_bits_last
+);
+  reg [31:0] _T_data [0:1]; // @[Decoupled.scala 218:24]
+  reg [31:0] _RAND_0;
+  wire [31:0] _T_data__T_18_data; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_18_addr; // @[Decoupled.scala 218:24]
+  wire [31:0] _T_data__T_10_data; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_10_addr; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_10_mask; // @[Decoupled.scala 218:24]
+  wire  _T_data__T_10_en; // @[Decoupled.scala 218:24]
+  reg  _T_last [0:1]; // @[Decoupled.scala 218:24]
+  reg [31:0] _RAND_1;
+  wire  _T_last__T_18_data; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_18_addr; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_data; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_addr; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_mask; // @[Decoupled.scala 218:24]
+  wire  _T_last__T_10_en; // @[Decoupled.scala 218:24]
+  reg  value; // @[Counter.scala 29:33]
+  reg [31:0] _RAND_2;
+  reg  value_1; // @[Counter.scala 29:33]
+  reg [31:0] _RAND_3;
+  reg  _T_1; // @[Decoupled.scala 221:35]
+  reg [31:0] _RAND_4;
+  wire  _T_2 = value == value_1; // @[Decoupled.scala 223:41]
+  wire  _T_3 = ~_T_1; // @[Decoupled.scala 224:36]
+  wire  _T_4 = _T_2 & _T_3; // @[Decoupled.scala 224:33]
+  wire  _T_5 = _T_2 & _T_1; // @[Decoupled.scala 225:32]
+  wire  _T_6 = io_enq_ready & io_enq_valid; // @[Decoupled.scala 40:37]
+  wire  _T_8 = io_deq_ready & io_deq_valid; // @[Decoupled.scala 40:37]
+  wire  _T_12 = value + 1'h1; // @[Counter.scala 39:22]
+  wire  _T_14 = value_1 + 1'h1; // @[Counter.scala 39:22]
+  wire  _T_15 = _T_6 != _T_8; // @[Decoupled.scala 236:16]
+  assign _T_data__T_18_addr = value_1;
+  assign _T_data__T_18_data = _T_data[_T_data__T_18_addr]; // @[Decoupled.scala 218:24]
+  assign _T_data__T_10_data = io_enq_bits_data;
+  assign _T_data__T_10_addr = value;
+  assign _T_data__T_10_mask = 1'h1;
+  assign _T_data__T_10_en = io_enq_ready & io_enq_valid;
+  assign _T_last__T_18_addr = value_1;
+  assign _T_last__T_18_data = _T_last[_T_last__T_18_addr]; // @[Decoupled.scala 218:24]
+  assign _T_last__T_10_data = io_enq_bits_last;
+  assign _T_last__T_10_addr = value;
+  assign _T_last__T_10_mask = 1'h1;
+  assign _T_last__T_10_en = io_enq_ready & io_enq_valid;
+  assign io_enq_ready = ~_T_5; // @[Decoupled.scala 241:16]
+  assign io_deq_valid = ~_T_4; // @[Decoupled.scala 240:16]
+  assign io_deq_bits_data = _T_data__T_18_data; // @[Decoupled.scala 242:15]
+  assign io_deq_bits_last = _T_last__T_18_data; // @[Decoupled.scala 242:15]
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+  _RAND_0 = {1{`RANDOM}};
+  `ifdef RANDOMIZE_MEM_INIT
+  for (initvar = 0; initvar < 2; initvar = initvar+1)
+    _T_data[initvar] = _RAND_0[31:0];
+  `endif // RANDOMIZE_MEM_INIT
+  _RAND_1 = {1{`RANDOM}};
+  `ifdef RANDOMIZE_MEM_INIT
+  for (initvar = 0; initvar < 2; initvar = initvar+1)
+    _T_last[initvar] = _RAND_1[0:0];
+  `endif // RANDOMIZE_MEM_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_2 = {1{`RANDOM}};
+  value = _RAND_2[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_3 = {1{`RANDOM}};
+  value_1 = _RAND_3[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_4 = {1{`RANDOM}};
+  _T_1 = _RAND_4[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`endif // SYNTHESIS
+  always @(posedge clock) begin
+    if(_T_data__T_10_en & _T_data__T_10_mask) begin
+      _T_data[_T_data__T_10_addr] <= _T_data__T_10_data; // @[Decoupled.scala 218:24]
+    end
+    if(_T_last__T_10_en & _T_last__T_10_mask) begin
+      _T_last[_T_last__T_10_addr] <= _T_last__T_10_data; // @[Decoupled.scala 218:24]
+    end
+    if (reset) begin
+      value <= 1'h0;
+    end else if (_T_6) begin
+      value <= _T_12;
+    end
+    if (reset) begin
+      value_1 <= 1'h0;
+    end else if (_T_8) begin
+      value_1 <= _T_14;
+    end
+    if (reset) begin
+      _T_1 <= 1'h0;
+    end else if (_T_15) begin
+      _T_1 <= _T_6;
+    end
+  end
+endmodule
+module AXI4StreamBuffer_9(
+  input         clock,
+  input         reset,
+  output        auto_in_ready,
+  input         auto_in_valid,
+  input  [31:0] auto_in_bits_data,
+  input         auto_in_bits_last,
+  input         auto_out_ready,
+  output        auto_out_valid,
+  output [31:0] auto_out_bits_data,
+  output        auto_out_bits_last
+);
+  wire  Queue_clock; // @[Decoupled.scala 296:21]
+  wire  Queue_reset; // @[Decoupled.scala 296:21]
+  wire  Queue_io_enq_ready; // @[Decoupled.scala 296:21]
+  wire  Queue_io_enq_valid; // @[Decoupled.scala 296:21]
+  wire [31:0] Queue_io_enq_bits_data; // @[Decoupled.scala 296:21]
+  wire  Queue_io_enq_bits_last; // @[Decoupled.scala 296:21]
+  wire  Queue_io_deq_ready; // @[Decoupled.scala 296:21]
+  wire  Queue_io_deq_valid; // @[Decoupled.scala 296:21]
+  wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
+  wire  Queue_io_deq_bits_last; // @[Decoupled.scala 296:21]
+  Queue_156 Queue ( // @[Decoupled.scala 296:21]
+    .clock(Queue_clock),
+    .reset(Queue_reset),
+    .io_enq_ready(Queue_io_enq_ready),
+    .io_enq_valid(Queue_io_enq_valid),
+    .io_enq_bits_data(Queue_io_enq_bits_data),
+    .io_enq_bits_last(Queue_io_enq_bits_last),
+    .io_deq_ready(Queue_io_deq_ready),
+    .io_deq_valid(Queue_io_deq_valid),
+    .io_deq_bits_data(Queue_io_deq_bits_data),
+    .io_deq_bits_last(Queue_io_deq_bits_last)
+  );
+  assign auto_in_ready = Queue_io_enq_ready; // @[LazyModule.scala 173:31]
+  assign auto_out_valid = Queue_io_deq_valid; // @[LazyModule.scala 173:49]
+  assign auto_out_bits_data = Queue_io_deq_bits_data; // @[LazyModule.scala 173:49]
+  assign auto_out_bits_last = Queue_io_deq_bits_last; // @[LazyModule.scala 173:49]
+  assign Queue_clock = clock;
+  assign Queue_reset = reset;
+  assign Queue_io_enq_valid = auto_in_valid; // @[Decoupled.scala 297:22]
+  assign Queue_io_enq_bits_data = auto_in_bits_data; // @[Decoupled.scala 298:21]
+  assign Queue_io_enq_bits_last = auto_in_bits_last; // @[Decoupled.scala 298:21]
+  assign Queue_io_deq_ready = auto_out_ready; // @[Decoupled.scala 320:15]
+endmodule
 module BundleBridgeToAXI4(
   output        auto_in_aw_ready,
   input         auto_in_aw_valid,
@@ -22777,6 +24207,7 @@ module SpectrometerTest(
   wire  out_mux_auto_stream_in_6_ready; // @[SpectrometerTest.scala 157:29]
   wire  out_mux_auto_stream_in_6_valid; // @[SpectrometerTest.scala 157:29]
   wire [31:0] out_mux_auto_stream_in_6_bits_data; // @[SpectrometerTest.scala 157:29]
+  wire  out_mux_auto_stream_in_6_bits_last; // @[SpectrometerTest.scala 157:29]
   wire  out_mux_auto_stream_in_5_ready; // @[SpectrometerTest.scala 157:29]
   wire  out_mux_auto_stream_in_5_valid; // @[SpectrometerTest.scala 157:29]
   wire [31:0] out_mux_auto_stream_in_5_bits_data; // @[SpectrometerTest.scala 157:29]
@@ -23014,13 +24445,16 @@ module SpectrometerTest(
   wire  bus_auto_out_20_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_20_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_20_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_20_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_20_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_20_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_20_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23030,17 +24464,22 @@ module SpectrometerTest(
   wire  bus_auto_out_20_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_20_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_20_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_20_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_19_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_19_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_19_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_19_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_19_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_19_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_19_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_19_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_19_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_19_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_19_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_19_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_19_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_19_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_19_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_19_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_19_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23050,17 +24489,22 @@ module SpectrometerTest(
   wire  bus_auto_out_19_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_19_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_19_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_19_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_19_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_18_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_18_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_18_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_18_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_18_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_18_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_18_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_18_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_18_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_18_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_18_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_18_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_18_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_18_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_18_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_18_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_18_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23070,17 +24514,22 @@ module SpectrometerTest(
   wire  bus_auto_out_18_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_18_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_18_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_18_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_18_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_17_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_17_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_17_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_17_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_17_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_17_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_17_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_17_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_17_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_17_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_17_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_17_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_17_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_17_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_17_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_17_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_17_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23090,17 +24539,22 @@ module SpectrometerTest(
   wire  bus_auto_out_17_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_17_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_17_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_17_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_17_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_16_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_16_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_16_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_16_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_16_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_16_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_16_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_16_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_16_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_16_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_16_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_16_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_16_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_16_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_16_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_16_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_16_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23110,17 +24564,22 @@ module SpectrometerTest(
   wire  bus_auto_out_16_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_16_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_16_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_16_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_16_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_15_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_15_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_15_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_15_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_15_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_15_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_15_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_15_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_15_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_15_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_15_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_15_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_15_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_15_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_15_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_15_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_15_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23130,17 +24589,22 @@ module SpectrometerTest(
   wire  bus_auto_out_15_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_15_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_15_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_15_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_15_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_14_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_14_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_14_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_14_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_14_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_14_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_14_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_14_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_14_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_14_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_14_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_14_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_14_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_14_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_14_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_14_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_14_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23150,17 +24614,22 @@ module SpectrometerTest(
   wire  bus_auto_out_14_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_14_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_14_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_14_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_14_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_13_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_13_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_13_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_13_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_13_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_13_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_13_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_13_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_13_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_13_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_13_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_13_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_13_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_13_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_13_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_13_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_13_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23170,17 +24639,22 @@ module SpectrometerTest(
   wire  bus_auto_out_13_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_13_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_13_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_13_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_13_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_12_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_12_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_12_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_12_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_12_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_12_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_12_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_12_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_12_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_12_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_12_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_12_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_12_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_12_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_12_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_12_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_12_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23190,17 +24664,22 @@ module SpectrometerTest(
   wire  bus_auto_out_12_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_12_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_12_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_12_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_12_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_11_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_11_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_11_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_11_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_11_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_11_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_11_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_11_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_11_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_11_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_11_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_11_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_11_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_11_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_11_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_11_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_11_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23210,17 +24689,22 @@ module SpectrometerTest(
   wire  bus_auto_out_11_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_11_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_11_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_11_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_11_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_10_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_10_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_10_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_10_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_10_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_10_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_10_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_10_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_10_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_10_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_10_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_10_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_10_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_10_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_10_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_10_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_10_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23230,17 +24714,22 @@ module SpectrometerTest(
   wire  bus_auto_out_10_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_10_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_10_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_10_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_10_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_9_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_9_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_9_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_9_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_9_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_9_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_9_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_9_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_9_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_9_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_9_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_9_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_9_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_9_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_9_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_9_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_9_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23250,17 +24739,22 @@ module SpectrometerTest(
   wire  bus_auto_out_9_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_9_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_9_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_9_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_9_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_8_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_8_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_8_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_8_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_8_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_8_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_8_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_8_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_8_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_8_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_8_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_8_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_8_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_8_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_8_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_8_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_8_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23270,17 +24764,22 @@ module SpectrometerTest(
   wire  bus_auto_out_8_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_8_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_8_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_8_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_8_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_7_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_7_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_7_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_7_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_7_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_7_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_7_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_7_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_7_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_7_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_7_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_7_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_7_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_7_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_7_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_7_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_7_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23290,17 +24789,22 @@ module SpectrometerTest(
   wire  bus_auto_out_7_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_7_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_7_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_7_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_7_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_6_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_6_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_6_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_6_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_6_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_6_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_6_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_6_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_6_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_6_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_6_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_6_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_6_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_6_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_6_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_6_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_6_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23310,17 +24814,47 @@ module SpectrometerTest(
   wire  bus_auto_out_6_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_6_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_6_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_6_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_6_r_bits_last; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_5_aw_ready; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_5_aw_valid; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_5_aw_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [29:0] bus_auto_out_5_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_5_aw_bits_size; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_5_w_ready; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_5_w_valid; // @[SpectrometerTest.scala 181:23]
+  wire [31:0] bus_auto_out_5_w_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [3:0] bus_auto_out_5_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_5_w_bits_last; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_5_b_ready; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_5_b_valid; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_5_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_5_b_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_5_ar_ready; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_5_ar_valid; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_5_ar_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [29:0] bus_auto_out_5_ar_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_5_ar_bits_size; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_5_r_ready; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_5_r_valid; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_5_r_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [31:0] bus_auto_out_5_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_5_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_5_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_4_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_4_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_4_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_4_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_4_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_4_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_4_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_4_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_4_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_4_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_4_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_4_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_4_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_4_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_4_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_4_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_4_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23330,17 +24864,22 @@ module SpectrometerTest(
   wire  bus_auto_out_4_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_4_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_4_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_4_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_4_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_3_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_3_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_3_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_3_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_3_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_3_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_3_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_3_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_3_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_3_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_3_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_3_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_3_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_3_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_3_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_3_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_3_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23350,17 +24889,22 @@ module SpectrometerTest(
   wire  bus_auto_out_3_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_3_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_3_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_3_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_3_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_2_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_2_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_2_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_2_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_2_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_2_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_2_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_2_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_2_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_2_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_2_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_2_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_2_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_2_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_2_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_2_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_2_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23370,10 +24914,13 @@ module SpectrometerTest(
   wire  bus_auto_out_2_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_2_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_2_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_2_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_2_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_1_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_1_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_1_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_1_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_1_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_1_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_1_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_1_w_bits_data; // @[SpectrometerTest.scala 181:23]
@@ -23381,6 +24928,7 @@ module SpectrometerTest(
   wire  bus_auto_out_1_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_1_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_1_b_valid; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_1_b_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [1:0] bus_auto_out_1_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_1_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_1_ar_valid; // @[SpectrometerTest.scala 181:23]
@@ -23389,6 +24937,7 @@ module SpectrometerTest(
   wire [2:0] bus_auto_out_1_ar_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_1_r_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_1_r_valid; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_1_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_1_r_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [1:0] bus_auto_out_1_r_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_1_r_bits_last; // @[SpectrometerTest.scala 181:23]
@@ -23396,13 +24945,16 @@ module SpectrometerTest(
   wire  bus_auto_out_0_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_0_aw_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [29:0] bus_auto_out_0_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
+  wire [2:0] bus_auto_out_0_aw_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_0_w_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_0_w_valid; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_0_w_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [3:0] bus_auto_out_0_w_bits_strb; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_0_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_0_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_0_b_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_0_b_bits_id; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_0_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_0_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_0_ar_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_0_ar_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -23412,6 +24964,1179 @@ module SpectrometerTest(
   wire  bus_auto_out_0_r_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_0_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_0_r_bits_data; // @[SpectrometerTest.scala 181:23]
+  wire [1:0] bus_auto_out_0_r_bits_resp; // @[SpectrometerTest.scala 181:23]
+  wire  bus_auto_out_0_r_bits_last; // @[SpectrometerTest.scala 181:23]
+  wire  axi4buf_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_1_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_1_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_1_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_1_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_1_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_1_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_1_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_1_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_1_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_1_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_1_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_1_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_1_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_1_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_1_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_1_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_1_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_1_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_2_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_2_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_2_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_2_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_2_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_2_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_2_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_2_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_2_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_2_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_2_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_2_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_2_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_2_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_2_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_2_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_2_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_2_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_3_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_3_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_3_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_3_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_3_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_3_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_3_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_3_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_3_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_3_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_3_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_3_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_3_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_3_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_3_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_3_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_3_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_3_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_4_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_4_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_4_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_4_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_4_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_4_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_4_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_4_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_4_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_4_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_4_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_4_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_4_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_4_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_4_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_4_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_4_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_4_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_5_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_5_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_5_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_5_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_5_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_5_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_5_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_5_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_5_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_5_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_5_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_5_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_5_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_5_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_5_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_5_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_5_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_5_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_6_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_6_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_6_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_6_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_6_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_6_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_6_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_6_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_6_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_6_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_6_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_6_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_6_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_6_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_6_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_6_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_6_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_6_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_7_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_7_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_7_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_7_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_7_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_7_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_7_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_7_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_7_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_7_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_7_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_7_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_7_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_7_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_7_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_7_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_7_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_7_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_8_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_8_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_8_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_8_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_8_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_8_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_8_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_8_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_8_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_8_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_8_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_8_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_8_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_8_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_8_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_8_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_8_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_8_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_9_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_9_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_9_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_9_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_9_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_9_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_9_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_9_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_9_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_9_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_9_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_9_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_9_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_9_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_9_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_9_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_9_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_9_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_10_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_10_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_10_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_10_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_10_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_10_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_10_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_10_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_10_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_10_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_10_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_10_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_10_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_10_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_10_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_10_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_10_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_10_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_11_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_11_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_11_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_11_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_11_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_11_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_11_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_11_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_11_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_11_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_11_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_11_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_11_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_11_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_11_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_11_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_11_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_11_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_12_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_12_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_12_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_12_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_12_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_12_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_12_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_12_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_12_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_12_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_12_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_12_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_12_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_12_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_12_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_12_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_12_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_12_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_13_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_13_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_13_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_13_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_13_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_13_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_13_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_13_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_13_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_13_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_13_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_13_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_13_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_13_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_13_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_13_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_13_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_13_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_14_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_14_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_14_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_14_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_14_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_14_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_14_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_14_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_14_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_14_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_14_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_14_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_14_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_14_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_14_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_14_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_14_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_14_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_15_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_15_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_15_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_15_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_15_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_15_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_15_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_15_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_15_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_15_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_15_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_15_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_15_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_15_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_15_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_15_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_15_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_15_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_16_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_16_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_16_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_16_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_16_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_16_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_16_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_16_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_16_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_16_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_16_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_16_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_16_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_16_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_16_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_16_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_16_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_16_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_17_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_17_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_17_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_17_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_17_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_17_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_17_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_17_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_17_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_17_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_17_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_17_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_17_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_17_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_17_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_17_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_17_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_17_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_18_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_18_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_18_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_18_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_18_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_18_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_18_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_18_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_18_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_18_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_18_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_18_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_18_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_18_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_18_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_18_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_18_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_18_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_19_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_19_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_19_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_19_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_19_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_19_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_19_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_19_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_19_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_19_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_19_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_19_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_19_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_19_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_19_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_19_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_19_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_19_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_clock; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_reset; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_in_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_in_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_20_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_20_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_in_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_in_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_20_auto_in_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_20_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_in_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_in_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_in_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_in_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_20_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_in_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_in_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_20_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_20_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_in_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_in_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_in_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_20_auto_in_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_20_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_in_r_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_out_aw_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_out_aw_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_20_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_out_w_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_out_w_valid; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_20_auto_out_w_bits_data; // @[Buffer.scala 58:29]
+  wire [3:0] axi4buf_20_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_out_w_bits_last; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_out_b_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_out_b_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_out_b_bits_id; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_20_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_out_ar_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_out_ar_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
+  wire [29:0] axi4buf_20_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
+  wire [2:0] axi4buf_20_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_out_r_ready; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_out_r_valid; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_out_r_bits_id; // @[Buffer.scala 58:29]
+  wire [31:0] axi4buf_20_auto_out_r_bits_data; // @[Buffer.scala 58:29]
+  wire [1:0] axi4buf_20_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
+  wire  axi4buf_20_auto_out_r_bits_last; // @[Buffer.scala 58:29]
+  wire  buffer_clock; // @[Buffer.scala 29:28]
+  wire  buffer_reset; // @[Buffer.scala 29:28]
+  wire  buffer_auto_in_ready; // @[Buffer.scala 29:28]
+  wire  buffer_auto_in_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_auto_in_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_auto_in_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_auto_out_ready; // @[Buffer.scala 29:28]
+  wire  buffer_auto_out_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_auto_out_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_auto_out_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_1_clock; // @[Buffer.scala 29:28]
+  wire  buffer_1_reset; // @[Buffer.scala 29:28]
+  wire  buffer_1_auto_in_ready; // @[Buffer.scala 29:28]
+  wire  buffer_1_auto_in_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_1_auto_in_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_1_auto_in_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_1_auto_out_ready; // @[Buffer.scala 29:28]
+  wire  buffer_1_auto_out_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_1_auto_out_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_1_auto_out_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_2_clock; // @[Buffer.scala 29:28]
+  wire  buffer_2_reset; // @[Buffer.scala 29:28]
+  wire  buffer_2_auto_in_ready; // @[Buffer.scala 29:28]
+  wire  buffer_2_auto_in_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_2_auto_in_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_2_auto_in_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_2_auto_out_ready; // @[Buffer.scala 29:28]
+  wire  buffer_2_auto_out_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_2_auto_out_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_2_auto_out_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_3_clock; // @[Buffer.scala 29:28]
+  wire  buffer_3_reset; // @[Buffer.scala 29:28]
+  wire  buffer_3_auto_in_ready; // @[Buffer.scala 29:28]
+  wire  buffer_3_auto_in_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_3_auto_in_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_3_auto_in_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_3_auto_out_ready; // @[Buffer.scala 29:28]
+  wire  buffer_3_auto_out_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_3_auto_out_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_3_auto_out_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_4_clock; // @[Buffer.scala 29:28]
+  wire  buffer_4_reset; // @[Buffer.scala 29:28]
+  wire  buffer_4_auto_in_ready; // @[Buffer.scala 29:28]
+  wire  buffer_4_auto_in_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_4_auto_in_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_4_auto_in_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_4_auto_out_ready; // @[Buffer.scala 29:28]
+  wire  buffer_4_auto_out_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_4_auto_out_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_4_auto_out_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_5_clock; // @[Buffer.scala 29:28]
+  wire  buffer_5_reset; // @[Buffer.scala 29:28]
+  wire  buffer_5_auto_in_ready; // @[Buffer.scala 29:28]
+  wire  buffer_5_auto_in_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_5_auto_in_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_5_auto_in_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_5_auto_out_ready; // @[Buffer.scala 29:28]
+  wire  buffer_5_auto_out_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_5_auto_out_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_5_auto_out_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_6_clock; // @[Buffer.scala 29:28]
+  wire  buffer_6_reset; // @[Buffer.scala 29:28]
+  wire  buffer_6_auto_in_ready; // @[Buffer.scala 29:28]
+  wire  buffer_6_auto_in_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_6_auto_in_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_6_auto_in_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_6_auto_out_ready; // @[Buffer.scala 29:28]
+  wire  buffer_6_auto_out_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_6_auto_out_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_6_auto_out_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_7_clock; // @[Buffer.scala 29:28]
+  wire  buffer_7_reset; // @[Buffer.scala 29:28]
+  wire  buffer_7_auto_in_ready; // @[Buffer.scala 29:28]
+  wire  buffer_7_auto_in_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_7_auto_in_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_7_auto_in_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_7_auto_out_ready; // @[Buffer.scala 29:28]
+  wire  buffer_7_auto_out_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_7_auto_out_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_7_auto_out_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_8_clock; // @[Buffer.scala 29:28]
+  wire  buffer_8_reset; // @[Buffer.scala 29:28]
+  wire  buffer_8_auto_in_ready; // @[Buffer.scala 29:28]
+  wire  buffer_8_auto_in_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_8_auto_in_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_8_auto_in_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_8_auto_out_ready; // @[Buffer.scala 29:28]
+  wire  buffer_8_auto_out_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_8_auto_out_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_8_auto_out_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_9_clock; // @[Buffer.scala 29:28]
+  wire  buffer_9_reset; // @[Buffer.scala 29:28]
+  wire  buffer_9_auto_in_ready; // @[Buffer.scala 29:28]
+  wire  buffer_9_auto_in_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_9_auto_in_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_9_auto_in_bits_last; // @[Buffer.scala 29:28]
+  wire  buffer_9_auto_out_ready; // @[Buffer.scala 29:28]
+  wire  buffer_9_auto_out_valid; // @[Buffer.scala 29:28]
+  wire [31:0] buffer_9_auto_out_bits_data; // @[Buffer.scala 29:28]
+  wire  buffer_9_auto_out_bits_last; // @[Buffer.scala 29:28]
   wire  converter_auto_in_aw_ready; // @[Node.scala 65:31]
   wire  converter_auto_in_aw_valid; // @[Node.scala 65:31]
   wire  converter_auto_in_aw_bits_id; // @[Node.scala 65:31]
@@ -24185,6 +26910,7 @@ module SpectrometerTest(
     .auto_stream_in_6_ready(out_mux_auto_stream_in_6_ready),
     .auto_stream_in_6_valid(out_mux_auto_stream_in_6_valid),
     .auto_stream_in_6_bits_data(out_mux_auto_stream_in_6_bits_data),
+    .auto_stream_in_6_bits_last(out_mux_auto_stream_in_6_bits_last),
     .auto_stream_in_5_ready(out_mux_auto_stream_in_5_ready),
     .auto_stream_in_5_valid(out_mux_auto_stream_in_5_valid),
     .auto_stream_in_5_bits_data(out_mux_auto_stream_in_5_bits_data),
@@ -24440,13 +27166,16 @@ module SpectrometerTest(
     .auto_out_20_aw_valid(bus_auto_out_20_aw_valid),
     .auto_out_20_aw_bits_id(bus_auto_out_20_aw_bits_id),
     .auto_out_20_aw_bits_addr(bus_auto_out_20_aw_bits_addr),
+    .auto_out_20_aw_bits_size(bus_auto_out_20_aw_bits_size),
     .auto_out_20_w_ready(bus_auto_out_20_w_ready),
     .auto_out_20_w_valid(bus_auto_out_20_w_valid),
     .auto_out_20_w_bits_data(bus_auto_out_20_w_bits_data),
     .auto_out_20_w_bits_strb(bus_auto_out_20_w_bits_strb),
+    .auto_out_20_w_bits_last(bus_auto_out_20_w_bits_last),
     .auto_out_20_b_ready(bus_auto_out_20_b_ready),
     .auto_out_20_b_valid(bus_auto_out_20_b_valid),
     .auto_out_20_b_bits_id(bus_auto_out_20_b_bits_id),
+    .auto_out_20_b_bits_resp(bus_auto_out_20_b_bits_resp),
     .auto_out_20_ar_ready(bus_auto_out_20_ar_ready),
     .auto_out_20_ar_valid(bus_auto_out_20_ar_valid),
     .auto_out_20_ar_bits_id(bus_auto_out_20_ar_bits_id),
@@ -24456,17 +27185,22 @@ module SpectrometerTest(
     .auto_out_20_r_valid(bus_auto_out_20_r_valid),
     .auto_out_20_r_bits_id(bus_auto_out_20_r_bits_id),
     .auto_out_20_r_bits_data(bus_auto_out_20_r_bits_data),
+    .auto_out_20_r_bits_resp(bus_auto_out_20_r_bits_resp),
+    .auto_out_20_r_bits_last(bus_auto_out_20_r_bits_last),
     .auto_out_19_aw_ready(bus_auto_out_19_aw_ready),
     .auto_out_19_aw_valid(bus_auto_out_19_aw_valid),
     .auto_out_19_aw_bits_id(bus_auto_out_19_aw_bits_id),
     .auto_out_19_aw_bits_addr(bus_auto_out_19_aw_bits_addr),
+    .auto_out_19_aw_bits_size(bus_auto_out_19_aw_bits_size),
     .auto_out_19_w_ready(bus_auto_out_19_w_ready),
     .auto_out_19_w_valid(bus_auto_out_19_w_valid),
     .auto_out_19_w_bits_data(bus_auto_out_19_w_bits_data),
     .auto_out_19_w_bits_strb(bus_auto_out_19_w_bits_strb),
+    .auto_out_19_w_bits_last(bus_auto_out_19_w_bits_last),
     .auto_out_19_b_ready(bus_auto_out_19_b_ready),
     .auto_out_19_b_valid(bus_auto_out_19_b_valid),
     .auto_out_19_b_bits_id(bus_auto_out_19_b_bits_id),
+    .auto_out_19_b_bits_resp(bus_auto_out_19_b_bits_resp),
     .auto_out_19_ar_ready(bus_auto_out_19_ar_ready),
     .auto_out_19_ar_valid(bus_auto_out_19_ar_valid),
     .auto_out_19_ar_bits_id(bus_auto_out_19_ar_bits_id),
@@ -24476,17 +27210,22 @@ module SpectrometerTest(
     .auto_out_19_r_valid(bus_auto_out_19_r_valid),
     .auto_out_19_r_bits_id(bus_auto_out_19_r_bits_id),
     .auto_out_19_r_bits_data(bus_auto_out_19_r_bits_data),
+    .auto_out_19_r_bits_resp(bus_auto_out_19_r_bits_resp),
+    .auto_out_19_r_bits_last(bus_auto_out_19_r_bits_last),
     .auto_out_18_aw_ready(bus_auto_out_18_aw_ready),
     .auto_out_18_aw_valid(bus_auto_out_18_aw_valid),
     .auto_out_18_aw_bits_id(bus_auto_out_18_aw_bits_id),
     .auto_out_18_aw_bits_addr(bus_auto_out_18_aw_bits_addr),
+    .auto_out_18_aw_bits_size(bus_auto_out_18_aw_bits_size),
     .auto_out_18_w_ready(bus_auto_out_18_w_ready),
     .auto_out_18_w_valid(bus_auto_out_18_w_valid),
     .auto_out_18_w_bits_data(bus_auto_out_18_w_bits_data),
     .auto_out_18_w_bits_strb(bus_auto_out_18_w_bits_strb),
+    .auto_out_18_w_bits_last(bus_auto_out_18_w_bits_last),
     .auto_out_18_b_ready(bus_auto_out_18_b_ready),
     .auto_out_18_b_valid(bus_auto_out_18_b_valid),
     .auto_out_18_b_bits_id(bus_auto_out_18_b_bits_id),
+    .auto_out_18_b_bits_resp(bus_auto_out_18_b_bits_resp),
     .auto_out_18_ar_ready(bus_auto_out_18_ar_ready),
     .auto_out_18_ar_valid(bus_auto_out_18_ar_valid),
     .auto_out_18_ar_bits_id(bus_auto_out_18_ar_bits_id),
@@ -24496,17 +27235,22 @@ module SpectrometerTest(
     .auto_out_18_r_valid(bus_auto_out_18_r_valid),
     .auto_out_18_r_bits_id(bus_auto_out_18_r_bits_id),
     .auto_out_18_r_bits_data(bus_auto_out_18_r_bits_data),
+    .auto_out_18_r_bits_resp(bus_auto_out_18_r_bits_resp),
+    .auto_out_18_r_bits_last(bus_auto_out_18_r_bits_last),
     .auto_out_17_aw_ready(bus_auto_out_17_aw_ready),
     .auto_out_17_aw_valid(bus_auto_out_17_aw_valid),
     .auto_out_17_aw_bits_id(bus_auto_out_17_aw_bits_id),
     .auto_out_17_aw_bits_addr(bus_auto_out_17_aw_bits_addr),
+    .auto_out_17_aw_bits_size(bus_auto_out_17_aw_bits_size),
     .auto_out_17_w_ready(bus_auto_out_17_w_ready),
     .auto_out_17_w_valid(bus_auto_out_17_w_valid),
     .auto_out_17_w_bits_data(bus_auto_out_17_w_bits_data),
     .auto_out_17_w_bits_strb(bus_auto_out_17_w_bits_strb),
+    .auto_out_17_w_bits_last(bus_auto_out_17_w_bits_last),
     .auto_out_17_b_ready(bus_auto_out_17_b_ready),
     .auto_out_17_b_valid(bus_auto_out_17_b_valid),
     .auto_out_17_b_bits_id(bus_auto_out_17_b_bits_id),
+    .auto_out_17_b_bits_resp(bus_auto_out_17_b_bits_resp),
     .auto_out_17_ar_ready(bus_auto_out_17_ar_ready),
     .auto_out_17_ar_valid(bus_auto_out_17_ar_valid),
     .auto_out_17_ar_bits_id(bus_auto_out_17_ar_bits_id),
@@ -24516,17 +27260,22 @@ module SpectrometerTest(
     .auto_out_17_r_valid(bus_auto_out_17_r_valid),
     .auto_out_17_r_bits_id(bus_auto_out_17_r_bits_id),
     .auto_out_17_r_bits_data(bus_auto_out_17_r_bits_data),
+    .auto_out_17_r_bits_resp(bus_auto_out_17_r_bits_resp),
+    .auto_out_17_r_bits_last(bus_auto_out_17_r_bits_last),
     .auto_out_16_aw_ready(bus_auto_out_16_aw_ready),
     .auto_out_16_aw_valid(bus_auto_out_16_aw_valid),
     .auto_out_16_aw_bits_id(bus_auto_out_16_aw_bits_id),
     .auto_out_16_aw_bits_addr(bus_auto_out_16_aw_bits_addr),
+    .auto_out_16_aw_bits_size(bus_auto_out_16_aw_bits_size),
     .auto_out_16_w_ready(bus_auto_out_16_w_ready),
     .auto_out_16_w_valid(bus_auto_out_16_w_valid),
     .auto_out_16_w_bits_data(bus_auto_out_16_w_bits_data),
     .auto_out_16_w_bits_strb(bus_auto_out_16_w_bits_strb),
+    .auto_out_16_w_bits_last(bus_auto_out_16_w_bits_last),
     .auto_out_16_b_ready(bus_auto_out_16_b_ready),
     .auto_out_16_b_valid(bus_auto_out_16_b_valid),
     .auto_out_16_b_bits_id(bus_auto_out_16_b_bits_id),
+    .auto_out_16_b_bits_resp(bus_auto_out_16_b_bits_resp),
     .auto_out_16_ar_ready(bus_auto_out_16_ar_ready),
     .auto_out_16_ar_valid(bus_auto_out_16_ar_valid),
     .auto_out_16_ar_bits_id(bus_auto_out_16_ar_bits_id),
@@ -24536,17 +27285,22 @@ module SpectrometerTest(
     .auto_out_16_r_valid(bus_auto_out_16_r_valid),
     .auto_out_16_r_bits_id(bus_auto_out_16_r_bits_id),
     .auto_out_16_r_bits_data(bus_auto_out_16_r_bits_data),
+    .auto_out_16_r_bits_resp(bus_auto_out_16_r_bits_resp),
+    .auto_out_16_r_bits_last(bus_auto_out_16_r_bits_last),
     .auto_out_15_aw_ready(bus_auto_out_15_aw_ready),
     .auto_out_15_aw_valid(bus_auto_out_15_aw_valid),
     .auto_out_15_aw_bits_id(bus_auto_out_15_aw_bits_id),
     .auto_out_15_aw_bits_addr(bus_auto_out_15_aw_bits_addr),
+    .auto_out_15_aw_bits_size(bus_auto_out_15_aw_bits_size),
     .auto_out_15_w_ready(bus_auto_out_15_w_ready),
     .auto_out_15_w_valid(bus_auto_out_15_w_valid),
     .auto_out_15_w_bits_data(bus_auto_out_15_w_bits_data),
     .auto_out_15_w_bits_strb(bus_auto_out_15_w_bits_strb),
+    .auto_out_15_w_bits_last(bus_auto_out_15_w_bits_last),
     .auto_out_15_b_ready(bus_auto_out_15_b_ready),
     .auto_out_15_b_valid(bus_auto_out_15_b_valid),
     .auto_out_15_b_bits_id(bus_auto_out_15_b_bits_id),
+    .auto_out_15_b_bits_resp(bus_auto_out_15_b_bits_resp),
     .auto_out_15_ar_ready(bus_auto_out_15_ar_ready),
     .auto_out_15_ar_valid(bus_auto_out_15_ar_valid),
     .auto_out_15_ar_bits_id(bus_auto_out_15_ar_bits_id),
@@ -24556,17 +27310,22 @@ module SpectrometerTest(
     .auto_out_15_r_valid(bus_auto_out_15_r_valid),
     .auto_out_15_r_bits_id(bus_auto_out_15_r_bits_id),
     .auto_out_15_r_bits_data(bus_auto_out_15_r_bits_data),
+    .auto_out_15_r_bits_resp(bus_auto_out_15_r_bits_resp),
+    .auto_out_15_r_bits_last(bus_auto_out_15_r_bits_last),
     .auto_out_14_aw_ready(bus_auto_out_14_aw_ready),
     .auto_out_14_aw_valid(bus_auto_out_14_aw_valid),
     .auto_out_14_aw_bits_id(bus_auto_out_14_aw_bits_id),
     .auto_out_14_aw_bits_addr(bus_auto_out_14_aw_bits_addr),
+    .auto_out_14_aw_bits_size(bus_auto_out_14_aw_bits_size),
     .auto_out_14_w_ready(bus_auto_out_14_w_ready),
     .auto_out_14_w_valid(bus_auto_out_14_w_valid),
     .auto_out_14_w_bits_data(bus_auto_out_14_w_bits_data),
     .auto_out_14_w_bits_strb(bus_auto_out_14_w_bits_strb),
+    .auto_out_14_w_bits_last(bus_auto_out_14_w_bits_last),
     .auto_out_14_b_ready(bus_auto_out_14_b_ready),
     .auto_out_14_b_valid(bus_auto_out_14_b_valid),
     .auto_out_14_b_bits_id(bus_auto_out_14_b_bits_id),
+    .auto_out_14_b_bits_resp(bus_auto_out_14_b_bits_resp),
     .auto_out_14_ar_ready(bus_auto_out_14_ar_ready),
     .auto_out_14_ar_valid(bus_auto_out_14_ar_valid),
     .auto_out_14_ar_bits_id(bus_auto_out_14_ar_bits_id),
@@ -24576,17 +27335,22 @@ module SpectrometerTest(
     .auto_out_14_r_valid(bus_auto_out_14_r_valid),
     .auto_out_14_r_bits_id(bus_auto_out_14_r_bits_id),
     .auto_out_14_r_bits_data(bus_auto_out_14_r_bits_data),
+    .auto_out_14_r_bits_resp(bus_auto_out_14_r_bits_resp),
+    .auto_out_14_r_bits_last(bus_auto_out_14_r_bits_last),
     .auto_out_13_aw_ready(bus_auto_out_13_aw_ready),
     .auto_out_13_aw_valid(bus_auto_out_13_aw_valid),
     .auto_out_13_aw_bits_id(bus_auto_out_13_aw_bits_id),
     .auto_out_13_aw_bits_addr(bus_auto_out_13_aw_bits_addr),
+    .auto_out_13_aw_bits_size(bus_auto_out_13_aw_bits_size),
     .auto_out_13_w_ready(bus_auto_out_13_w_ready),
     .auto_out_13_w_valid(bus_auto_out_13_w_valid),
     .auto_out_13_w_bits_data(bus_auto_out_13_w_bits_data),
     .auto_out_13_w_bits_strb(bus_auto_out_13_w_bits_strb),
+    .auto_out_13_w_bits_last(bus_auto_out_13_w_bits_last),
     .auto_out_13_b_ready(bus_auto_out_13_b_ready),
     .auto_out_13_b_valid(bus_auto_out_13_b_valid),
     .auto_out_13_b_bits_id(bus_auto_out_13_b_bits_id),
+    .auto_out_13_b_bits_resp(bus_auto_out_13_b_bits_resp),
     .auto_out_13_ar_ready(bus_auto_out_13_ar_ready),
     .auto_out_13_ar_valid(bus_auto_out_13_ar_valid),
     .auto_out_13_ar_bits_id(bus_auto_out_13_ar_bits_id),
@@ -24596,17 +27360,22 @@ module SpectrometerTest(
     .auto_out_13_r_valid(bus_auto_out_13_r_valid),
     .auto_out_13_r_bits_id(bus_auto_out_13_r_bits_id),
     .auto_out_13_r_bits_data(bus_auto_out_13_r_bits_data),
+    .auto_out_13_r_bits_resp(bus_auto_out_13_r_bits_resp),
+    .auto_out_13_r_bits_last(bus_auto_out_13_r_bits_last),
     .auto_out_12_aw_ready(bus_auto_out_12_aw_ready),
     .auto_out_12_aw_valid(bus_auto_out_12_aw_valid),
     .auto_out_12_aw_bits_id(bus_auto_out_12_aw_bits_id),
     .auto_out_12_aw_bits_addr(bus_auto_out_12_aw_bits_addr),
+    .auto_out_12_aw_bits_size(bus_auto_out_12_aw_bits_size),
     .auto_out_12_w_ready(bus_auto_out_12_w_ready),
     .auto_out_12_w_valid(bus_auto_out_12_w_valid),
     .auto_out_12_w_bits_data(bus_auto_out_12_w_bits_data),
     .auto_out_12_w_bits_strb(bus_auto_out_12_w_bits_strb),
+    .auto_out_12_w_bits_last(bus_auto_out_12_w_bits_last),
     .auto_out_12_b_ready(bus_auto_out_12_b_ready),
     .auto_out_12_b_valid(bus_auto_out_12_b_valid),
     .auto_out_12_b_bits_id(bus_auto_out_12_b_bits_id),
+    .auto_out_12_b_bits_resp(bus_auto_out_12_b_bits_resp),
     .auto_out_12_ar_ready(bus_auto_out_12_ar_ready),
     .auto_out_12_ar_valid(bus_auto_out_12_ar_valid),
     .auto_out_12_ar_bits_id(bus_auto_out_12_ar_bits_id),
@@ -24616,17 +27385,22 @@ module SpectrometerTest(
     .auto_out_12_r_valid(bus_auto_out_12_r_valid),
     .auto_out_12_r_bits_id(bus_auto_out_12_r_bits_id),
     .auto_out_12_r_bits_data(bus_auto_out_12_r_bits_data),
+    .auto_out_12_r_bits_resp(bus_auto_out_12_r_bits_resp),
+    .auto_out_12_r_bits_last(bus_auto_out_12_r_bits_last),
     .auto_out_11_aw_ready(bus_auto_out_11_aw_ready),
     .auto_out_11_aw_valid(bus_auto_out_11_aw_valid),
     .auto_out_11_aw_bits_id(bus_auto_out_11_aw_bits_id),
     .auto_out_11_aw_bits_addr(bus_auto_out_11_aw_bits_addr),
+    .auto_out_11_aw_bits_size(bus_auto_out_11_aw_bits_size),
     .auto_out_11_w_ready(bus_auto_out_11_w_ready),
     .auto_out_11_w_valid(bus_auto_out_11_w_valid),
     .auto_out_11_w_bits_data(bus_auto_out_11_w_bits_data),
     .auto_out_11_w_bits_strb(bus_auto_out_11_w_bits_strb),
+    .auto_out_11_w_bits_last(bus_auto_out_11_w_bits_last),
     .auto_out_11_b_ready(bus_auto_out_11_b_ready),
     .auto_out_11_b_valid(bus_auto_out_11_b_valid),
     .auto_out_11_b_bits_id(bus_auto_out_11_b_bits_id),
+    .auto_out_11_b_bits_resp(bus_auto_out_11_b_bits_resp),
     .auto_out_11_ar_ready(bus_auto_out_11_ar_ready),
     .auto_out_11_ar_valid(bus_auto_out_11_ar_valid),
     .auto_out_11_ar_bits_id(bus_auto_out_11_ar_bits_id),
@@ -24636,17 +27410,22 @@ module SpectrometerTest(
     .auto_out_11_r_valid(bus_auto_out_11_r_valid),
     .auto_out_11_r_bits_id(bus_auto_out_11_r_bits_id),
     .auto_out_11_r_bits_data(bus_auto_out_11_r_bits_data),
+    .auto_out_11_r_bits_resp(bus_auto_out_11_r_bits_resp),
+    .auto_out_11_r_bits_last(bus_auto_out_11_r_bits_last),
     .auto_out_10_aw_ready(bus_auto_out_10_aw_ready),
     .auto_out_10_aw_valid(bus_auto_out_10_aw_valid),
     .auto_out_10_aw_bits_id(bus_auto_out_10_aw_bits_id),
     .auto_out_10_aw_bits_addr(bus_auto_out_10_aw_bits_addr),
+    .auto_out_10_aw_bits_size(bus_auto_out_10_aw_bits_size),
     .auto_out_10_w_ready(bus_auto_out_10_w_ready),
     .auto_out_10_w_valid(bus_auto_out_10_w_valid),
     .auto_out_10_w_bits_data(bus_auto_out_10_w_bits_data),
     .auto_out_10_w_bits_strb(bus_auto_out_10_w_bits_strb),
+    .auto_out_10_w_bits_last(bus_auto_out_10_w_bits_last),
     .auto_out_10_b_ready(bus_auto_out_10_b_ready),
     .auto_out_10_b_valid(bus_auto_out_10_b_valid),
     .auto_out_10_b_bits_id(bus_auto_out_10_b_bits_id),
+    .auto_out_10_b_bits_resp(bus_auto_out_10_b_bits_resp),
     .auto_out_10_ar_ready(bus_auto_out_10_ar_ready),
     .auto_out_10_ar_valid(bus_auto_out_10_ar_valid),
     .auto_out_10_ar_bits_id(bus_auto_out_10_ar_bits_id),
@@ -24656,17 +27435,22 @@ module SpectrometerTest(
     .auto_out_10_r_valid(bus_auto_out_10_r_valid),
     .auto_out_10_r_bits_id(bus_auto_out_10_r_bits_id),
     .auto_out_10_r_bits_data(bus_auto_out_10_r_bits_data),
+    .auto_out_10_r_bits_resp(bus_auto_out_10_r_bits_resp),
+    .auto_out_10_r_bits_last(bus_auto_out_10_r_bits_last),
     .auto_out_9_aw_ready(bus_auto_out_9_aw_ready),
     .auto_out_9_aw_valid(bus_auto_out_9_aw_valid),
     .auto_out_9_aw_bits_id(bus_auto_out_9_aw_bits_id),
     .auto_out_9_aw_bits_addr(bus_auto_out_9_aw_bits_addr),
+    .auto_out_9_aw_bits_size(bus_auto_out_9_aw_bits_size),
     .auto_out_9_w_ready(bus_auto_out_9_w_ready),
     .auto_out_9_w_valid(bus_auto_out_9_w_valid),
     .auto_out_9_w_bits_data(bus_auto_out_9_w_bits_data),
     .auto_out_9_w_bits_strb(bus_auto_out_9_w_bits_strb),
+    .auto_out_9_w_bits_last(bus_auto_out_9_w_bits_last),
     .auto_out_9_b_ready(bus_auto_out_9_b_ready),
     .auto_out_9_b_valid(bus_auto_out_9_b_valid),
     .auto_out_9_b_bits_id(bus_auto_out_9_b_bits_id),
+    .auto_out_9_b_bits_resp(bus_auto_out_9_b_bits_resp),
     .auto_out_9_ar_ready(bus_auto_out_9_ar_ready),
     .auto_out_9_ar_valid(bus_auto_out_9_ar_valid),
     .auto_out_9_ar_bits_id(bus_auto_out_9_ar_bits_id),
@@ -24676,17 +27460,22 @@ module SpectrometerTest(
     .auto_out_9_r_valid(bus_auto_out_9_r_valid),
     .auto_out_9_r_bits_id(bus_auto_out_9_r_bits_id),
     .auto_out_9_r_bits_data(bus_auto_out_9_r_bits_data),
+    .auto_out_9_r_bits_resp(bus_auto_out_9_r_bits_resp),
+    .auto_out_9_r_bits_last(bus_auto_out_9_r_bits_last),
     .auto_out_8_aw_ready(bus_auto_out_8_aw_ready),
     .auto_out_8_aw_valid(bus_auto_out_8_aw_valid),
     .auto_out_8_aw_bits_id(bus_auto_out_8_aw_bits_id),
     .auto_out_8_aw_bits_addr(bus_auto_out_8_aw_bits_addr),
+    .auto_out_8_aw_bits_size(bus_auto_out_8_aw_bits_size),
     .auto_out_8_w_ready(bus_auto_out_8_w_ready),
     .auto_out_8_w_valid(bus_auto_out_8_w_valid),
     .auto_out_8_w_bits_data(bus_auto_out_8_w_bits_data),
     .auto_out_8_w_bits_strb(bus_auto_out_8_w_bits_strb),
+    .auto_out_8_w_bits_last(bus_auto_out_8_w_bits_last),
     .auto_out_8_b_ready(bus_auto_out_8_b_ready),
     .auto_out_8_b_valid(bus_auto_out_8_b_valid),
     .auto_out_8_b_bits_id(bus_auto_out_8_b_bits_id),
+    .auto_out_8_b_bits_resp(bus_auto_out_8_b_bits_resp),
     .auto_out_8_ar_ready(bus_auto_out_8_ar_ready),
     .auto_out_8_ar_valid(bus_auto_out_8_ar_valid),
     .auto_out_8_ar_bits_id(bus_auto_out_8_ar_bits_id),
@@ -24696,17 +27485,22 @@ module SpectrometerTest(
     .auto_out_8_r_valid(bus_auto_out_8_r_valid),
     .auto_out_8_r_bits_id(bus_auto_out_8_r_bits_id),
     .auto_out_8_r_bits_data(bus_auto_out_8_r_bits_data),
+    .auto_out_8_r_bits_resp(bus_auto_out_8_r_bits_resp),
+    .auto_out_8_r_bits_last(bus_auto_out_8_r_bits_last),
     .auto_out_7_aw_ready(bus_auto_out_7_aw_ready),
     .auto_out_7_aw_valid(bus_auto_out_7_aw_valid),
     .auto_out_7_aw_bits_id(bus_auto_out_7_aw_bits_id),
     .auto_out_7_aw_bits_addr(bus_auto_out_7_aw_bits_addr),
+    .auto_out_7_aw_bits_size(bus_auto_out_7_aw_bits_size),
     .auto_out_7_w_ready(bus_auto_out_7_w_ready),
     .auto_out_7_w_valid(bus_auto_out_7_w_valid),
     .auto_out_7_w_bits_data(bus_auto_out_7_w_bits_data),
     .auto_out_7_w_bits_strb(bus_auto_out_7_w_bits_strb),
+    .auto_out_7_w_bits_last(bus_auto_out_7_w_bits_last),
     .auto_out_7_b_ready(bus_auto_out_7_b_ready),
     .auto_out_7_b_valid(bus_auto_out_7_b_valid),
     .auto_out_7_b_bits_id(bus_auto_out_7_b_bits_id),
+    .auto_out_7_b_bits_resp(bus_auto_out_7_b_bits_resp),
     .auto_out_7_ar_ready(bus_auto_out_7_ar_ready),
     .auto_out_7_ar_valid(bus_auto_out_7_ar_valid),
     .auto_out_7_ar_bits_id(bus_auto_out_7_ar_bits_id),
@@ -24716,17 +27510,22 @@ module SpectrometerTest(
     .auto_out_7_r_valid(bus_auto_out_7_r_valid),
     .auto_out_7_r_bits_id(bus_auto_out_7_r_bits_id),
     .auto_out_7_r_bits_data(bus_auto_out_7_r_bits_data),
+    .auto_out_7_r_bits_resp(bus_auto_out_7_r_bits_resp),
+    .auto_out_7_r_bits_last(bus_auto_out_7_r_bits_last),
     .auto_out_6_aw_ready(bus_auto_out_6_aw_ready),
     .auto_out_6_aw_valid(bus_auto_out_6_aw_valid),
     .auto_out_6_aw_bits_id(bus_auto_out_6_aw_bits_id),
     .auto_out_6_aw_bits_addr(bus_auto_out_6_aw_bits_addr),
+    .auto_out_6_aw_bits_size(bus_auto_out_6_aw_bits_size),
     .auto_out_6_w_ready(bus_auto_out_6_w_ready),
     .auto_out_6_w_valid(bus_auto_out_6_w_valid),
     .auto_out_6_w_bits_data(bus_auto_out_6_w_bits_data),
     .auto_out_6_w_bits_strb(bus_auto_out_6_w_bits_strb),
+    .auto_out_6_w_bits_last(bus_auto_out_6_w_bits_last),
     .auto_out_6_b_ready(bus_auto_out_6_b_ready),
     .auto_out_6_b_valid(bus_auto_out_6_b_valid),
     .auto_out_6_b_bits_id(bus_auto_out_6_b_bits_id),
+    .auto_out_6_b_bits_resp(bus_auto_out_6_b_bits_resp),
     .auto_out_6_ar_ready(bus_auto_out_6_ar_ready),
     .auto_out_6_ar_valid(bus_auto_out_6_ar_valid),
     .auto_out_6_ar_bits_id(bus_auto_out_6_ar_bits_id),
@@ -24736,17 +27535,47 @@ module SpectrometerTest(
     .auto_out_6_r_valid(bus_auto_out_6_r_valid),
     .auto_out_6_r_bits_id(bus_auto_out_6_r_bits_id),
     .auto_out_6_r_bits_data(bus_auto_out_6_r_bits_data),
+    .auto_out_6_r_bits_resp(bus_auto_out_6_r_bits_resp),
+    .auto_out_6_r_bits_last(bus_auto_out_6_r_bits_last),
+    .auto_out_5_aw_ready(bus_auto_out_5_aw_ready),
+    .auto_out_5_aw_valid(bus_auto_out_5_aw_valid),
+    .auto_out_5_aw_bits_id(bus_auto_out_5_aw_bits_id),
+    .auto_out_5_aw_bits_addr(bus_auto_out_5_aw_bits_addr),
+    .auto_out_5_aw_bits_size(bus_auto_out_5_aw_bits_size),
+    .auto_out_5_w_ready(bus_auto_out_5_w_ready),
+    .auto_out_5_w_valid(bus_auto_out_5_w_valid),
+    .auto_out_5_w_bits_data(bus_auto_out_5_w_bits_data),
+    .auto_out_5_w_bits_strb(bus_auto_out_5_w_bits_strb),
+    .auto_out_5_w_bits_last(bus_auto_out_5_w_bits_last),
+    .auto_out_5_b_ready(bus_auto_out_5_b_ready),
+    .auto_out_5_b_valid(bus_auto_out_5_b_valid),
+    .auto_out_5_b_bits_id(bus_auto_out_5_b_bits_id),
+    .auto_out_5_b_bits_resp(bus_auto_out_5_b_bits_resp),
+    .auto_out_5_ar_ready(bus_auto_out_5_ar_ready),
+    .auto_out_5_ar_valid(bus_auto_out_5_ar_valid),
+    .auto_out_5_ar_bits_id(bus_auto_out_5_ar_bits_id),
+    .auto_out_5_ar_bits_addr(bus_auto_out_5_ar_bits_addr),
+    .auto_out_5_ar_bits_size(bus_auto_out_5_ar_bits_size),
+    .auto_out_5_r_ready(bus_auto_out_5_r_ready),
+    .auto_out_5_r_valid(bus_auto_out_5_r_valid),
+    .auto_out_5_r_bits_id(bus_auto_out_5_r_bits_id),
+    .auto_out_5_r_bits_data(bus_auto_out_5_r_bits_data),
+    .auto_out_5_r_bits_resp(bus_auto_out_5_r_bits_resp),
+    .auto_out_5_r_bits_last(bus_auto_out_5_r_bits_last),
     .auto_out_4_aw_ready(bus_auto_out_4_aw_ready),
     .auto_out_4_aw_valid(bus_auto_out_4_aw_valid),
     .auto_out_4_aw_bits_id(bus_auto_out_4_aw_bits_id),
     .auto_out_4_aw_bits_addr(bus_auto_out_4_aw_bits_addr),
+    .auto_out_4_aw_bits_size(bus_auto_out_4_aw_bits_size),
     .auto_out_4_w_ready(bus_auto_out_4_w_ready),
     .auto_out_4_w_valid(bus_auto_out_4_w_valid),
     .auto_out_4_w_bits_data(bus_auto_out_4_w_bits_data),
     .auto_out_4_w_bits_strb(bus_auto_out_4_w_bits_strb),
+    .auto_out_4_w_bits_last(bus_auto_out_4_w_bits_last),
     .auto_out_4_b_ready(bus_auto_out_4_b_ready),
     .auto_out_4_b_valid(bus_auto_out_4_b_valid),
     .auto_out_4_b_bits_id(bus_auto_out_4_b_bits_id),
+    .auto_out_4_b_bits_resp(bus_auto_out_4_b_bits_resp),
     .auto_out_4_ar_ready(bus_auto_out_4_ar_ready),
     .auto_out_4_ar_valid(bus_auto_out_4_ar_valid),
     .auto_out_4_ar_bits_id(bus_auto_out_4_ar_bits_id),
@@ -24756,17 +27585,22 @@ module SpectrometerTest(
     .auto_out_4_r_valid(bus_auto_out_4_r_valid),
     .auto_out_4_r_bits_id(bus_auto_out_4_r_bits_id),
     .auto_out_4_r_bits_data(bus_auto_out_4_r_bits_data),
+    .auto_out_4_r_bits_resp(bus_auto_out_4_r_bits_resp),
+    .auto_out_4_r_bits_last(bus_auto_out_4_r_bits_last),
     .auto_out_3_aw_ready(bus_auto_out_3_aw_ready),
     .auto_out_3_aw_valid(bus_auto_out_3_aw_valid),
     .auto_out_3_aw_bits_id(bus_auto_out_3_aw_bits_id),
     .auto_out_3_aw_bits_addr(bus_auto_out_3_aw_bits_addr),
+    .auto_out_3_aw_bits_size(bus_auto_out_3_aw_bits_size),
     .auto_out_3_w_ready(bus_auto_out_3_w_ready),
     .auto_out_3_w_valid(bus_auto_out_3_w_valid),
     .auto_out_3_w_bits_data(bus_auto_out_3_w_bits_data),
     .auto_out_3_w_bits_strb(bus_auto_out_3_w_bits_strb),
+    .auto_out_3_w_bits_last(bus_auto_out_3_w_bits_last),
     .auto_out_3_b_ready(bus_auto_out_3_b_ready),
     .auto_out_3_b_valid(bus_auto_out_3_b_valid),
     .auto_out_3_b_bits_id(bus_auto_out_3_b_bits_id),
+    .auto_out_3_b_bits_resp(bus_auto_out_3_b_bits_resp),
     .auto_out_3_ar_ready(bus_auto_out_3_ar_ready),
     .auto_out_3_ar_valid(bus_auto_out_3_ar_valid),
     .auto_out_3_ar_bits_id(bus_auto_out_3_ar_bits_id),
@@ -24776,17 +27610,22 @@ module SpectrometerTest(
     .auto_out_3_r_valid(bus_auto_out_3_r_valid),
     .auto_out_3_r_bits_id(bus_auto_out_3_r_bits_id),
     .auto_out_3_r_bits_data(bus_auto_out_3_r_bits_data),
+    .auto_out_3_r_bits_resp(bus_auto_out_3_r_bits_resp),
+    .auto_out_3_r_bits_last(bus_auto_out_3_r_bits_last),
     .auto_out_2_aw_ready(bus_auto_out_2_aw_ready),
     .auto_out_2_aw_valid(bus_auto_out_2_aw_valid),
     .auto_out_2_aw_bits_id(bus_auto_out_2_aw_bits_id),
     .auto_out_2_aw_bits_addr(bus_auto_out_2_aw_bits_addr),
+    .auto_out_2_aw_bits_size(bus_auto_out_2_aw_bits_size),
     .auto_out_2_w_ready(bus_auto_out_2_w_ready),
     .auto_out_2_w_valid(bus_auto_out_2_w_valid),
     .auto_out_2_w_bits_data(bus_auto_out_2_w_bits_data),
     .auto_out_2_w_bits_strb(bus_auto_out_2_w_bits_strb),
+    .auto_out_2_w_bits_last(bus_auto_out_2_w_bits_last),
     .auto_out_2_b_ready(bus_auto_out_2_b_ready),
     .auto_out_2_b_valid(bus_auto_out_2_b_valid),
     .auto_out_2_b_bits_id(bus_auto_out_2_b_bits_id),
+    .auto_out_2_b_bits_resp(bus_auto_out_2_b_bits_resp),
     .auto_out_2_ar_ready(bus_auto_out_2_ar_ready),
     .auto_out_2_ar_valid(bus_auto_out_2_ar_valid),
     .auto_out_2_ar_bits_id(bus_auto_out_2_ar_bits_id),
@@ -24796,10 +27635,13 @@ module SpectrometerTest(
     .auto_out_2_r_valid(bus_auto_out_2_r_valid),
     .auto_out_2_r_bits_id(bus_auto_out_2_r_bits_id),
     .auto_out_2_r_bits_data(bus_auto_out_2_r_bits_data),
+    .auto_out_2_r_bits_resp(bus_auto_out_2_r_bits_resp),
+    .auto_out_2_r_bits_last(bus_auto_out_2_r_bits_last),
     .auto_out_1_aw_ready(bus_auto_out_1_aw_ready),
     .auto_out_1_aw_valid(bus_auto_out_1_aw_valid),
     .auto_out_1_aw_bits_id(bus_auto_out_1_aw_bits_id),
     .auto_out_1_aw_bits_addr(bus_auto_out_1_aw_bits_addr),
+    .auto_out_1_aw_bits_size(bus_auto_out_1_aw_bits_size),
     .auto_out_1_w_ready(bus_auto_out_1_w_ready),
     .auto_out_1_w_valid(bus_auto_out_1_w_valid),
     .auto_out_1_w_bits_data(bus_auto_out_1_w_bits_data),
@@ -24807,6 +27649,7 @@ module SpectrometerTest(
     .auto_out_1_w_bits_last(bus_auto_out_1_w_bits_last),
     .auto_out_1_b_ready(bus_auto_out_1_b_ready),
     .auto_out_1_b_valid(bus_auto_out_1_b_valid),
+    .auto_out_1_b_bits_id(bus_auto_out_1_b_bits_id),
     .auto_out_1_b_bits_resp(bus_auto_out_1_b_bits_resp),
     .auto_out_1_ar_ready(bus_auto_out_1_ar_ready),
     .auto_out_1_ar_valid(bus_auto_out_1_ar_valid),
@@ -24815,6 +27658,7 @@ module SpectrometerTest(
     .auto_out_1_ar_bits_size(bus_auto_out_1_ar_bits_size),
     .auto_out_1_r_ready(bus_auto_out_1_r_ready),
     .auto_out_1_r_valid(bus_auto_out_1_r_valid),
+    .auto_out_1_r_bits_id(bus_auto_out_1_r_bits_id),
     .auto_out_1_r_bits_data(bus_auto_out_1_r_bits_data),
     .auto_out_1_r_bits_resp(bus_auto_out_1_r_bits_resp),
     .auto_out_1_r_bits_last(bus_auto_out_1_r_bits_last),
@@ -24822,13 +27666,16 @@ module SpectrometerTest(
     .auto_out_0_aw_valid(bus_auto_out_0_aw_valid),
     .auto_out_0_aw_bits_id(bus_auto_out_0_aw_bits_id),
     .auto_out_0_aw_bits_addr(bus_auto_out_0_aw_bits_addr),
+    .auto_out_0_aw_bits_size(bus_auto_out_0_aw_bits_size),
     .auto_out_0_w_ready(bus_auto_out_0_w_ready),
     .auto_out_0_w_valid(bus_auto_out_0_w_valid),
     .auto_out_0_w_bits_data(bus_auto_out_0_w_bits_data),
     .auto_out_0_w_bits_strb(bus_auto_out_0_w_bits_strb),
+    .auto_out_0_w_bits_last(bus_auto_out_0_w_bits_last),
     .auto_out_0_b_ready(bus_auto_out_0_b_ready),
     .auto_out_0_b_valid(bus_auto_out_0_b_valid),
     .auto_out_0_b_bits_id(bus_auto_out_0_b_bits_id),
+    .auto_out_0_b_bits_resp(bus_auto_out_0_b_bits_resp),
     .auto_out_0_ar_ready(bus_auto_out_0_ar_ready),
     .auto_out_0_ar_valid(bus_auto_out_0_ar_valid),
     .auto_out_0_ar_bits_id(bus_auto_out_0_ar_bits_id),
@@ -24837,7 +27684,1242 @@ module SpectrometerTest(
     .auto_out_0_r_ready(bus_auto_out_0_r_ready),
     .auto_out_0_r_valid(bus_auto_out_0_r_valid),
     .auto_out_0_r_bits_id(bus_auto_out_0_r_bits_id),
-    .auto_out_0_r_bits_data(bus_auto_out_0_r_bits_data)
+    .auto_out_0_r_bits_data(bus_auto_out_0_r_bits_data),
+    .auto_out_0_r_bits_resp(bus_auto_out_0_r_bits_resp),
+    .auto_out_0_r_bits_last(bus_auto_out_0_r_bits_last)
+  );
+  AXI4Buffer axi4buf ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_clock),
+    .reset(axi4buf_reset),
+    .auto_in_aw_ready(axi4buf_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_1 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_1_clock),
+    .reset(axi4buf_1_reset),
+    .auto_in_aw_ready(axi4buf_1_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_1_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_1_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_1_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_1_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_1_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_1_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_1_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_1_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_1_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_1_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_1_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_1_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_1_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_1_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_1_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_1_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_1_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_1_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_1_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_1_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_1_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_1_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_1_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_1_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_1_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_1_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_1_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_1_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_1_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_1_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_1_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_1_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_1_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_1_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_1_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_1_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_1_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_1_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_1_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_1_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_1_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_1_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_1_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_1_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_1_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_1_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_1_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_1_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_2 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_2_clock),
+    .reset(axi4buf_2_reset),
+    .auto_in_aw_ready(axi4buf_2_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_2_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_2_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_2_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_2_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_2_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_2_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_2_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_2_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_2_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_2_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_2_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_2_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_2_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_2_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_2_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_2_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_2_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_2_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_2_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_2_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_2_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_2_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_2_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_2_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_2_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_2_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_2_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_2_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_2_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_2_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_2_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_2_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_2_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_2_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_2_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_2_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_2_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_2_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_2_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_2_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_2_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_2_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_2_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_2_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_2_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_2_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_2_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_2_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_3 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_3_clock),
+    .reset(axi4buf_3_reset),
+    .auto_in_aw_ready(axi4buf_3_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_3_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_3_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_3_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_3_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_3_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_3_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_3_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_3_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_3_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_3_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_3_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_3_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_3_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_3_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_3_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_3_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_3_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_3_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_3_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_3_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_3_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_3_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_3_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_3_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_3_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_3_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_3_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_3_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_3_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_3_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_3_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_3_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_3_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_3_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_3_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_3_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_3_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_3_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_3_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_3_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_3_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_3_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_3_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_3_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_3_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_3_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_3_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_3_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_4 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_4_clock),
+    .reset(axi4buf_4_reset),
+    .auto_in_aw_ready(axi4buf_4_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_4_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_4_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_4_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_4_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_4_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_4_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_4_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_4_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_4_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_4_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_4_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_4_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_4_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_4_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_4_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_4_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_4_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_4_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_4_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_4_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_4_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_4_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_4_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_4_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_4_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_4_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_4_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_4_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_4_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_4_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_4_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_4_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_4_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_4_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_4_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_4_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_4_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_4_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_4_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_4_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_4_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_4_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_4_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_4_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_4_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_4_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_4_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_4_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_5 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_5_clock),
+    .reset(axi4buf_5_reset),
+    .auto_in_aw_ready(axi4buf_5_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_5_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_5_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_5_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_5_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_5_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_5_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_5_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_5_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_5_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_5_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_5_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_5_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_5_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_5_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_5_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_5_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_5_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_5_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_5_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_5_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_5_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_5_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_5_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_5_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_5_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_5_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_5_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_5_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_5_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_5_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_5_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_5_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_5_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_5_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_5_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_5_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_5_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_5_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_5_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_5_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_5_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_5_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_5_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_5_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_5_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_5_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_5_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_5_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_6 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_6_clock),
+    .reset(axi4buf_6_reset),
+    .auto_in_aw_ready(axi4buf_6_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_6_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_6_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_6_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_6_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_6_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_6_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_6_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_6_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_6_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_6_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_6_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_6_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_6_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_6_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_6_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_6_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_6_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_6_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_6_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_6_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_6_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_6_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_6_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_6_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_6_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_6_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_6_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_6_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_6_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_6_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_6_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_6_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_6_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_6_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_6_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_6_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_6_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_6_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_6_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_6_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_6_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_6_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_6_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_6_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_6_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_6_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_6_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_6_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_7 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_7_clock),
+    .reset(axi4buf_7_reset),
+    .auto_in_aw_ready(axi4buf_7_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_7_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_7_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_7_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_7_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_7_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_7_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_7_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_7_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_7_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_7_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_7_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_7_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_7_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_7_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_7_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_7_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_7_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_7_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_7_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_7_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_7_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_7_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_7_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_7_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_7_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_7_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_7_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_7_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_7_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_7_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_7_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_7_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_7_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_7_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_7_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_7_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_7_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_7_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_7_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_7_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_7_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_7_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_7_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_7_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_7_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_7_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_7_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_7_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_8 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_8_clock),
+    .reset(axi4buf_8_reset),
+    .auto_in_aw_ready(axi4buf_8_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_8_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_8_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_8_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_8_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_8_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_8_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_8_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_8_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_8_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_8_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_8_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_8_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_8_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_8_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_8_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_8_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_8_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_8_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_8_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_8_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_8_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_8_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_8_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_8_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_8_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_8_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_8_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_8_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_8_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_8_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_8_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_8_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_8_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_8_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_8_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_8_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_8_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_8_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_8_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_8_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_8_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_8_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_8_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_8_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_8_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_8_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_8_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_8_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_9 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_9_clock),
+    .reset(axi4buf_9_reset),
+    .auto_in_aw_ready(axi4buf_9_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_9_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_9_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_9_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_9_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_9_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_9_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_9_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_9_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_9_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_9_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_9_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_9_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_9_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_9_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_9_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_9_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_9_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_9_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_9_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_9_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_9_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_9_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_9_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_9_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_9_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_9_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_9_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_9_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_9_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_9_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_9_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_9_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_9_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_9_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_9_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_9_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_9_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_9_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_9_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_9_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_9_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_9_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_9_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_9_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_9_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_9_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_9_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_9_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_10 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_10_clock),
+    .reset(axi4buf_10_reset),
+    .auto_in_aw_ready(axi4buf_10_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_10_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_10_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_10_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_10_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_10_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_10_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_10_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_10_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_10_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_10_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_10_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_10_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_10_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_10_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_10_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_10_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_10_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_10_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_10_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_10_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_10_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_10_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_10_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_10_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_10_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_10_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_10_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_10_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_10_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_10_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_10_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_10_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_10_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_10_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_10_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_10_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_10_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_10_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_10_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_10_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_10_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_10_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_10_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_10_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_10_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_10_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_10_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_10_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_11 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_11_clock),
+    .reset(axi4buf_11_reset),
+    .auto_in_aw_ready(axi4buf_11_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_11_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_11_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_11_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_11_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_11_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_11_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_11_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_11_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_11_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_11_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_11_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_11_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_11_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_11_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_11_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_11_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_11_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_11_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_11_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_11_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_11_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_11_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_11_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_11_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_11_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_11_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_11_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_11_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_11_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_11_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_11_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_11_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_11_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_11_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_11_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_11_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_11_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_11_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_11_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_11_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_11_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_11_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_11_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_11_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_11_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_11_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_11_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_11_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_12 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_12_clock),
+    .reset(axi4buf_12_reset),
+    .auto_in_aw_ready(axi4buf_12_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_12_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_12_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_12_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_12_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_12_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_12_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_12_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_12_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_12_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_12_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_12_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_12_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_12_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_12_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_12_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_12_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_12_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_12_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_12_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_12_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_12_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_12_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_12_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_12_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_12_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_12_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_12_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_12_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_12_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_12_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_12_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_12_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_12_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_12_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_12_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_12_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_12_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_12_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_12_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_12_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_12_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_12_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_12_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_12_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_12_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_12_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_12_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_12_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_13 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_13_clock),
+    .reset(axi4buf_13_reset),
+    .auto_in_aw_ready(axi4buf_13_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_13_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_13_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_13_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_13_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_13_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_13_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_13_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_13_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_13_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_13_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_13_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_13_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_13_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_13_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_13_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_13_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_13_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_13_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_13_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_13_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_13_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_13_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_13_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_13_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_13_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_13_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_13_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_13_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_13_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_13_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_13_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_13_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_13_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_13_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_13_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_13_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_13_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_13_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_13_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_13_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_13_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_13_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_13_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_13_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_13_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_13_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_13_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_13_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_14 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_14_clock),
+    .reset(axi4buf_14_reset),
+    .auto_in_aw_ready(axi4buf_14_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_14_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_14_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_14_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_14_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_14_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_14_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_14_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_14_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_14_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_14_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_14_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_14_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_14_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_14_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_14_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_14_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_14_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_14_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_14_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_14_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_14_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_14_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_14_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_14_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_14_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_14_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_14_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_14_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_14_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_14_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_14_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_14_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_14_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_14_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_14_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_14_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_14_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_14_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_14_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_14_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_14_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_14_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_14_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_14_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_14_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_14_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_14_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_14_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_15 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_15_clock),
+    .reset(axi4buf_15_reset),
+    .auto_in_aw_ready(axi4buf_15_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_15_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_15_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_15_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_15_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_15_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_15_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_15_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_15_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_15_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_15_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_15_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_15_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_15_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_15_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_15_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_15_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_15_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_15_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_15_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_15_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_15_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_15_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_15_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_15_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_15_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_15_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_15_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_15_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_15_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_15_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_15_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_15_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_15_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_15_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_15_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_15_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_15_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_15_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_15_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_15_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_15_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_15_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_15_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_15_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_15_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_15_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_15_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_15_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_16 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_16_clock),
+    .reset(axi4buf_16_reset),
+    .auto_in_aw_ready(axi4buf_16_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_16_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_16_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_16_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_16_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_16_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_16_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_16_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_16_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_16_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_16_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_16_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_16_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_16_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_16_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_16_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_16_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_16_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_16_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_16_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_16_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_16_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_16_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_16_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_16_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_16_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_16_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_16_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_16_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_16_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_16_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_16_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_16_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_16_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_16_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_16_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_16_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_16_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_16_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_16_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_16_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_16_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_16_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_16_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_16_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_16_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_16_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_16_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_16_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_17 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_17_clock),
+    .reset(axi4buf_17_reset),
+    .auto_in_aw_ready(axi4buf_17_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_17_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_17_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_17_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_17_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_17_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_17_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_17_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_17_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_17_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_17_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_17_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_17_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_17_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_17_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_17_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_17_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_17_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_17_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_17_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_17_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_17_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_17_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_17_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_17_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_17_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_17_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_17_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_17_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_17_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_17_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_17_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_17_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_17_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_17_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_17_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_17_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_17_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_17_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_17_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_17_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_17_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_17_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_17_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_17_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_17_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_17_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_17_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_17_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_18 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_18_clock),
+    .reset(axi4buf_18_reset),
+    .auto_in_aw_ready(axi4buf_18_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_18_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_18_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_18_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_18_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_18_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_18_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_18_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_18_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_18_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_18_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_18_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_18_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_18_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_18_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_18_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_18_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_18_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_18_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_18_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_18_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_18_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_18_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_18_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_18_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_18_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_18_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_18_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_18_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_18_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_18_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_18_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_18_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_18_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_18_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_18_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_18_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_18_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_18_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_18_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_18_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_18_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_18_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_18_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_18_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_18_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_18_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_18_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_18_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_19 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_19_clock),
+    .reset(axi4buf_19_reset),
+    .auto_in_aw_ready(axi4buf_19_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_19_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_19_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_19_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_19_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_19_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_19_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_19_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_19_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_19_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_19_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_19_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_19_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_19_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_19_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_19_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_19_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_19_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_19_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_19_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_19_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_19_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_19_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_19_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_19_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_19_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_19_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_19_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_19_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_19_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_19_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_19_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_19_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_19_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_19_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_19_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_19_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_19_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_19_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_19_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_19_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_19_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_19_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_19_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_19_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_19_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_19_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_19_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_19_auto_out_r_bits_last)
+  );
+  AXI4Buffer axi4buf_20 ( // @[Buffer.scala 58:29]
+    .clock(axi4buf_20_clock),
+    .reset(axi4buf_20_reset),
+    .auto_in_aw_ready(axi4buf_20_auto_in_aw_ready),
+    .auto_in_aw_valid(axi4buf_20_auto_in_aw_valid),
+    .auto_in_aw_bits_id(axi4buf_20_auto_in_aw_bits_id),
+    .auto_in_aw_bits_addr(axi4buf_20_auto_in_aw_bits_addr),
+    .auto_in_aw_bits_size(axi4buf_20_auto_in_aw_bits_size),
+    .auto_in_w_ready(axi4buf_20_auto_in_w_ready),
+    .auto_in_w_valid(axi4buf_20_auto_in_w_valid),
+    .auto_in_w_bits_data(axi4buf_20_auto_in_w_bits_data),
+    .auto_in_w_bits_strb(axi4buf_20_auto_in_w_bits_strb),
+    .auto_in_w_bits_last(axi4buf_20_auto_in_w_bits_last),
+    .auto_in_b_ready(axi4buf_20_auto_in_b_ready),
+    .auto_in_b_valid(axi4buf_20_auto_in_b_valid),
+    .auto_in_b_bits_id(axi4buf_20_auto_in_b_bits_id),
+    .auto_in_b_bits_resp(axi4buf_20_auto_in_b_bits_resp),
+    .auto_in_ar_ready(axi4buf_20_auto_in_ar_ready),
+    .auto_in_ar_valid(axi4buf_20_auto_in_ar_valid),
+    .auto_in_ar_bits_id(axi4buf_20_auto_in_ar_bits_id),
+    .auto_in_ar_bits_addr(axi4buf_20_auto_in_ar_bits_addr),
+    .auto_in_ar_bits_size(axi4buf_20_auto_in_ar_bits_size),
+    .auto_in_r_ready(axi4buf_20_auto_in_r_ready),
+    .auto_in_r_valid(axi4buf_20_auto_in_r_valid),
+    .auto_in_r_bits_id(axi4buf_20_auto_in_r_bits_id),
+    .auto_in_r_bits_data(axi4buf_20_auto_in_r_bits_data),
+    .auto_in_r_bits_resp(axi4buf_20_auto_in_r_bits_resp),
+    .auto_in_r_bits_last(axi4buf_20_auto_in_r_bits_last),
+    .auto_out_aw_ready(axi4buf_20_auto_out_aw_ready),
+    .auto_out_aw_valid(axi4buf_20_auto_out_aw_valid),
+    .auto_out_aw_bits_id(axi4buf_20_auto_out_aw_bits_id),
+    .auto_out_aw_bits_addr(axi4buf_20_auto_out_aw_bits_addr),
+    .auto_out_w_ready(axi4buf_20_auto_out_w_ready),
+    .auto_out_w_valid(axi4buf_20_auto_out_w_valid),
+    .auto_out_w_bits_data(axi4buf_20_auto_out_w_bits_data),
+    .auto_out_w_bits_strb(axi4buf_20_auto_out_w_bits_strb),
+    .auto_out_w_bits_last(axi4buf_20_auto_out_w_bits_last),
+    .auto_out_b_ready(axi4buf_20_auto_out_b_ready),
+    .auto_out_b_valid(axi4buf_20_auto_out_b_valid),
+    .auto_out_b_bits_id(axi4buf_20_auto_out_b_bits_id),
+    .auto_out_b_bits_resp(axi4buf_20_auto_out_b_bits_resp),
+    .auto_out_ar_ready(axi4buf_20_auto_out_ar_ready),
+    .auto_out_ar_valid(axi4buf_20_auto_out_ar_valid),
+    .auto_out_ar_bits_id(axi4buf_20_auto_out_ar_bits_id),
+    .auto_out_ar_bits_addr(axi4buf_20_auto_out_ar_bits_addr),
+    .auto_out_ar_bits_size(axi4buf_20_auto_out_ar_bits_size),
+    .auto_out_r_ready(axi4buf_20_auto_out_r_ready),
+    .auto_out_r_valid(axi4buf_20_auto_out_r_valid),
+    .auto_out_r_bits_id(axi4buf_20_auto_out_r_bits_id),
+    .auto_out_r_bits_data(axi4buf_20_auto_out_r_bits_data),
+    .auto_out_r_bits_resp(axi4buf_20_auto_out_r_bits_resp),
+    .auto_out_r_bits_last(axi4buf_20_auto_out_r_bits_last)
+  );
+  AXI4StreamBuffer buffer ( // @[Buffer.scala 29:28]
+    .clock(buffer_clock),
+    .reset(buffer_reset),
+    .auto_in_ready(buffer_auto_in_ready),
+    .auto_in_valid(buffer_auto_in_valid),
+    .auto_in_bits_data(buffer_auto_in_bits_data),
+    .auto_in_bits_last(buffer_auto_in_bits_last),
+    .auto_out_ready(buffer_auto_out_ready),
+    .auto_out_valid(buffer_auto_out_valid),
+    .auto_out_bits_data(buffer_auto_out_bits_data),
+    .auto_out_bits_last(buffer_auto_out_bits_last)
+  );
+  AXI4StreamBuffer_1 buffer_1 ( // @[Buffer.scala 29:28]
+    .clock(buffer_1_clock),
+    .reset(buffer_1_reset),
+    .auto_in_ready(buffer_1_auto_in_ready),
+    .auto_in_valid(buffer_1_auto_in_valid),
+    .auto_in_bits_data(buffer_1_auto_in_bits_data),
+    .auto_in_bits_last(buffer_1_auto_in_bits_last),
+    .auto_out_ready(buffer_1_auto_out_ready),
+    .auto_out_valid(buffer_1_auto_out_valid),
+    .auto_out_bits_data(buffer_1_auto_out_bits_data),
+    .auto_out_bits_last(buffer_1_auto_out_bits_last)
+  );
+  AXI4StreamBuffer_2 buffer_2 ( // @[Buffer.scala 29:28]
+    .clock(buffer_2_clock),
+    .reset(buffer_2_reset),
+    .auto_in_ready(buffer_2_auto_in_ready),
+    .auto_in_valid(buffer_2_auto_in_valid),
+    .auto_in_bits_data(buffer_2_auto_in_bits_data),
+    .auto_in_bits_last(buffer_2_auto_in_bits_last),
+    .auto_out_ready(buffer_2_auto_out_ready),
+    .auto_out_valid(buffer_2_auto_out_valid),
+    .auto_out_bits_data(buffer_2_auto_out_bits_data),
+    .auto_out_bits_last(buffer_2_auto_out_bits_last)
+  );
+  AXI4StreamBuffer_1 buffer_3 ( // @[Buffer.scala 29:28]
+    .clock(buffer_3_clock),
+    .reset(buffer_3_reset),
+    .auto_in_ready(buffer_3_auto_in_ready),
+    .auto_in_valid(buffer_3_auto_in_valid),
+    .auto_in_bits_data(buffer_3_auto_in_bits_data),
+    .auto_in_bits_last(buffer_3_auto_in_bits_last),
+    .auto_out_ready(buffer_3_auto_out_ready),
+    .auto_out_valid(buffer_3_auto_out_valid),
+    .auto_out_bits_data(buffer_3_auto_out_bits_data),
+    .auto_out_bits_last(buffer_3_auto_out_bits_last)
+  );
+  AXI4StreamBuffer_4 buffer_4 ( // @[Buffer.scala 29:28]
+    .clock(buffer_4_clock),
+    .reset(buffer_4_reset),
+    .auto_in_ready(buffer_4_auto_in_ready),
+    .auto_in_valid(buffer_4_auto_in_valid),
+    .auto_in_bits_data(buffer_4_auto_in_bits_data),
+    .auto_in_bits_last(buffer_4_auto_in_bits_last),
+    .auto_out_ready(buffer_4_auto_out_ready),
+    .auto_out_valid(buffer_4_auto_out_valid),
+    .auto_out_bits_data(buffer_4_auto_out_bits_data),
+    .auto_out_bits_last(buffer_4_auto_out_bits_last)
+  );
+  AXI4StreamBuffer_5 buffer_5 ( // @[Buffer.scala 29:28]
+    .clock(buffer_5_clock),
+    .reset(buffer_5_reset),
+    .auto_in_ready(buffer_5_auto_in_ready),
+    .auto_in_valid(buffer_5_auto_in_valid),
+    .auto_in_bits_data(buffer_5_auto_in_bits_data),
+    .auto_in_bits_last(buffer_5_auto_in_bits_last),
+    .auto_out_ready(buffer_5_auto_out_ready),
+    .auto_out_valid(buffer_5_auto_out_valid),
+    .auto_out_bits_data(buffer_5_auto_out_bits_data),
+    .auto_out_bits_last(buffer_5_auto_out_bits_last)
+  );
+  AXI4StreamBuffer_5 buffer_6 ( // @[Buffer.scala 29:28]
+    .clock(buffer_6_clock),
+    .reset(buffer_6_reset),
+    .auto_in_ready(buffer_6_auto_in_ready),
+    .auto_in_valid(buffer_6_auto_in_valid),
+    .auto_in_bits_data(buffer_6_auto_in_bits_data),
+    .auto_in_bits_last(buffer_6_auto_in_bits_last),
+    .auto_out_ready(buffer_6_auto_out_ready),
+    .auto_out_valid(buffer_6_auto_out_valid),
+    .auto_out_bits_data(buffer_6_auto_out_bits_data),
+    .auto_out_bits_last(buffer_6_auto_out_bits_last)
+  );
+  AXI4StreamBuffer_5 buffer_7 ( // @[Buffer.scala 29:28]
+    .clock(buffer_7_clock),
+    .reset(buffer_7_reset),
+    .auto_in_ready(buffer_7_auto_in_ready),
+    .auto_in_valid(buffer_7_auto_in_valid),
+    .auto_in_bits_data(buffer_7_auto_in_bits_data),
+    .auto_in_bits_last(buffer_7_auto_in_bits_last),
+    .auto_out_ready(buffer_7_auto_out_ready),
+    .auto_out_valid(buffer_7_auto_out_valid),
+    .auto_out_bits_data(buffer_7_auto_out_bits_data),
+    .auto_out_bits_last(buffer_7_auto_out_bits_last)
+  );
+  AXI4StreamBuffer_5 buffer_8 ( // @[Buffer.scala 29:28]
+    .clock(buffer_8_clock),
+    .reset(buffer_8_reset),
+    .auto_in_ready(buffer_8_auto_in_ready),
+    .auto_in_valid(buffer_8_auto_in_valid),
+    .auto_in_bits_data(buffer_8_auto_in_bits_data),
+    .auto_in_bits_last(buffer_8_auto_in_bits_last),
+    .auto_out_ready(buffer_8_auto_out_ready),
+    .auto_out_valid(buffer_8_auto_out_valid),
+    .auto_out_bits_data(buffer_8_auto_out_bits_data),
+    .auto_out_bits_last(buffer_8_auto_out_bits_last)
+  );
+  AXI4StreamBuffer_9 buffer_9 ( // @[Buffer.scala 29:28]
+    .clock(buffer_9_clock),
+    .reset(buffer_9_reset),
+    .auto_in_ready(buffer_9_auto_in_ready),
+    .auto_in_valid(buffer_9_auto_in_valid),
+    .auto_in_bits_data(buffer_9_auto_in_bits_data),
+    .auto_in_bits_last(buffer_9_auto_in_bits_last),
+    .auto_out_ready(buffer_9_auto_out_ready),
+    .auto_out_valid(buffer_9_auto_out_valid),
+    .auto_out_bits_data(buffer_9_auto_out_bits_data),
+    .auto_out_bits_last(buffer_9_auto_out_bits_last)
   );
   BundleBridgeToAXI4 converter ( // @[Node.scala 65:31]
     .auto_in_aw_ready(converter_auto_in_aw_ready),
@@ -24958,23 +29040,23 @@ module SpectrometerTest(
   assign widthAdapter_auto_out_ready = in_split_auto_stream_in_ready; // @[LazyModule.scala 167:57]
   assign in_split_clock = clock;
   assign in_split_reset = reset;
-  assign in_split_auto_mem_in_aw_valid = bus_auto_out_0_aw_valid; // @[LazyModule.scala 167:31]
-  assign in_split_auto_mem_in_aw_bits_id = bus_auto_out_0_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign in_split_auto_mem_in_aw_bits_addr = bus_auto_out_0_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign in_split_auto_mem_in_w_valid = bus_auto_out_0_w_valid; // @[LazyModule.scala 167:31]
-  assign in_split_auto_mem_in_w_bits_data = bus_auto_out_0_w_bits_data; // @[LazyModule.scala 167:31]
-  assign in_split_auto_mem_in_w_bits_strb = bus_auto_out_0_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign in_split_auto_mem_in_b_ready = bus_auto_out_0_b_ready; // @[LazyModule.scala 167:31]
-  assign in_split_auto_mem_in_ar_valid = bus_auto_out_0_ar_valid; // @[LazyModule.scala 167:31]
-  assign in_split_auto_mem_in_ar_bits_id = bus_auto_out_0_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign in_split_auto_mem_in_ar_bits_addr = bus_auto_out_0_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign in_split_auto_mem_in_ar_bits_size = bus_auto_out_0_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign in_split_auto_mem_in_r_ready = bus_auto_out_0_r_ready; // @[LazyModule.scala 167:31]
+  assign in_split_auto_mem_in_aw_valid = axi4buf_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign in_split_auto_mem_in_aw_bits_id = axi4buf_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign in_split_auto_mem_in_aw_bits_addr = axi4buf_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign in_split_auto_mem_in_w_valid = axi4buf_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign in_split_auto_mem_in_w_bits_data = axi4buf_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign in_split_auto_mem_in_w_bits_strb = axi4buf_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign in_split_auto_mem_in_b_ready = axi4buf_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign in_split_auto_mem_in_ar_valid = axi4buf_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign in_split_auto_mem_in_ar_bits_id = axi4buf_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign in_split_auto_mem_in_ar_bits_addr = axi4buf_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign in_split_auto_mem_in_ar_bits_size = axi4buf_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign in_split_auto_mem_in_r_ready = axi4buf_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign in_split_auto_stream_in_valid = widthAdapter_auto_out_valid; // @[LazyModule.scala 167:57]
   assign in_split_auto_stream_in_bits_data = widthAdapter_auto_out_bits_data; // @[LazyModule.scala 167:57]
   assign in_split_auto_stream_in_bits_last = widthAdapter_auto_out_bits_last; // @[LazyModule.scala 167:57]
   assign in_split_auto_stream_out_5_ready = converter_3_auto_in_ready; // @[LazyModule.scala 167:57]
-  assign in_split_auto_stream_out_4_ready = out_mux_auto_stream_in_5_ready; // @[LazyModule.scala 167:57]
+  assign in_split_auto_stream_out_4_ready = buffer_7_auto_in_ready; // @[LazyModule.scala 167:57]
   assign in_split_auto_stream_out_3_ready = mag_mux_0_auto_stream_in_1_ready; // @[LazyModule.scala 167:57]
   assign in_split_auto_stream_out_2_ready = fft_mux_0_auto_stream_in_1_ready; // @[LazyModule.scala 167:57]
   assign in_split_auto_stream_out_1_ready = nco_mux_0_auto_stream_in_1_ready; // @[LazyModule.scala 167:57]
@@ -24987,34 +29069,34 @@ module SpectrometerTest(
   assign in_queue_auto_in_in_bits_last = converter_2_auto_out_bits_last; // @[LazyModule.scala 167:31]
   assign plfg_clock = clock;
   assign plfg_reset = reset;
-  assign plfg_auto_mem_in_aw_valid = bus_auto_out_1_aw_valid; // @[LazyModule.scala 167:31]
-  assign plfg_auto_mem_in_aw_bits_id = bus_auto_out_1_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign plfg_auto_mem_in_aw_bits_addr = bus_auto_out_1_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign plfg_auto_mem_in_w_valid = bus_auto_out_1_w_valid; // @[LazyModule.scala 167:31]
-  assign plfg_auto_mem_in_w_bits_data = bus_auto_out_1_w_bits_data; // @[LazyModule.scala 167:31]
-  assign plfg_auto_mem_in_w_bits_strb = bus_auto_out_1_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign plfg_auto_mem_in_w_bits_last = bus_auto_out_1_w_bits_last; // @[LazyModule.scala 167:31]
-  assign plfg_auto_mem_in_b_ready = bus_auto_out_1_b_ready; // @[LazyModule.scala 167:31]
-  assign plfg_auto_mem_in_ar_valid = bus_auto_out_1_ar_valid; // @[LazyModule.scala 167:31]
-  assign plfg_auto_mem_in_ar_bits_id = bus_auto_out_1_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign plfg_auto_mem_in_ar_bits_addr = bus_auto_out_1_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign plfg_auto_mem_in_ar_bits_size = bus_auto_out_1_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign plfg_auto_mem_in_r_ready = bus_auto_out_1_r_ready; // @[LazyModule.scala 167:31]
+  assign plfg_auto_mem_in_aw_valid = axi4buf_1_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign plfg_auto_mem_in_aw_bits_id = axi4buf_1_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign plfg_auto_mem_in_aw_bits_addr = axi4buf_1_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign plfg_auto_mem_in_w_valid = axi4buf_1_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign plfg_auto_mem_in_w_bits_data = axi4buf_1_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign plfg_auto_mem_in_w_bits_strb = axi4buf_1_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign plfg_auto_mem_in_w_bits_last = axi4buf_1_auto_out_w_bits_last; // @[LazyModule.scala 167:31]
+  assign plfg_auto_mem_in_b_ready = axi4buf_1_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign plfg_auto_mem_in_ar_valid = axi4buf_1_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign plfg_auto_mem_in_ar_bits_id = axi4buf_1_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign plfg_auto_mem_in_ar_bits_addr = axi4buf_1_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign plfg_auto_mem_in_ar_bits_size = axi4buf_1_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign plfg_auto_mem_in_r_ready = axi4buf_1_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign plfg_auto_stream_out_ready = plfg_split_auto_stream_in_ready; // @[LazyModule.scala 167:57]
   assign plfg_split_clock = clock;
   assign plfg_split_reset = reset;
-  assign plfg_split_auto_mem_in_aw_valid = bus_auto_out_2_aw_valid; // @[LazyModule.scala 167:31]
-  assign plfg_split_auto_mem_in_aw_bits_id = bus_auto_out_2_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign plfg_split_auto_mem_in_aw_bits_addr = bus_auto_out_2_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign plfg_split_auto_mem_in_w_valid = bus_auto_out_2_w_valid; // @[LazyModule.scala 167:31]
-  assign plfg_split_auto_mem_in_w_bits_data = bus_auto_out_2_w_bits_data; // @[LazyModule.scala 167:31]
-  assign plfg_split_auto_mem_in_w_bits_strb = bus_auto_out_2_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign plfg_split_auto_mem_in_b_ready = bus_auto_out_2_b_ready; // @[LazyModule.scala 167:31]
-  assign plfg_split_auto_mem_in_ar_valid = bus_auto_out_2_ar_valid; // @[LazyModule.scala 167:31]
-  assign plfg_split_auto_mem_in_ar_bits_id = bus_auto_out_2_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign plfg_split_auto_mem_in_ar_bits_addr = bus_auto_out_2_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign plfg_split_auto_mem_in_ar_bits_size = bus_auto_out_2_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign plfg_split_auto_mem_in_r_ready = bus_auto_out_2_r_ready; // @[LazyModule.scala 167:31]
+  assign plfg_split_auto_mem_in_aw_valid = axi4buf_2_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign plfg_split_auto_mem_in_aw_bits_id = axi4buf_2_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign plfg_split_auto_mem_in_aw_bits_addr = axi4buf_2_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign plfg_split_auto_mem_in_w_valid = axi4buf_2_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign plfg_split_auto_mem_in_w_bits_data = axi4buf_2_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign plfg_split_auto_mem_in_w_bits_strb = axi4buf_2_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign plfg_split_auto_mem_in_b_ready = axi4buf_2_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign plfg_split_auto_mem_in_ar_valid = axi4buf_2_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign plfg_split_auto_mem_in_ar_bits_id = axi4buf_2_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign plfg_split_auto_mem_in_ar_bits_addr = axi4buf_2_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign plfg_split_auto_mem_in_ar_bits_size = axi4buf_2_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign plfg_split_auto_mem_in_r_ready = axi4buf_2_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign plfg_split_auto_stream_in_valid = plfg_auto_stream_out_valid; // @[LazyModule.scala 167:57]
   assign plfg_split_auto_stream_in_bits_data = plfg_auto_stream_out_bits_data; // @[LazyModule.scala 167:57]
   assign plfg_split_auto_stream_in_bits_last = plfg_auto_stream_out_bits_last; // @[LazyModule.scala 167:57]
@@ -25022,18 +29104,18 @@ module SpectrometerTest(
   assign plfg_split_auto_stream_out_0_ready = plfg_mux_1_auto_stream_in_ready; // @[LazyModule.scala 167:57]
   assign plfg_mux_0_clock = clock;
   assign plfg_mux_0_reset = reset;
-  assign plfg_mux_0_auto_register_in_aw_valid = bus_auto_out_3_aw_valid; // @[LazyModule.scala 167:31]
-  assign plfg_mux_0_auto_register_in_aw_bits_id = bus_auto_out_3_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign plfg_mux_0_auto_register_in_aw_bits_addr = bus_auto_out_3_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign plfg_mux_0_auto_register_in_w_valid = bus_auto_out_3_w_valid; // @[LazyModule.scala 167:31]
-  assign plfg_mux_0_auto_register_in_w_bits_data = bus_auto_out_3_w_bits_data; // @[LazyModule.scala 167:31]
-  assign plfg_mux_0_auto_register_in_w_bits_strb = bus_auto_out_3_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign plfg_mux_0_auto_register_in_b_ready = bus_auto_out_3_b_ready; // @[LazyModule.scala 167:31]
-  assign plfg_mux_0_auto_register_in_ar_valid = bus_auto_out_3_ar_valid; // @[LazyModule.scala 167:31]
-  assign plfg_mux_0_auto_register_in_ar_bits_id = bus_auto_out_3_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign plfg_mux_0_auto_register_in_ar_bits_addr = bus_auto_out_3_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign plfg_mux_0_auto_register_in_ar_bits_size = bus_auto_out_3_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign plfg_mux_0_auto_register_in_r_ready = bus_auto_out_3_r_ready; // @[LazyModule.scala 167:31]
+  assign plfg_mux_0_auto_register_in_aw_valid = axi4buf_3_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign plfg_mux_0_auto_register_in_aw_bits_id = axi4buf_3_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign plfg_mux_0_auto_register_in_aw_bits_addr = axi4buf_3_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign plfg_mux_0_auto_register_in_w_valid = axi4buf_3_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign plfg_mux_0_auto_register_in_w_bits_data = axi4buf_3_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign plfg_mux_0_auto_register_in_w_bits_strb = axi4buf_3_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign plfg_mux_0_auto_register_in_b_ready = axi4buf_3_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign plfg_mux_0_auto_register_in_ar_valid = axi4buf_3_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign plfg_mux_0_auto_register_in_ar_bits_id = axi4buf_3_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign plfg_mux_0_auto_register_in_ar_bits_addr = axi4buf_3_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign plfg_mux_0_auto_register_in_ar_bits_size = axi4buf_3_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign plfg_mux_0_auto_register_in_r_ready = axi4buf_3_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign plfg_mux_0_auto_stream_in_2_valid = uRx_split_auto_stream_out_0_valid; // @[LazyModule.scala 167:31]
   assign plfg_mux_0_auto_stream_in_2_bits_data = uRx_split_auto_stream_out_0_bits_data; // @[LazyModule.scala 167:31]
   assign plfg_mux_0_auto_stream_in_1_valid = in_split_auto_stream_out_0_valid; // @[LazyModule.scala 167:57]
@@ -25045,22 +29127,22 @@ module SpectrometerTest(
   assign plfg_mux_0_auto_stream_out_0_ready = nco_auto_freq_in_ready; // @[LazyModule.scala 167:57]
   assign plfg_mux_1_clock = clock;
   assign plfg_mux_1_reset = reset;
-  assign plfg_mux_1_auto_register_in_aw_valid = bus_auto_out_4_aw_valid; // @[LazyModule.scala 167:31]
-  assign plfg_mux_1_auto_register_in_aw_bits_id = bus_auto_out_4_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign plfg_mux_1_auto_register_in_aw_bits_addr = bus_auto_out_4_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign plfg_mux_1_auto_register_in_w_valid = bus_auto_out_4_w_valid; // @[LazyModule.scala 167:31]
-  assign plfg_mux_1_auto_register_in_w_bits_data = bus_auto_out_4_w_bits_data; // @[LazyModule.scala 167:31]
-  assign plfg_mux_1_auto_register_in_w_bits_strb = bus_auto_out_4_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign plfg_mux_1_auto_register_in_b_ready = bus_auto_out_4_b_ready; // @[LazyModule.scala 167:31]
-  assign plfg_mux_1_auto_register_in_ar_valid = bus_auto_out_4_ar_valid; // @[LazyModule.scala 167:31]
-  assign plfg_mux_1_auto_register_in_ar_bits_id = bus_auto_out_4_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign plfg_mux_1_auto_register_in_ar_bits_addr = bus_auto_out_4_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign plfg_mux_1_auto_register_in_ar_bits_size = bus_auto_out_4_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign plfg_mux_1_auto_register_in_r_ready = bus_auto_out_4_r_ready; // @[LazyModule.scala 167:31]
+  assign plfg_mux_1_auto_register_in_aw_valid = axi4buf_4_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign plfg_mux_1_auto_register_in_aw_bits_id = axi4buf_4_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign plfg_mux_1_auto_register_in_aw_bits_addr = axi4buf_4_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign plfg_mux_1_auto_register_in_w_valid = axi4buf_4_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign plfg_mux_1_auto_register_in_w_bits_data = axi4buf_4_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign plfg_mux_1_auto_register_in_w_bits_strb = axi4buf_4_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign plfg_mux_1_auto_register_in_b_ready = axi4buf_4_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign plfg_mux_1_auto_register_in_ar_valid = axi4buf_4_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign plfg_mux_1_auto_register_in_ar_bits_id = axi4buf_4_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign plfg_mux_1_auto_register_in_ar_bits_addr = axi4buf_4_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign plfg_mux_1_auto_register_in_ar_bits_size = axi4buf_4_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign plfg_mux_1_auto_register_in_r_ready = axi4buf_4_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign plfg_mux_1_auto_stream_in_valid = plfg_split_auto_stream_out_0_valid; // @[LazyModule.scala 167:57]
   assign plfg_mux_1_auto_stream_in_bits_data = plfg_split_auto_stream_out_0_bits_data; // @[LazyModule.scala 167:57]
   assign plfg_mux_1_auto_stream_in_bits_last = plfg_split_auto_stream_out_0_bits_last; // @[LazyModule.scala 167:57]
-  assign plfg_mux_1_auto_stream_out_1_ready = out_mux_auto_stream_in_4_ready; // @[LazyModule.scala 167:57]
+  assign plfg_mux_1_auto_stream_out_1_ready = buffer_6_auto_in_ready; // @[LazyModule.scala 167:57]
   assign nco_clock = clock;
   assign nco_reset = reset;
   assign nco_auto_stream_out_ready = nco_split_auto_stream_in_ready; // @[LazyModule.scala 167:57]
@@ -25069,18 +29151,18 @@ module SpectrometerTest(
   assign nco_auto_freq_in_bits_last = plfg_mux_0_auto_stream_out_0_bits_last; // @[LazyModule.scala 167:57]
   assign nco_split_clock = clock;
   assign nco_split_reset = reset;
-  assign nco_split_auto_mem_in_aw_valid = bus_auto_out_6_aw_valid; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_aw_bits_id = bus_auto_out_6_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_aw_bits_addr = bus_auto_out_6_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_w_valid = bus_auto_out_6_w_valid; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_w_bits_data = bus_auto_out_6_w_bits_data; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_w_bits_strb = bus_auto_out_6_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_b_ready = bus_auto_out_6_b_ready; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_ar_valid = bus_auto_out_6_ar_valid; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_ar_bits_id = bus_auto_out_6_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_ar_bits_addr = bus_auto_out_6_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_ar_bits_size = bus_auto_out_6_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_r_ready = bus_auto_out_6_r_ready; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_aw_valid = axi4buf_6_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_aw_bits_id = axi4buf_6_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_aw_bits_addr = axi4buf_6_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_w_valid = axi4buf_6_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_w_bits_data = axi4buf_6_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_w_bits_strb = axi4buf_6_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_b_ready = axi4buf_6_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_ar_valid = axi4buf_6_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_ar_bits_id = axi4buf_6_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_ar_bits_addr = axi4buf_6_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_ar_bits_size = axi4buf_6_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_r_ready = axi4buf_6_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign nco_split_auto_stream_in_valid = nco_auto_stream_out_valid; // @[LazyModule.scala 167:57]
   assign nco_split_auto_stream_in_bits_data = nco_auto_stream_out_bits_data; // @[LazyModule.scala 167:57]
   assign nco_split_auto_stream_in_bits_last = nco_auto_stream_out_bits_last; // @[LazyModule.scala 167:57]
@@ -25088,18 +29170,18 @@ module SpectrometerTest(
   assign nco_split_auto_stream_out_0_ready = nco_mux_1_auto_stream_in_ready; // @[LazyModule.scala 167:57]
   assign nco_mux_0_clock = clock;
   assign nco_mux_0_reset = reset;
-  assign nco_mux_0_auto_register_in_aw_valid = bus_auto_out_7_aw_valid; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_aw_bits_id = bus_auto_out_7_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_aw_bits_addr = bus_auto_out_7_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_w_valid = bus_auto_out_7_w_valid; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_w_bits_data = bus_auto_out_7_w_bits_data; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_w_bits_strb = bus_auto_out_7_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_b_ready = bus_auto_out_7_b_ready; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_ar_valid = bus_auto_out_7_ar_valid; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_ar_bits_id = bus_auto_out_7_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_ar_bits_addr = bus_auto_out_7_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_ar_bits_size = bus_auto_out_7_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_r_ready = bus_auto_out_7_r_ready; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_aw_valid = axi4buf_7_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_aw_bits_id = axi4buf_7_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_aw_bits_addr = axi4buf_7_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_w_valid = axi4buf_7_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_w_bits_data = axi4buf_7_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_w_bits_strb = axi4buf_7_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_b_ready = axi4buf_7_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_ar_valid = axi4buf_7_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_ar_bits_id = axi4buf_7_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_ar_bits_addr = axi4buf_7_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_ar_bits_size = axi4buf_7_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_r_ready = axi4buf_7_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign nco_mux_0_auto_stream_in_2_valid = uRx_split_auto_stream_out_1_valid; // @[LazyModule.scala 167:31]
   assign nco_mux_0_auto_stream_in_2_bits_data = uRx_split_auto_stream_out_1_bits_data; // @[LazyModule.scala 167:31]
   assign nco_mux_0_auto_stream_in_1_valid = in_split_auto_stream_out_1_valid; // @[LazyModule.scala 167:57]
@@ -25108,57 +29190,57 @@ module SpectrometerTest(
   assign nco_mux_0_auto_stream_in_0_valid = nco_split_auto_stream_out_1_valid; // @[LazyModule.scala 167:57]
   assign nco_mux_0_auto_stream_in_0_bits_data = nco_split_auto_stream_out_1_bits_data; // @[LazyModule.scala 167:57]
   assign nco_mux_0_auto_stream_in_0_bits_last = nco_split_auto_stream_out_1_bits_last; // @[LazyModule.scala 167:57]
-  assign nco_mux_0_auto_stream_out_0_ready = fft_auto_stream_in_ready; // @[LazyModule.scala 167:57]
+  assign nco_mux_0_auto_stream_out_0_ready = buffer_auto_in_ready; // @[LazyModule.scala 167:57]
   assign nco_mux_1_clock = clock;
   assign nco_mux_1_reset = reset;
-  assign nco_mux_1_auto_register_in_aw_valid = bus_auto_out_8_aw_valid; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_aw_bits_id = bus_auto_out_8_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_aw_bits_addr = bus_auto_out_8_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_w_valid = bus_auto_out_8_w_valid; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_w_bits_data = bus_auto_out_8_w_bits_data; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_w_bits_strb = bus_auto_out_8_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_b_ready = bus_auto_out_8_b_ready; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_ar_valid = bus_auto_out_8_ar_valid; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_ar_bits_id = bus_auto_out_8_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_ar_bits_addr = bus_auto_out_8_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_ar_bits_size = bus_auto_out_8_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_r_ready = bus_auto_out_8_r_ready; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_aw_valid = axi4buf_8_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_aw_bits_id = axi4buf_8_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_aw_bits_addr = axi4buf_8_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_w_valid = axi4buf_8_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_w_bits_data = axi4buf_8_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_w_bits_strb = axi4buf_8_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_b_ready = axi4buf_8_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_ar_valid = axi4buf_8_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_ar_bits_id = axi4buf_8_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_ar_bits_addr = axi4buf_8_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_ar_bits_size = axi4buf_8_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_r_ready = axi4buf_8_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign nco_mux_1_auto_stream_in_valid = nco_split_auto_stream_out_0_valid; // @[LazyModule.scala 167:57]
   assign nco_mux_1_auto_stream_in_bits_data = nco_split_auto_stream_out_0_bits_data; // @[LazyModule.scala 167:57]
   assign nco_mux_1_auto_stream_in_bits_last = nco_split_auto_stream_out_0_bits_last; // @[LazyModule.scala 167:57]
-  assign nco_mux_1_auto_stream_out_1_ready = out_mux_auto_stream_in_3_ready; // @[LazyModule.scala 167:57]
+  assign nco_mux_1_auto_stream_out_1_ready = buffer_5_auto_in_ready; // @[LazyModule.scala 167:57]
   assign fft_clock = clock;
   assign fft_reset = reset;
-  assign fft_auto_mem_in_aw_valid = bus_auto_out_9_aw_valid; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_aw_bits_id = bus_auto_out_9_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_aw_bits_addr = bus_auto_out_9_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_w_valid = bus_auto_out_9_w_valid; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_w_bits_data = bus_auto_out_9_w_bits_data; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_w_bits_strb = bus_auto_out_9_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_b_ready = bus_auto_out_9_b_ready; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_ar_valid = bus_auto_out_9_ar_valid; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_ar_bits_id = bus_auto_out_9_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_ar_bits_addr = bus_auto_out_9_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_ar_bits_size = bus_auto_out_9_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_r_ready = bus_auto_out_9_r_ready; // @[LazyModule.scala 167:31]
-  assign fft_auto_stream_in_valid = nco_mux_0_auto_stream_out_0_valid; // @[LazyModule.scala 167:57]
-  assign fft_auto_stream_in_bits_data = nco_mux_0_auto_stream_out_0_bits_data; // @[LazyModule.scala 167:57]
-  assign fft_auto_stream_in_bits_last = nco_mux_0_auto_stream_out_0_bits_last; // @[LazyModule.scala 167:57]
+  assign fft_auto_mem_in_aw_valid = axi4buf_9_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_aw_bits_id = axi4buf_9_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_aw_bits_addr = axi4buf_9_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_w_valid = axi4buf_9_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_w_bits_data = axi4buf_9_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_w_bits_strb = axi4buf_9_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_b_ready = axi4buf_9_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_ar_valid = axi4buf_9_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_ar_bits_id = axi4buf_9_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_ar_bits_addr = axi4buf_9_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_ar_bits_size = axi4buf_9_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_r_ready = axi4buf_9_auto_out_r_ready; // @[LazyModule.scala 167:31]
+  assign fft_auto_stream_in_valid = buffer_auto_out_valid; // @[LazyModule.scala 167:31]
+  assign fft_auto_stream_in_bits_data = buffer_auto_out_bits_data; // @[LazyModule.scala 167:31]
+  assign fft_auto_stream_in_bits_last = buffer_auto_out_bits_last; // @[LazyModule.scala 167:31]
   assign fft_auto_stream_out_ready = fft_split_auto_stream_in_ready; // @[LazyModule.scala 167:57]
   assign fft_split_clock = clock;
   assign fft_split_reset = reset;
-  assign fft_split_auto_mem_in_aw_valid = bus_auto_out_10_aw_valid; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_aw_bits_id = bus_auto_out_10_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_aw_bits_addr = bus_auto_out_10_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_w_valid = bus_auto_out_10_w_valid; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_w_bits_data = bus_auto_out_10_w_bits_data; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_w_bits_strb = bus_auto_out_10_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_b_ready = bus_auto_out_10_b_ready; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_ar_valid = bus_auto_out_10_ar_valid; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_ar_bits_id = bus_auto_out_10_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_ar_bits_addr = bus_auto_out_10_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_ar_bits_size = bus_auto_out_10_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_r_ready = bus_auto_out_10_r_ready; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_aw_valid = axi4buf_10_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_aw_bits_id = axi4buf_10_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_aw_bits_addr = axi4buf_10_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_w_valid = axi4buf_10_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_w_bits_data = axi4buf_10_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_w_bits_strb = axi4buf_10_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_b_ready = axi4buf_10_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_ar_valid = axi4buf_10_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_ar_bits_id = axi4buf_10_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_ar_bits_addr = axi4buf_10_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_ar_bits_size = axi4buf_10_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_r_ready = axi4buf_10_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign fft_split_auto_stream_in_valid = fft_auto_stream_out_valid; // @[LazyModule.scala 167:57]
   assign fft_split_auto_stream_in_bits_data = fft_auto_stream_out_bits_data; // @[LazyModule.scala 167:57]
   assign fft_split_auto_stream_in_bits_last = fft_auto_stream_out_bits_last; // @[LazyModule.scala 167:57]
@@ -25166,18 +29248,18 @@ module SpectrometerTest(
   assign fft_split_auto_stream_out_0_ready = fft_mux_1_auto_stream_in_ready; // @[LazyModule.scala 167:57]
   assign fft_mux_0_clock = clock;
   assign fft_mux_0_reset = reset;
-  assign fft_mux_0_auto_register_in_aw_valid = bus_auto_out_11_aw_valid; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_aw_bits_id = bus_auto_out_11_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_aw_bits_addr = bus_auto_out_11_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_w_valid = bus_auto_out_11_w_valid; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_w_bits_data = bus_auto_out_11_w_bits_data; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_w_bits_strb = bus_auto_out_11_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_b_ready = bus_auto_out_11_b_ready; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_ar_valid = bus_auto_out_11_ar_valid; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_ar_bits_id = bus_auto_out_11_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_ar_bits_addr = bus_auto_out_11_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_ar_bits_size = bus_auto_out_11_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_r_ready = bus_auto_out_11_r_ready; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_aw_valid = axi4buf_11_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_aw_bits_id = axi4buf_11_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_aw_bits_addr = axi4buf_11_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_w_valid = axi4buf_11_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_w_bits_data = axi4buf_11_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_w_bits_strb = axi4buf_11_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_b_ready = axi4buf_11_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_ar_valid = axi4buf_11_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_ar_bits_id = axi4buf_11_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_ar_bits_addr = axi4buf_11_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_ar_bits_size = axi4buf_11_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_r_ready = axi4buf_11_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign fft_mux_0_auto_stream_in_2_valid = uRx_split_auto_stream_out_2_valid; // @[LazyModule.scala 167:31]
   assign fft_mux_0_auto_stream_in_2_bits_data = uRx_split_auto_stream_out_2_bits_data; // @[LazyModule.scala 167:31]
   assign fft_mux_0_auto_stream_in_1_valid = in_split_auto_stream_out_2_valid; // @[LazyModule.scala 167:57]
@@ -25186,57 +29268,57 @@ module SpectrometerTest(
   assign fft_mux_0_auto_stream_in_0_valid = fft_split_auto_stream_out_1_valid; // @[LazyModule.scala 167:57]
   assign fft_mux_0_auto_stream_in_0_bits_data = fft_split_auto_stream_out_1_bits_data; // @[LazyModule.scala 167:57]
   assign fft_mux_0_auto_stream_in_0_bits_last = fft_split_auto_stream_out_1_bits_last; // @[LazyModule.scala 167:57]
-  assign fft_mux_0_auto_stream_out_0_ready = mag_auto_stream_in_ready; // @[LazyModule.scala 167:57]
+  assign fft_mux_0_auto_stream_out_0_ready = buffer_1_auto_in_ready; // @[LazyModule.scala 167:57]
   assign fft_mux_1_clock = clock;
   assign fft_mux_1_reset = reset;
-  assign fft_mux_1_auto_register_in_aw_valid = bus_auto_out_12_aw_valid; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_aw_bits_id = bus_auto_out_12_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_aw_bits_addr = bus_auto_out_12_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_w_valid = bus_auto_out_12_w_valid; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_w_bits_data = bus_auto_out_12_w_bits_data; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_w_bits_strb = bus_auto_out_12_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_b_ready = bus_auto_out_12_b_ready; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_ar_valid = bus_auto_out_12_ar_valid; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_ar_bits_id = bus_auto_out_12_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_ar_bits_addr = bus_auto_out_12_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_ar_bits_size = bus_auto_out_12_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_r_ready = bus_auto_out_12_r_ready; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_aw_valid = axi4buf_12_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_aw_bits_id = axi4buf_12_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_aw_bits_addr = axi4buf_12_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_w_valid = axi4buf_12_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_w_bits_data = axi4buf_12_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_w_bits_strb = axi4buf_12_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_b_ready = axi4buf_12_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_ar_valid = axi4buf_12_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_ar_bits_id = axi4buf_12_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_ar_bits_addr = axi4buf_12_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_ar_bits_size = axi4buf_12_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_r_ready = axi4buf_12_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign fft_mux_1_auto_stream_in_valid = fft_split_auto_stream_out_0_valid; // @[LazyModule.scala 167:57]
   assign fft_mux_1_auto_stream_in_bits_data = fft_split_auto_stream_out_0_bits_data; // @[LazyModule.scala 167:57]
   assign fft_mux_1_auto_stream_in_bits_last = fft_split_auto_stream_out_0_bits_last; // @[LazyModule.scala 167:57]
-  assign fft_mux_1_auto_stream_out_1_ready = out_mux_auto_stream_in_2_ready; // @[LazyModule.scala 167:57]
+  assign fft_mux_1_auto_stream_out_1_ready = buffer_4_auto_in_ready; // @[LazyModule.scala 167:57]
   assign mag_clock = clock;
   assign mag_reset = reset;
-  assign mag_auto_mem_in_aw_valid = bus_auto_out_13_aw_valid; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_aw_bits_id = bus_auto_out_13_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_aw_bits_addr = bus_auto_out_13_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_w_valid = bus_auto_out_13_w_valid; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_w_bits_data = bus_auto_out_13_w_bits_data; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_w_bits_strb = bus_auto_out_13_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_b_ready = bus_auto_out_13_b_ready; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_ar_valid = bus_auto_out_13_ar_valid; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_ar_bits_id = bus_auto_out_13_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_ar_bits_addr = bus_auto_out_13_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_ar_bits_size = bus_auto_out_13_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_r_ready = bus_auto_out_13_r_ready; // @[LazyModule.scala 167:31]
-  assign mag_auto_stream_in_valid = fft_mux_0_auto_stream_out_0_valid; // @[LazyModule.scala 167:57]
-  assign mag_auto_stream_in_bits_data = fft_mux_0_auto_stream_out_0_bits_data; // @[LazyModule.scala 167:57]
-  assign mag_auto_stream_in_bits_last = fft_mux_0_auto_stream_out_0_bits_last; // @[LazyModule.scala 167:57]
+  assign mag_auto_mem_in_aw_valid = axi4buf_13_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_aw_bits_id = axi4buf_13_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_aw_bits_addr = axi4buf_13_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_w_valid = axi4buf_13_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_w_bits_data = axi4buf_13_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_w_bits_strb = axi4buf_13_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_b_ready = axi4buf_13_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_ar_valid = axi4buf_13_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_ar_bits_id = axi4buf_13_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_ar_bits_addr = axi4buf_13_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_ar_bits_size = axi4buf_13_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_r_ready = axi4buf_13_auto_out_r_ready; // @[LazyModule.scala 167:31]
+  assign mag_auto_stream_in_valid = buffer_1_auto_out_valid; // @[LazyModule.scala 167:31]
+  assign mag_auto_stream_in_bits_data = buffer_1_auto_out_bits_data; // @[LazyModule.scala 167:31]
+  assign mag_auto_stream_in_bits_last = buffer_1_auto_out_bits_last; // @[LazyModule.scala 167:31]
   assign mag_auto_stream_out_ready = mag_split_auto_stream_in_ready; // @[LazyModule.scala 167:57]
   assign mag_split_clock = clock;
   assign mag_split_reset = reset;
-  assign mag_split_auto_mem_in_aw_valid = bus_auto_out_14_aw_valid; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_aw_bits_id = bus_auto_out_14_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_aw_bits_addr = bus_auto_out_14_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_w_valid = bus_auto_out_14_w_valid; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_w_bits_data = bus_auto_out_14_w_bits_data; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_w_bits_strb = bus_auto_out_14_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_b_ready = bus_auto_out_14_b_ready; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_ar_valid = bus_auto_out_14_ar_valid; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_ar_bits_id = bus_auto_out_14_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_ar_bits_addr = bus_auto_out_14_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_ar_bits_size = bus_auto_out_14_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_r_ready = bus_auto_out_14_r_ready; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_aw_valid = axi4buf_14_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_aw_bits_id = axi4buf_14_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_aw_bits_addr = axi4buf_14_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_w_valid = axi4buf_14_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_w_bits_data = axi4buf_14_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_w_bits_strb = axi4buf_14_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_b_ready = axi4buf_14_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_ar_valid = axi4buf_14_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_ar_bits_id = axi4buf_14_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_ar_bits_addr = axi4buf_14_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_ar_bits_size = axi4buf_14_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_r_ready = axi4buf_14_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign mag_split_auto_stream_in_valid = mag_auto_stream_out_valid; // @[LazyModule.scala 167:57]
   assign mag_split_auto_stream_in_bits_data = mag_auto_stream_out_bits_data; // @[LazyModule.scala 167:57]
   assign mag_split_auto_stream_in_bits_last = mag_auto_stream_out_bits_last; // @[LazyModule.scala 167:57]
@@ -25244,18 +29326,18 @@ module SpectrometerTest(
   assign mag_split_auto_stream_out_0_ready = mag_mux_1_auto_stream_in_ready; // @[LazyModule.scala 167:57]
   assign mag_mux_0_clock = clock;
   assign mag_mux_0_reset = reset;
-  assign mag_mux_0_auto_register_in_aw_valid = bus_auto_out_15_aw_valid; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_aw_bits_id = bus_auto_out_15_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_aw_bits_addr = bus_auto_out_15_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_w_valid = bus_auto_out_15_w_valid; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_w_bits_data = bus_auto_out_15_w_bits_data; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_w_bits_strb = bus_auto_out_15_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_b_ready = bus_auto_out_15_b_ready; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_ar_valid = bus_auto_out_15_ar_valid; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_ar_bits_id = bus_auto_out_15_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_ar_bits_addr = bus_auto_out_15_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_ar_bits_size = bus_auto_out_15_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_r_ready = bus_auto_out_15_r_ready; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_aw_valid = axi4buf_15_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_aw_bits_id = axi4buf_15_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_aw_bits_addr = axi4buf_15_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_w_valid = axi4buf_15_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_w_bits_data = axi4buf_15_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_w_bits_strb = axi4buf_15_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_b_ready = axi4buf_15_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_ar_valid = axi4buf_15_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_ar_bits_id = axi4buf_15_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_ar_bits_addr = axi4buf_15_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_ar_bits_size = axi4buf_15_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_r_ready = axi4buf_15_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign mag_mux_0_auto_stream_in_2_valid = uRx_split_auto_stream_out_3_valid; // @[LazyModule.scala 167:31]
   assign mag_mux_0_auto_stream_in_2_bits_data = uRx_split_auto_stream_out_3_bits_data; // @[LazyModule.scala 167:31]
   assign mag_mux_0_auto_stream_in_1_valid = in_split_auto_stream_out_3_valid; // @[LazyModule.scala 167:57]
@@ -25264,25 +29346,25 @@ module SpectrometerTest(
   assign mag_mux_0_auto_stream_in_0_valid = mag_split_auto_stream_out_1_valid; // @[LazyModule.scala 167:57]
   assign mag_mux_0_auto_stream_in_0_bits_data = mag_split_auto_stream_out_1_bits_data; // @[LazyModule.scala 167:57]
   assign mag_mux_0_auto_stream_in_0_bits_last = mag_split_auto_stream_out_1_bits_last; // @[LazyModule.scala 167:57]
-  assign mag_mux_0_auto_stream_out_0_ready = acc_auto_accumulator_slave_in_ready; // @[LazyModule.scala 167:57]
+  assign mag_mux_0_auto_stream_out_0_ready = buffer_2_auto_in_ready; // @[LazyModule.scala 167:57]
   assign mag_mux_1_clock = clock;
   assign mag_mux_1_reset = reset;
-  assign mag_mux_1_auto_register_in_aw_valid = bus_auto_out_16_aw_valid; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_aw_bits_id = bus_auto_out_16_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_aw_bits_addr = bus_auto_out_16_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_w_valid = bus_auto_out_16_w_valid; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_w_bits_data = bus_auto_out_16_w_bits_data; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_w_bits_strb = bus_auto_out_16_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_b_ready = bus_auto_out_16_b_ready; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_ar_valid = bus_auto_out_16_ar_valid; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_ar_bits_id = bus_auto_out_16_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_ar_bits_addr = bus_auto_out_16_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_ar_bits_size = bus_auto_out_16_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_r_ready = bus_auto_out_16_r_ready; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_aw_valid = axi4buf_16_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_aw_bits_id = axi4buf_16_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_aw_bits_addr = axi4buf_16_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_w_valid = axi4buf_16_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_w_bits_data = axi4buf_16_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_w_bits_strb = axi4buf_16_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_b_ready = axi4buf_16_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_ar_valid = axi4buf_16_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_ar_bits_id = axi4buf_16_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_ar_bits_addr = axi4buf_16_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_ar_bits_size = axi4buf_16_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_r_ready = axi4buf_16_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign mag_mux_1_auto_stream_in_valid = mag_split_auto_stream_out_0_valid; // @[LazyModule.scala 167:57]
   assign mag_mux_1_auto_stream_in_bits_data = mag_split_auto_stream_out_0_bits_data; // @[LazyModule.scala 167:57]
   assign mag_mux_1_auto_stream_in_bits_last = mag_split_auto_stream_out_0_bits_last; // @[LazyModule.scala 167:57]
-  assign mag_mux_1_auto_stream_out_1_ready = out_mux_auto_stream_in_1_ready; // @[LazyModule.scala 167:57]
+  assign mag_mux_1_auto_stream_out_1_ready = buffer_3_auto_in_ready; // @[LazyModule.scala 167:57]
   assign acc_clock = clock;
   assign acc_reset = reset;
   assign acc_auto_bus_in_aw_valid = bus_auto_out_21_aw_valid; // @[LazyModule.scala 167:31]
@@ -25300,9 +29382,9 @@ module SpectrometerTest(
   assign acc_auto_bus_in_ar_bits_size = bus_auto_out_21_ar_bits_size; // @[LazyModule.scala 167:31]
   assign acc_auto_bus_in_r_ready = bus_auto_out_21_r_ready; // @[LazyModule.scala 167:31]
   assign acc_auto_dspQueue_stream_out_ready = widthAdapter_1_auto_in_ready; // @[LazyModule.scala 167:57]
-  assign acc_auto_accumulator_slave_in_valid = mag_mux_0_auto_stream_out_0_valid; // @[LazyModule.scala 167:57]
-  assign acc_auto_accumulator_slave_in_bits_data = mag_mux_0_auto_stream_out_0_bits_data; // @[LazyModule.scala 167:57]
-  assign acc_auto_accumulator_slave_in_bits_last = mag_mux_0_auto_stream_out_0_bits_last; // @[LazyModule.scala 167:57]
+  assign acc_auto_accumulator_slave_in_valid = buffer_2_auto_out_valid; // @[LazyModule.scala 167:31]
+  assign acc_auto_accumulator_slave_in_bits_data = buffer_2_auto_out_bits_data; // @[LazyModule.scala 167:31]
+  assign acc_auto_accumulator_slave_in_bits_last = buffer_2_auto_out_bits_last; // @[LazyModule.scala 167:31]
   assign widthAdapter_1_clock = clock;
   assign widthAdapter_1_reset = reset;
   assign widthAdapter_1_auto_in_valid = acc_auto_dspQueue_stream_out_valid; // @[LazyModule.scala 167:57]
@@ -25317,54 +29399,55 @@ module SpectrometerTest(
   assign acc_queue_auto_in_in_bits_last = widthAdapter_1_auto_out_bits_last; // @[LazyModule.scala 167:57]
   assign out_mux_clock = clock;
   assign out_mux_reset = reset;
-  assign out_mux_auto_register_in_aw_valid = bus_auto_out_17_aw_valid; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_aw_bits_id = bus_auto_out_17_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_aw_bits_addr = bus_auto_out_17_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_w_valid = bus_auto_out_17_w_valid; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_w_bits_data = bus_auto_out_17_w_bits_data; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_w_bits_strb = bus_auto_out_17_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_b_ready = bus_auto_out_17_b_ready; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_ar_valid = bus_auto_out_17_ar_valid; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_ar_bits_id = bus_auto_out_17_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_ar_bits_addr = bus_auto_out_17_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_ar_bits_size = bus_auto_out_17_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_r_ready = bus_auto_out_17_r_ready; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_stream_in_6_valid = uRx_split_auto_stream_out_4_valid; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_stream_in_6_bits_data = uRx_split_auto_stream_out_4_bits_data; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_stream_in_5_valid = in_split_auto_stream_out_4_valid; // @[LazyModule.scala 167:57]
-  assign out_mux_auto_stream_in_5_bits_data = in_split_auto_stream_out_4_bits_data; // @[LazyModule.scala 167:57]
-  assign out_mux_auto_stream_in_5_bits_last = in_split_auto_stream_out_4_bits_last; // @[LazyModule.scala 167:57]
-  assign out_mux_auto_stream_in_4_valid = plfg_mux_1_auto_stream_out_1_valid; // @[LazyModule.scala 167:57]
-  assign out_mux_auto_stream_in_4_bits_data = plfg_mux_1_auto_stream_out_1_bits_data; // @[LazyModule.scala 167:57]
-  assign out_mux_auto_stream_in_4_bits_last = plfg_mux_1_auto_stream_out_1_bits_last; // @[LazyModule.scala 167:57]
-  assign out_mux_auto_stream_in_3_valid = nco_mux_1_auto_stream_out_1_valid; // @[LazyModule.scala 167:57]
-  assign out_mux_auto_stream_in_3_bits_data = nco_mux_1_auto_stream_out_1_bits_data; // @[LazyModule.scala 167:57]
-  assign out_mux_auto_stream_in_3_bits_last = nco_mux_1_auto_stream_out_1_bits_last; // @[LazyModule.scala 167:57]
-  assign out_mux_auto_stream_in_2_valid = fft_mux_1_auto_stream_out_1_valid; // @[LazyModule.scala 167:57]
-  assign out_mux_auto_stream_in_2_bits_data = fft_mux_1_auto_stream_out_1_bits_data; // @[LazyModule.scala 167:57]
-  assign out_mux_auto_stream_in_2_bits_last = fft_mux_1_auto_stream_out_1_bits_last; // @[LazyModule.scala 167:57]
-  assign out_mux_auto_stream_in_1_valid = mag_mux_1_auto_stream_out_1_valid; // @[LazyModule.scala 167:57]
-  assign out_mux_auto_stream_in_1_bits_data = mag_mux_1_auto_stream_out_1_bits_data; // @[LazyModule.scala 167:57]
-  assign out_mux_auto_stream_in_1_bits_last = mag_mux_1_auto_stream_out_1_bits_last; // @[LazyModule.scala 167:57]
+  assign out_mux_auto_register_in_aw_valid = axi4buf_17_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_aw_bits_id = axi4buf_17_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_aw_bits_addr = axi4buf_17_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_w_valid = axi4buf_17_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_w_bits_data = axi4buf_17_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_w_bits_strb = axi4buf_17_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_b_ready = axi4buf_17_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_ar_valid = axi4buf_17_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_ar_bits_id = axi4buf_17_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_ar_bits_addr = axi4buf_17_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_ar_bits_size = axi4buf_17_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_r_ready = axi4buf_17_auto_out_r_ready; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_stream_in_6_valid = buffer_8_auto_out_valid; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_stream_in_6_bits_data = buffer_8_auto_out_bits_data; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_stream_in_6_bits_last = buffer_8_auto_out_bits_last; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_stream_in_5_valid = buffer_7_auto_out_valid; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_stream_in_5_bits_data = buffer_7_auto_out_bits_data; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_stream_in_5_bits_last = buffer_7_auto_out_bits_last; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_stream_in_4_valid = buffer_6_auto_out_valid; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_stream_in_4_bits_data = buffer_6_auto_out_bits_data; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_stream_in_4_bits_last = buffer_6_auto_out_bits_last; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_stream_in_3_valid = buffer_5_auto_out_valid; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_stream_in_3_bits_data = buffer_5_auto_out_bits_data; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_stream_in_3_bits_last = buffer_5_auto_out_bits_last; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_stream_in_2_valid = buffer_4_auto_out_valid; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_stream_in_2_bits_data = buffer_4_auto_out_bits_data; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_stream_in_2_bits_last = buffer_4_auto_out_bits_last; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_stream_in_1_valid = buffer_3_auto_out_valid; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_stream_in_1_bits_data = buffer_3_auto_out_bits_data; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_stream_in_1_bits_last = buffer_3_auto_out_bits_last; // @[LazyModule.scala 167:31]
   assign out_mux_auto_stream_in_0_valid = acc_queue_auto_out_out_valid; // @[LazyModule.scala 167:57]
   assign out_mux_auto_stream_in_0_bits_data = acc_queue_auto_out_out_bits_data; // @[LazyModule.scala 167:57]
   assign out_mux_auto_stream_in_0_bits_last = acc_queue_auto_out_out_bits_last; // @[LazyModule.scala 167:57]
   assign out_mux_auto_stream_out_1_ready = uTx_queue_auto_in_in_ready; // @[LazyModule.scala 167:57]
-  assign out_mux_auto_stream_out_0_ready = out_queue_auto_in_in_ready; // @[LazyModule.scala 167:57]
+  assign out_mux_auto_stream_out_0_ready = buffer_9_auto_in_ready; // @[LazyModule.scala 167:57]
   assign out_split_clock = clock;
   assign out_split_reset = reset;
-  assign out_split_auto_mem_in_aw_valid = bus_auto_out_18_aw_valid; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_aw_bits_id = bus_auto_out_18_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_aw_bits_addr = bus_auto_out_18_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_w_valid = bus_auto_out_18_w_valid; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_w_bits_data = bus_auto_out_18_w_bits_data; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_w_bits_strb = bus_auto_out_18_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_b_ready = bus_auto_out_18_b_ready; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_ar_valid = bus_auto_out_18_ar_valid; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_ar_bits_id = bus_auto_out_18_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_ar_bits_addr = bus_auto_out_18_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_ar_bits_size = bus_auto_out_18_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_r_ready = bus_auto_out_18_r_ready; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_aw_valid = axi4buf_18_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_aw_bits_id = axi4buf_18_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_aw_bits_addr = axi4buf_18_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_w_valid = axi4buf_18_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_w_bits_data = axi4buf_18_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_w_bits_strb = axi4buf_18_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_b_ready = axi4buf_18_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_ar_valid = axi4buf_18_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_ar_bits_id = axi4buf_18_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_ar_bits_addr = axi4buf_18_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_ar_bits_size = axi4buf_18_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_r_ready = axi4buf_18_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign out_split_auto_stream_in_valid = out_queue_auto_out_out_valid; // @[LazyModule.scala 167:31]
   assign out_split_auto_stream_in_bits_data = out_queue_auto_out_out_bits_data; // @[LazyModule.scala 167:31]
   assign out_split_auto_stream_in_bits_last = out_queue_auto_out_out_bits_last; // @[LazyModule.scala 167:31]
@@ -25373,9 +29456,9 @@ module SpectrometerTest(
   assign out_queue_clock = clock;
   assign out_queue_reset = reset;
   assign out_queue_auto_out_out_ready = out_split_auto_stream_in_ready; // @[LazyModule.scala 167:31]
-  assign out_queue_auto_in_in_valid = out_mux_auto_stream_out_0_valid; // @[LazyModule.scala 167:57]
-  assign out_queue_auto_in_in_bits_data = out_mux_auto_stream_out_0_bits_data; // @[LazyModule.scala 167:57]
-  assign out_queue_auto_in_in_bits_last = out_mux_auto_stream_out_0_bits_last; // @[LazyModule.scala 167:57]
+  assign out_queue_auto_in_in_valid = buffer_9_auto_out_valid; // @[LazyModule.scala 167:31]
+  assign out_queue_auto_in_in_bits_data = buffer_9_auto_out_bits_data; // @[LazyModule.scala 167:31]
+  assign out_queue_auto_in_in_bits_last = buffer_9_auto_out_bits_last; // @[LazyModule.scala 167:31]
   assign widthAdapter_2_clock = clock;
   assign widthAdapter_2_reset = reset;
   assign widthAdapter_2_auto_in_valid = out_split_auto_stream_out_0_valid; // @[LazyModule.scala 167:57]
@@ -25401,39 +29484,39 @@ module SpectrometerTest(
   assign widthAdapter_4_auto_out_ready = uRx_split_auto_stream_in_ready; // @[LazyModule.scala 167:57]
   assign uRx_split_clock = clock;
   assign uRx_split_reset = reset;
-  assign uRx_split_auto_mem_in_aw_valid = bus_auto_out_20_aw_valid; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_aw_bits_id = bus_auto_out_20_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_aw_bits_addr = bus_auto_out_20_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_w_valid = bus_auto_out_20_w_valid; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_w_bits_data = bus_auto_out_20_w_bits_data; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_w_bits_strb = bus_auto_out_20_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_b_ready = bus_auto_out_20_b_ready; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_ar_valid = bus_auto_out_20_ar_valid; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_ar_bits_id = bus_auto_out_20_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_ar_bits_addr = bus_auto_out_20_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_ar_bits_size = bus_auto_out_20_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_r_ready = bus_auto_out_20_r_ready; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_aw_valid = axi4buf_20_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_aw_bits_id = axi4buf_20_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_aw_bits_addr = axi4buf_20_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_w_valid = axi4buf_20_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_w_bits_data = axi4buf_20_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_w_bits_strb = axi4buf_20_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_b_ready = axi4buf_20_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_ar_valid = axi4buf_20_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_ar_bits_id = axi4buf_20_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_ar_bits_addr = axi4buf_20_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_ar_bits_size = axi4buf_20_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_r_ready = axi4buf_20_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign uRx_split_auto_stream_in_valid = widthAdapter_4_auto_out_valid; // @[LazyModule.scala 167:57]
   assign uRx_split_auto_stream_in_bits_data = widthAdapter_4_auto_out_bits_data; // @[LazyModule.scala 167:57]
-  assign uRx_split_auto_stream_out_4_ready = out_mux_auto_stream_in_6_ready; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_stream_out_4_ready = buffer_8_auto_in_ready; // @[LazyModule.scala 167:57]
   assign uRx_split_auto_stream_out_3_ready = mag_mux_0_auto_stream_in_2_ready; // @[LazyModule.scala 167:31]
   assign uRx_split_auto_stream_out_2_ready = fft_mux_0_auto_stream_in_2_ready; // @[LazyModule.scala 167:31]
   assign uRx_split_auto_stream_out_1_ready = nco_mux_0_auto_stream_in_2_ready; // @[LazyModule.scala 167:31]
   assign uRx_split_auto_stream_out_0_ready = plfg_mux_0_auto_stream_in_2_ready; // @[LazyModule.scala 167:31]
   assign uart_clock = clock;
   assign uart_reset = reset;
-  assign uart_auto_mem_in_aw_valid = bus_auto_out_19_aw_valid; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_aw_bits_id = bus_auto_out_19_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_aw_bits_addr = bus_auto_out_19_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_w_valid = bus_auto_out_19_w_valid; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_w_bits_data = bus_auto_out_19_w_bits_data; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_w_bits_strb = bus_auto_out_19_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_b_ready = bus_auto_out_19_b_ready; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_ar_valid = bus_auto_out_19_ar_valid; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_ar_bits_id = bus_auto_out_19_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_ar_bits_addr = bus_auto_out_19_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_ar_bits_size = bus_auto_out_19_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_r_ready = bus_auto_out_19_r_ready; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_aw_valid = axi4buf_19_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_aw_bits_id = axi4buf_19_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_aw_bits_addr = axi4buf_19_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_w_valid = axi4buf_19_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_w_bits_data = axi4buf_19_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_w_bits_strb = axi4buf_19_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_b_ready = axi4buf_19_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_ar_valid = axi4buf_19_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_ar_bits_id = axi4buf_19_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_ar_bits_addr = axi4buf_19_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_ar_bits_size = axi4buf_19_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_r_ready = axi4buf_19_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign uart_auto_in_in_valid = widthAdapter_3_auto_out_valid; // @[LazyModule.scala 167:57]
   assign uart_auto_in_in_bits_data = widthAdapter_3_auto_out_bits_data; // @[LazyModule.scala 167:57]
   assign uart_auto_out_out_ready = widthAdapter_4_auto_in_ready; // @[LazyModule.scala 167:31]
@@ -25463,167 +29546,864 @@ module SpectrometerTest(
   assign bus_auto_out_21_r_bits_data = acc_auto_bus_in_r_bits_data; // @[LazyModule.scala 167:31]
   assign bus_auto_out_21_r_bits_resp = acc_auto_bus_in_r_bits_resp; // @[LazyModule.scala 167:31]
   assign bus_auto_out_21_r_bits_last = acc_auto_bus_in_r_bits_last; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_20_aw_ready = uRx_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_20_w_ready = uRx_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_20_b_valid = uRx_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_20_b_bits_id = uRx_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_20_ar_ready = uRx_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_20_r_valid = uRx_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_20_r_bits_id = uRx_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_20_r_bits_data = uRx_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_19_aw_ready = uart_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_19_w_ready = uart_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_19_b_valid = uart_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_19_b_bits_id = uart_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_19_ar_ready = uart_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_19_r_valid = uart_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_19_r_bits_id = uart_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_19_r_bits_data = uart_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_18_aw_ready = out_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_18_w_ready = out_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_18_b_valid = out_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_18_b_bits_id = out_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_18_ar_ready = out_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_18_r_valid = out_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_18_r_bits_id = out_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_18_r_bits_data = out_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_17_aw_ready = out_mux_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_17_w_ready = out_mux_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_17_b_valid = out_mux_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_17_b_bits_id = out_mux_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_17_ar_ready = out_mux_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_17_r_valid = out_mux_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_17_r_bits_id = out_mux_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_17_r_bits_data = out_mux_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_16_aw_ready = mag_mux_1_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_16_w_ready = mag_mux_1_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_16_b_valid = mag_mux_1_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_16_b_bits_id = mag_mux_1_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_16_ar_ready = mag_mux_1_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_16_r_valid = mag_mux_1_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_16_r_bits_id = mag_mux_1_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_16_r_bits_data = mag_mux_1_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_15_aw_ready = mag_mux_0_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_15_w_ready = mag_mux_0_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_15_b_valid = mag_mux_0_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_15_b_bits_id = mag_mux_0_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_15_ar_ready = mag_mux_0_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_15_r_valid = mag_mux_0_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_15_r_bits_id = mag_mux_0_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_15_r_bits_data = mag_mux_0_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_14_aw_ready = mag_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_14_w_ready = mag_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_14_b_valid = mag_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_14_b_bits_id = mag_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_14_ar_ready = mag_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_14_r_valid = mag_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_14_r_bits_id = mag_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_14_r_bits_data = mag_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_13_aw_ready = mag_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_13_w_ready = mag_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_13_b_valid = mag_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_13_b_bits_id = mag_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_13_ar_ready = mag_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_13_r_valid = mag_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_13_r_bits_id = mag_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_13_r_bits_data = mag_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_12_aw_ready = fft_mux_1_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_12_w_ready = fft_mux_1_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_12_b_valid = fft_mux_1_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_12_b_bits_id = fft_mux_1_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_12_ar_ready = fft_mux_1_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_12_r_valid = fft_mux_1_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_12_r_bits_id = fft_mux_1_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_12_r_bits_data = fft_mux_1_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_11_aw_ready = fft_mux_0_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_11_w_ready = fft_mux_0_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_11_b_valid = fft_mux_0_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_11_b_bits_id = fft_mux_0_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_11_ar_ready = fft_mux_0_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_11_r_valid = fft_mux_0_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_11_r_bits_id = fft_mux_0_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_11_r_bits_data = fft_mux_0_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_10_aw_ready = fft_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_10_w_ready = fft_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_10_b_valid = fft_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_10_b_bits_id = fft_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_10_ar_ready = fft_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_10_r_valid = fft_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_10_r_bits_id = fft_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_10_r_bits_data = fft_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_9_aw_ready = fft_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_9_w_ready = fft_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_9_b_valid = fft_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_9_b_bits_id = fft_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_9_ar_ready = fft_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_9_r_valid = fft_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_9_r_bits_id = fft_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_9_r_bits_data = fft_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_8_aw_ready = nco_mux_1_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_8_w_ready = nco_mux_1_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_8_b_valid = nco_mux_1_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_8_b_bits_id = nco_mux_1_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_8_ar_ready = nco_mux_1_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_8_r_valid = nco_mux_1_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_8_r_bits_id = nco_mux_1_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_8_r_bits_data = nco_mux_1_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_7_aw_ready = nco_mux_0_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_7_w_ready = nco_mux_0_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_7_b_valid = nco_mux_0_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_7_b_bits_id = nco_mux_0_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_7_ar_ready = nco_mux_0_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_7_r_valid = nco_mux_0_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_7_r_bits_id = nco_mux_0_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_7_r_bits_data = nco_mux_0_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_6_aw_ready = nco_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_6_w_ready = nco_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_6_b_valid = nco_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_6_b_bits_id = nco_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_6_ar_ready = nco_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_6_r_valid = nco_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_6_r_bits_id = nco_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_6_r_bits_data = nco_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_4_aw_ready = plfg_mux_1_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_4_w_ready = plfg_mux_1_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_4_b_valid = plfg_mux_1_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_4_b_bits_id = plfg_mux_1_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_4_ar_ready = plfg_mux_1_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_4_r_valid = plfg_mux_1_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_4_r_bits_id = plfg_mux_1_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_4_r_bits_data = plfg_mux_1_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_3_aw_ready = plfg_mux_0_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_3_w_ready = plfg_mux_0_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_3_b_valid = plfg_mux_0_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_3_b_bits_id = plfg_mux_0_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_3_ar_ready = plfg_mux_0_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_3_r_valid = plfg_mux_0_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_3_r_bits_id = plfg_mux_0_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_3_r_bits_data = plfg_mux_0_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_2_aw_ready = plfg_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_2_w_ready = plfg_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_2_b_valid = plfg_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_2_b_bits_id = plfg_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_2_ar_ready = plfg_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_2_r_valid = plfg_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_2_r_bits_id = plfg_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_2_r_bits_data = plfg_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_1_aw_ready = plfg_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_1_w_ready = plfg_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_1_b_valid = plfg_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_1_b_bits_resp = plfg_auto_mem_in_b_bits_resp; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_1_ar_ready = plfg_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_1_r_valid = plfg_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_1_r_bits_data = plfg_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_1_r_bits_resp = plfg_auto_mem_in_r_bits_resp; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_1_r_bits_last = plfg_auto_mem_in_r_bits_last; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_0_aw_ready = in_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_0_w_ready = in_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_0_b_valid = in_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_0_b_bits_id = in_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_0_ar_ready = in_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_0_r_valid = in_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_0_r_bits_id = in_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_0_r_bits_data = in_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign bus_auto_out_20_aw_ready = axi4buf_20_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_20_w_ready = axi4buf_20_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_20_b_valid = axi4buf_20_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_20_b_bits_id = axi4buf_20_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_20_b_bits_resp = axi4buf_20_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_20_ar_ready = axi4buf_20_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_20_r_valid = axi4buf_20_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_20_r_bits_id = axi4buf_20_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_20_r_bits_data = axi4buf_20_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_20_r_bits_resp = axi4buf_20_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_20_r_bits_last = axi4buf_20_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_19_aw_ready = axi4buf_19_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_19_w_ready = axi4buf_19_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_19_b_valid = axi4buf_19_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_19_b_bits_id = axi4buf_19_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_19_b_bits_resp = axi4buf_19_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_19_ar_ready = axi4buf_19_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_19_r_valid = axi4buf_19_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_19_r_bits_id = axi4buf_19_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_19_r_bits_data = axi4buf_19_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_19_r_bits_resp = axi4buf_19_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_19_r_bits_last = axi4buf_19_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_18_aw_ready = axi4buf_18_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_18_w_ready = axi4buf_18_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_18_b_valid = axi4buf_18_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_18_b_bits_id = axi4buf_18_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_18_b_bits_resp = axi4buf_18_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_18_ar_ready = axi4buf_18_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_18_r_valid = axi4buf_18_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_18_r_bits_id = axi4buf_18_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_18_r_bits_data = axi4buf_18_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_18_r_bits_resp = axi4buf_18_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_18_r_bits_last = axi4buf_18_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_17_aw_ready = axi4buf_17_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_17_w_ready = axi4buf_17_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_17_b_valid = axi4buf_17_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_17_b_bits_id = axi4buf_17_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_17_b_bits_resp = axi4buf_17_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_17_ar_ready = axi4buf_17_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_17_r_valid = axi4buf_17_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_17_r_bits_id = axi4buf_17_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_17_r_bits_data = axi4buf_17_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_17_r_bits_resp = axi4buf_17_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_17_r_bits_last = axi4buf_17_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_16_aw_ready = axi4buf_16_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_16_w_ready = axi4buf_16_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_16_b_valid = axi4buf_16_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_16_b_bits_id = axi4buf_16_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_16_b_bits_resp = axi4buf_16_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_16_ar_ready = axi4buf_16_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_16_r_valid = axi4buf_16_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_16_r_bits_id = axi4buf_16_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_16_r_bits_data = axi4buf_16_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_16_r_bits_resp = axi4buf_16_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_16_r_bits_last = axi4buf_16_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_15_aw_ready = axi4buf_15_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_15_w_ready = axi4buf_15_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_15_b_valid = axi4buf_15_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_15_b_bits_id = axi4buf_15_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_15_b_bits_resp = axi4buf_15_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_15_ar_ready = axi4buf_15_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_15_r_valid = axi4buf_15_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_15_r_bits_id = axi4buf_15_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_15_r_bits_data = axi4buf_15_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_15_r_bits_resp = axi4buf_15_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_15_r_bits_last = axi4buf_15_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_14_aw_ready = axi4buf_14_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_14_w_ready = axi4buf_14_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_14_b_valid = axi4buf_14_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_14_b_bits_id = axi4buf_14_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_14_b_bits_resp = axi4buf_14_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_14_ar_ready = axi4buf_14_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_14_r_valid = axi4buf_14_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_14_r_bits_id = axi4buf_14_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_14_r_bits_data = axi4buf_14_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_14_r_bits_resp = axi4buf_14_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_14_r_bits_last = axi4buf_14_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_13_aw_ready = axi4buf_13_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_13_w_ready = axi4buf_13_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_13_b_valid = axi4buf_13_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_13_b_bits_id = axi4buf_13_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_13_b_bits_resp = axi4buf_13_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_13_ar_ready = axi4buf_13_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_13_r_valid = axi4buf_13_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_13_r_bits_id = axi4buf_13_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_13_r_bits_data = axi4buf_13_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_13_r_bits_resp = axi4buf_13_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_13_r_bits_last = axi4buf_13_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_12_aw_ready = axi4buf_12_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_12_w_ready = axi4buf_12_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_12_b_valid = axi4buf_12_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_12_b_bits_id = axi4buf_12_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_12_b_bits_resp = axi4buf_12_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_12_ar_ready = axi4buf_12_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_12_r_valid = axi4buf_12_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_12_r_bits_id = axi4buf_12_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_12_r_bits_data = axi4buf_12_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_12_r_bits_resp = axi4buf_12_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_12_r_bits_last = axi4buf_12_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_11_aw_ready = axi4buf_11_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_11_w_ready = axi4buf_11_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_11_b_valid = axi4buf_11_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_11_b_bits_id = axi4buf_11_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_11_b_bits_resp = axi4buf_11_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_11_ar_ready = axi4buf_11_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_11_r_valid = axi4buf_11_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_11_r_bits_id = axi4buf_11_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_11_r_bits_data = axi4buf_11_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_11_r_bits_resp = axi4buf_11_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_11_r_bits_last = axi4buf_11_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_10_aw_ready = axi4buf_10_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_10_w_ready = axi4buf_10_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_10_b_valid = axi4buf_10_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_10_b_bits_id = axi4buf_10_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_10_b_bits_resp = axi4buf_10_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_10_ar_ready = axi4buf_10_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_10_r_valid = axi4buf_10_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_10_r_bits_id = axi4buf_10_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_10_r_bits_data = axi4buf_10_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_10_r_bits_resp = axi4buf_10_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_10_r_bits_last = axi4buf_10_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_9_aw_ready = axi4buf_9_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_9_w_ready = axi4buf_9_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_9_b_valid = axi4buf_9_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_9_b_bits_id = axi4buf_9_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_9_b_bits_resp = axi4buf_9_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_9_ar_ready = axi4buf_9_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_9_r_valid = axi4buf_9_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_9_r_bits_id = axi4buf_9_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_9_r_bits_data = axi4buf_9_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_9_r_bits_resp = axi4buf_9_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_9_r_bits_last = axi4buf_9_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_8_aw_ready = axi4buf_8_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_8_w_ready = axi4buf_8_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_8_b_valid = axi4buf_8_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_8_b_bits_id = axi4buf_8_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_8_b_bits_resp = axi4buf_8_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_8_ar_ready = axi4buf_8_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_8_r_valid = axi4buf_8_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_8_r_bits_id = axi4buf_8_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_8_r_bits_data = axi4buf_8_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_8_r_bits_resp = axi4buf_8_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_8_r_bits_last = axi4buf_8_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_7_aw_ready = axi4buf_7_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_7_w_ready = axi4buf_7_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_7_b_valid = axi4buf_7_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_7_b_bits_id = axi4buf_7_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_7_b_bits_resp = axi4buf_7_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_7_ar_ready = axi4buf_7_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_7_r_valid = axi4buf_7_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_7_r_bits_id = axi4buf_7_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_7_r_bits_data = axi4buf_7_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_7_r_bits_resp = axi4buf_7_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_7_r_bits_last = axi4buf_7_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_6_aw_ready = axi4buf_6_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_6_w_ready = axi4buf_6_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_6_b_valid = axi4buf_6_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_6_b_bits_id = axi4buf_6_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_6_b_bits_resp = axi4buf_6_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_6_ar_ready = axi4buf_6_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_6_r_valid = axi4buf_6_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_6_r_bits_id = axi4buf_6_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_6_r_bits_data = axi4buf_6_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_6_r_bits_resp = axi4buf_6_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_6_r_bits_last = axi4buf_6_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_5_aw_ready = axi4buf_5_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_5_w_ready = axi4buf_5_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_5_b_valid = axi4buf_5_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_5_b_bits_id = axi4buf_5_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_5_b_bits_resp = axi4buf_5_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_5_ar_ready = axi4buf_5_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_5_r_valid = axi4buf_5_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_5_r_bits_id = axi4buf_5_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_5_r_bits_data = axi4buf_5_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_5_r_bits_resp = axi4buf_5_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_5_r_bits_last = axi4buf_5_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_4_aw_ready = axi4buf_4_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_4_w_ready = axi4buf_4_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_4_b_valid = axi4buf_4_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_4_b_bits_id = axi4buf_4_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_4_b_bits_resp = axi4buf_4_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_4_ar_ready = axi4buf_4_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_4_r_valid = axi4buf_4_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_4_r_bits_id = axi4buf_4_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_4_r_bits_data = axi4buf_4_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_4_r_bits_resp = axi4buf_4_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_4_r_bits_last = axi4buf_4_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_3_aw_ready = axi4buf_3_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_3_w_ready = axi4buf_3_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_3_b_valid = axi4buf_3_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_3_b_bits_id = axi4buf_3_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_3_b_bits_resp = axi4buf_3_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_3_ar_ready = axi4buf_3_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_3_r_valid = axi4buf_3_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_3_r_bits_id = axi4buf_3_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_3_r_bits_data = axi4buf_3_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_3_r_bits_resp = axi4buf_3_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_3_r_bits_last = axi4buf_3_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_2_aw_ready = axi4buf_2_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_2_w_ready = axi4buf_2_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_2_b_valid = axi4buf_2_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_2_b_bits_id = axi4buf_2_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_2_b_bits_resp = axi4buf_2_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_2_ar_ready = axi4buf_2_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_2_r_valid = axi4buf_2_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_2_r_bits_id = axi4buf_2_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_2_r_bits_data = axi4buf_2_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_2_r_bits_resp = axi4buf_2_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_2_r_bits_last = axi4buf_2_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_1_aw_ready = axi4buf_1_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_1_w_ready = axi4buf_1_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_1_b_valid = axi4buf_1_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_1_b_bits_id = axi4buf_1_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_1_b_bits_resp = axi4buf_1_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_1_ar_ready = axi4buf_1_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_1_r_valid = axi4buf_1_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_1_r_bits_id = axi4buf_1_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_1_r_bits_data = axi4buf_1_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_1_r_bits_resp = axi4buf_1_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_1_r_bits_last = axi4buf_1_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_0_aw_ready = axi4buf_auto_in_aw_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_0_w_ready = axi4buf_auto_in_w_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_0_b_valid = axi4buf_auto_in_b_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_0_b_bits_id = axi4buf_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_0_b_bits_resp = axi4buf_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_0_ar_ready = axi4buf_auto_in_ar_ready; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_0_r_valid = axi4buf_auto_in_r_valid; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_0_r_bits_id = axi4buf_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_0_r_bits_data = axi4buf_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_0_r_bits_resp = axi4buf_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_0_r_bits_last = axi4buf_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_clock = clock;
+  assign axi4buf_reset = reset;
+  assign axi4buf_auto_in_aw_valid = bus_auto_out_0_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_auto_in_aw_bits_id = bus_auto_out_0_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_auto_in_aw_bits_addr = bus_auto_out_0_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_auto_in_aw_bits_size = bus_auto_out_0_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_auto_in_w_valid = bus_auto_out_0_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_auto_in_w_bits_data = bus_auto_out_0_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_auto_in_w_bits_strb = bus_auto_out_0_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_auto_in_w_bits_last = bus_auto_out_0_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_auto_in_b_ready = bus_auto_out_0_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_auto_in_ar_valid = bus_auto_out_0_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_auto_in_ar_bits_id = bus_auto_out_0_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_auto_in_ar_bits_addr = bus_auto_out_0_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_auto_in_ar_bits_size = bus_auto_out_0_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_auto_in_r_ready = bus_auto_out_0_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_auto_out_aw_ready = in_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_auto_out_w_ready = in_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_auto_out_b_valid = in_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_auto_out_b_bits_id = in_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_auto_out_ar_ready = in_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_auto_out_r_valid = in_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_auto_out_r_bits_id = in_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_auto_out_r_bits_data = in_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign axi4buf_1_clock = clock;
+  assign axi4buf_1_reset = reset;
+  assign axi4buf_1_auto_in_aw_valid = bus_auto_out_1_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_1_auto_in_aw_bits_id = bus_auto_out_1_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_1_auto_in_aw_bits_addr = bus_auto_out_1_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_1_auto_in_aw_bits_size = bus_auto_out_1_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_1_auto_in_w_valid = bus_auto_out_1_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_1_auto_in_w_bits_data = bus_auto_out_1_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_1_auto_in_w_bits_strb = bus_auto_out_1_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_1_auto_in_w_bits_last = bus_auto_out_1_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_1_auto_in_b_ready = bus_auto_out_1_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_1_auto_in_ar_valid = bus_auto_out_1_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_1_auto_in_ar_bits_id = bus_auto_out_1_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_1_auto_in_ar_bits_addr = bus_auto_out_1_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_1_auto_in_ar_bits_size = bus_auto_out_1_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_1_auto_in_r_ready = bus_auto_out_1_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_1_auto_out_aw_ready = plfg_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_1_auto_out_w_ready = plfg_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_1_auto_out_b_valid = plfg_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_1_auto_out_b_bits_id = 1'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_1_auto_out_b_bits_resp = plfg_auto_mem_in_b_bits_resp; // @[LazyModule.scala 167:31]
+  assign axi4buf_1_auto_out_ar_ready = plfg_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_1_auto_out_r_valid = plfg_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_1_auto_out_r_bits_id = 1'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_1_auto_out_r_bits_data = plfg_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_1_auto_out_r_bits_resp = plfg_auto_mem_in_r_bits_resp; // @[LazyModule.scala 167:31]
+  assign axi4buf_1_auto_out_r_bits_last = plfg_auto_mem_in_r_bits_last; // @[LazyModule.scala 167:31]
+  assign axi4buf_2_clock = clock;
+  assign axi4buf_2_reset = reset;
+  assign axi4buf_2_auto_in_aw_valid = bus_auto_out_2_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_2_auto_in_aw_bits_id = bus_auto_out_2_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_2_auto_in_aw_bits_addr = bus_auto_out_2_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_2_auto_in_aw_bits_size = bus_auto_out_2_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_2_auto_in_w_valid = bus_auto_out_2_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_2_auto_in_w_bits_data = bus_auto_out_2_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_2_auto_in_w_bits_strb = bus_auto_out_2_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_2_auto_in_w_bits_last = bus_auto_out_2_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_2_auto_in_b_ready = bus_auto_out_2_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_2_auto_in_ar_valid = bus_auto_out_2_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_2_auto_in_ar_bits_id = bus_auto_out_2_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_2_auto_in_ar_bits_addr = bus_auto_out_2_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_2_auto_in_ar_bits_size = bus_auto_out_2_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_2_auto_in_r_ready = bus_auto_out_2_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_2_auto_out_aw_ready = plfg_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_2_auto_out_w_ready = plfg_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_2_auto_out_b_valid = plfg_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_2_auto_out_b_bits_id = plfg_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_2_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_2_auto_out_ar_ready = plfg_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_2_auto_out_r_valid = plfg_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_2_auto_out_r_bits_id = plfg_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_2_auto_out_r_bits_data = plfg_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_2_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_2_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign axi4buf_3_clock = clock;
+  assign axi4buf_3_reset = reset;
+  assign axi4buf_3_auto_in_aw_valid = bus_auto_out_3_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_3_auto_in_aw_bits_id = bus_auto_out_3_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_3_auto_in_aw_bits_addr = bus_auto_out_3_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_3_auto_in_aw_bits_size = bus_auto_out_3_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_3_auto_in_w_valid = bus_auto_out_3_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_3_auto_in_w_bits_data = bus_auto_out_3_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_3_auto_in_w_bits_strb = bus_auto_out_3_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_3_auto_in_w_bits_last = bus_auto_out_3_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_3_auto_in_b_ready = bus_auto_out_3_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_3_auto_in_ar_valid = bus_auto_out_3_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_3_auto_in_ar_bits_id = bus_auto_out_3_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_3_auto_in_ar_bits_addr = bus_auto_out_3_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_3_auto_in_ar_bits_size = bus_auto_out_3_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_3_auto_in_r_ready = bus_auto_out_3_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_3_auto_out_aw_ready = plfg_mux_0_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_3_auto_out_w_ready = plfg_mux_0_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_3_auto_out_b_valid = plfg_mux_0_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_3_auto_out_b_bits_id = plfg_mux_0_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_3_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_3_auto_out_ar_ready = plfg_mux_0_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_3_auto_out_r_valid = plfg_mux_0_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_3_auto_out_r_bits_id = plfg_mux_0_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_3_auto_out_r_bits_data = plfg_mux_0_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_3_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_3_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign axi4buf_4_clock = clock;
+  assign axi4buf_4_reset = reset;
+  assign axi4buf_4_auto_in_aw_valid = bus_auto_out_4_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_4_auto_in_aw_bits_id = bus_auto_out_4_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_4_auto_in_aw_bits_addr = bus_auto_out_4_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_4_auto_in_aw_bits_size = bus_auto_out_4_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_4_auto_in_w_valid = bus_auto_out_4_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_4_auto_in_w_bits_data = bus_auto_out_4_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_4_auto_in_w_bits_strb = bus_auto_out_4_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_4_auto_in_w_bits_last = bus_auto_out_4_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_4_auto_in_b_ready = bus_auto_out_4_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_4_auto_in_ar_valid = bus_auto_out_4_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_4_auto_in_ar_bits_id = bus_auto_out_4_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_4_auto_in_ar_bits_addr = bus_auto_out_4_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_4_auto_in_ar_bits_size = bus_auto_out_4_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_4_auto_in_r_ready = bus_auto_out_4_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_4_auto_out_aw_ready = plfg_mux_1_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_4_auto_out_w_ready = plfg_mux_1_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_4_auto_out_b_valid = plfg_mux_1_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_4_auto_out_b_bits_id = plfg_mux_1_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_4_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_4_auto_out_ar_ready = plfg_mux_1_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_4_auto_out_r_valid = plfg_mux_1_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_4_auto_out_r_bits_id = plfg_mux_1_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_4_auto_out_r_bits_data = plfg_mux_1_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_4_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_4_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_clock = clock;
+  assign axi4buf_5_reset = reset;
+  assign axi4buf_5_auto_in_aw_valid = bus_auto_out_5_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_5_auto_in_aw_bits_id = bus_auto_out_5_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_5_auto_in_aw_bits_addr = bus_auto_out_5_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_5_auto_in_aw_bits_size = bus_auto_out_5_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_5_auto_in_w_valid = bus_auto_out_5_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_5_auto_in_w_bits_data = bus_auto_out_5_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_5_auto_in_w_bits_strb = bus_auto_out_5_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_5_auto_in_w_bits_last = bus_auto_out_5_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_5_auto_in_b_ready = bus_auto_out_5_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_5_auto_in_ar_valid = bus_auto_out_5_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_5_auto_in_ar_bits_id = bus_auto_out_5_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_5_auto_in_ar_bits_addr = bus_auto_out_5_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_5_auto_in_ar_bits_size = bus_auto_out_5_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_5_auto_in_r_ready = bus_auto_out_5_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_5_auto_out_aw_ready = 1'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_w_ready = 1'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_b_valid = 1'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_b_bits_id = 1'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_ar_ready = 1'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_r_valid = 1'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_r_bits_id = 1'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_r_bits_data = 32'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_r_bits_last = 1'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_clock = clock;
+  assign axi4buf_6_reset = reset;
+  assign axi4buf_6_auto_in_aw_valid = bus_auto_out_6_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_6_auto_in_aw_bits_id = bus_auto_out_6_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_6_auto_in_aw_bits_addr = bus_auto_out_6_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_6_auto_in_aw_bits_size = bus_auto_out_6_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_6_auto_in_w_valid = bus_auto_out_6_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_6_auto_in_w_bits_data = bus_auto_out_6_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_6_auto_in_w_bits_strb = bus_auto_out_6_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_6_auto_in_w_bits_last = bus_auto_out_6_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_6_auto_in_b_ready = bus_auto_out_6_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_6_auto_in_ar_valid = bus_auto_out_6_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_6_auto_in_ar_bits_id = bus_auto_out_6_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_6_auto_in_ar_bits_addr = bus_auto_out_6_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_6_auto_in_ar_bits_size = bus_auto_out_6_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_6_auto_in_r_ready = bus_auto_out_6_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_6_auto_out_aw_ready = nco_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_auto_out_w_ready = nco_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_auto_out_b_valid = nco_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_auto_out_b_bits_id = nco_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_auto_out_ar_ready = nco_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_auto_out_r_valid = nco_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_auto_out_r_bits_id = nco_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_auto_out_r_bits_data = nco_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_clock = clock;
+  assign axi4buf_7_reset = reset;
+  assign axi4buf_7_auto_in_aw_valid = bus_auto_out_7_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_7_auto_in_aw_bits_id = bus_auto_out_7_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_7_auto_in_aw_bits_addr = bus_auto_out_7_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_7_auto_in_aw_bits_size = bus_auto_out_7_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_7_auto_in_w_valid = bus_auto_out_7_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_7_auto_in_w_bits_data = bus_auto_out_7_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_7_auto_in_w_bits_strb = bus_auto_out_7_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_7_auto_in_w_bits_last = bus_auto_out_7_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_7_auto_in_b_ready = bus_auto_out_7_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_7_auto_in_ar_valid = bus_auto_out_7_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_7_auto_in_ar_bits_id = bus_auto_out_7_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_7_auto_in_ar_bits_addr = bus_auto_out_7_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_7_auto_in_ar_bits_size = bus_auto_out_7_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_7_auto_in_r_ready = bus_auto_out_7_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_7_auto_out_aw_ready = nco_mux_0_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_auto_out_w_ready = nco_mux_0_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_auto_out_b_valid = nco_mux_0_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_auto_out_b_bits_id = nco_mux_0_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_auto_out_ar_ready = nco_mux_0_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_auto_out_r_valid = nco_mux_0_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_auto_out_r_bits_id = nco_mux_0_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_auto_out_r_bits_data = nco_mux_0_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_clock = clock;
+  assign axi4buf_8_reset = reset;
+  assign axi4buf_8_auto_in_aw_valid = bus_auto_out_8_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_8_auto_in_aw_bits_id = bus_auto_out_8_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_8_auto_in_aw_bits_addr = bus_auto_out_8_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_8_auto_in_aw_bits_size = bus_auto_out_8_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_8_auto_in_w_valid = bus_auto_out_8_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_8_auto_in_w_bits_data = bus_auto_out_8_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_8_auto_in_w_bits_strb = bus_auto_out_8_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_8_auto_in_w_bits_last = bus_auto_out_8_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_8_auto_in_b_ready = bus_auto_out_8_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_8_auto_in_ar_valid = bus_auto_out_8_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_8_auto_in_ar_bits_id = bus_auto_out_8_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_8_auto_in_ar_bits_addr = bus_auto_out_8_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_8_auto_in_ar_bits_size = bus_auto_out_8_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_8_auto_in_r_ready = bus_auto_out_8_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_8_auto_out_aw_ready = nco_mux_1_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_auto_out_w_ready = nco_mux_1_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_auto_out_b_valid = nco_mux_1_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_auto_out_b_bits_id = nco_mux_1_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_auto_out_ar_ready = nco_mux_1_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_auto_out_r_valid = nco_mux_1_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_auto_out_r_bits_id = nco_mux_1_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_auto_out_r_bits_data = nco_mux_1_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_clock = clock;
+  assign axi4buf_9_reset = reset;
+  assign axi4buf_9_auto_in_aw_valid = bus_auto_out_9_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_9_auto_in_aw_bits_id = bus_auto_out_9_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_9_auto_in_aw_bits_addr = bus_auto_out_9_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_9_auto_in_aw_bits_size = bus_auto_out_9_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_9_auto_in_w_valid = bus_auto_out_9_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_9_auto_in_w_bits_data = bus_auto_out_9_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_9_auto_in_w_bits_strb = bus_auto_out_9_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_9_auto_in_w_bits_last = bus_auto_out_9_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_9_auto_in_b_ready = bus_auto_out_9_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_9_auto_in_ar_valid = bus_auto_out_9_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_9_auto_in_ar_bits_id = bus_auto_out_9_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_9_auto_in_ar_bits_addr = bus_auto_out_9_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_9_auto_in_ar_bits_size = bus_auto_out_9_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_9_auto_in_r_ready = bus_auto_out_9_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_9_auto_out_aw_ready = fft_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_auto_out_w_ready = fft_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_auto_out_b_valid = fft_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_auto_out_b_bits_id = fft_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_auto_out_ar_ready = fft_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_auto_out_r_valid = fft_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_auto_out_r_bits_id = fft_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_auto_out_r_bits_data = fft_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_clock = clock;
+  assign axi4buf_10_reset = reset;
+  assign axi4buf_10_auto_in_aw_valid = bus_auto_out_10_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_10_auto_in_aw_bits_id = bus_auto_out_10_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_10_auto_in_aw_bits_addr = bus_auto_out_10_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_10_auto_in_aw_bits_size = bus_auto_out_10_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_10_auto_in_w_valid = bus_auto_out_10_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_10_auto_in_w_bits_data = bus_auto_out_10_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_10_auto_in_w_bits_strb = bus_auto_out_10_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_10_auto_in_w_bits_last = bus_auto_out_10_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_10_auto_in_b_ready = bus_auto_out_10_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_10_auto_in_ar_valid = bus_auto_out_10_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_10_auto_in_ar_bits_id = bus_auto_out_10_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_10_auto_in_ar_bits_addr = bus_auto_out_10_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_10_auto_in_ar_bits_size = bus_auto_out_10_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_10_auto_in_r_ready = bus_auto_out_10_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_10_auto_out_aw_ready = fft_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_auto_out_w_ready = fft_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_auto_out_b_valid = fft_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_auto_out_b_bits_id = fft_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_auto_out_ar_ready = fft_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_auto_out_r_valid = fft_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_auto_out_r_bits_id = fft_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_auto_out_r_bits_data = fft_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_clock = clock;
+  assign axi4buf_11_reset = reset;
+  assign axi4buf_11_auto_in_aw_valid = bus_auto_out_11_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_11_auto_in_aw_bits_id = bus_auto_out_11_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_11_auto_in_aw_bits_addr = bus_auto_out_11_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_11_auto_in_aw_bits_size = bus_auto_out_11_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_11_auto_in_w_valid = bus_auto_out_11_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_11_auto_in_w_bits_data = bus_auto_out_11_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_11_auto_in_w_bits_strb = bus_auto_out_11_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_11_auto_in_w_bits_last = bus_auto_out_11_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_11_auto_in_b_ready = bus_auto_out_11_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_11_auto_in_ar_valid = bus_auto_out_11_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_11_auto_in_ar_bits_id = bus_auto_out_11_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_11_auto_in_ar_bits_addr = bus_auto_out_11_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_11_auto_in_ar_bits_size = bus_auto_out_11_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_11_auto_in_r_ready = bus_auto_out_11_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_11_auto_out_aw_ready = fft_mux_0_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_auto_out_w_ready = fft_mux_0_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_auto_out_b_valid = fft_mux_0_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_auto_out_b_bits_id = fft_mux_0_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_auto_out_ar_ready = fft_mux_0_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_auto_out_r_valid = fft_mux_0_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_auto_out_r_bits_id = fft_mux_0_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_auto_out_r_bits_data = fft_mux_0_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_clock = clock;
+  assign axi4buf_12_reset = reset;
+  assign axi4buf_12_auto_in_aw_valid = bus_auto_out_12_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_12_auto_in_aw_bits_id = bus_auto_out_12_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_12_auto_in_aw_bits_addr = bus_auto_out_12_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_12_auto_in_aw_bits_size = bus_auto_out_12_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_12_auto_in_w_valid = bus_auto_out_12_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_12_auto_in_w_bits_data = bus_auto_out_12_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_12_auto_in_w_bits_strb = bus_auto_out_12_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_12_auto_in_w_bits_last = bus_auto_out_12_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_12_auto_in_b_ready = bus_auto_out_12_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_12_auto_in_ar_valid = bus_auto_out_12_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_12_auto_in_ar_bits_id = bus_auto_out_12_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_12_auto_in_ar_bits_addr = bus_auto_out_12_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_12_auto_in_ar_bits_size = bus_auto_out_12_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_12_auto_in_r_ready = bus_auto_out_12_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_12_auto_out_aw_ready = fft_mux_1_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_auto_out_w_ready = fft_mux_1_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_auto_out_b_valid = fft_mux_1_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_auto_out_b_bits_id = fft_mux_1_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_auto_out_ar_ready = fft_mux_1_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_auto_out_r_valid = fft_mux_1_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_auto_out_r_bits_id = fft_mux_1_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_auto_out_r_bits_data = fft_mux_1_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_clock = clock;
+  assign axi4buf_13_reset = reset;
+  assign axi4buf_13_auto_in_aw_valid = bus_auto_out_13_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_13_auto_in_aw_bits_id = bus_auto_out_13_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_13_auto_in_aw_bits_addr = bus_auto_out_13_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_13_auto_in_aw_bits_size = bus_auto_out_13_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_13_auto_in_w_valid = bus_auto_out_13_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_13_auto_in_w_bits_data = bus_auto_out_13_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_13_auto_in_w_bits_strb = bus_auto_out_13_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_13_auto_in_w_bits_last = bus_auto_out_13_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_13_auto_in_b_ready = bus_auto_out_13_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_13_auto_in_ar_valid = bus_auto_out_13_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_13_auto_in_ar_bits_id = bus_auto_out_13_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_13_auto_in_ar_bits_addr = bus_auto_out_13_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_13_auto_in_ar_bits_size = bus_auto_out_13_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_13_auto_in_r_ready = bus_auto_out_13_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_13_auto_out_aw_ready = mag_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_auto_out_w_ready = mag_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_auto_out_b_valid = mag_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_auto_out_b_bits_id = mag_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_auto_out_ar_ready = mag_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_auto_out_r_valid = mag_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_auto_out_r_bits_id = mag_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_auto_out_r_bits_data = mag_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_clock = clock;
+  assign axi4buf_14_reset = reset;
+  assign axi4buf_14_auto_in_aw_valid = bus_auto_out_14_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_14_auto_in_aw_bits_id = bus_auto_out_14_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_14_auto_in_aw_bits_addr = bus_auto_out_14_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_14_auto_in_aw_bits_size = bus_auto_out_14_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_14_auto_in_w_valid = bus_auto_out_14_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_14_auto_in_w_bits_data = bus_auto_out_14_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_14_auto_in_w_bits_strb = bus_auto_out_14_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_14_auto_in_w_bits_last = bus_auto_out_14_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_14_auto_in_b_ready = bus_auto_out_14_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_14_auto_in_ar_valid = bus_auto_out_14_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_14_auto_in_ar_bits_id = bus_auto_out_14_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_14_auto_in_ar_bits_addr = bus_auto_out_14_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_14_auto_in_ar_bits_size = bus_auto_out_14_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_14_auto_in_r_ready = bus_auto_out_14_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_14_auto_out_aw_ready = mag_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_auto_out_w_ready = mag_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_auto_out_b_valid = mag_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_auto_out_b_bits_id = mag_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_auto_out_ar_ready = mag_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_auto_out_r_valid = mag_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_auto_out_r_bits_id = mag_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_auto_out_r_bits_data = mag_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_clock = clock;
+  assign axi4buf_15_reset = reset;
+  assign axi4buf_15_auto_in_aw_valid = bus_auto_out_15_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_15_auto_in_aw_bits_id = bus_auto_out_15_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_15_auto_in_aw_bits_addr = bus_auto_out_15_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_15_auto_in_aw_bits_size = bus_auto_out_15_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_15_auto_in_w_valid = bus_auto_out_15_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_15_auto_in_w_bits_data = bus_auto_out_15_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_15_auto_in_w_bits_strb = bus_auto_out_15_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_15_auto_in_w_bits_last = bus_auto_out_15_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_15_auto_in_b_ready = bus_auto_out_15_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_15_auto_in_ar_valid = bus_auto_out_15_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_15_auto_in_ar_bits_id = bus_auto_out_15_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_15_auto_in_ar_bits_addr = bus_auto_out_15_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_15_auto_in_ar_bits_size = bus_auto_out_15_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_15_auto_in_r_ready = bus_auto_out_15_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_15_auto_out_aw_ready = mag_mux_0_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_auto_out_w_ready = mag_mux_0_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_auto_out_b_valid = mag_mux_0_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_auto_out_b_bits_id = mag_mux_0_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_auto_out_ar_ready = mag_mux_0_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_auto_out_r_valid = mag_mux_0_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_auto_out_r_bits_id = mag_mux_0_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_auto_out_r_bits_data = mag_mux_0_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_clock = clock;
+  assign axi4buf_16_reset = reset;
+  assign axi4buf_16_auto_in_aw_valid = bus_auto_out_16_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_16_auto_in_aw_bits_id = bus_auto_out_16_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_16_auto_in_aw_bits_addr = bus_auto_out_16_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_16_auto_in_aw_bits_size = bus_auto_out_16_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_16_auto_in_w_valid = bus_auto_out_16_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_16_auto_in_w_bits_data = bus_auto_out_16_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_16_auto_in_w_bits_strb = bus_auto_out_16_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_16_auto_in_w_bits_last = bus_auto_out_16_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_16_auto_in_b_ready = bus_auto_out_16_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_16_auto_in_ar_valid = bus_auto_out_16_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_16_auto_in_ar_bits_id = bus_auto_out_16_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_16_auto_in_ar_bits_addr = bus_auto_out_16_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_16_auto_in_ar_bits_size = bus_auto_out_16_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_16_auto_in_r_ready = bus_auto_out_16_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_16_auto_out_aw_ready = mag_mux_1_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_auto_out_w_ready = mag_mux_1_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_auto_out_b_valid = mag_mux_1_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_auto_out_b_bits_id = mag_mux_1_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_auto_out_ar_ready = mag_mux_1_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_auto_out_r_valid = mag_mux_1_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_auto_out_r_bits_id = mag_mux_1_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_auto_out_r_bits_data = mag_mux_1_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_clock = clock;
+  assign axi4buf_17_reset = reset;
+  assign axi4buf_17_auto_in_aw_valid = bus_auto_out_17_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_17_auto_in_aw_bits_id = bus_auto_out_17_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_17_auto_in_aw_bits_addr = bus_auto_out_17_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_17_auto_in_aw_bits_size = bus_auto_out_17_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_17_auto_in_w_valid = bus_auto_out_17_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_17_auto_in_w_bits_data = bus_auto_out_17_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_17_auto_in_w_bits_strb = bus_auto_out_17_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_17_auto_in_w_bits_last = bus_auto_out_17_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_17_auto_in_b_ready = bus_auto_out_17_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_17_auto_in_ar_valid = bus_auto_out_17_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_17_auto_in_ar_bits_id = bus_auto_out_17_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_17_auto_in_ar_bits_addr = bus_auto_out_17_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_17_auto_in_ar_bits_size = bus_auto_out_17_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_17_auto_in_r_ready = bus_auto_out_17_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_17_auto_out_aw_ready = out_mux_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_auto_out_w_ready = out_mux_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_auto_out_b_valid = out_mux_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_auto_out_b_bits_id = out_mux_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_auto_out_ar_ready = out_mux_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_auto_out_r_valid = out_mux_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_auto_out_r_bits_id = out_mux_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_auto_out_r_bits_data = out_mux_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_clock = clock;
+  assign axi4buf_18_reset = reset;
+  assign axi4buf_18_auto_in_aw_valid = bus_auto_out_18_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_18_auto_in_aw_bits_id = bus_auto_out_18_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_18_auto_in_aw_bits_addr = bus_auto_out_18_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_18_auto_in_aw_bits_size = bus_auto_out_18_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_18_auto_in_w_valid = bus_auto_out_18_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_18_auto_in_w_bits_data = bus_auto_out_18_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_18_auto_in_w_bits_strb = bus_auto_out_18_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_18_auto_in_w_bits_last = bus_auto_out_18_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_18_auto_in_b_ready = bus_auto_out_18_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_18_auto_in_ar_valid = bus_auto_out_18_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_18_auto_in_ar_bits_id = bus_auto_out_18_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_18_auto_in_ar_bits_addr = bus_auto_out_18_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_18_auto_in_ar_bits_size = bus_auto_out_18_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_18_auto_in_r_ready = bus_auto_out_18_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_18_auto_out_aw_ready = out_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_auto_out_w_ready = out_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_auto_out_b_valid = out_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_auto_out_b_bits_id = out_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_auto_out_ar_ready = out_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_auto_out_r_valid = out_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_auto_out_r_bits_id = out_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_auto_out_r_bits_data = out_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_clock = clock;
+  assign axi4buf_19_reset = reset;
+  assign axi4buf_19_auto_in_aw_valid = bus_auto_out_19_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_19_auto_in_aw_bits_id = bus_auto_out_19_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_19_auto_in_aw_bits_addr = bus_auto_out_19_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_19_auto_in_aw_bits_size = bus_auto_out_19_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_19_auto_in_w_valid = bus_auto_out_19_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_19_auto_in_w_bits_data = bus_auto_out_19_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_19_auto_in_w_bits_strb = bus_auto_out_19_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_19_auto_in_w_bits_last = bus_auto_out_19_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_19_auto_in_b_ready = bus_auto_out_19_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_19_auto_in_ar_valid = bus_auto_out_19_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_19_auto_in_ar_bits_id = bus_auto_out_19_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_19_auto_in_ar_bits_addr = bus_auto_out_19_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_19_auto_in_ar_bits_size = bus_auto_out_19_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_19_auto_in_r_ready = bus_auto_out_19_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_19_auto_out_aw_ready = uart_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_auto_out_w_ready = uart_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_auto_out_b_valid = uart_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_auto_out_b_bits_id = uart_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_auto_out_ar_ready = uart_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_auto_out_r_valid = uart_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_auto_out_r_bits_id = uart_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_auto_out_r_bits_data = uart_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign axi4buf_20_clock = clock;
+  assign axi4buf_20_reset = reset;
+  assign axi4buf_20_auto_in_aw_valid = bus_auto_out_20_aw_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_20_auto_in_aw_bits_id = bus_auto_out_20_aw_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_20_auto_in_aw_bits_addr = bus_auto_out_20_aw_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_20_auto_in_aw_bits_size = bus_auto_out_20_aw_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_20_auto_in_w_valid = bus_auto_out_20_w_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_20_auto_in_w_bits_data = bus_auto_out_20_w_bits_data; // @[LazyModule.scala 167:57]
+  assign axi4buf_20_auto_in_w_bits_strb = bus_auto_out_20_w_bits_strb; // @[LazyModule.scala 167:57]
+  assign axi4buf_20_auto_in_w_bits_last = bus_auto_out_20_w_bits_last; // @[LazyModule.scala 167:57]
+  assign axi4buf_20_auto_in_b_ready = bus_auto_out_20_b_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_20_auto_in_ar_valid = bus_auto_out_20_ar_valid; // @[LazyModule.scala 167:57]
+  assign axi4buf_20_auto_in_ar_bits_id = bus_auto_out_20_ar_bits_id; // @[LazyModule.scala 167:57]
+  assign axi4buf_20_auto_in_ar_bits_addr = bus_auto_out_20_ar_bits_addr; // @[LazyModule.scala 167:57]
+  assign axi4buf_20_auto_in_ar_bits_size = bus_auto_out_20_ar_bits_size; // @[LazyModule.scala 167:57]
+  assign axi4buf_20_auto_in_r_ready = bus_auto_out_20_r_ready; // @[LazyModule.scala 167:57]
+  assign axi4buf_20_auto_out_aw_ready = uRx_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_20_auto_out_w_ready = uRx_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_20_auto_out_b_valid = uRx_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_20_auto_out_b_bits_id = uRx_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_20_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_20_auto_out_ar_ready = uRx_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_20_auto_out_r_valid = uRx_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_20_auto_out_r_bits_id = uRx_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_20_auto_out_r_bits_data = uRx_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_20_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_20_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
+  assign buffer_clock = clock;
+  assign buffer_reset = reset;
+  assign buffer_auto_in_valid = nco_mux_0_auto_stream_out_0_valid; // @[LazyModule.scala 167:57]
+  assign buffer_auto_in_bits_data = nco_mux_0_auto_stream_out_0_bits_data; // @[LazyModule.scala 167:57]
+  assign buffer_auto_in_bits_last = nco_mux_0_auto_stream_out_0_bits_last; // @[LazyModule.scala 167:57]
+  assign buffer_auto_out_ready = fft_auto_stream_in_ready; // @[LazyModule.scala 167:31]
+  assign buffer_1_clock = clock;
+  assign buffer_1_reset = reset;
+  assign buffer_1_auto_in_valid = fft_mux_0_auto_stream_out_0_valid; // @[LazyModule.scala 167:57]
+  assign buffer_1_auto_in_bits_data = fft_mux_0_auto_stream_out_0_bits_data; // @[LazyModule.scala 167:57]
+  assign buffer_1_auto_in_bits_last = fft_mux_0_auto_stream_out_0_bits_last; // @[LazyModule.scala 167:57]
+  assign buffer_1_auto_out_ready = mag_auto_stream_in_ready; // @[LazyModule.scala 167:31]
+  assign buffer_2_clock = clock;
+  assign buffer_2_reset = reset;
+  assign buffer_2_auto_in_valid = mag_mux_0_auto_stream_out_0_valid; // @[LazyModule.scala 167:57]
+  assign buffer_2_auto_in_bits_data = mag_mux_0_auto_stream_out_0_bits_data; // @[LazyModule.scala 167:57]
+  assign buffer_2_auto_in_bits_last = mag_mux_0_auto_stream_out_0_bits_last; // @[LazyModule.scala 167:57]
+  assign buffer_2_auto_out_ready = acc_auto_accumulator_slave_in_ready; // @[LazyModule.scala 167:31]
+  assign buffer_3_clock = clock;
+  assign buffer_3_reset = reset;
+  assign buffer_3_auto_in_valid = mag_mux_1_auto_stream_out_1_valid; // @[LazyModule.scala 167:57]
+  assign buffer_3_auto_in_bits_data = mag_mux_1_auto_stream_out_1_bits_data; // @[LazyModule.scala 167:57]
+  assign buffer_3_auto_in_bits_last = mag_mux_1_auto_stream_out_1_bits_last; // @[LazyModule.scala 167:57]
+  assign buffer_3_auto_out_ready = out_mux_auto_stream_in_1_ready; // @[LazyModule.scala 167:31]
+  assign buffer_4_clock = clock;
+  assign buffer_4_reset = reset;
+  assign buffer_4_auto_in_valid = fft_mux_1_auto_stream_out_1_valid; // @[LazyModule.scala 167:57]
+  assign buffer_4_auto_in_bits_data = fft_mux_1_auto_stream_out_1_bits_data; // @[LazyModule.scala 167:57]
+  assign buffer_4_auto_in_bits_last = fft_mux_1_auto_stream_out_1_bits_last; // @[LazyModule.scala 167:57]
+  assign buffer_4_auto_out_ready = out_mux_auto_stream_in_2_ready; // @[LazyModule.scala 167:31]
+  assign buffer_5_clock = clock;
+  assign buffer_5_reset = reset;
+  assign buffer_5_auto_in_valid = nco_mux_1_auto_stream_out_1_valid; // @[LazyModule.scala 167:57]
+  assign buffer_5_auto_in_bits_data = nco_mux_1_auto_stream_out_1_bits_data; // @[LazyModule.scala 167:57]
+  assign buffer_5_auto_in_bits_last = nco_mux_1_auto_stream_out_1_bits_last; // @[LazyModule.scala 167:57]
+  assign buffer_5_auto_out_ready = out_mux_auto_stream_in_3_ready; // @[LazyModule.scala 167:31]
+  assign buffer_6_clock = clock;
+  assign buffer_6_reset = reset;
+  assign buffer_6_auto_in_valid = plfg_mux_1_auto_stream_out_1_valid; // @[LazyModule.scala 167:57]
+  assign buffer_6_auto_in_bits_data = plfg_mux_1_auto_stream_out_1_bits_data; // @[LazyModule.scala 167:57]
+  assign buffer_6_auto_in_bits_last = plfg_mux_1_auto_stream_out_1_bits_last; // @[LazyModule.scala 167:57]
+  assign buffer_6_auto_out_ready = out_mux_auto_stream_in_4_ready; // @[LazyModule.scala 167:31]
+  assign buffer_7_clock = clock;
+  assign buffer_7_reset = reset;
+  assign buffer_7_auto_in_valid = in_split_auto_stream_out_4_valid; // @[LazyModule.scala 167:57]
+  assign buffer_7_auto_in_bits_data = in_split_auto_stream_out_4_bits_data; // @[LazyModule.scala 167:57]
+  assign buffer_7_auto_in_bits_last = in_split_auto_stream_out_4_bits_last; // @[LazyModule.scala 167:57]
+  assign buffer_7_auto_out_ready = out_mux_auto_stream_in_5_ready; // @[LazyModule.scala 167:31]
+  assign buffer_8_clock = clock;
+  assign buffer_8_reset = reset;
+  assign buffer_8_auto_in_valid = uRx_split_auto_stream_out_4_valid; // @[LazyModule.scala 167:57]
+  assign buffer_8_auto_in_bits_data = uRx_split_auto_stream_out_4_bits_data; // @[LazyModule.scala 167:57]
+  assign buffer_8_auto_in_bits_last = 1'h0; // @[LazyModule.scala 167:57]
+  assign buffer_8_auto_out_ready = out_mux_auto_stream_in_6_ready; // @[LazyModule.scala 167:31]
+  assign buffer_9_clock = clock;
+  assign buffer_9_reset = reset;
+  assign buffer_9_auto_in_valid = out_mux_auto_stream_out_0_valid; // @[LazyModule.scala 167:57]
+  assign buffer_9_auto_in_bits_data = out_mux_auto_stream_out_0_bits_data; // @[LazyModule.scala 167:57]
+  assign buffer_9_auto_in_bits_last = out_mux_auto_stream_out_0_bits_last; // @[LazyModule.scala 167:57]
+  assign buffer_9_auto_out_ready = out_queue_auto_in_in_ready; // @[LazyModule.scala 167:31]
   assign converter_auto_in_aw_valid = ioMem_0_aw_valid; // @[LazyModule.scala 167:57]
   assign converter_auto_in_aw_bits_id = ioMem_0_aw_bits_id; // @[LazyModule.scala 167:57]
   assign converter_auto_in_aw_bits_addr = ioMem_0_aw_bits_addr; // @[LazyModule.scala 167:57]
