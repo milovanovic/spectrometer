@@ -57,12 +57,24 @@ class PLFG_NCO_FFT_MAG_ACC_UTX_SpectrometerTester
   // memWriteWord(params.uRxSplitAddress.base + 0x0, 0)  // set ready to AND
   // memWriteWord(params.outSplitAddress.base + 0x0, 0)  // set ready to AND
 
-  // UART
-  memWriteWord(params.uartParams.address + 0x08, 1) // enable Tx
-  memWriteWord(params.uartParams.address + 0x0c, 1) // enable Rx
-
   val numAccuWin = 4 // Number of accumulator windows
   
+  // plfg setup
+  val segmentNumsArrayOffset = 6 * params.beatBytes
+  val repeatedChirpNumsArrayOffset = segmentNumsArrayOffset + 4 * params.beatBytes
+  val chirpOrdinalNumsArrayOffset = repeatedChirpNumsArrayOffset + 8 * params.beatBytes
+    
+  memWriteWord(params.plfgRAM.base, 0x24000000)
+  memWriteWord(params.plfgAddress.base + 2*params.beatBytes, numAccuWin*2) // number of frames
+  memWriteWord(params.plfgAddress.base + 4*params.beatBytes, 1)            // number of chirps
+  //memWriteWord(params.plfgAddress.base + 5*params.beatBytes, 1)          // start value
+  memWriteWord(params.plfgAddress.base + 5*params.beatBytes, 4)            // start value
+  memWriteWord(params.plfgAddress.base + segmentNumsArrayOffset, 1)        // number of segments for first chirp
+  memWriteWord(params.plfgAddress.base + repeatedChirpNumsArrayOffset, 1)  // determines number of repeated chirps
+  memWriteWord(params.plfgAddress.base + chirpOrdinalNumsArrayOffset, 0) 
+  memWriteWord(params.plfgAddress.base + params.beatBytes, 0)              // set reset bit to zero
+  memWriteWord(params.plfgAddress.base, 1)                                 // enable bit becomes 1
+
   // Mux
   memWriteWord(params.plfgMuxAddress1.base,       0x0) // output0
   // memWriteWord(params.plfgMuxAddress1.base + 0x4, 0x0) // output1
@@ -88,34 +100,20 @@ class PLFG_NCO_FFT_MAG_ACC_UTX_SpectrometerTester
   memWriteWord(params.magMuxAddress0.base,       0x0) // output0
   // memWriteWord(params.magMuxAddress0.base + 0x4, 0x0) // output1
 
-  // memWriteWord(params.outMuxAddress.base,       0x0) // output0
-  memWriteWord(params.outMuxAddress.base + 0x4, 0x0) // output1
-  // memWriteWord(params.outMuxAddress.base + 0x8, 0x3) // output2
   
   // magAddress
   memWriteWord(params.magAddress.base, 0x2) // set jpl magnitude
   
   memWriteWord(params.accAddress.base, params.fftParams.numPoints)  // set number of fft points
   memWriteWord(params.accAddress.base + 0x4, numAccuWin)            // set number of accumulated fft windows
-  
-  poke(dut.outStream.ready, true.B)
-  step(1)
 
-  // plfg setup
-  val segmentNumsArrayOffset = 6 * params.beatBytes
-  val repeatedChirpNumsArrayOffset = segmentNumsArrayOffset + 4 * params.beatBytes
-  val chirpOrdinalNumsArrayOffset = repeatedChirpNumsArrayOffset + 8 * params.beatBytes
-    
-  memWriteWord(params.plfgRAM.base, 0x24000000)
-  memWriteWord(params.plfgAddress.base + 2*params.beatBytes, numAccuWin*2) // number of frames
-  memWriteWord(params.plfgAddress.base + 4*params.beatBytes, 1)            // number of chirps
-  //memWriteWord(params.plfgAddress.base + 5*params.beatBytes, 1)          // start value
-  memWriteWord(params.plfgAddress.base + 5*params.beatBytes, 4)            // start value
-  memWriteWord(params.plfgAddress.base + segmentNumsArrayOffset, 1)        // number of segments for first chirp
-  memWriteWord(params.plfgAddress.base + repeatedChirpNumsArrayOffset, 1)  // determines number of repeated chirps
-  memWriteWord(params.plfgAddress.base + chirpOrdinalNumsArrayOffset, 0) 
-  memWriteWord(params.plfgAddress.base + params.beatBytes, 0)              // set reset bit to zero
-  memWriteWord(params.plfgAddress.base, 1)                                 // enable bit becomes 1
+  // UART
+  memWriteWord(params.uartParams.address + 0x08, 1) // enable Tx
+  memWriteWord(params.uartParams.address + 0x0c, 1) // enable Rx
+
+    // memWriteWord(params.outMuxAddress.base,       0x0) // output0
+  memWriteWord(params.outMuxAddress.base + 0x4, 0x0) // output1
+  // memWriteWord(params.outMuxAddress.base + 0x8, 0x3) // output2
 
   var outSeq = Seq[Int]()
   var uartSeq = Seq[Int]()
@@ -128,6 +126,8 @@ class PLFG_NCO_FFT_MAG_ACC_UTX_SpectrometerTester
 
   // check only one fft window 
   while (uartSeq.length < params.fftParams.numPoints * 16) {
+    newRead = 0
+    oldRead = 0
     while (readUart == 0){
       oldRead = peek(dut.module.uTx).toInt
       step(1)
@@ -142,18 +142,20 @@ class PLFG_NCO_FFT_MAG_ACC_UTX_SpectrometerTester
       readUart = 0  // set flag back to 0
       step(params.divisorInit + 1) // skip start bit
       dataCnt = 0
-      while (dataCnt < 8) {
-        peekedVal = peek(dut.module.uTx).toInt
-        uartSeq = uartSeq :+ peekedVal
+      while (dataCnt < 9) {
+        if (dataCnt < 8) {
+          peekedVal = peek(dut.module.uTx).toInt
+          uartSeq = uartSeq :+ peekedVal
+        }
         dataCnt = dataCnt + 1
         step(params.divisorInit + 1)
       }
       
-      assert(peek(dut.module.uTx).toInt == 1, "not stop bit")
+      assert(peek(dut.module.uTx).toInt == 1, "Expected stop bit, got 0")
   }
 
   var realSeq = Seq[Int]()
-  var tmpReal: Short = 0
+  var tmpReal: Int = 0
   
   for (i <- 0 until uartSeq.length by 16) {
     tmpReal = java.lang.Integer.parseInt(SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 15), 1) ++ 
@@ -171,8 +173,8 @@ class PLFG_NCO_FFT_MAG_ACC_UTX_SpectrometerTester
                                          SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 3), 1) ++
                                          SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 2), 1) ++
                                          SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 1), 1) ++
-                                         SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 0), 1), 2).toShort
-    realSeq = realSeq :+ tmpReal.toInt
+                                         SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 0), 1), 2).toInt
+    realSeq = realSeq :+ tmpReal
   }
 
   // Output data
