@@ -181,79 +181,79 @@ class SpectrometerTest(params: SpectrometerTestParameters) extends LazyModule()(
   val bus = LazyModule(new AXI4Xbar)
   val mem = Some(bus.node)
   for (b <- blocks) {
-    b.mem.foreach { _ := bus.node }
+    b.mem.foreach { _ := AXI4Buffer() := bus.node }
   } 
   acc.mem.get := bus.node
 
   // connect nodes
-  in_split.streamNode  := in_adapt := in_queue.node // in_queue    -----> in_adapt   -----> in_split
+  in_split.streamNode  := in_adapt := in_queue.node                       // in_queue    -----> in_adapt   -----> in_split
 
-  plfg_split.streamNode := plfg.streamNode          // plfg        -----> plfg_split
-  plfg_mux_1.streamNode := plfg_split.streamNode    // plfg_split  -----> plfg_mux_1  
-  plfg_rdy_1.streamNode := plfg_mux_1.streamNode    // plfg_mux_1  --0--> plfg_rdy_1
+  plfg_split.streamNode := plfg.streamNode                                // plfg        -----> plfg_split
+  plfg_mux_1.streamNode := plfg_split.streamNode                          // plfg_split  -----> plfg_mux_1  
+  plfg_rdy_1.streamNode := plfg_mux_1.streamNode                          // plfg_mux_1  --0--> plfg_rdy_1
 
-  plfg_mux_0.streamNode := plfg_split.streamNode    // plfg_split  --0--> plfg_mux_0
-  plfg_mux_0.streamNode := in_split.streamNode      // in_split    --1--> plfg_mux_0
-  plfg_mux_0.streamNode := uRx_split.streamNode     // uRx_split   --2--> plfg_mux_0
-  plfg_mux_0.streamNode := plfg_ones.streamNode     // plfg_ones   --3--> plfg_mux_0
-  plfg_mux_0.streamNode := plfg_zeros.streamNode    // plfg_zeros  --4--> plfg_mux_0
-  nco.freq.get          := plfg_mux_0.streamNode    // plfg_mux_0  --0--> nco
-  plfg_rdy_0.streamNode := plfg_mux_0.streamNode    // plfg_mux_0  --1--> plfg_rdy_0
+  plfg_mux_0.streamNode := plfg_split.streamNode                          // plfg_split  --0--> plfg_mux_0
+  plfg_mux_0.streamNode := in_split.streamNode                            // in_split    --1--> plfg_mux_0
+  plfg_mux_0.streamNode := uRx_split.streamNode                           // uRx_split   --2--> plfg_mux_0
+  plfg_mux_0.streamNode := plfg_ones.streamNode                           // plfg_ones   --3--> plfg_mux_0
+  plfg_mux_0.streamNode := plfg_zeros.streamNode                          // plfg_zeros  --4--> plfg_mux_0
+  nco.freq.get          := plfg_mux_0.streamNode                          // plfg_mux_0  --0--> nco
+  plfg_rdy_0.streamNode := plfg_mux_0.streamNode                          // plfg_mux_0  --1--> plfg_rdy_0
 
-  nco_split.streamNode  := nco.streamNode           // nco         -----> nco_split
-  nco_mux_1.streamNode  := nco_split.streamNode     // nco_split   -----> nco_mux_1  
-  nco_rdy_1.streamNode  := nco_mux_1.streamNode     // nco_mux_1   --0--> nco_rdy_1
+  nco_split.streamNode  := nco.streamNode                                 // nco         -----> nco_split
+  nco_mux_1.streamNode  := nco_split.streamNode                           // nco_split   -----> nco_mux_1  
+  nco_rdy_1.streamNode  := nco_mux_1.streamNode                           // nco_mux_1   --0--> nco_rdy_1
 
-  nco_mux_0.streamNode  := nco_split.streamNode     // nco_split  --0--> nco_mux_0
-  nco_mux_0.streamNode  := in_split.streamNode      // in_split   --1--> nco_mux_0
-  nco_mux_0.streamNode  := uRx_split.streamNode     // uRx_split  --2--> nco_mux_0
-  nco_mux_0.streamNode  := nco_ones.streamNode      // nco_ones   --3--> nco_mux_0
-  nco_mux_0.streamNode  := nco_zeros.streamNode     // nco_zeros  --4--> nco_mux_0
-  fft.streamNode        := nco_mux_0.streamNode     // nco_mux_0  --0--> fft
-  nco_rdy_0.streamNode  := nco_mux_0.streamNode     // nco_mux_0  --1--> nco_rdy_0
+  nco_mux_0.streamNode  := nco_split.streamNode                           // nco_split  --0--> nco_mux_0
+  nco_mux_0.streamNode  := in_split.streamNode                            // in_split   --1--> nco_mux_0
+  nco_mux_0.streamNode  := uRx_split.streamNode                           // uRx_split  --2--> nco_mux_0
+  nco_mux_0.streamNode  := nco_ones.streamNode                            // nco_ones   --3--> nco_mux_0
+  nco_mux_0.streamNode  := nco_zeros.streamNode                           // nco_zeros  --4--> nco_mux_0
+  fft.streamNode        := nco_mux_0.streamNode                           // nco_mux_0  --0--> fft
+  nco_rdy_0.streamNode  := nco_mux_0.streamNode                           // nco_mux_0  --1--> nco_rdy_0
 
-  fft_split.streamNode  := fft.streamNode           // fft        -----> fft_split  
-  fft_mux_1.streamNode  := fft_split.streamNode     // fft_split  -----> fft_mux_1  
-  fft_rdy_1.streamNode  := fft_mux_1.streamNode     // fft_mux_1  --0--> fft_rdy_1
+  fft_split.streamNode  := fft.streamNode                                 // fft        -----> fft_split  
+  fft_mux_1.streamNode  := fft_split.streamNode                           // fft_split  -----> fft_mux_1  
+  fft_rdy_1.streamNode  := fft_mux_1.streamNode                           // fft_mux_1  --0--> fft_rdy_1
 
-  fft_mux_0.streamNode  := fft_split.streamNode     // fft_split  --0--> fft_mux_0
-  fft_mux_0.streamNode  := in_split.streamNode      // in_split   --1--> fft_mux_0
-  fft_mux_0.streamNode  := uRx_split.streamNode     // uRx_split  --2--> fft_mux_0
-  fft_mux_0.streamNode  := fft_ones.streamNode      // fft_ones   --3--> fft_mux_0
-  fft_mux_0.streamNode  := fft_zeros.streamNode     // fft_zeros  --4--> fft_mux_0
-  mag.streamNode        := fft_mux_0.streamNode     // fft_mux_0  --0--> mag
-  fft_rdy_0.streamNode  := fft_mux_0.streamNode     // fft_mux_0  --1--> fft_rdy_0
+  fft_mux_0.streamNode  := fft_split.streamNode                           // fft_split  --0--> fft_mux_0
+  fft_mux_0.streamNode  := in_split.streamNode                            // in_split   --1--> fft_mux_0
+  fft_mux_0.streamNode  := uRx_split.streamNode                           // uRx_split  --2--> fft_mux_0
+  fft_mux_0.streamNode  := fft_ones.streamNode                            // fft_ones   --3--> fft_mux_0
+  fft_mux_0.streamNode  := fft_zeros.streamNode                           // fft_zeros  --4--> fft_mux_0
+  mag.streamNode        := AXI4StreamBuffer() := fft_mux_0.streamNode     // fft_mux_0  --0--> mag
+  fft_rdy_0.streamNode  := fft_mux_0.streamNode                           // fft_mux_0  --1--> fft_rdy_0
 
-  mag_split.streamNode  := mag.streamNode           // mag        -----> mag_split  
-  mag_mux_1.streamNode  := mag_split.streamNode     // mag_split  -----> mag_mux_1  
-  mag_rdy_1.streamNode  := mag_mux_1.streamNode     // mag_mux_1  --0--> mag_rdy_1
+  mag_split.streamNode  := mag.streamNode                                 // mag        -----> mag_split  
+  mag_mux_1.streamNode  := mag_split.streamNode                           // mag_split  -----> mag_mux_1  
+  mag_rdy_1.streamNode  := mag_mux_1.streamNode                           // mag_mux_1  --0--> mag_rdy_1
 
-  mag_mux_0.streamNode  := mag_split.streamNode     // mag_split  --0--> mag_mux_0
-  mag_mux_0.streamNode  := in_split.streamNode      // in_split   --1--> mag_mux_0
-  mag_mux_0.streamNode  := uRx_split.streamNode     // uRx_split  --2--> mag_mux_0
-  mag_mux_0.streamNode  := mag_ones.streamNode      // mag_ones   --3--> mag_mux_0
-  mag_mux_0.streamNode  := mag_zeros.streamNode     // mag_zeros  --4--> mag_mux_0
-  acc.streamNode        := mag_mux_0.streamNode     // mag_mux_0  --0--> acc
-  mag_rdy_0.streamNode  := mag_mux_0.streamNode     // mag_mux_0  --1--> mag_rdy_0
+  mag_mux_0.streamNode  := mag_split.streamNode                           // mag_split  --0--> mag_mux_0
+  mag_mux_0.streamNode  := in_split.streamNode                            // in_split   --1--> mag_mux_0
+  mag_mux_0.streamNode  := uRx_split.streamNode                           // uRx_split  --2--> mag_mux_0
+  mag_mux_0.streamNode  := mag_ones.streamNode                            // mag_ones   --3--> mag_mux_0
+  mag_mux_0.streamNode  := mag_zeros.streamNode                           // mag_zeros  --4--> mag_mux_0
+  acc.streamNode        := AXI4StreamBuffer() := mag_mux_0.streamNode     // mag_mux_0  --0--> acc
+  mag_rdy_0.streamNode  := mag_mux_0.streamNode                           // mag_mux_0  --1--> mag_rdy_0
 
   acc_queue.node := acc_adapt := acc.streamNode
 
-  out_mux.streamNode    := acc_queue.node           // acc        --0--> out_mux
-  out_mux.streamNode    := mag_mux_1.streamNode     // mag_mux_1  --1--> out_mux
-  out_mux.streamNode    := fft_mux_1.streamNode     // fft_mux_1  --2--> out_mux
-  out_mux.streamNode    := nco_mux_1.streamNode     // nco_mux_1  --3--> out_mux
-  out_mux.streamNode    := plfg_mux_1.streamNode    // plfg_mux_1 --4--> out_mux
-  out_mux.streamNode    := in_split.streamNode      // in_split   --5--> out_mux
-  out_mux.streamNode    := uRx_split.streamNode     // uRx_split  --6--> out_mux
-  out_queue.node        := out_mux.streamNode       // out_mux    --0--> out_queue
-  uTx_adapt := uTx_queue.node := out_mux.streamNode // out_mux    --1--> uTx_queue -----> uTx_adapt  
-  out_rdy.streamNode    := out_mux.streamNode       // out_mux    --2--> out_rdy
+  out_mux.streamNode    := acc_queue.node                                 // acc        --0--> out_mux
+  out_mux.streamNode    := AXI4StreamBuffer() := mag_mux_1.streamNode     // mag_mux_1  --1--> out_mux
+  out_mux.streamNode    := AXI4StreamBuffer() := fft_mux_1.streamNode     // fft_mux_1  --2--> out_mux
+  out_mux.streamNode    := AXI4StreamBuffer() := nco_mux_1.streamNode     // nco_mux_1  --3--> out_mux
+  out_mux.streamNode    := AXI4StreamBuffer() := plfg_mux_1.streamNode    // plfg_mux_1 --4--> out_mux
+  out_mux.streamNode    := AXI4StreamBuffer() := in_split.streamNode      // in_split   --5--> out_mux
+  out_mux.streamNode    := AXI4StreamBuffer() := uRx_split.streamNode     // uRx_split  --6--> out_mux
+  out_queue.node        := AXI4StreamBuffer() := out_mux.streamNode       // out_mux    --0--> out_queue
+  uTx_adapt := uTx_queue.node := out_mux.streamNode                       // out_mux    --1--> uTx_queue -----> uTx_adapt  
+  out_rdy.streamNode    := out_mux.streamNode                             // out_mux    --2--> out_rdy
 
-  out_split.streamNode  := out_queue.node           // out_queue  ----> out_split
-  out_adapt             := out_split.streamNode     // out_split  --0-> out_adapt
+  out_split.streamNode  := out_queue.node                                 // out_queue  ----> out_split
+  out_adapt             := out_split.streamNode                           // out_split  --0-> out_adapt
 
-  uRx_adapt := uart.streamNode := uTx_adapt         // uTx_adapt  -----> uart      -----> uRx_adapt
-  uRx_split.streamNode  := uRx_adapt                // uRx_adapt  -----> uRx_split
+  uRx_adapt := uart.streamNode := uTx_adapt                               // uTx_adapt  -----> uart      -----> uRx_adapt
+  uRx_split.streamNode  := uRx_adapt                                      // uRx_adapt  -----> uRx_split
 
   lazy val module = new LazyModuleImp(this) {
     // generate interrupt output
