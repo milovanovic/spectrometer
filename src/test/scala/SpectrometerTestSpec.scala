@@ -31,8 +31,6 @@ import accumulator._
 
 import java.io._
 
-// perhaps some of the inclusions are not necessary
-
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // SPEC
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -113,56 +111,48 @@ class SpectrometerTestSpec extends FlatSpec with Matchers {
 // //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //   // PIN -> POUT
 //   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//   behavior of "PIN_POUT_Spectrometer" 
+  behavior of "PIN_POUT_Spectrometer" 
+
+  it should "work" in {
   
-//   it should "work" in {
-  
-//     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
-//     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/PIN_POUT", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
-//       c => new PIN_POUT_SpectrometerTester(lazyDut, params, true)
-//     } should be (true)
-//   }
+    val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
+    chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/PIN_POUT", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
+      c => new PIN_POUT_SpectrometerTester(lazyDut, params, true)
+    } should be (true)
+  }
 
 
 //   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //   // PIN -> FFT -> POUT
 //   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//   behavior of "PIN_FFT_POUT_Spectrometer" 
-  
-//   it should "work" in {
-
-//     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
-//     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/PIN_FFT_POUT", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
-//       c => new PIN_FFT_POUT_SpectrometerTester(lazyDut, params, true)
-//     } should be (true)
-//   }
+  behavior of "PIN_FFT_POUT_Spectrometer" 
+  it should "work" in {
+    val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
+    chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/PIN_FFT_POUT", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
+      c => new PIN_FFT_POUT_SpectrometerTester(lazyDut, params, true)
+    } should be (true)
+  }
 
 //   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //   // PIN -> FFT -> MAG -> POUT
 //   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//   behavior of "PIN_FFT_MAG_POUT_Spectrometer" 
-  
-//   it should "work" in {
+  behavior of "PIN_FFT_MAG_POUT_Spectrometer" 
+  it should "work" in {
 
-//     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
-//     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/PIN_FFT_MAG_POUT", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
-//       c => new PIN_FFT_MAG_POUT_SpectrometerTester(lazyDut, params, true)
-//     } should be (true)
-//   }
+    val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
+    chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/PIN_FFT_MAG_POUT", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
+      c => new PIN_FFT_MAG_POUT_SpectrometerTester(lazyDut, params, true)
+    } should be (true)
+  }
 
 //   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // //   // PIN -> FFT -> MAG -> ACC -> POUT
 // //   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//   behavior of "PIN_FFT_MAG_ACC_POUT_Spectrometer" 
-  
-//   it should "work" in {
-
-//     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
-//     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/PIN_FFT_MAG_ACC_POUT", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
-//       c => new PIN_FFT_MAG_ACC_POUT_SpectrometerTester(lazyDut, params, true)
-//     } should be (true)
-//   }
-  
+  behavior of "PIN_FFT_MAG_ACC_POUT_Spectrometer" 
+  it should "work" in {
+    val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
+    chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/PIN_FFT_MAG_ACC_POUT", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
+      c => new PIN_FFT_MAG_ACC_POUT_SpectrometerTester(lazyDut, params, true)
+    } should be (true)
+  }
 }
-
-

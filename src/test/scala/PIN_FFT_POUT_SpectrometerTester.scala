@@ -36,7 +36,9 @@ import java.io._
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
 class PIN_FFT_POUT_SpectrometerTester
 (
+  //dut: SpectrometerTest with SpectrometerTestPins,
   dut: SpectrometerTest with SpectrometerTestPins,
+
   params: SpectrometerTestParameters,
   silentFail: Boolean = false
 ) extends PeekPokeTester(dut.module) with AXI4StreamModel with AXI4MasterModel {
@@ -57,7 +59,11 @@ class PIN_FFT_POUT_SpectrometerTester
     dataByte = dataByte :+ ((i)        & 0xFF)
     dataByte = dataByte :+ ((i >>> 8)  & 0xFF)
   }
-
+  
+  // Those signals should be always ready!
+  poke(dut.laInside.ready, true.B)
+  poke(dut.laOutside.ready, true.B)
+  
   // Splitters
   // memWriteWord(params.inSplitAddress.base  + 0x0, 0) // set ready to AND
   // memWriteWord(params.ncoSplitAddress.base + 0x0, 0) // set ready to AND
@@ -74,9 +80,12 @@ class PIN_FFT_POUT_SpectrometerTester
 
   // memWriteWord(params.magMuxAddress1.base,       0x1) // output0
   // memWriteWord(params.magMuxAddress1.base + 0x4, 0x5) // output1
+  
+  // added - MP
+  memWriteWord(params.plfgMuxAddress0.base + 0x4, 0x1) //in split must have ready active
 
   memWriteWord(params.ncoMuxAddress0.base,       0x1) // output0
-  // memWriteWord(params.ncoMuxAddress0.base + 0x4, 0x2) // output1
+  //memWriteWord(params.ncoMuxAddress0.base + 0x4, 0x2) // output1
 
   // memWriteWord(params.fftMuxAddress0.base,       0x5) // output0
   memWriteWord(params.fftMuxAddress0.base + 0x4, 0x1) // output1
@@ -86,7 +95,10 @@ class PIN_FFT_POUT_SpectrometerTester
 
   memWriteWord(params.outMuxAddress.base,       0x2) // output0
   // memWriteWord(params.outMuxAddress.base + 0x4, 0x2) // output1
-  memWriteWord(params.outMuxAddress.base + 0x8, 0x4) // output2
+  //memWriteWord(params.outMuxAddress.base + 0x8, 0x4) // output2
+  
+  // added - MP
+  memWriteWord(params.outMuxAddress.base + 0x8, 0x5) //output 2 inSplit must be set to ready
   
   // memWriteWord(params.uartParams.address + 0x08, 1) // enable Tx
   // memWriteWord(params.uartParams.address + 0x0c, 1) // enable Rx

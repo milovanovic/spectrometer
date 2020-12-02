@@ -36,6 +36,7 @@ import java.io._
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
 class PIN_POUT_SpectrometerTester 
 (
+  //dut: SpectrometerTest with SpectrometerTestPins,
   dut: SpectrometerTest with SpectrometerTestPins,
   params: SpectrometerTestParameters,
   silentFail: Boolean = false
@@ -57,7 +58,11 @@ class PIN_POUT_SpectrometerTester
     dataByte = dataByte :+ ((i)        & 0xFF)
     dataByte = dataByte :+ ((i >>> 8)  & 0xFF)
   }
-
+  
+  // This signals should be always ready!
+  poke(dut.laInside.ready, true.B)
+  poke(dut.laOutside.ready, true.B)
+  
   // Splitters
   // memWriteWord(params.inSplitAddress.base  + 0x0, 0) // set ready to AND
   // memWriteWord(params.ncoSplitAddress.base + 0x0, 0) // set ready to AND
@@ -74,7 +79,9 @@ class PIN_POUT_SpectrometerTester
 
   // memWriteWord(params.magMuxAddress1.base,       0x1) // output0
   // memWriteWord(params.magMuxAddress1.base + 0x4, 0x1) // output1  
-
+  
+  // added - MP!
+  memWriteWord(params.plfgMuxAddress0.base + 0x4, 0x1) // output1   
 
   // memWriteWord(params.ncoMuxAddress0.base,       0x1) // output0   
   memWriteWord(params.ncoMuxAddress0.base + 0x4, 0x1) // output1   
@@ -84,8 +91,9 @@ class PIN_POUT_SpectrometerTester
 
   // memWriteWord(params.magMuxAddress0.base,       0x5) // output0
   memWriteWord(params.magMuxAddress0.base + 0x4, 0x1) // output1  
-
-  memWriteWord(params.outMuxAddress.base,       0x4) // output0
+  
+  // changed - MP!
+  memWriteWord(params.outMuxAddress.base,       0x5) // output0
   // memWriteWord(params.outMuxAddress.base + 0x4, 0x2) // output1
   // memWriteWord(params.outMuxAddress.base + 0x8, 0x3) // output2
   

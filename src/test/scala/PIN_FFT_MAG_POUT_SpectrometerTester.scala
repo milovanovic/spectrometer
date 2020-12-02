@@ -36,18 +36,12 @@ import java.io._
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
 class PIN_FFT_MAG_POUT_SpectrometerTester
 (
+  //dut: SpectrometerTest with SpectrometerTestPins,
   dut: SpectrometerTest with SpectrometerTestPins,
   params: SpectrometerTestParameters,
   silentFail: Boolean = false
 ) extends PeekPokeTester(dut.module) with AXI4StreamModel with AXI4MasterModel {
 
-  // // FFT window
-  // val window = WindowFunctions.hammingWindow(params.fftParams.numPoints).map(c => BigDecimal(c * (1 << (params.fftParams.protoWin.getWidth - 2))).toBigInt)
-  // var cycle = 0
-  // while (cycle < params.fftParams.numPoints) {
-  //   memWriteWord(params.fftRAM.base + cycle*params.beatBytes, window(cycle))
-  //   cycle += 1
-  // }  
   val mod = dut.module
   def memAXI: AXI4Bundle = dut.ioMem.get
   val master = bindMaster(dut.inStream)
@@ -64,18 +58,23 @@ class PIN_FFT_MAG_POUT_SpectrometerTester
     dataByte = dataByte :+ ((i)        & 0xFF)
     dataByte = dataByte :+ ((i >>> 8)  & 0xFF)
   }
-
+  
+  // This signals should be always ready!
+  poke(dut.laInside.ready, true.B)
+  poke(dut.laOutside.ready, true.B)
   // Splitters
   // memWriteWord(params.inSplitAddress.base  + 0x0, 0) // set ready to AND
   // memWriteWord(params.ncoSplitAddress.base + 0x0, 0) // set ready to AND
   // memWriteWord(params.fftSplitAddress.base + 0x0, 1) // set ready to OR
   memWriteWord(params.magSplitAddress.base + 0x0, 1) // set ready to OR
   // memWriteWord(params.uRxSplitAddress.base + 0x0, 0) // set ready to AND
-
+  
   // Mux
   // memWriteWord(params.ncoMuxAddress1.base,       0x0) // output0   
   // memWriteWord(params.ncoMuxAddress1.base + 0x4, 0x1) // output1   
+  memWriteWord(params.plfgMuxAddress0.base + 0x4, 0x1) //in split must have ready active
 
+  
   memWriteWord(params.fftMuxAddress1.base,       0x0) // output0   
   // memWriteWord(params.fftMuxAddress1.base + 0x4, 0x0) // output1   
 
@@ -93,7 +92,8 @@ class PIN_FFT_MAG_POUT_SpectrometerTester
 
   memWriteWord(params.outMuxAddress.base,       0x1) // output0
   // memWriteWord(params.outMuxAddress.base + 0x4, 0x2) // output1
-  memWriteWord(params.outMuxAddress.base + 0x8, 0x4) // output2
+  //memWriteWord(params.outMuxAddress.base + 0x8, 0x4) // output2
+  memWriteWord(params.outMuxAddress.base + 0x8, 0x5) // output2 MP - added!
   // magAddress
   memWriteWord(params.magAddress.base, 0x2) // set jpl magnitude
   

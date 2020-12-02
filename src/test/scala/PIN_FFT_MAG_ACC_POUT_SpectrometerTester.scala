@@ -37,6 +37,7 @@ import java.io._
 class PIN_FFT_MAG_ACC_POUT_SpectrometerTester
 (
   dut: SpectrometerTest with SpectrometerTestPins,
+  //dut: SpectrometerTest with SpectrometerTestPins,
   params: SpectrometerTestParameters,
   silentFail: Boolean = false
 ) extends PeekPokeTester(dut.module) with AXI4StreamModel with AXI4MasterModel {
@@ -57,7 +58,11 @@ class PIN_FFT_MAG_ACC_POUT_SpectrometerTester
     dataByte = dataByte :+ ((i)        & 0xFF)
     dataByte = dataByte :+ ((i >>> 8)  & 0xFF)
   }
-
+  
+    // This signals should be always ready!
+  poke(dut.laInside.ready, true.B)
+  poke(dut.laOutside.ready, true.B)
+  
   val numAccuWin = 4 // Numver of accumulator windows
 
   // Splitters
@@ -73,6 +78,8 @@ class PIN_FFT_MAG_ACC_POUT_SpectrometerTester
 
   memWriteWord(params.fftMuxAddress1.base,       0x0) // output0   
   // memWriteWord(params.fftMuxAddress1.base + 0x4, 0x0) // output1   
+  // added - MP
+  memWriteWord(params.plfgMuxAddress0.base + 0x4, 0x1) //in split must have ready active
 
   memWriteWord(params.magMuxAddress1.base,       0x0) // output0
   // memWriteWord(params.magMuxAddress1.base + 0x4, 0x0) // output1  
@@ -88,7 +95,9 @@ class PIN_FFT_MAG_ACC_POUT_SpectrometerTester
 
   memWriteWord(params.outMuxAddress.base,       0x0) // output0
   // memWriteWord(params.outMuxAddress.base + 0x4, 0x2) // output1
-  memWriteWord(params.outMuxAddress.base + 0x8, 0x4) // output2
+ // memWriteWord(params.outMuxAddress.base + 0x8, 0x4) // output2
+  memWriteWord(params.outMuxAddress.base + 0x8, 0x5) // output2 MP - added!
+
   
   memWriteWord(params.magAddress.base, 0x2) // set jpl magnitude
   memWriteWord(params.accAddress.base, params.fftParams.numPoints)  // set number of fft points
@@ -106,10 +115,9 @@ class PIN_FFT_MAG_ACC_POUT_SpectrometerTester
 
   var outSeq = Seq[Int]()
   var peekedVal: BigInt = 0
-  // this logic perhaps can be simplified
-  
-  // check only one fft window 
-  while (outSeq.length < params.fftParams.numPoints * 4) {
+
+ // check only one fft window 
+  while (outSeq.length < params.fftParams.numPoints * 2) {
     if (peek(dut.outStream.valid) == 1 && peek(dut.outStream.ready) == 1) {
       peekedVal = peek(dut.outStream.bits.data)
       outSeq = outSeq :+ peekedVal.toInt
@@ -118,32 +126,26 @@ class PIN_FFT_MAG_ACC_POUT_SpectrometerTester
   }
 
   var realSeq = Seq[Int]()
-  var imagSeq = Seq[Int]()
   var tmpReal: Short = 0
-  var tmpImag: Short = 0
   
-  for (i <- 0 until outSeq.length by 4) {
-   // println(RspTesterUtils.asNdigitBinary(outSeq(i + 2), 8))
-    tmpReal = java.lang.Integer.parseInt(SpectrometerTesterUtils.asNdigitBinary(outSeq(i + 3), 8) ++ SpectrometerTesterUtils.asNdigitBinary(outSeq(i + 2), 8), 2).toShort
-    tmpImag = java.lang.Long.parseLong(SpectrometerTesterUtils.asNdigitBinary(outSeq(i + 1), 8)   ++ SpectrometerTesterUtils.asNdigitBinary(outSeq(i), 8), 2).toShort
+  for (i <- 0 until outSeq.length by 2) {
+    tmpReal = java.lang.Integer.parseInt(SpectrometerTesterUtils.asNdigitBinary(outSeq(i + 1), 8) ++ SpectrometerTesterUtils.asNdigitBinary(outSeq(i + 0), 8), 2).toShort
     realSeq = realSeq :+ tmpReal.toInt
-    imagSeq = imagSeq :+ tmpImag.toInt
   }
-
-  // Scala fft
-  val scalaFFT = fourierTr(DenseVector(inData.toArray)).toScalaVector
-  val scalaPlot = scalaFFT.map(c => c.abs.toLong).toSeq
-
+  
   // Output data
-  val complexOut = realSeq.zip(imagSeq).map { case (real, imag) => Complex(real, imag) }
-  val chiselFFTForPlot = complexOut.map(c => c.abs.toLong).toSeq
+  val chiselFFTForPlot = if (params.accParams.bitReversal || params.fftParams.useBitReverse) realSeq.map(c => c.toLong).toSeq else SpectrometerTesterUtils.bitrevorder_data(realSeq).map(c => c.toLong)
 
-  // Plot scala FFT
-  SpectrometerTesterUtils.plot_fft(inputData = scalaPlot, plotName = "Scala FFT", fileName = "SpectrometerTest/pin_fft_mag_acc_pout_scalaFFT.pdf")
-  // Plot input data
-  SpectrometerTesterUtils.plot_data(inputData = inData, plotName = "inData", fileName = "SpectrometerTest/pin_fft_mag_acc_pout_inData.pdf")
   // Plot accelerator data
   SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PIN -> FFT -> MAG -> ACC -> POUT", fileName = "SpectrometerTest/pin_fft_mag_acc_pout.pdf")
+
+  // Write output data to text file
+  val file = new File("./test_run_dir/SpectrometerTest/data.txt")
+  val w = new BufferedWriter(new FileWriter(file))
+  for (i <- 0 until realSeq.length ) {
+    w.write(f"${realSeq(i)}%04x" + "\n")
+  }
+  w.close
 
   stepToCompletion(silentFail = silentFail)
 }

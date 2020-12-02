@@ -27,7 +27,6 @@ import uart._
 import splitter._
 import magnitude._
 import accumulator._
-
 import java.io._
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
 // PLFG -> NCO -> FFT -> parallel_out
@@ -59,12 +58,17 @@ class PLFG_NCO_FFT_POUT_SpectrometerTester
   val segmentNumsArrayOffset = 6 * params.beatBytes
   val repeatedChirpNumsArrayOffset = segmentNumsArrayOffset + 4 * params.beatBytes
   val chirpOrdinalNumsArrayOffset = repeatedChirpNumsArrayOffset + 8 * params.beatBytes
-    
+  // added - MP
+  val binWithPeak = 4
+  val startValue = (binWithPeak * 4 * params.ncoParams.tableSize)/params.fftParams.numPoints
+  println(startValue.toString)
+  // startingPoint * (numOfPoints / (4*tableSize))
+  
   memWriteWord(params.plfgRAM.base, 0x24001004)
   memWriteWord(params.plfgAddress.base + 2*params.beatBytes, 4)            // number of frames
   memWriteWord(params.plfgAddress.base + 4*params.beatBytes, 1)            // number of chirps
   //memWriteWord(params.plfgAddress.base + 5*params.beatBytes, 1)          // start value
-  memWriteWord(params.plfgAddress.base + 5*params.beatBytes, 4)            // start value
+  memWriteWord(params.plfgAddress.base + 5*params.beatBytes, startValue)   // start value
   memWriteWord(params.plfgAddress.base + segmentNumsArrayOffset, 1)        // number of segments for first chirp
   memWriteWord(params.plfgAddress.base + repeatedChirpNumsArrayOffset, 1)  // determines number of repeated chirps
   memWriteWord(params.plfgAddress.base + chirpOrdinalNumsArrayOffset, 0) 
