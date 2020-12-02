@@ -272,35 +272,34 @@ class SpectrometerTest(params: SpectrometerTestParameters) extends LazyModule()(
 
 trait SpectrometerTestPins extends SpectrometerTest {
   val beatBytes = 4
-
   // Generate AXI4 slave output
-    def standaloneParams = AXI4BundleParameters(addrBits = beatBytes*8, dataBits = beatBytes*8, idBits = 1)
-    val ioMem = mem.map { m => {
-      val ioMemNode = BundleBridgeSource(() => AXI4Bundle(standaloneParams))
-      m := BundleBridgeToAXI4(AXI4MasterPortParameters(Seq(AXI4MasterParameters("bundleBridgeToAXI4")))) := ioMemNode
-      val ioMem = InModuleBody { ioMemNode.makeIO() }
-      ioMem
-    }}
+  def standaloneParams = AXI4BundleParameters(addrBits = beatBytes*8, dataBits = beatBytes*8, idBits = 1)
+  val ioMem = mem.map { m => {
+    val ioMemNode = BundleBridgeSource(() => AXI4Bundle(standaloneParams))
+    m := BundleBridgeToAXI4(AXI4MasterPortParameters(Seq(AXI4MasterParameters("bundleBridgeToAXI4")))) := ioMemNode
+    val ioMem = InModuleBody { ioMemNode.makeIO() }
+    ioMem
+  }}
 
-    // Generate AXI-stream output
-    val ioStreamNode = BundleBridgeSink[AXI4StreamBundle]()
-    ioStreamNode := AXI4StreamToBundleBridge(AXI4StreamSlaveParameters()) := out_adapt
-    val outStream = InModuleBody { ioStreamNode.makeIO() }
+  // Generate AXI-stream output
+  val ioStreamNode = BundleBridgeSink[AXI4StreamBundle]()
+  ioStreamNode := AXI4StreamToBundleBridge(AXI4StreamSlaveParameters()) := out_adapt
+  val outStream = InModuleBody { ioStreamNode.makeIO() }
 
-    // Generate AXI-stream input
-    val ioparallelin = BundleBridgeSource(() => new AXI4StreamBundle(AXI4StreamBundleParameters(n = 1)))
-    in_queue.node := BundleBridgeToAXI4Stream(AXI4StreamMasterParameters(n = 1)) := ioparallelin
-    val inStream = InModuleBody { ioparallelin.makeIO() }
+  // Generate AXI-stream input
+  val ioparallelin = BundleBridgeSource(() => new AXI4StreamBundle(AXI4StreamBundleParameters(n = 1)))
+  in_queue.node := BundleBridgeToAXI4Stream(AXI4StreamMasterParameters(n = 1)) := ioparallelin
+  val inStream = InModuleBody { ioparallelin.makeIO() }
 
-    // Generate AXI-stream output for LA, input side
-    val ioLANode1 = BundleBridgeSink[AXI4StreamBundle]()
-    ioLANode1 := AXI4StreamToBundleBridge(AXI4StreamSlaveParameters()) := in_split.streamNode
-    val laInside = InModuleBody { ioLANode1.makeIO() }
+  // Generate AXI-stream output for LA, input side
+  val ioLANode1 = BundleBridgeSink[AXI4StreamBundle]()
+  ioLANode1 := AXI4StreamToBundleBridge(AXI4StreamSlaveParameters()) := in_split.streamNode
+  val laInside = InModuleBody { ioLANode1.makeIO() }
 
-    // Generate AXI-stream output for LA, output side
-    val ioLANode2 = BundleBridgeSink[AXI4StreamBundle]()
-    ioLANode2 := AXI4StreamToBundleBridge(AXI4StreamSlaveParameters()) := out_split.streamNode
-    val laOutside = InModuleBody { ioLANode2.makeIO() }
+  // Generate AXI-stream output for LA, output side
+  val ioLANode2 = BundleBridgeSink[AXI4StreamBundle]()
+  ioLANode2 := AXI4StreamToBundleBridge(AXI4StreamSlaveParameters()) := out_split.streamNode
+  val laOutside = InModuleBody { ioLANode2.makeIO() }
 }
 
 class SpectrometerTestParams {
@@ -355,6 +354,7 @@ class SpectrometerTestParams {
       accParams = AccParams(
         proto = FixedPoint(16.W, 0.BP),
         protoAcc = FixedPoint(32.W, 0.BP),
+        bitReversal = true,
         accDepth = 64
       ),
       inSplitAddress   = AddressSet(0x30000000, 0xF),
