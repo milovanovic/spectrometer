@@ -67,12 +67,16 @@ run_hw_axi [get_hw_axi_txns write_txn20]
 create_hw_axi_txn write_txn21 [get_hw_axis hw_axi_1] -type WRITE -address 30008004 -len 1 -data {00000000}
 run_hw_axi [get_hw_axi_txns write_txn21]
 
-# configure UART TX - enable TX
-create_hw_axi_txn write_txn22 [get_hw_axis hw_axi_1] -type WRITE -address 30009008 -len 1 -data {00000001} 
+# configure divisor int - 868 -> 0364! 869 ->0365
+create_hw_axi_txn write_txn22 [get_hw_axis hw_axi_1] -type WRITE -address 30009018 -len 1 -data {00000364}  
 run_hw_axi [get_hw_axi_txns write_txn22]
-# configure UART TX - enable RX
-# create_hw_axi_txn write_txn23 [get_hw_axis hw_axi_1] -type WRITE -address 3000900C -len 1 -data {00000001} 
-# run_hw_axi [get_hw_axi_txns write_txn23]
+
+# configure UART TX - enable TX
+create_hw_axi_txn write_txn23 [get_hw_axis hw_axi_1] -type WRITE -address 30009008 -len 1 -data {00000001} 
+run_hw_axi [get_hw_axi_txns write_txn23]
+#configure UART RX - enable RX
+#create_hw_axi_txn write_txn24 [get_hw_axis hw_axi_1] -type WRITE -address 3000900C -len 1 -data {00000001} 
+#run_hw_axi [get_hw_axi_txns write_txn24]
 
 delete_hw_axi_txn [get_hw_axi_txns *]
 

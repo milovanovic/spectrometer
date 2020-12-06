@@ -11,7 +11,7 @@ run_hw_axi [get_hw_axi_txns write_txn2]
 # configure number of chirps 30002100
 create_hw_axi_txn write_txn3 [get_hw_axis hw_axi_1] -type WRITE -address 30002110 -len 1 -data {00000001}
 run_hw_axi [get_hw_axi_txns write_txn3]
-# configure start value - set to 16!
+# configure start value - set to 16 - 10!
 create_hw_axi_txn write_txn4 [get_hw_axis hw_axi_1] -type WRITE -address 30002114 -len 1 -data {00000010}
 run_hw_axi [get_hw_axi_txns write_txn4]
 # configure number of segments for first chirp
@@ -47,9 +47,19 @@ run_hw_axi [get_hw_axi_txns write_txn18]
 create_hw_axi_txn write_txn19 [get_hw_axis hw_axi_1] -type WRITE -address 30004114 -len 1 -data {00000000}
 run_hw_axi [get_hw_axi_txns write_txn19]
 
-#configure outMuxAddress
-create_hw_axi_txn write_txn21 [get_hw_axis hw_axi_1] -type WRITE -address 30008000 -len 1 -data {00000002}
+#configure outMuxAddress -> send on UART
+create_hw_axi_txn write_txn21 [get_hw_axis hw_axi_1] -type WRITE -address 30008004 -len 1 -data {00000002}
 run_hw_axi [get_hw_axi_txns write_txn21]
+
+# configure divisor int - 868 -> 0364! 869 ->0365
+create_hw_axi_txn write_txn22 [get_hw_axis hw_axi_1] -type WRITE -address 30009018 -len 1 -data {00000364}  
+run_hw_axi [get_hw_axi_txns write_txn22]
+
+# configure UART TX - enable TX
+create_hw_axi_txn write_txn23 [get_hw_axis hw_axi_1] -type WRITE -address 30009008 -len 1 -data {00000001} 
+run_hw_axi [get_hw_axi_txns write_txn23]
+
+delete_hw_axi_txn [get_hw_axi_txns *]
 
 # Equivalent test in Scala
   
@@ -75,4 +85,4 @@ run_hw_axi [get_hw_axi_txns write_txn21]
 # memWriteWord(params.ncoMuxAddress0.base,       0x0) // output0
 # memWriteWord(params.fftMuxAddress0.base + 0x4, 0x0) // output1
 
-# memWriteWord(params.outMuxAddress.base,       0x2) // output0
+# memWriteWord(params.outMuxAddress.base + 0x4,       0x2) // output0
