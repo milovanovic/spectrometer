@@ -326,7 +326,8 @@ class SpectrometerTestParams {
         phaseAccEnable = true,
         roundingMode = RoundHalfUp,
         pincType = Streaming,
-        poffType = Fixed
+        poffType = Fixed,
+        // useMultiplier = true // MP - include multiplier inside NCO module
       ),
       fftParams = FFTParams.fixed(
         dataWidth = 16,
