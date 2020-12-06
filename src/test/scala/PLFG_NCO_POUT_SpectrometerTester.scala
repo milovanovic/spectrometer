@@ -62,7 +62,7 @@ class PLFG_NCO_POUT_SpectrometerTester
   memWriteWord(params.plfgAddress.base + 2*params.beatBytes, 4)            // number of frames
   memWriteWord(params.plfgAddress.base + 4*params.beatBytes, 1)            // number of chirps
   //memWriteWord(params.plfgAddress.base + 5*params.beatBytes, 1)          // start value
-  memWriteWord(params.plfgAddress.base + 5*params.beatBytes, 4)            // start value
+  memWriteWord(params.plfgAddress.base + 5*params.beatBytes, 16)           // start value
   memWriteWord(params.plfgAddress.base + segmentNumsArrayOffset, 1)        // number of segments for first chirp
   memWriteWord(params.plfgAddress.base + repeatedChirpNumsArrayOffset, 1)  // determines number of repeated chirps
   memWriteWord(params.plfgAddress.base + chirpOrdinalNumsArrayOffset, 0) 
@@ -74,6 +74,9 @@ class PLFG_NCO_POUT_SpectrometerTester
   
   // memWriteWord(params.ncoMuxAddress1.base,       0x0) // output0
   memWriteWord(params.ncoMuxAddress1.base + 0x4, 0x0) // output1
+  // test multiplier inside nco module - MP
+  // memWriteWord(params.ncoAddress.base, 0x1)
+  // memWriteWord(params.ncoAddress.base + 0x4, 0x00002000)
   // memWriteWord(params.fftMuxAddress1.base,       0x0) // output0
   // memWriteWord(params.fftMuxAddress1.base + 0x4, 0x0) // output1
   // memWriteWord(params.magMuxAddress1.base,       0x0) // output0
