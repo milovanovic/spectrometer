@@ -32,9 +32,9 @@ import accumulator._
 import java.io._
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
-// PIN -> FFT -> MAG -> ACC -> POUT
+// PIN -> NCO -> FFT -> MAG -> ACC -> POUT
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
-class PIN_FFT_MAG_ACC_POUT_SpectrometerTester
+class PIN_NCO_FFT_MAG_ACC_POUT_SpectrometerTester
 (
   dut: SpectrometerTest with SpectrometerTestPins,
   params: SpectrometerTestParameters,
@@ -44,22 +44,20 @@ class PIN_FFT_MAG_ACC_POUT_SpectrometerTester
   val mod = dut.module
   def memAXI: AXI4Bundle = dut.ioMem.get
   val master = bindMaster(dut.inStream)
-  
-  val inData = SpectrometerTesterUtils.getTone(numSamples = params.fftParams.numPoints, 0.03125)
 
   // split 32 bit data to 4 bytes and send real sinusoid
   var dataByte = Seq[Int]()
-  for (i <- inData) {
+  for (i <- 0 until params.fftParams.numPoints) {
     // imag part
-    dataByte = dataByte :+ 0
+    dataByte = dataByte :+ 4
     dataByte = dataByte :+ 0
     // real part
-    dataByte = dataByte :+ ((i)        & 0xFF)
-    dataByte = dataByte :+ ((i >>> 8)  & 0xFF)
+    dataByte = dataByte :+ 0
+    dataByte = dataByte :+ 0
   }
 
   // Write inpput data to text file
-  val filein = new File("./test_run_dir/SpectrometerTest/pin_fft_mag_acc_pout/input.txt")
+  val filein = new File("./test_run_dir/SpectrometerTest/pin_nco_fft_mag_acc_pout/input.txt")
   val win = new BufferedWriter(new FileWriter(filein))
   for (i <- 0 until dataByte.length ) {
     win.write(f"${dataByte(i)}%02x" + "\n")
@@ -101,7 +99,7 @@ class PIN_FFT_MAG_ACC_POUT_SpectrometerTester
   // memWriteWord(params.plfgMuxAddress1.base,       0x0) // output0
   // memWriteWord(params.plfgMuxAddress1.base + 0x4, 0x0) // output1
 
-  // memWriteWord(params.ncoMuxAddress1.base,       0x0) // output0
+  memWriteWord(params.ncoMuxAddress1.base,       0x0) // output0
   // memWriteWord(params.ncoMuxAddress1.base + 0x4, 0x0) // output1
 
   memWriteWord(params.fftMuxAddress1.base,       0x0) // output0
@@ -110,11 +108,11 @@ class PIN_FFT_MAG_ACC_POUT_SpectrometerTester
     memWriteWord(params.magMuxAddress1.base,       0x0) // output0
   // memWriteWord(params.magMuxAddress1.base + 0x4, 0x0) // output1
 
-  // memWriteWord(params.plfgMuxAddress0.base,       0x0) // output0
-  memWriteWord(params.plfgMuxAddress0.base + 0x4, 0x1) // output1
+  memWriteWord(params.plfgMuxAddress0.base,       0x1) // output0
+  // memWriteWord(params.plfgMuxAddress0.base + 0x4, 0x1) // output1
 
-  memWriteWord(params.ncoMuxAddress0.base,       0x1) // output0
-  // memWriteWord(params.ncoMuxAddress0.base + 0x4, 0x0) // output1
+  memWriteWord(params.ncoMuxAddress0.base,       0x0) // output0
+  memWriteWord(params.ncoMuxAddress0.base + 0x4, 0x1) // output1
 
   memWriteWord(params.fftMuxAddress0.base,       0x0) // output0
   memWriteWord(params.fftMuxAddress0.base + 0x4, 0x1) // output1
@@ -164,10 +162,10 @@ class PIN_FFT_MAG_ACC_POUT_SpectrometerTester
   val chiselFFTForPlot = realSeq.map(c => c.toLong).toSeq
 
   // Plot accelerator data
-  SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PIN -> FFT -> MAG -> ACC -> POUT", fileName = "SpectrometerTest/pin_fft_mag_acc_pout/plot.pdf")
+  SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PIN -> NCO -> FFT -> MAG -> ACC -> POUT", fileName = "SpectrometerTest/pin_nco_fft_mag_acc_pout/plot.pdf")
 
   // Write output data to text file
-  val file = new File("./test_run_dir/SpectrometerTest/pin_fft_mag_acc_pout/data.txt")
+  val file = new File("./test_run_dir/SpectrometerTest/pin_nco_fft_mag_acc_pout/data.txt")
   val w = new BufferedWriter(new FileWriter(file))
   for (i <- 0 until realSeq.length ) {
     w.write(f"${realSeq(i)}%04x" + "\n")
