@@ -11768,136 +11768,142 @@ module Accumulator(
   output [15:0] io_out_bits,
   output        io_lastOut
 );
-  reg [31:0] mem [0:63]; // @[Accumulator.scala 33:24]
+  reg [31:0] mem [0:63]; // @[Accumulator.scala 35:24]
   reg [31:0] _RAND_0;
-  wire [31:0] mem__T_115_data; // @[Accumulator.scala 33:24]
-  wire [5:0] mem__T_115_addr; // @[Accumulator.scala 33:24]
-  wire [31:0] mem__T_160_data; // @[Accumulator.scala 33:24]
-  wire [5:0] mem__T_160_addr; // @[Accumulator.scala 33:24]
-  wire  mem__T_160_mask; // @[Accumulator.scala 33:24]
-  wire  mem__T_160_en; // @[Accumulator.scala 33:24]
-  reg  mem__T_115_en_pipe_0;
+  wire [31:0] mem__T_170_data; // @[Accumulator.scala 35:24]
+  wire [5:0] mem__T_170_addr; // @[Accumulator.scala 35:24]
+  wire [31:0] mem__T_216_data; // @[Accumulator.scala 35:24]
+  wire [5:0] mem__T_216_addr; // @[Accumulator.scala 35:24]
+  wire  mem__T_216_mask; // @[Accumulator.scala 35:24]
+  wire  mem__T_216_en; // @[Accumulator.scala 35:24]
+  reg  mem__T_170_en_pipe_0;
   reg [31:0] _RAND_1;
-  reg [5:0] mem__T_115_addr_pipe_0;
+  reg [5:0] mem__T_170_addr_pipe_0;
   reg [31:0] _RAND_2;
   wire  readEn = io_in_ready & io_in_valid; // @[Decoupled.scala 40:37]
-  reg  writeEn; // @[Accumulator.scala 36:24]
+  reg  writeEn; // @[Accumulator.scala 38:24]
   reg [31:0] _RAND_3;
-  reg [15:0] inDelayed; // @[Accumulator.scala 37:26]
+  reg [15:0] inDelayed; // @[Accumulator.scala 39:26]
   reg [31:0] _RAND_4;
-  reg [15:0] cntWindows; // @[Accumulator.scala 38:27]
+  reg [15:0] cntWindows; // @[Accumulator.scala 40:27]
   reg [31:0] _RAND_5;
-  reg [5:0] cntLoad; // @[Accumulator.scala 39:24]
+  reg [5:0] cntLoad; // @[Accumulator.scala 41:24]
   reg [31:0] _RAND_6;
-  reg [5:0] cntAcc; // @[Accumulator.scala 40:23]
+  reg [5:0] cntAcc; // @[Accumulator.scala 42:23]
   reg [31:0] _RAND_7;
-  reg [2:0] state; // @[Accumulator.scala 48:22]
+  reg [2:0] state; // @[Accumulator.scala 50:22]
   reg [31:0] _RAND_8;
-  reg [2:0] statePrev; // @[Accumulator.scala 49:26]
+  reg [2:0] statePrev; // @[Accumulator.scala 51:26]
   reg [31:0] _RAND_9;
-  reg  last; // @[Accumulator.scala 51:21]
+  reg  last; // @[Accumulator.scala 53:21]
   reg [31:0] _RAND_10;
   wire  _T_3 = 3'h0 == state; // @[Conditional.scala 37:30]
   wire  _T_7 = 3'h1 == state; // @[Conditional.scala 37:30]
-  wire [6:0] _T_9 = io_accDepthReg - 7'h1; // @[Accumulator.scala 64:40]
-  wire [6:0] _GEN_34 = {{1'd0}, cntAcc}; // @[Accumulator.scala 64:20]
-  wire  _T_10 = _GEN_34 == _T_9; // @[Accumulator.scala 64:20]
-  wire  _T_12 = _T_10 & readEn; // @[Accumulator.scala 64:47]
-  wire  _T_13 = _T_12 & io_lastIn; // @[Accumulator.scala 64:63]
+  wire [6:0] _T_9 = io_accDepthReg - 7'h1; // @[Accumulator.scala 66:40]
+  wire [6:0] _GEN_34 = {{1'd0}, cntAcc}; // @[Accumulator.scala 66:20]
+  wire  _T_10 = _GEN_34 == _T_9; // @[Accumulator.scala 66:20]
+  wire  _T_12 = _T_10 & readEn; // @[Accumulator.scala 66:47]
+  wire  _T_13 = _T_12 & io_lastIn; // @[Accumulator.scala 66:63]
   wire  _T_21 = 3'h2 == state; // @[Conditional.scala 37:30]
-  wire  _T_23 = readEn & io_lastIn; // @[Accumulator.scala 73:26]
-  wire  _T_24 = ~io_out_ready; // @[Accumulator.scala 75:15]
-  wire  _GEN_3 = _T_24 | last; // @[Accumulator.scala 75:30]
-  wire [16:0] _T_26 = io_accWindowsReg - 17'h1; // @[Accumulator.scala 79:51]
-  wire [16:0] _GEN_36 = {{1'd0}, cntWindows}; // @[Accumulator.scala 79:29]
-  wire  _T_27 = _GEN_36 == _T_26; // @[Accumulator.scala 79:29]
-  wire  _T_29 = _T_27 & readEn; // @[Accumulator.scala 79:58]
-  wire  _T_33 = _T_29 & _T_10; // @[Accumulator.scala 79:72]
+  wire  _T_23 = readEn & io_lastIn; // @[Accumulator.scala 75:26]
+  wire  _T_24 = ~io_out_ready; // @[Accumulator.scala 77:15]
+  wire  _GEN_3 = _T_24 | last; // @[Accumulator.scala 77:30]
+  wire [16:0] _T_26 = io_accWindowsReg - 17'h1; // @[Accumulator.scala 81:51]
+  wire [16:0] _GEN_36 = {{1'd0}, cntWindows}; // @[Accumulator.scala 81:29]
+  wire  _T_27 = _GEN_36 == _T_26; // @[Accumulator.scala 81:29]
+  wire  _T_29 = _T_27 & readEn; // @[Accumulator.scala 81:58]
+  wire  _T_33 = _T_29 & _T_10; // @[Accumulator.scala 81:72]
   wire  _T_36 = 3'h3 == state; // @[Conditional.scala 37:30]
-  wire [6:0] _GEN_38 = {{1'd0}, cntLoad}; // @[Accumulator.scala 89:25]
-  wire  _T_41 = _GEN_38 == _T_9; // @[Accumulator.scala 89:25]
+  wire [6:0] _GEN_38 = {{1'd0}, cntLoad}; // @[Accumulator.scala 90:26]
+  wire  _T_41 = _GEN_38 == _T_9; // @[Accumulator.scala 90:26]
   wire  _T_42 = io_out_ready & io_out_valid; // @[Decoupled.scala 40:37]
-  wire  _T_43 = _T_41 & _T_42; // @[Accumulator.scala 89:52]
-  wire  _T_46 = _GEN_34 < _T_9; // @[Accumulator.scala 89:79]
-  wire  _T_47 = _T_43 & _T_46; // @[Accumulator.scala 89:69]
-  wire  _T_54 = _T_43 & readEn; // @[Accumulator.scala 92:69]
-  wire  _T_58 = _T_54 & _T_10; // @[Accumulator.scala 92:85]
+  wire  _T_43 = _T_41 & _T_42; // @[Accumulator.scala 90:53]
+  wire  _T_46 = _GEN_34 < _T_9; // @[Accumulator.scala 90:80]
+  wire  _T_47 = _T_43 & _T_46; // @[Accumulator.scala 90:70]
+  wire  _T_54 = _T_43 & readEn; // @[Accumulator.scala 93:70]
+  wire  _T_58 = _T_54 & _T_10; // @[Accumulator.scala 93:86]
   wire  _T_61 = 3'h4 == state; // @[Conditional.scala 37:30]
-  wire  _T_62 = state == 3'h3; // @[Accumulator.scala 103:30]
-  wire  _T_63 = state == 3'h4; // @[Accumulator.scala 103:65]
-  wire  loadingStates = _T_62 | _T_63; // @[Accumulator.scala 103:55]
-  wire  _T_64 = state == 3'h1; // @[Accumulator.scala 104:34]
-  wire  storingInitStates = _T_64 | _T_62; // @[Accumulator.scala 104:56]
-  wire  _T_66 = state == 3'h2; // @[Accumulator.scala 105:26]
-  wire  _T_67 = statePrev == 3'h1; // @[Accumulator.scala 105:62]
-  wire  _T_68 = _T_66 & _T_67; // @[Accumulator.scala 105:49]
-  wire  _T_69 = statePrev == 3'h3; // @[Accumulator.scala 105:98]
-  wire  _T_71 = _T_69 & _T_64; // @[Accumulator.scala 105:122]
-  wire  _T_72 = _T_68 | _T_71; // @[Accumulator.scala 105:84]
-  wire  _T_75 = _T_69 & _T_66; // @[Accumulator.scala 105:191]
-  wire  isTransit = _T_72 | _T_75; // @[Accumulator.scala 105:153]
-  wire  _T_76 = statePrev == 3'h2; // @[Accumulator.scala 106:38]
-  wire  isPrevStoreAndAcc = _T_76 & _T_62; // @[Accumulator.scala 106:62]
-  wire  _T_86 = storingInitStates | isTransit; // @[Accumulator.scala 112:28]
-  wire  _T_87 = ~isPrevStoreAndAcc; // @[Accumulator.scala 112:45]
-  wire  _T_88 = _T_86 & _T_87; // @[Accumulator.scala 112:42]
-  wire [31:0] readVal = mem__T_115_data; // @[Accumulator.scala 41:21 Accumulator.scala 159:11]
-  wire [31:0] _GEN_44 = {{16{inDelayed[15]}},inDelayed}; // @[FixedPointTypeClass.scala 20:58]
-  wire [31:0] _T_91 = $signed(_GEN_44) + $signed(readVal); // @[FixedPointTypeClass.scala 20:58]
-  wire [31:0] _GEN_19 = _T_88 ? $signed({{16{inDelayed[15]}},inDelayed}) : $signed(_T_91); // @[Accumulator.scala 112:65]
-  wire [5:0] _T_94 = cntAcc + 6'h1; // @[Accumulator.scala 119:22]
-  wire  _T_95 = loadingStates & io_out_ready; // @[Accumulator.scala 122:23]
-  wire [5:0] _T_97 = cntLoad + 6'h1; // @[Accumulator.scala 123:24]
-  wire [15:0] _T_107 = cntWindows + 16'h1; // @[Accumulator.scala 131:30]
-  wire  _T_111 = _T_27 & _T_12; // @[Accumulator.scala 134:49]
-  wire [5:0] readAddress = loadingStates ? cntLoad : cntAcc; // @[Accumulator.scala 144:24]
-  wire  _T_112 = last & io_out_ready; // @[Accumulator.scala 149:14]
-  wire [5:0] _GEN_27 = _T_112 ? _T_97 : readAddress; // @[Accumulator.scala 149:31]
-  wire  _T_121 = io_accWindowsReg[15:8] != 8'h0; // @[CircuitMath.scala 37:22]
-  wire  _T_124 = io_accWindowsReg[15:12] != 4'h0; // @[CircuitMath.scala 37:22]
-  wire [1:0] _T_128 = io_accWindowsReg[14] ? 2'h2 : {{1'd0}, io_accWindowsReg[13]}; // @[CircuitMath.scala 32:10]
-  wire [1:0] _T_129 = io_accWindowsReg[15] ? 2'h3 : _T_128; // @[CircuitMath.scala 32:10]
-  wire [1:0] _T_133 = io_accWindowsReg[10] ? 2'h2 : {{1'd0}, io_accWindowsReg[9]}; // @[CircuitMath.scala 32:10]
-  wire [1:0] _T_134 = io_accWindowsReg[11] ? 2'h3 : _T_133; // @[CircuitMath.scala 32:10]
-  wire [1:0] _T_135 = _T_124 ? _T_129 : _T_134; // @[CircuitMath.scala 38:21]
-  wire [2:0] _T_136 = {_T_124,_T_135}; // @[Cat.scala 29:58]
-  wire  _T_139 = io_accWindowsReg[7:4] != 4'h0; // @[CircuitMath.scala 37:22]
-  wire [1:0] _T_143 = io_accWindowsReg[6] ? 2'h2 : {{1'd0}, io_accWindowsReg[5]}; // @[CircuitMath.scala 32:10]
-  wire [1:0] _T_144 = io_accWindowsReg[7] ? 2'h3 : _T_143; // @[CircuitMath.scala 32:10]
-  wire [1:0] _T_148 = io_accWindowsReg[2] ? 2'h2 : {{1'd0}, io_accWindowsReg[1]}; // @[CircuitMath.scala 32:10]
-  wire [1:0] _T_149 = io_accWindowsReg[3] ? 2'h3 : _T_148; // @[CircuitMath.scala 32:10]
-  wire [1:0] _T_150 = _T_139 ? _T_144 : _T_149; // @[CircuitMath.scala 38:21]
-  wire [2:0] _T_151 = {_T_139,_T_150}; // @[Cat.scala 29:58]
-  wire [2:0] _T_152 = _T_121 ? _T_136 : _T_151; // @[CircuitMath.scala 38:21]
-  wire [3:0] _T_153 = {_T_121,_T_152}; // @[Cat.scala 29:58]
-  wire [3:0] _T_154 = io_accWindowsReg[16] ? 4'h0 : _T_153; // @[CircuitMath.scala 38:21]
-  wire [4:0] _T_155 = {io_accWindowsReg[16],_T_154}; // @[Cat.scala 29:58]
-  wire [31:0] _T_156 = $signed(readVal) >>> _T_155; // @[FixedPointTypeClass.scala 118:51]
-  reg [5:0] _T_157; // @[Accumulator.scala 169:22]
+  wire  _T_62 = state == 3'h3; // @[Accumulator.scala 105:30]
+  wire  _T_63 = state == 3'h4; // @[Accumulator.scala 105:65]
+  wire  loadingStates = _T_62 | _T_63; // @[Accumulator.scala 105:55]
+  wire  _T_64 = state == 3'h1; // @[Accumulator.scala 106:34]
+  wire  storingInitStates = _T_64 | _T_62; // @[Accumulator.scala 106:56]
+  wire  _T_66 = state == 3'h2; // @[Accumulator.scala 107:26]
+  wire  _T_67 = statePrev == 3'h1; // @[Accumulator.scala 107:62]
+  wire  _T_68 = _T_66 & _T_67; // @[Accumulator.scala 107:49]
+  wire  _T_69 = statePrev == 3'h3; // @[Accumulator.scala 107:98]
+  wire  _T_71 = _T_69 & _T_64; // @[Accumulator.scala 107:122]
+  wire  _T_72 = _T_68 | _T_71; // @[Accumulator.scala 107:84]
+  wire  _T_75 = _T_69 & _T_66; // @[Accumulator.scala 107:191]
+  wire  isTransit = _T_72 | _T_75; // @[Accumulator.scala 107:153]
+  wire  isOnlyOneFrame = _T_63 & _T_67; // @[Accumulator.scala 108:47]
+  reg  doNotScale; // @[Accumulator.scala 109:27]
   reg [31:0] _RAND_11;
-  wire [31:0] writeVal = _GEN_19; // @[Accumulator.scala 42:22 Accumulator.scala 113:14 Accumulator.scala 116:14]
-  reg  _T_161; // @[Accumulator.scala 172:26]
+  wire  _T_78 = statePrev == 3'h2; // @[Accumulator.scala 110:38]
+  wire  isPrevStoreAndAcc = _T_78 & _T_62; // @[Accumulator.scala 110:62]
+  wire  _GEN_19 = isOnlyOneFrame | doNotScale; // @[Accumulator.scala 116:24]
+  wire  _T_88 = state == 3'h0; // @[Accumulator.scala 119:15]
+  wire  _T_89 = storingInitStates | isTransit; // @[Accumulator.scala 123:28]
+  wire  _T_90 = ~isPrevStoreAndAcc; // @[Accumulator.scala 123:45]
+  wire  _T_91 = _T_89 & _T_90; // @[Accumulator.scala 123:42]
+  wire  _T_92 = _T_91 | isOnlyOneFrame; // @[Accumulator.scala 123:64]
+  wire [31:0] readVal = mem__T_170_data; // @[Accumulator.scala 43:21 Accumulator.scala 172:11]
+  wire [31:0] _GEN_44 = {{16{inDelayed[15]}},inDelayed}; // @[FixedPointTypeClass.scala 20:58]
+  wire [31:0] _T_95 = $signed(_GEN_44) + $signed(readVal); // @[FixedPointTypeClass.scala 20:58]
+  wire [31:0] _GEN_21 = _T_92 ? $signed({{16{inDelayed[15]}},inDelayed}) : $signed(_T_95); // @[Accumulator.scala 123:83]
+  wire [5:0] _T_98 = cntAcc + 6'h1; // @[Accumulator.scala 130:22]
+  wire  _T_99 = loadingStates & io_out_ready; // @[Accumulator.scala 133:23]
+  wire [5:0] _T_101 = cntLoad + 6'h1; // @[Accumulator.scala 134:24]
+  wire [15:0] _T_111 = cntWindows + 16'h1; // @[Accumulator.scala 142:30]
+  wire  _T_115 = _T_27 & _T_12; // @[Accumulator.scala 145:49]
+  wire  _T_116 = last & io_out_ready; // @[Accumulator.scala 160:46]
+  wire [5:0] loadAddress = _T_116 ? _T_101 : cntLoad; // @[Accumulator.scala 160:40]
+  wire [5:0] readAddress = loadingStates ? loadAddress : cntAcc; // @[Accumulator.scala 167:24]
+  wire  _T_176 = io_accWindowsReg[15:8] != 8'h0; // @[CircuitMath.scala 37:22]
+  wire  _T_179 = io_accWindowsReg[15:12] != 4'h0; // @[CircuitMath.scala 37:22]
+  wire [1:0] _T_183 = io_accWindowsReg[14] ? 2'h2 : {{1'd0}, io_accWindowsReg[13]}; // @[CircuitMath.scala 32:10]
+  wire [1:0] _T_184 = io_accWindowsReg[15] ? 2'h3 : _T_183; // @[CircuitMath.scala 32:10]
+  wire [1:0] _T_188 = io_accWindowsReg[10] ? 2'h2 : {{1'd0}, io_accWindowsReg[9]}; // @[CircuitMath.scala 32:10]
+  wire [1:0] _T_189 = io_accWindowsReg[11] ? 2'h3 : _T_188; // @[CircuitMath.scala 32:10]
+  wire [1:0] _T_190 = _T_179 ? _T_184 : _T_189; // @[CircuitMath.scala 38:21]
+  wire [2:0] _T_191 = {_T_179,_T_190}; // @[Cat.scala 29:58]
+  wire  _T_194 = io_accWindowsReg[7:4] != 4'h0; // @[CircuitMath.scala 37:22]
+  wire [1:0] _T_198 = io_accWindowsReg[6] ? 2'h2 : {{1'd0}, io_accWindowsReg[5]}; // @[CircuitMath.scala 32:10]
+  wire [1:0] _T_199 = io_accWindowsReg[7] ? 2'h3 : _T_198; // @[CircuitMath.scala 32:10]
+  wire [1:0] _T_203 = io_accWindowsReg[2] ? 2'h2 : {{1'd0}, io_accWindowsReg[1]}; // @[CircuitMath.scala 32:10]
+  wire [1:0] _T_204 = io_accWindowsReg[3] ? 2'h3 : _T_203; // @[CircuitMath.scala 32:10]
+  wire [1:0] _T_205 = _T_194 ? _T_199 : _T_204; // @[CircuitMath.scala 38:21]
+  wire [2:0] _T_206 = {_T_194,_T_205}; // @[Cat.scala 29:58]
+  wire [2:0] _T_207 = _T_176 ? _T_191 : _T_206; // @[CircuitMath.scala 38:21]
+  wire [3:0] _T_208 = {_T_176,_T_207}; // @[Cat.scala 29:58]
+  wire [3:0] _T_209 = io_accWindowsReg[16] ? 4'h0 : _T_208; // @[CircuitMath.scala 38:21]
+  wire [4:0] _T_210 = {io_accWindowsReg[16],_T_209}; // @[Cat.scala 29:58]
+  wire [31:0] _T_211 = $signed(readVal) >>> _T_210; // @[FixedPointTypeClass.scala 118:51]
+  wire [31:0] _T_212 = doNotScale ? $signed(readVal) : $signed(_T_211); // @[Accumulator.scala 178:17]
+  reg [5:0] _T_213; // @[Accumulator.scala 184:22]
   reg [31:0] _RAND_12;
-  wire  _T_162 = state != 3'h0; // @[Accumulator.scala 172:51]
-  reg [5:0] _T_164; // @[Accumulator.scala 173:27]
+  wire [31:0] writeVal = _GEN_21; // @[Accumulator.scala 44:22 Accumulator.scala 124:14 Accumulator.scala 127:14]
+  reg  _T_217; // @[Accumulator.scala 187:26]
   reg [31:0] _RAND_13;
-  wire [6:0] _GEN_47 = {{1'd0}, _T_164}; // @[Accumulator.scala 173:37]
-  wire  _T_167 = _GEN_47 == _T_9; // @[Accumulator.scala 173:37]
-  wire  _T_169 = _T_167 & _T_42; // @[Accumulator.scala 173:64]
-  wire  _T_172 = ~loadingStates; // @[Accumulator.scala 175:20]
-  wire  _T_173 = state != 3'h4; // @[Accumulator.scala 175:61]
-  wire  _T_174 = io_out_ready & _T_173; // @[Accumulator.scala 175:52]
-  wire [5:0] addressReadTmp = _GEN_27; // @[Accumulator.scala 147:28 Accumulator.scala 150:20 Accumulator.scala 153:20]
-  assign mem__T_115_addr = mem__T_115_addr_pipe_0;
-  assign mem__T_115_data = mem[mem__T_115_addr]; // @[Accumulator.scala 33:24]
-  assign mem__T_160_data = writeVal;
-  assign mem__T_160_addr = _T_157;
-  assign mem__T_160_mask = 1'h1;
-  assign mem__T_160_en = writeEn;
-  assign io_in_ready = _T_172 | _T_174; // @[Accumulator.scala 175:16]
-  assign io_out_valid = _T_161 & _T_162; // @[Accumulator.scala 172:16]
-  assign io_out_bits = _T_156[15:0]; // @[Accumulator.scala 174:16]
-  assign io_lastOut = _T_169 & _T_63; // @[Accumulator.scala 173:16]
+  wire  _T_218 = state != 3'h0; // @[Accumulator.scala 187:51]
+  reg [5:0] _T_220; // @[Accumulator.scala 188:27]
+  reg [31:0] _RAND_14;
+  wire [6:0] _GEN_47 = {{1'd0}, _T_220}; // @[Accumulator.scala 188:57]
+  wire  _T_223 = _GEN_47 == _T_9; // @[Accumulator.scala 188:57]
+  wire  _T_225 = _T_223 & _T_42; // @[Accumulator.scala 188:84]
+  wire  _T_228 = ~loadingStates; // @[Accumulator.scala 193:22]
+  wire  _T_229 = state != 3'h4; // @[Accumulator.scala 193:63]
+  wire  _T_230 = io_out_ready & _T_229; // @[Accumulator.scala 193:54]
+  assign mem__T_170_addr = mem__T_170_addr_pipe_0;
+  assign mem__T_170_data = mem[mem__T_170_addr]; // @[Accumulator.scala 35:24]
+  assign mem__T_216_data = writeVal;
+  assign mem__T_216_addr = _T_213;
+  assign mem__T_216_mask = 1'h1;
+  assign mem__T_216_en = writeEn;
+  assign io_in_ready = _T_228 | _T_230; // @[Accumulator.scala 193:18]
+  assign io_out_valid = _T_217 & _T_218; // @[Accumulator.scala 187:16]
+  assign io_out_bits = _T_212[15:0]; // @[Accumulator.scala 190:16]
+  assign io_lastOut = _T_225 & _T_63; // @[Accumulator.scala 188:16]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -11936,11 +11942,11 @@ initial begin
   `endif // RANDOMIZE_MEM_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_1 = {1{`RANDOM}};
-  mem__T_115_en_pipe_0 = _RAND_1[0:0];
+  mem__T_170_en_pipe_0 = _RAND_1[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_2 = {1{`RANDOM}};
-  mem__T_115_addr_pipe_0 = _RAND_2[5:0];
+  mem__T_170_addr_pipe_0 = _RAND_2[5:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_3 = {1{`RANDOM}};
@@ -11976,25 +11982,37 @@ initial begin
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_11 = {1{`RANDOM}};
-  _T_157 = _RAND_11[5:0];
+  doNotScale = _RAND_11[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_12 = {1{`RANDOM}};
-  _T_161 = _RAND_12[0:0];
+  _T_213 = _RAND_12[5:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_13 = {1{`RANDOM}};
-  _T_164 = _RAND_13[5:0];
+  _T_217 = _RAND_13[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_14 = {1{`RANDOM}};
+  _T_220 = _RAND_14[5:0];
   `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
 `endif // SYNTHESIS
   always @(posedge clock) begin
-    if(mem__T_160_en & mem__T_160_mask) begin
-      mem[mem__T_160_addr] <= mem__T_160_data; // @[Accumulator.scala 33:24]
+    if(mem__T_216_en & mem__T_216_mask) begin
+      mem[mem__T_216_addr] <= mem__T_216_data; // @[Accumulator.scala 35:24]
     end
-    mem__T_115_en_pipe_0 <= 1'h1;
-    mem__T_115_addr_pipe_0 <= addressReadTmp;
+    mem__T_170_en_pipe_0 <= 1'h1;
+    if (loadingStates) begin
+      if (_T_116) begin
+        mem__T_170_addr_pipe_0 <= _T_101;
+      end else begin
+        mem__T_170_addr_pipe_0 <= cntLoad;
+      end
+    end else begin
+      mem__T_170_addr_pipe_0 <= cntAcc;
+    end
     if (reset) begin
       writeEn <= 1'h0;
     end else begin
@@ -12003,26 +12021,26 @@ end // initial
     inDelayed <= io_in_bits;
     if (reset) begin
       cntWindows <= 16'h0;
-    end else if (_T_111) begin
+    end else if (_T_115) begin
       cntWindows <= 16'h0;
     end else if (_T_12) begin
-      cntWindows <= _T_107;
+      cntWindows <= _T_111;
     end
     if (reset) begin
       cntLoad <= 6'h0;
     end else if (_T_43) begin
       cntLoad <= 6'h0;
-    end else if (_T_95) begin
-      cntLoad <= _T_97;
-    end else if (_T_95) begin
-      cntLoad <= _T_97;
+    end else if (_T_99) begin
+      cntLoad <= _T_101;
+    end else if (_T_99) begin
+      cntLoad <= _T_101;
     end
     if (reset) begin
       cntAcc <= 6'h0;
     end else if (_T_12) begin
       cntAcc <= 6'h0;
     end else if (readEn) begin
-      cntAcc <= _T_94;
+      cntAcc <= _T_98;
     end
     if (reset) begin
       state <= 3'h0;
@@ -12071,9 +12089,20 @@ end // initial
         end
       end
     end
-    _T_157 <= cntAcc;
-    _T_161 <= _T_62 | _T_63;
-    _T_164 <= cntLoad;
+    if (reset) begin
+      doNotScale <= 1'h0;
+    end else if (_T_88) begin
+      doNotScale <= 1'h0;
+    end else begin
+      doNotScale <= _GEN_19;
+    end
+    _T_213 <= cntAcc;
+    _T_217 <= _T_62 | _T_63;
+    if (_T_116) begin
+      _T_220 <= _T_101;
+    end else begin
+      _T_220 <= cntLoad;
+    end
   end
 endmodule
 module AXI4AccumulatorBlock(
@@ -17324,19 +17353,19 @@ module QueueCompatibility_6(
   input        io_deq_ready,
   output       io_deq_valid,
   output [7:0] io_deq_bits,
-  output [8:0] io_count
+  output [4:0] io_count
 );
-  reg [7:0] _T [0:255]; // @[Decoupled.scala 218:24]
+  reg [7:0] _T [0:15]; // @[Decoupled.scala 218:24]
   reg [31:0] _RAND_0;
   wire [7:0] _T__T_18_data; // @[Decoupled.scala 218:24]
-  wire [7:0] _T__T_18_addr; // @[Decoupled.scala 218:24]
+  wire [3:0] _T__T_18_addr; // @[Decoupled.scala 218:24]
   wire [7:0] _T__T_10_data; // @[Decoupled.scala 218:24]
-  wire [7:0] _T__T_10_addr; // @[Decoupled.scala 218:24]
+  wire [3:0] _T__T_10_addr; // @[Decoupled.scala 218:24]
   wire  _T__T_10_mask; // @[Decoupled.scala 218:24]
   wire  _T__T_10_en; // @[Decoupled.scala 218:24]
-  reg [7:0] value; // @[Counter.scala 29:33]
+  reg [3:0] value; // @[Counter.scala 29:33]
   reg [31:0] _RAND_1;
-  reg [7:0] value_1; // @[Counter.scala 29:33]
+  reg [3:0] value_1; // @[Counter.scala 29:33]
   reg [31:0] _RAND_2;
   reg  _T_1; // @[Decoupled.scala 221:35]
   reg [31:0] _RAND_3;
@@ -17346,13 +17375,13 @@ module QueueCompatibility_6(
   wire  _T_5 = _T_2 & _T_1; // @[Decoupled.scala 225:32]
   wire  _T_6 = io_enq_ready & io_enq_valid; // @[Decoupled.scala 40:37]
   wire  _T_8 = io_deq_ready & io_deq_valid; // @[Decoupled.scala 40:37]
-  wire [7:0] _T_12 = value + 8'h1; // @[Counter.scala 39:22]
-  wire [7:0] _T_14 = value_1 + 8'h1; // @[Counter.scala 39:22]
+  wire [3:0] _T_12 = value + 4'h1; // @[Counter.scala 39:22]
+  wire [3:0] _T_14 = value_1 + 4'h1; // @[Counter.scala 39:22]
   wire  _T_15 = _T_6 != _T_8; // @[Decoupled.scala 236:16]
-  wire [7:0] _T_20 = value - value_1; // @[Decoupled.scala 257:40]
+  wire [3:0] _T_20 = value - value_1; // @[Decoupled.scala 257:40]
   wire  _T_21 = _T_1 & _T_2; // @[Decoupled.scala 259:32]
-  wire [8:0] _T_22 = _T_21 ? 9'h100 : 9'h0; // @[Decoupled.scala 259:20]
-  wire [8:0] _GEN_8 = {{1'd0}, _T_20}; // @[Decoupled.scala 259:62]
+  wire [4:0] _T_22 = _T_21 ? 5'h10 : 5'h0; // @[Decoupled.scala 259:20]
+  wire [4:0] _GEN_8 = {{1'd0}, _T_20}; // @[Decoupled.scala 259:62]
   assign _T__T_18_addr = value_1;
   assign _T__T_18_data = _T[_T__T_18_addr]; // @[Decoupled.scala 218:24]
   assign _T__T_10_data = io_enq_bits;
@@ -17396,16 +17425,16 @@ initial begin
     `endif
   _RAND_0 = {1{`RANDOM}};
   `ifdef RANDOMIZE_MEM_INIT
-  for (initvar = 0; initvar < 256; initvar = initvar+1)
+  for (initvar = 0; initvar < 16; initvar = initvar+1)
     _T[initvar] = _RAND_0[7:0];
   `endif // RANDOMIZE_MEM_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_1 = {1{`RANDOM}};
-  value = _RAND_1[7:0];
+  value = _RAND_1[3:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_2 = {1{`RANDOM}};
-  value_1 = _RAND_2[7:0];
+  value_1 = _RAND_2[3:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_3 = {1{`RANDOM}};
@@ -17419,12 +17448,12 @@ end // initial
       _T[_T__T_10_addr] <= _T__T_10_data; // @[Decoupled.scala 218:24]
     end
     if (reset) begin
-      value <= 8'h0;
+      value <= 4'h0;
     end else if (_T_6) begin
       value <= _T_12;
     end
     if (reset) begin
-      value_1 <= 8'h0;
+      value_1 <= 4'h0;
     end else if (_T_8) begin
       value_1 <= _T_14;
     end
@@ -17699,7 +17728,7 @@ module AXI4UARTBlock(
   wire  txq_io_deq_ready; // @[DSPBlockUART.scala 102:21]
   wire  txq_io_deq_valid; // @[DSPBlockUART.scala 102:21]
   wire [7:0] txq_io_deq_bits; // @[DSPBlockUART.scala 102:21]
-  wire [8:0] txq_io_count; // @[DSPBlockUART.scala 102:21]
+  wire [4:0] txq_io_count; // @[DSPBlockUART.scala 102:21]
   wire  rxm_clock; // @[DSPBlockUART.scala 104:21]
   wire  rxm_reset; // @[DSPBlockUART.scala 104:21]
   wire  rxm_io_en; // @[DSPBlockUART.scala 104:21]
@@ -17715,7 +17744,7 @@ module AXI4UARTBlock(
   wire  rxq_io_deq_ready; // @[DSPBlockUART.scala 105:21]
   wire  rxq_io_deq_valid; // @[DSPBlockUART.scala 105:21]
   wire [7:0] rxq_io_deq_bits; // @[DSPBlockUART.scala 105:21]
-  wire [8:0] rxq_io_count; // @[DSPBlockUART.scala 105:21]
+  wire [4:0] rxq_io_count; // @[DSPBlockUART.scala 105:21]
   wire  Queue_clock; // @[Decoupled.scala 296:21]
   wire  Queue_reset; // @[Decoupled.scala 296:21]
   wire  Queue_io_enq_ready; // @[Decoupled.scala 296:21]
@@ -17734,9 +17763,9 @@ module AXI4UARTBlock(
   reg [31:0] _RAND_1;
   reg  rxen; // @[DSPBlockUART.scala 114:19]
   reg [31:0] _RAND_2;
-  reg [8:0] txwm; // @[DSPBlockUART.scala 121:19]
+  reg [4:0] txwm; // @[DSPBlockUART.scala 121:19]
   reg [31:0] _RAND_3;
-  reg [8:0] rxwm; // @[DSPBlockUART.scala 122:19]
+  reg [4:0] rxwm; // @[DSPBlockUART.scala 122:19]
   reg [31:0] _RAND_4;
   reg  nstop; // @[DSPBlockUART.scala 123:20]
   reg [31:0] _RAND_5;
@@ -17809,16 +17838,16 @@ module AXI4UARTBlock(
   wire  _T_239 = _T_492 & _T_96[0]; // @[RegisterRouter.scala 59:16]
   wire  _T_262 = _T_492 & _T_96[1]; // @[RegisterRouter.scala 59:16]
   wire [1:0] _T_274 = {nstop,txen}; // @[Cat.scala 29:58]
-  wire  _T_280 = _T_96[24:16] == 9'h1ff; // @[RegisterRouter.scala 59:16]
+  wire  _T_280 = _T_96[20:16] == 5'h1f; // @[RegisterRouter.scala 59:16]
   wire  _T_287 = _T_492 & _T_280; // @[RegisterRouter.scala 59:16]
   wire [15:0] _T_298 = {{14'd0}, _T_274}; // @[RegisterRouter.scala 59:16]
-  wire [24:0] _T_299 = {txwm,_T_298}; // @[Cat.scala 29:58]
+  wire [20:0] _T_299 = {txwm,_T_298}; // @[Cat.scala 29:58]
   wire  _T_496 = _T_479 & _T_414[3]; // @[RegisterRouter.scala 59:16]
   wire  _T_497 = _T_496 & _T_71; // @[RegisterRouter.scala 59:16]
   wire  _T_312 = _T_497 & _T_96[0]; // @[RegisterRouter.scala 59:16]
   wire  _T_335 = _T_497 & _T_280; // @[RegisterRouter.scala 59:16]
   wire [15:0] _T_346 = {{15'd0}, rxen}; // @[RegisterRouter.scala 59:16]
-  wire [24:0] _T_347 = {rxwm,_T_346}; // @[Cat.scala 29:58]
+  wire [20:0] _T_347 = {rxwm,_T_346}; // @[Cat.scala 29:58]
   wire  _T_501 = _T_479 & _T_414[4]; // @[RegisterRouter.scala 59:16]
   wire  _T_502 = _T_501 & _T_71; // @[RegisterRouter.scala 59:16]
   wire  _T_360 = _T_502 & _T_96[0]; // @[RegisterRouter.scala 59:16]
@@ -17833,9 +17862,9 @@ module AXI4UARTBlock(
   wire  _GEN_58 = 3'h7 == _T_413; // @[MuxLiteral.scala 48:10]
   wire  _GEN_49 = _GEN_58 | _GEN_48; // @[MuxLiteral.scala 48:10]
   wire [31:0] _GEN_51 = 3'h1 == _T_413 ? _T_12 : _T_11; // @[MuxLiteral.scala 48:10]
-  wire [31:0] _T_624_2 = {{7'd0}, _T_299}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [31:0] _T_624_2 = {{11'd0}, _T_299}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
   wire [31:0] _GEN_52 = 3'h2 == _T_413 ? _T_624_2 : _GEN_51; // @[MuxLiteral.scala 48:10]
-  wire [31:0] _T_624_3 = {{7'd0}, _T_347}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [31:0] _T_624_3 = {{11'd0}, _T_347}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
   wire [31:0] _GEN_53 = 3'h3 == _T_413 ? _T_624_3 : _GEN_52; // @[MuxLiteral.scala 48:10]
   wire [31:0] _T_624_4 = {{30'd0}, _T_395}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
   wire [31:0] _GEN_54 = 3'h4 == _T_413 ? _T_624_4 : _GEN_53; // @[MuxLiteral.scala 48:10]
@@ -17995,11 +18024,11 @@ initial begin
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_3 = {1{`RANDOM}};
-  txwm = _RAND_3[8:0];
+  txwm = _RAND_3[4:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_4 = {1{`RANDOM}};
-  rxwm = _RAND_4[8:0];
+  rxwm = _RAND_4[4:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_5 = {1{`RANDOM}};
@@ -18041,14 +18070,14 @@ end // initial
       rxen <= auto_mem_in_w_bits_data[0];
     end
     if (reset) begin
-      txwm <= 9'h0;
+      txwm <= 5'h0;
     end else if (_T_287) begin
-      txwm <= auto_mem_in_w_bits_data[24:16];
+      txwm <= auto_mem_in_w_bits_data[20:16];
     end
     if (reset) begin
-      rxwm <= 9'h0;
+      rxwm <= 5'h0;
     end else if (_T_335) begin
-      rxwm <= auto_mem_in_w_bits_data[24:16];
+      rxwm <= auto_mem_in_w_bits_data[20:16];
     end
     if (reset) begin
       nstop <= 1'h0;

@@ -379,7 +379,7 @@ class SpectrometerTestParams {
       accAddress       = AddressSet(0x30007000, 0xF),
       outMuxAddress    = AddressSet(0x30008000, 0xF),
       outSplitAddress  = AddressSet(0x30008010, 0xF),
-      uartParams       = UARTParams(address = 0x30009000, nTxEntries = 256, nRxEntries = 256),
+      uartParams       = UARTParams(address = 0x30009000, nTxEntries = 16, nRxEntries = 16),
       uRxSplitAddress  = AddressSet(0x30009100, 0xF),
       divisorInit      = (173).toInt, // baudrate = 115200 for 20MHz
       beatBytes        = 4)
