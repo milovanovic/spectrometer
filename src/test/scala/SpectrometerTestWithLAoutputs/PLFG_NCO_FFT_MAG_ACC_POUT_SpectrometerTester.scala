@@ -1,4 +1,4 @@
-package spectrometer
+package spectrometerLA
 
 import freechips.rocketchip.interrupts._
 import dsptools._
@@ -136,10 +136,10 @@ class PLFG_NCO_FFT_MAG_ACC_POUT_SpectrometerTester
   val chiselFFTForPlot = realSeq.map(c => c.toLong).toSeq
 
   // Plot accelerator data
-  SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PLFG -> NCO -> FFT -> MAG -> ACC -> POUT", fileName = "SpectrometerTest/plfg_nco_fft_mag_acc_pout/plot.pdf")
+  SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PLFG -> NCO -> FFT -> MAG -> ACC -> POUT", fileName = "SpectrometerTestWithLAoutputs/plfg_nco_fft_mag_acc_pout/plot.pdf")
 
   // Write output data to text file
-  val file = new File("./test_run_dir/SpectrometerTest/plfg_nco_fft_mag_acc_pout/data.txt")
+  val file = new File("./test_run_dir/SpectrometerTestWithLAoutputs/plfg_nco_fft_mag_acc_pout/data.txt")
   val w = new BufferedWriter(new FileWriter(file))
   for (i <- 0 until realSeq.length ) {
     w.write(f"${realSeq(i)}%04x" + "\n")

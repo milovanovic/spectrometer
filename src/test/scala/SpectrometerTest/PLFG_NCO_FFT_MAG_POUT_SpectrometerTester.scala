@@ -32,9 +32,9 @@ import accumulator._
 import java.io._
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
-// PLFG -> NCO -> FFT -> MAG -> ACC -> uTx
+// PLFG -> NCO -> FFT -> MAG -> parallel_out
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
-class PLFG_NCO_FFT_MAG_ACC_UTX_SpectrometerTester
+class PLFG_NCO_FFT_MAG_POUT_SpectrometerTester
 (
   dut: SpectrometerTest with SpectrometerTestPins,
   params: SpectrometerTestParameters,
@@ -43,10 +43,6 @@ class PLFG_NCO_FFT_MAG_ACC_UTX_SpectrometerTester
   
   val mod = dut.module
   def memAXI: AXI4Bundle = dut.ioMem.get
-
-  // This signals should be always ready!
-  poke(dut.laInside.ready, true.B)
-  poke(dut.laOutside.ready, true.B)
 
   // Splitters
   // memWriteWord(params.inSplitAddress.base + 0x0, 0)   // set ready to AND
@@ -57,15 +53,13 @@ class PLFG_NCO_FFT_MAG_ACC_UTX_SpectrometerTester
   // memWriteWord(params.uRxSplitAddress.base + 0x0, 0)  // set ready to AND
   // memWriteWord(params.outSplitAddress.base + 0x0, 0)  // set ready to AND
 
-  val numAccuWin = 4 // Number of accumulator windows
-  
   // plfg setup
   val segmentNumsArrayOffset = 6 * params.beatBytes
   val repeatedChirpNumsArrayOffset = segmentNumsArrayOffset + 4 * params.beatBytes
   val chirpOrdinalNumsArrayOffset = repeatedChirpNumsArrayOffset + 8 * params.beatBytes
     
   memWriteWord(params.plfgRAM.base, 0x24000000)
-  memWriteWord(params.plfgAddress.base + 2*params.beatBytes, numAccuWin*2) // number of frames
+  memWriteWord(params.plfgAddress.base + 2*params.beatBytes, 4)            // number of frames
   memWriteWord(params.plfgAddress.base + 4*params.beatBytes, 1)            // number of chirps
   //memWriteWord(params.plfgAddress.base + 5*params.beatBytes, 1)          // start value
   memWriteWord(params.plfgAddress.base + 5*params.beatBytes, 4)            // start value
@@ -78,112 +72,64 @@ class PLFG_NCO_FFT_MAG_ACC_UTX_SpectrometerTester
   // Mux
   memWriteWord(params.plfgMuxAddress1.base,       0x0) // output0
   // memWriteWord(params.plfgMuxAddress1.base + 0x4, 0x0) // output1
-
   memWriteWord(params.ncoMuxAddress1.base,       0x0) // output0
   // memWriteWord(params.ncoMuxAddress1.base + 0x4, 0x0) // output1
-
   memWriteWord(params.fftMuxAddress1.base,       0x0) // output0
   // memWriteWord(params.fftMuxAddress1.base + 0x4, 0x0) // output1
-
-    memWriteWord(params.magMuxAddress1.base,       0x0) // output0
-  // memWriteWord(params.magMuxAddress1.base + 0x4, 0x0) // output1
+    // memWriteWord(params.magMuxAddress1.base,       0x0) // output0
+  memWriteWord(params.magMuxAddress1.base + 0x4, 0x0) // output1
 
   memWriteWord(params.plfgMuxAddress0.base,       0x0) // output0
   // memWriteWord(params.plfgMuxAddress0.base + 0x4, 0x0) // output1
-
   memWriteWord(params.ncoMuxAddress0.base,       0x0) // output0
   // memWriteWord(params.ncoMuxAddress0.base + 0x4, 0x0) // output1
-
   memWriteWord(params.fftMuxAddress0.base,       0x0) // output0
   // memWriteWord(params.fftMuxAddress0.base + 0x4, 0x0) // output1
+  // memWriteWord(params.magMuxAddress0.base,       0x0) // output0
+  memWriteWord(params.magMuxAddress0.base + 0x4, 0x0) // output1
 
-  memWriteWord(params.magMuxAddress0.base,       0x0) // output0
-  // memWriteWord(params.magMuxAddress0.base + 0x4, 0x0) // output1
-
-    // memWriteWord(params.outMuxAddress.base,       0x0) // output0
-  memWriteWord(params.outMuxAddress.base + 0x4, 0x0) // output1
+  memWriteWord(params.outMuxAddress.base,       0x1) // output0
+  // memWriteWord(params.outMuxAddress.base + 0x4, 0x0) // output1
   // memWriteWord(params.outMuxAddress.base + 0x8, 0x3) // output2
-
+  
   // magAddress
   memWriteWord(params.magAddress.base, 0x2) // set jpl magnitude
   
-  memWriteWord(params.accAddress.base, params.fftParams.numPoints)  // set number of fft points
-  memWriteWord(params.accAddress.base + 0x4, numAccuWin)            // set number of accumulated fft windows
-
-  // UART
-  memWriteWord(params.uartParams.address + 0x08, 1) // enable Tx
+  poke(dut.outStream.ready, true.B)
 
   var outSeq = Seq[Int]()
-  var uartSeq = Seq[Int]()
-  var peekedVal: Int = 0
-
-  var dataCnt = 0
-  var readUart = 0
-  var oldRead = 1
-  var newRead = 1
-
+  var peekedVal: BigInt = 0
+  
   // check only one fft window 
-  while (uartSeq.length < params.fftParams.numPoints * 16) {
-    newRead = 1
-    oldRead = 1
-    while (readUart == 0){
-      oldRead = peek(dut.module.uTx).toInt
-      step(1)
-      newRead = peek(dut.module.uTx).toInt
-      if (newRead == 0 && oldRead == 1){
-        readUart = 1
-        // poke(dut.outStream.ready, true.B)
-      }
+  while (outSeq.length < params.fftParams.numPoints * 4) {
+    if (peek(dut.outStream.valid) == 1 && peek(dut.outStream.ready) == 1) {
+      peekedVal = peek(dut.outStream.bits.data)
+      outSeq = outSeq :+ peekedVal.toInt
     }
-      readUart = 0  // set flag back to 0
-      step(params.divisorInit + 1) // skip start bit
-      dataCnt = 0
-      while (dataCnt < 9) {
-        if (dataCnt < 8) {
-          peekedVal = peek(dut.module.uTx).toInt
-          uartSeq = uartSeq :+ peekedVal
-        }
-        dataCnt = dataCnt + 1
-        step(params.divisorInit + 1)
-      }
-      
-      assert(peek(dut.module.uTx).toInt == 1, "Expected stop bit, got 0")
+    step(1)
   }
 
   var realSeq = Seq[Int]()
-  var tmpReal: Int = 0
+  var imagSeq = Seq[Int]()
+  var tmpReal: Short = 0
+  var tmpImag: Short = 0
   
-  for (i <- 0 until uartSeq.length by 16) {
-    tmpReal = java.lang.Integer.parseInt(SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 15), 1) ++ 
-                                         SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 14), 1) ++ 
-                                         SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 13), 1) ++ 
-                                         SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 12), 1) ++ 
-                                         SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 11), 1) ++ 
-                                         SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 10), 1) ++ 
-                                         SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 9), 1) ++ 
-                                         SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 8), 1) ++ 
-                                         SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 7), 1) ++ 
-                                         SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 6), 1) ++
-                                         SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 5), 1) ++
-                                         SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 4), 1) ++
-                                         SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 3), 1) ++
-                                         SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 2), 1) ++
-                                         SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 1), 1) ++
-                                         SpectrometerTesterUtils.asNdigitBinary(uartSeq(i + 0), 1), 2).toInt
-    realSeq = realSeq :+ tmpReal
+  // this is magnitude so, plot only imag value
+  for (i <- 0 until outSeq.length by 4) {
+    tmpReal = java.lang.Integer.parseInt(SpectrometerTesterUtils.asNdigitBinary(outSeq(i + 3), 8) ++ SpectrometerTesterUtils.asNdigitBinary(outSeq(i + 2), 8), 2).toShort
+    tmpImag = java.lang.Long.parseLong(SpectrometerTesterUtils.asNdigitBinary(outSeq(i + 1), 8)   ++ SpectrometerTesterUtils.asNdigitBinary(outSeq(i), 8), 2).toShort
+    realSeq = realSeq :+ tmpReal.toInt
+    imagSeq = imagSeq :+ tmpImag.toInt
   }
 
-  // Output data
-  val chiselFFTForPlot = realSeq.map(c => c.toLong).toSeq
-
   // Plot accelerator data
-  SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PLFG -> NCO -> FFT -> MAG -> ACC -> UTX", fileName = "SpectrometerTest/plfg_nco_fft_mag_acc_utx/plot.pdf")
+  SpectrometerTesterUtils.plot_data(inputData = imagSeq.map(c => c.toInt), plotName = "PLFG -> NCO -> FFT -> MAG -> POUT", fileName = "SpectrometerTest/plfg_nco_fft_mag_pout/data.pdf")
 
   // Write output data to text file
-  val file = new File("./test_run_dir/SpectrometerTest/plfg_nco_fft_mag_acc_utx/data.txt")
+  val file = new File("./test_run_dir/SpectrometerTest/plfg_nco_fft_mag_pout/data.txt")
   val w = new BufferedWriter(new FileWriter(file))
   for (i <- 0 until realSeq.length ) {
-    w.write(f"${realSeq(i)}%04x" + "\n")
+    w.write(f"${realSeq(i)}%04x" + f"${imagSeq(i)}%04x" + "\n")
   }
   w.close
 }

@@ -1,4 +1,4 @@
-package spectrometer
+package spectrometerLA
 
 import dspblocks._
 import dsptools._
@@ -392,5 +392,5 @@ object SpectrometerTestApp extends App
   implicit val p: Parameters = Parameters.empty
   val standaloneModule = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
 
-  chisel3.Driver.execute(Array("--target-dir", "./rtl/SpectrometerTest", "--top-name", "SpectrometerTest"), ()=> standaloneModule.module) // generate verilog code
+  chisel3.Driver.execute(Array("--target-dir", "./rtl/SpectrometerTestWithLAoutputs", "--top-name", "SpectrometerTest"), ()=> standaloneModule.module) // generate verilog code
 }
