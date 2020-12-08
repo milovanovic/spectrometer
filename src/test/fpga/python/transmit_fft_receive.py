@@ -53,7 +53,7 @@ print("\n")
 
 LOG2N = 6;  # number of stages
 N = 2**LOG2N; # fft size 
-M = 64; #3*N;  # total number of samples
+M = 64; #3*N;  # total number of sam
 num_win = 5; # number of fft windows that should be sent to FPGA board
 
 x = np.arange(N)#np.arange(M)
@@ -126,7 +126,6 @@ print("\n")
 # send data stream
 ser.write(transmit_data)
 
-# receive data stream
 read_data = ser.read(N*4)
 print(*read_data)
 ser.close()

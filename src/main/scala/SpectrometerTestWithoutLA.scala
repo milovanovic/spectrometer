@@ -100,8 +100,8 @@ class SpectrometerTestWithoutLA (params: SpectrometerTestParameters) extends Laz
   val acc_queue = LazyModule(new StreamBuffer(BufferParams(1, true, true), beatBytes = 4))
 
   val out_mux   = LazyModule(new AXI4StreamMux(address = params.outMuxAddress, beatBytes = params.beatBytes))
-  val out_split = LazyModule(new AXI4Splitter(address  = params.outSplitAddress, beatBytes = params.beatBytes))
-  val out_queue = LazyModule(new StreamBuffer(BufferParams(1, true, true), beatBytes = params.beatBytes))
+  // val out_split = LazyModule(new AXI4Splitter(address  = params.outSplitAddress, beatBytes = params.beatBytes))
+  val out_queue = LazyModule(new StreamBuffer(BufferParams(1, false, false), beatBytes = params.beatBytes))
   val out_adapt = AXI4StreamWidthAdapter.oneToN(params.beatBytes)
   val out_rdy   = LazyModule(new AlwaysReady)
 
@@ -122,7 +122,8 @@ class SpectrometerTestWithoutLA (params: SpectrometerTestParameters) extends Laz
   })
 
   // define mem
-  lazy val blocks = Seq(in_split, plfg, plfg_split, plfg_mux_0, plfg_mux_1, nco, nco_split, nco_mux_0, nco_mux_1, fft, fft_split, fft_mux_0, fft_mux_1, mag, mag_split, mag_mux_0, mag_mux_1, out_mux, out_split, uart, uRx_split)
+  //lazy val blocks = Seq(in_split, plfg, plfg_split, plfg_mux_0, plfg_mux_1, nco, nco_split, nco_mux_0, nco_mux_1, fft, fft_split, fft_mux_0, fft_mux_1, mag, mag_split, mag_mux_0, mag_mux_1, out_mux, out_split, uart, uRx_split)
+  lazy val blocks = Seq(in_split, plfg, plfg_split, plfg_mux_0, plfg_mux_1, nco, nco_split, nco_mux_0, nco_mux_1, fft, fft_split, fft_mux_0, fft_mux_1, mag, mag_split, mag_mux_0, mag_mux_1, out_mux, uart, uRx_split)
   val bus = LazyModule(new AXI4Xbar)
   val mem = Some(bus.node)
   for (b <- blocks) {
@@ -145,7 +146,7 @@ class SpectrometerTestWithoutLA (params: SpectrometerTestParameters) extends Laz
   nco.freq.get          := plfg_mux_0.streamNode                          // plfg_mux_0  --0--> nco
   plfg_rdy_0.streamNode := plfg_mux_0.streamNode                          // plfg_mux_0  --1--> plfg_rdy_0
 
-  nco_split.streamNode  := nco.streamNode                                 // nco         -----> nco_split
+  nco_split.streamNode  := AXI4StreamBuffer() := nco.streamNode                                 // nco         -----> nco_split
   nco_mux_1.streamNode  := nco_split.streamNode                           // nco_split   -----> nco_mux_1  
   nco_rdy_1.streamNode  := nco_mux_1.streamNode                           // nco_mux_1   --0--> nco_rdy_1
 
@@ -194,8 +195,10 @@ class SpectrometerTestWithoutLA (params: SpectrometerTestParameters) extends Laz
   uTx_adapt := uTx_queue.node := out_mux.streamNode                       // out_mux    --1--> uTx_queue -----> uTx_adapt  
   out_rdy.streamNode    := out_mux.streamNode                             // out_mux    --2--> out_rdy
 
-  out_split.streamNode  := out_queue.node                                 // out_queue  ----> out_split
-  out_adapt             := out_split.streamNode                           // out_split  --0-> out_adapt
+  out_adapt := out_queue.node
+
+ // out_split.streamNode  := out_queue.node                                 // out_queue  ----> out_split
+ // out_adapt             := out_split.streamNode                           // out_split  --0-> out_adapt
 
   uRx_adapt := uart.streamNode := uTx_adapt                               // uTx_adapt  -----> uart      -----> uRx_adapt
   uRx_split.streamNode  := uRx_adapt                                      // uRx_adapt  -----> uRx_split
@@ -240,7 +243,8 @@ val params =
         phaseAccEnable = true,
         roundingMode = RoundHalfUp,
         pincType = Streaming,
-        poffType = Fixed
+        poffType = Fixed,
+        useMultiplier = false
       ),
       fftParams = FFTParams.fixed(
         dataWidth = 16,

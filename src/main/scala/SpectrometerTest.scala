@@ -156,7 +156,8 @@ class SpectrometerTest(params: SpectrometerTestParameters) extends LazyModule()(
 
   val out_mux   = LazyModule(new AXI4StreamMux(address = params.outMuxAddress, beatBytes = params.beatBytes))
   val out_split = LazyModule(new AXI4Splitter(address  = params.outSplitAddress, beatBytes = params.beatBytes))
-  val out_queue = LazyModule(new StreamBuffer(BufferParams(1, true, true), beatBytes = params.beatBytes))
+  // change parameters of the out_queue 
+  val out_queue = LazyModule(new StreamBuffer(BufferParams(1, false, false), beatBytes = params.beatBytes))
   val out_adapt = AXI4StreamWidthAdapter.oneToN(params.beatBytes)
   val out_rdy   = LazyModule(new AlwaysReady)
 
@@ -327,7 +328,7 @@ class SpectrometerTestParams {
         roundingMode = RoundHalfUp,
         pincType = Streaming,
         poffType = Fixed,
-        // useMultiplier = true // MP - include multiplier inside NCO module
+        useMultiplier = false // MP - include multiplier inside NCO module
       ),
       fftParams = FFTParams.fixed(
         dataWidth = 16,
