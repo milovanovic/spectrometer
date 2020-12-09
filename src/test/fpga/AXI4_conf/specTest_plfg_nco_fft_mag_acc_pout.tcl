@@ -63,8 +63,12 @@ run_hw_axi [get_hw_axi_txns write_txn18]
 create_hw_axi_txn write_txn19 [get_hw_axis hw_axi_1] -type WRITE -address 30007000 -len 1 -data {00000040}
 run_hw_axi [get_hw_axi_txns write_txn19]
 # configure number of accumulated fft windows
-create_hw_axi_txn write_txn20 [get_hw_axis hw_axi_1] -type WRITE -address 30007004 -len 1 -data {00000004} 
+create_hw_axi_txn write_txn20 [get_hw_axis hw_axi_1] -type WRITE -address 30007004 -len 1 -data {00000002} 
 run_hw_axi [get_hw_axi_txns write_txn20]
+# Don't forger this mux!
+#configure plfgMuxAddress1
+create_hw_axi_txn write_txn21 [get_hw_axis hw_axi_1] -type WRITE -address 30002220 -len 1 -data {00000000}
+run_hw_axi [get_hw_axi_txns write_txn21]
 
 delete_hw_axi_txn [get_hw_axi_txns *]
 
