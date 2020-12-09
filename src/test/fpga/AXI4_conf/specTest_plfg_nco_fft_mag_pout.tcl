@@ -1,69 +1,75 @@
-reset_hw_axi [get_hw_axis hw_axi_1]
-# configure jpl magnitude
-create_hw_axi_txn write_txn10 [get_hw_axis hw_axi_1] -type WRITE -address 30005000 -len 1 -data {00000002} 
-run_hw_axi [get_hw_axi_txns write_txn10]
+# SPDX-License-Identifier: Apache-2.0
 
-# configure plfg 
-create_hw_axi_txn write_txn1 [get_hw_axis hw_axi_1] -type WRITE -address 30001000 -len 1 -data {24000000}
+reset_hw_axi [get_hw_axis hw_axi_1]
+
+# configure jpl magnitude
+create_hw_axi_txn write_txn1 [get_hw_axis hw_axi_1] -type WRITE -address 30005000 -len 1 -data {00000002} 
 run_hw_axi [get_hw_axi_txns write_txn1]
 
-# configure number of frames
-create_hw_axi_txn write_txn2 [get_hw_axis hw_axi_1] -type WRITE -address 30002108 -len 1 -data {00000004}
+# FIRST CONFIGURE MUXES AND THEN CONFIGURE PLFG and NCO!
+
+#configure ncoMuxAddress1
+create_hw_axi_txn write_txn2 [get_hw_axis hw_axi_1] -type WRITE -address 30003120 -len 1 -data {00000000}
 run_hw_axi [get_hw_axi_txns write_txn2]
-# configure number of chirps 30002100
-create_hw_axi_txn write_txn3 [get_hw_axis hw_axi_1] -type WRITE -address 30002110 -len 1 -data {00000001}
+#configure fftMuxAddress1
+create_hw_axi_txn write_txn3 [get_hw_axis hw_axi_1] -type WRITE -address 30004120 -len 1 -data {00000000}
 run_hw_axi [get_hw_axi_txns write_txn3]
-# configure start value - set to 16!
-create_hw_axi_txn write_txn4 [get_hw_axis hw_axi_1] -type WRITE -address 30002114 -len 1 -data {00000010}
+#configure magMuxAddress1
+create_hw_axi_txn write_txn4 [get_hw_axis hw_axi_1] -type WRITE -address 30005124 -len 1 -data {00000000}
 run_hw_axi [get_hw_axi_txns write_txn4]
-# configure number of segments for first chirp
-create_hw_axi_txn write_txn5 [get_hw_axis hw_axi_1] -type WRITE -address 30002118 -len 1 -data {00000001}
+#configure plfgMuxAddress0
+create_hw_axi_txn write_txn5 [get_hw_axis hw_axi_1] -type WRITE -address 30002210 -len 1 -data {00000000}
 run_hw_axi [get_hw_axi_txns write_txn5]
-# configure number of repeated chirps
-create_hw_axi_txn write_txn6 [get_hw_axis hw_axi_1] -type WRITE -address 30002128 -len 1 -data {00000001}
+# configure ncoMuxAddress0
+create_hw_axi_txn write_txn6 [get_hw_axis hw_axi_1] -type WRITE -address 30003110 -len 1 -data {00000000}
 run_hw_axi [get_hw_axi_txns write_txn6]
-# chip ordinal
-create_hw_axi_txn write_txn7 [get_hw_axis hw_axi_1] -type WRITE -address 30002148 -len 1 -data {00000000} 
+# configure fftMuxAddress0
+create_hw_axi_txn write_txn7 [get_hw_axis hw_axi_1] -type WRITE -address 30004110 -len 1 -data {00000000}
 run_hw_axi [get_hw_axi_txns write_txn7]
-# set reset bit to zero
-create_hw_axi_txn write_txn8 [get_hw_axis hw_axi_1] -type WRITE -address 30002100 -len 1 -data {00000001} 
+# configure magMuxAddress0
+create_hw_axi_txn write_txn8 [get_hw_axis hw_axi_1] -type WRITE -address 30005114 -len 1 -data {00000000}
 run_hw_axi [get_hw_axi_txns write_txn8]
+# configure outMuxAddress
+create_hw_axi_txn write_txn9 [get_hw_axis hw_axi_1] -type WRITE -address 30008000 -len 1 -data {00000001}
+run_hw_axi [get_hw_axi_txns write_txn9]
+
+# configure plfg 
+create_hw_axi_txn write_txn10 [get_hw_axis hw_axi_1] -type WRITE -address 30001000 -len 1 -data {24000000}
+run_hw_axi [get_hw_axi_txns write_txn10]
+
+# configure number of frames
+create_hw_axi_txn write_txn11 [get_hw_axis hw_axi_1] -type WRITE -address 30002108 -len 1 -data {00000004}
+run_hw_axi [get_hw_axi_txns write_txn11]
+# configure number of chirps 30002100
+create_hw_axi_txn write_txn12 [get_hw_axis hw_axi_1] -type WRITE -address 30002110 -len 1 -data {00000001}
+run_hw_axi [get_hw_axi_txns write_txn12]
+# configure start value - set to 16!
+create_hw_axi_txn write_txn13 [get_hw_axis hw_axi_1] -type WRITE -address 30002114 -len 1 -data {00000010}
+run_hw_axi [get_hw_axi_txns write_txn13]
+# configure number of segments for first chirp
+create_hw_axi_txn write_txn14 [get_hw_axis hw_axi_1] -type WRITE -address 30002118 -len 1 -data {00000001}
+run_hw_axi [get_hw_axi_txns write_txn14]
+# configure number of repeated chirps
+create_hw_axi_txn write_txn15 [get_hw_axis hw_axi_1] -type WRITE -address 30002128 -len 1 -data {00000001}
+run_hw_axi [get_hw_axi_txns write_txn15]
+# chip ordinal
+create_hw_axi_txn write_txn16 [get_hw_axis hw_axi_1] -type WRITE -address 30002148 -len 1 -data {00000000} 
+run_hw_axi [get_hw_axi_txns write_txn16]
+# set reset bit to zero
+create_hw_axi_txn write_txn17 [get_hw_axis hw_axi_1] -type WRITE -address 30002100 -len 1 -data {00000001} 
+run_hw_axi [get_hw_axi_txns write_txn17]
 
 # configure fft number of points - number of stages
-create_hw_axi_txn write_txn9 [get_hw_axis hw_axi_1] -type WRITE -address 30004000 -len 1 -data {00000006} 
-run_hw_axi [get_hw_axi_txns write_txn9]
-# configure register acc depth - should be the same as fft size - 64
-create_hw_axi_txn write_txn11 [get_hw_axis hw_axi_1] -type WRITE -address 30007000 -len 1 -data {00000040}
-run_hw_axi [get_hw_axi_txns write_txn11]
-# configure number of accumulated fft windows
-create_hw_axi_txn write_txn12 [get_hw_axis hw_axi_1] -type WRITE -address 30007004 -len 1 -data {00000004} 
-run_hw_axi [get_hw_axi_txns write_txn12]
-#configure plfgMuxAddress1
-create_hw_axi_txn write_txn13 [get_hw_axis hw_axi_1] -type WRITE -address 30002220 -len 1 -data {00000000}
-run_hw_axi [get_hw_axi_txns write_txn13]
-#configure ncoMuxAddress1
-create_hw_axi_txn write_txn14 [get_hw_axis hw_axi_1] -type WRITE -address 30003120 -len 1 -data {00000000}
-run_hw_axi [get_hw_axi_txns write_txn14]
-#configure fftMuxAddress1
-create_hw_axi_txn write_txn15 [get_hw_axis hw_axi_1] -type WRITE -address 30004120 -len 1 -data {00000000}
-run_hw_axi [get_hw_axi_txns write_txn15]
-#configure magMuxAddress1
-create_hw_axi_txn write_txn16 [get_hw_axis hw_axi_1] -type WRITE -address 30005124 -len 1 -data {00000000}
-run_hw_axi [get_hw_axi_txns write_txn16]
-#configure plfgMuxAddress0
-create_hw_axi_txn write_txn17 [get_hw_axis hw_axi_1] -type WRITE -address 30002210 -len 1 -data {00000000}
-run_hw_axi [get_hw_axi_txns write_txn17]
-# configure ncoMuxAddress0
-create_hw_axi_txn write_txn18 [get_hw_axis hw_axi_1] -type WRITE -address 30003110 -len 1 -data {00000000}
+create_hw_axi_txn write_txn18 [get_hw_axis hw_axi_1] -type WRITE -address 30004000 -len 1 -data {00000006} 
 run_hw_axi [get_hw_axi_txns write_txn18]
-# configure fftMuxAddress0
-create_hw_axi_txn write_txn19 [get_hw_axis hw_axi_1] -type WRITE -address 30004110 -len 1 -data {00000000}
+# configure register acc depth - should be the same as fft size - 64
+create_hw_axi_txn write_txn19 [get_hw_axis hw_axi_1] -type WRITE -address 30007000 -len 1 -data {00000040}
 run_hw_axi [get_hw_axi_txns write_txn19]
-# configure magMuxAddress0
-create_hw_axi_txn write_txn20 [get_hw_axis hw_axi_1] -type WRITE -address 30005114 -len 1 -data {00000000}
+# configure number of accumulated fft windows
+create_hw_axi_txn write_txn20 [get_hw_axis hw_axi_1] -type WRITE -address 30007004 -len 1 -data {00000004} 
 run_hw_axi [get_hw_axi_txns write_txn20]
-# configure outMuxAddress
-create_hw_axi_txn write_txn21 [get_hw_axis hw_axi_1] -type WRITE -address 30008000 -len 1 -data {00000001}
+#configure plfgMuxAddress1
+create_hw_axi_txn write_txn21 [get_hw_axis hw_axi_1] -type WRITE -address 30002220 -len 1 -data {00000000}
 run_hw_axi [get_hw_axi_txns write_txn21]
 
 delete_hw_axi_txn [get_hw_axi_txns *]

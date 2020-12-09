@@ -1,46 +1,48 @@
+# SPDX-License-Identifier: Apache-2.0
+
 reset_hw_axi [get_hw_axis hw_axi_1]
 
 # configure UART TX - enable TX
-create_hw_axi_txn write_txn24 [get_hw_axis hw_axi_1] -type WRITE -address 30009008 -len 1 -data {00000001} 
-run_hw_axi [get_hw_axi_txns write_txn24]
+create_hw_axi_txn write_txn1 [get_hw_axis hw_axi_1] -type WRITE -address 30009008 -len 1 -data {00000001} 
+run_hw_axi [get_hw_axi_txns write_txn1]
 #configure UART RX - enable RX
-create_hw_axi_txn write_txn25 [get_hw_axis hw_axi_1] -type WRITE -address 3000900C -len 1 -data {00000001} 
-run_hw_axi [get_hw_axi_txns write_txn25]
+create_hw_axi_txn write_txn2 [get_hw_axis hw_axi_1] -type WRITE -address 3000900C -len 1 -data {00000001} 
+run_hw_axi [get_hw_axi_txns write_txn2]
 
 # memWriteWord(params.fftSplitAddress.base + 0x0, 1) // set ready to OR this is necessary while ar is connected to rx_split
 # configure fftSplitter to OR
-create_hw_axi_txn write_txn9 [get_hw_axis hw_axi_1] -type WRITE -address 30004100 -len 1 -data {00000001} 
-run_hw_axi [get_hw_axi_txns write_txn9]
+create_hw_axi_txn write_txn3 [get_hw_axis hw_axi_1] -type WRITE -address 30004100 -len 1 -data {00000001} 
+run_hw_axi [get_hw_axi_txns write_txn3]
 
 # configure fft number of points - number of stages
-create_hw_axi_txn write_txn10 [get_hw_axis hw_axi_1] -type WRITE -address 30004000 -len 1 -data {00000006} 
-run_hw_axi [get_hw_axi_txns write_txn10]
+create_hw_axi_txn write_txn4 [get_hw_axis hw_axi_1] -type WRITE -address 30004000 -len 1 -data {00000006} 
+run_hw_axi [get_hw_axi_txns write_txn4]
 #configure fftMuxAddress1
-create_hw_axi_txn write_txn15 [get_hw_axis hw_axi_1] -type WRITE -address 30004124 -len 1 -data {00000000}
-run_hw_axi [get_hw_axi_txns write_txn15]
+create_hw_axi_txn write_txn5 [get_hw_axis hw_axi_1] -type WRITE -address 30004124 -len 1 -data {00000000}
+run_hw_axi [get_hw_axi_txns write_txn5]
 
 #be sure that all spliters are connected to always ready block
 #configure plfgMuxAddress0
-create_hw_axi_txn write_txn17 [get_hw_axis hw_axi_1] -type WRITE -address 30002214 -len 1 -data {00000002}
-run_hw_axi [get_hw_axi_txns write_txn17]
+create_hw_axi_txn write_txn6 [get_hw_axis hw_axi_1] -type WRITE -address 30002214 -len 1 -data {00000002}
+run_hw_axi [get_hw_axi_txns write_txn6]
 #configure ncoMuxAddress0
-create_hw_axi_txn write_txn18 [get_hw_axis hw_axi_1] -type WRITE -address 30003110 -len 1 -data {00000002}
-run_hw_axi [get_hw_axi_txns write_txn18]
+create_hw_axi_txn write_txn7 [get_hw_axis hw_axi_1] -type WRITE -address 30003110 -len 1 -data {00000002}
+run_hw_axi [get_hw_axi_txns write_txn7]
 #configure magMuxAddress0
-create_hw_axi_txn write_txn19 [get_hw_axis hw_axi_1] -type WRITE -address 30005114 -len 1 -data {00000002}
-run_hw_axi [get_hw_axi_txns write_txn19]
+create_hw_axi_txn write_txn8 [get_hw_axis hw_axi_1] -type WRITE -address 30005114 -len 1 -data {00000002}
+run_hw_axi [get_hw_axi_txns write_txn8]
 #configure fftMuxAddress0
-create_hw_axi_txn write_txn20 [get_hw_axis hw_axi_1] -type WRITE -address 30004114 -len 1 -data {00000002}
-run_hw_axi [get_hw_axi_txns write_txn20]
+create_hw_axi_txn write_txn9 [get_hw_axis hw_axi_1] -type WRITE -address 30004114 -len 1 -data {00000002}
+run_hw_axi [get_hw_axi_txns write_txn9]
 # configure outMuxAddress -> send on TX output
-create_hw_axi_txn write_txn21 [get_hw_axis hw_axi_1] -type WRITE -address 30008004 -len 1 -data {00000002}
-run_hw_axi [get_hw_axi_txns write_txn21]
+create_hw_axi_txn write_txn10 [get_hw_axis hw_axi_1] -type WRITE -address 30008004 -len 1 -data {00000002}
+run_hw_axi [get_hw_axi_txns write_txn10]
 # send always ready on URx split
-create_hw_axi_txn write_txn22 [get_hw_axis hw_axi_1] -type WRITE -address 30008008 -len 1 -data {00000006}
-run_hw_axi [get_hw_axi_txns write_txn22]
+create_hw_axi_txn write_txn11 [get_hw_axis hw_axi_1] -type WRITE -address 30008008 -len 1 -data {00000006}
+run_hw_axi [get_hw_axi_txns write_txn11]
 # configure divisor int
-create_hw_axi_txn write_txn23 [get_hw_axis hw_axi_1] -type WRITE -address 30009018 -len 1 -data {00000364}  
-run_hw_axi [get_hw_axi_txns write_txn23]
+create_hw_axi_txn write_txn12 [get_hw_axis hw_axi_1] -type WRITE -address 30009018 -len 1 -data {00000364}  
+run_hw_axi [get_hw_axi_txns write_txn12]
 
 
 delete_hw_axi_txn [get_hw_axi_txns *]

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+
 # -*- coding: utf-8 -*-
 """
 Created on Mon Dec  7 12:25:13 2020
@@ -50,13 +52,12 @@ print("Timeout = ", ser.timeout)
 print("\n")
 
 #Settings
-N = 128 #+ 2 first two data 
+N = 128 
 #N = 128
-expected_peak = 2 # this is what we expect
+expected_peak = 2
 bit_reverse = False
 
-read_data = ser.read(N*4+8)[8:] # this is necessary while some issues occur somewhere after out_mux
-#read_data = ser.read(N*4)
+read_data = ser.read(N*4)
 
 print(*read_data)
 ser.close()

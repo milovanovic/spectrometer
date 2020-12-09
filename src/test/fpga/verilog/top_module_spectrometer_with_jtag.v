@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 `timescale 1ns / 1ps
 
 module top_module_spectrometer_with_jtag(

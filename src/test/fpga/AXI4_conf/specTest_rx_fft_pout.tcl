@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+
 reset_hw_axi [get_hw_axis hw_axi_1]
 
 # configure UART TX - enable TX
