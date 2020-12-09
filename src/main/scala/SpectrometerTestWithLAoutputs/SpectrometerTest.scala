@@ -355,7 +355,8 @@ class SpectrometerTestParams(fftSize: Int) {
       accParams = AccParams(
         proto = FixedPoint(16.W, 0.BP),
         protoAcc = FixedPoint(32.W, 0.BP),
-        accDepth = fftSize
+        accDepth = fftSize,
+        bitReversal = true
       ),
       inSplitAddress   = AddressSet(0x30000000, 0xF),
       plfgRAM          = AddressSet(0x30001000, 0xFFF),

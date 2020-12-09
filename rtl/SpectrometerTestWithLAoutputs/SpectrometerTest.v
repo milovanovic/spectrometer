@@ -1759,17 +1759,17 @@ module PLFGDspBlockMem(
   wire [31:0] axi4xbar_auto_out_0_w_bits_data; // @[Xbar.scala 211:30]
   wire  axi4xbar_auto_out_0_b_ready; // @[Xbar.scala 211:30]
   wire  axi4xbar_auto_out_0_b_valid; // @[Xbar.scala 211:30]
-  reg [25:0] configParamsMem1 [0:15]; // @[PLFGDspBlockMem.scala 110:39]
+  reg [25:0] configParamsMem1 [0:15]; // @[PLFGDspBlockMem.scala 112:39]
   reg [31:0] _RAND_0;
-  wire [25:0] configParamsMem1__T_64_data; // @[PLFGDspBlockMem.scala 110:39]
-  wire [3:0] configParamsMem1__T_64_addr; // @[PLFGDspBlockMem.scala 110:39]
-  wire [25:0] configParamsMem1__T_14_data; // @[PLFGDspBlockMem.scala 110:39]
-  wire [3:0] configParamsMem1__T_14_addr; // @[PLFGDspBlockMem.scala 110:39]
-  wire  configParamsMem1__T_14_mask; // @[PLFGDspBlockMem.scala 110:39]
-  wire  configParamsMem1__T_14_en; // @[PLFGDspBlockMem.scala 110:39]
-  reg  configParamsMem1__T_64_en_pipe_0;
+  wire [25:0] configParamsMem1__T_69_data; // @[PLFGDspBlockMem.scala 112:39]
+  wire [3:0] configParamsMem1__T_69_addr; // @[PLFGDspBlockMem.scala 112:39]
+  wire [25:0] configParamsMem1__T_14_data; // @[PLFGDspBlockMem.scala 112:39]
+  wire [3:0] configParamsMem1__T_14_addr; // @[PLFGDspBlockMem.scala 112:39]
+  wire  configParamsMem1__T_14_mask; // @[PLFGDspBlockMem.scala 112:39]
+  wire  configParamsMem1__T_14_en; // @[PLFGDspBlockMem.scala 112:39]
+  reg  configParamsMem1__T_69_en_pipe_0;
   reg [31:0] _RAND_1;
-  reg [3:0] configParamsMem1__T_64_addr_pipe_0;
+  reg [3:0] configParamsMem1__T_69_addr_pipe_0;
   reg [31:0] _RAND_2;
   wire  Queue_clock; // @[Decoupled.scala 296:21]
   wire  Queue_reset; // @[Decoupled.scala 296:21]
@@ -1783,432 +1783,438 @@ module PLFGDspBlockMem(
   wire  Queue_io_deq_bits_read; // @[Decoupled.scala 296:21]
   wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
   wire  Queue_io_deq_bits_extra; // @[Decoupled.scala 296:21]
-  reg  w_full1; // @[PLFGDspBlockMem.scala 114:26]
+  reg  w_full1; // @[PLFGDspBlockMem.scala 116:26]
   reg [31:0] _RAND_3;
   wire [29:0] ramIn1_aw_bits_addr = axi4xbar_auto_out_0_aw_bits_addr; // @[Nodes.scala 370:76 LazyModule.scala 167:31]
-  wire  _T_5 = ~w_full1; // @[PLFGDspBlockMem.scala 119:62]
+  wire  _T_5 = ~w_full1; // @[PLFGDspBlockMem.scala 121:62]
   wire  ramIn1_b_ready = axi4xbar_auto_out_0_b_ready; // @[Nodes.scala 370:76 LazyModule.scala 167:31]
-  wire  _T_6 = ramIn1_b_ready | _T_5; // @[PLFGDspBlockMem.scala 119:59]
+  wire  _T_6 = ramIn1_b_ready | _T_5; // @[PLFGDspBlockMem.scala 121:59]
   wire  ramIn1_w_valid = axi4xbar_auto_out_0_w_valid; // @[Nodes.scala 370:76 LazyModule.scala 167:31]
-  wire  ramIn1_aw_ready = ramIn1_w_valid & _T_6; // @[PLFGDspBlockMem.scala 119:40]
+  wire  ramIn1_aw_ready = ramIn1_w_valid & _T_6; // @[PLFGDspBlockMem.scala 121:40]
   wire  ramIn1_aw_valid = axi4xbar_auto_out_0_aw_valid; // @[Nodes.scala 370:76 LazyModule.scala 167:31]
   wire  _T_11 = ramIn1_b_ready & w_full1; // @[Decoupled.scala 40:37]
-  wire  _GEN_0 = _T_11 ? 1'h0 : w_full1; // @[PLFGDspBlockMem.scala 121:29]
+  wire  _GEN_0 = _T_11 ? 1'h0 : w_full1; // @[PLFGDspBlockMem.scala 123:29]
   wire  _T_12 = ramIn1_aw_ready & ramIn1_aw_valid; // @[Decoupled.scala 40:37]
-  wire  _GEN_1 = _T_12 | _GEN_0; // @[PLFGDspBlockMem.scala 122:29]
+  wire  _GEN_1 = _T_12 | _GEN_0; // @[PLFGDspBlockMem.scala 124:29]
   wire [31:0] ramIn1_w_bits_data = axi4xbar_auto_out_0_w_bits_data; // @[Nodes.scala 370:76 LazyModule.scala 167:31]
-  reg  enable; // @[PLFGDspBlockMem.scala 130:25]
+  reg  enable; // @[PLFGDspBlockMem.scala 132:25]
   reg [31:0] _RAND_4;
-  reg  reset_bit; // @[PLFGDspBlockMem.scala 131:28]
+  reg  reset_bit; // @[PLFGDspBlockMem.scala 133:28]
   reg [31:0] _RAND_5;
-  reg [1:0] frameNum; // @[PLFGDspBlockMem.scala 132:27]
+  reg [1:0] frameNum; // @[PLFGDspBlockMem.scala 134:27]
   reg [31:0] _RAND_6;
-  reg [15:0] startingPoint; // @[PLFGDspBlockMem.scala 133:32]
+  reg [15:0] startingPoint; // @[PLFGDspBlockMem.scala 135:32]
   reg [31:0] _RAND_7;
-  reg [7:0] interframeNumOfSamples; // @[PLFGDspBlockMem.scala 134:41]
+  reg [7:0] interframeNumOfSamples; // @[PLFGDspBlockMem.scala 136:41]
   reg [31:0] _RAND_8;
-  reg [2:0] differentChirpsNum; // @[PLFGDspBlockMem.scala 135:37]
+  reg [2:0] differentChirpsNum; // @[PLFGDspBlockMem.scala 137:37]
   reg [31:0] _RAND_9;
-  reg [15:0] currentVal; // @[PLFGDspBlockMem.scala 138:29]
+  reg [15:0] currentVal; // @[PLFGDspBlockMem.scala 140:29]
   reg [31:0] _RAND_10;
-  reg [7:0] samplesCounter; // @[PLFGDspBlockMem.scala 139:33]
+  reg [7:0] samplesCounter; // @[PLFGDspBlockMem.scala 141:33]
   reg [31:0] _RAND_11;
-  reg [1:0] segmentCounter; // @[PLFGDspBlockMem.scala 140:33]
+  reg [1:0] segmentCounter; // @[PLFGDspBlockMem.scala 142:33]
   reg [31:0] _RAND_12;
-  reg [1:0] frameCounter; // @[PLFGDspBlockMem.scala 141:31]
+  reg [1:0] frameCounter; // @[PLFGDspBlockMem.scala 143:31]
   reg [31:0] _RAND_13;
-  reg [5:0] framePauseCounter; // @[PLFGDspBlockMem.scala 142:36]
+  reg [5:0] framePauseCounter; // @[PLFGDspBlockMem.scala 144:36]
   reg [31:0] _RAND_14;
-  reg  end_; // @[PLFGDspBlockMem.scala 143:22]
+  reg  end_; // @[PLFGDspBlockMem.scala 145:22]
   reg [31:0] _RAND_15;
-  reg [7:0] samplesCounter2; // @[PLFGDspBlockMem.scala 145:34]
+  reg [7:0] _T_19; // @[PLFGDspBlockMem.scala 147:42]
   reg [31:0] _RAND_16;
-  reg [1:0] segmentCounter2; // @[PLFGDspBlockMem.scala 146:34]
+  reg [7:0] samplesCounter2; // @[PLFGDspBlockMem.scala 147:34]
   reg [31:0] _RAND_17;
-  reg [1:0] frameCounter2; // @[PLFGDspBlockMem.scala 147:32]
+  reg [1:0] _T_20; // @[PLFGDspBlockMem.scala 148:42]
   reg [31:0] _RAND_18;
-  reg  end2; // @[PLFGDspBlockMem.scala 149:23]
+  reg [1:0] segmentCounter2; // @[PLFGDspBlockMem.scala 148:34]
   reg [31:0] _RAND_19;
-  reg [2:0] repeatedChirpsCounter; // @[PLFGDspBlockMem.scala 151:40]
+  reg [1:0] _T_21; // @[PLFGDspBlockMem.scala 149:40]
   reg [31:0] _RAND_20;
-  reg [2:0] differentChirpsCounter; // @[PLFGDspBlockMem.scala 152:41]
+  reg [1:0] frameCounter2; // @[PLFGDspBlockMem.scala 149:32]
   reg [31:0] _RAND_21;
-  reg [2:0] _T_19; // @[PLFGDspBlockMem.scala 154:49]
+  reg  _T_23; // @[PLFGDspBlockMem.scala 152:31]
   reg [31:0] _RAND_22;
-  reg [2:0] repeatedChirpsCounter2; // @[PLFGDspBlockMem.scala 154:41]
+  reg  end2; // @[PLFGDspBlockMem.scala 152:23]
   reg [31:0] _RAND_23;
-  reg [2:0] _T_20; // @[PLFGDspBlockMem.scala 155:50]
+  reg [2:0] repeatedChirpsCounter; // @[PLFGDspBlockMem.scala 154:40]
   reg [31:0] _RAND_24;
-  reg [2:0] differentChirpsCounter2; // @[PLFGDspBlockMem.scala 155:42]
+  reg [2:0] differentChirpsCounter; // @[PLFGDspBlockMem.scala 155:41]
   reg [31:0] _RAND_25;
-  reg [1:0] segmentNums_0; // @[PLFGDspBlockMem.scala 158:30]
+  reg [2:0] _T_24; // @[PLFGDspBlockMem.scala 157:49]
   reg [31:0] _RAND_26;
-  reg [1:0] segmentNums_1; // @[PLFGDspBlockMem.scala 158:30]
+  reg [2:0] repeatedChirpsCounter2; // @[PLFGDspBlockMem.scala 157:41]
   reg [31:0] _RAND_27;
-  reg [1:0] segmentNums_2; // @[PLFGDspBlockMem.scala 158:30]
+  reg [2:0] _T_25; // @[PLFGDspBlockMem.scala 158:50]
   reg [31:0] _RAND_28;
-  reg [1:0] segmentNums_3; // @[PLFGDspBlockMem.scala 158:30]
+  reg [2:0] differentChirpsCounter2; // @[PLFGDspBlockMem.scala 158:42]
   reg [31:0] _RAND_29;
-  reg [2:0] repeatedChirpNums_0; // @[PLFGDspBlockMem.scala 159:36]
+  reg [1:0] segmentNums_0; // @[PLFGDspBlockMem.scala 161:30]
   reg [31:0] _RAND_30;
-  reg [2:0] repeatedChirpNums_1; // @[PLFGDspBlockMem.scala 159:36]
+  reg [1:0] segmentNums_1; // @[PLFGDspBlockMem.scala 161:30]
   reg [31:0] _RAND_31;
-  reg [2:0] repeatedChirpNums_2; // @[PLFGDspBlockMem.scala 159:36]
+  reg [1:0] segmentNums_2; // @[PLFGDspBlockMem.scala 161:30]
   reg [31:0] _RAND_32;
-  reg [2:0] repeatedChirpNums_3; // @[PLFGDspBlockMem.scala 159:36]
+  reg [1:0] segmentNums_3; // @[PLFGDspBlockMem.scala 161:30]
   reg [31:0] _RAND_33;
-  reg [2:0] repeatedChirpNums_4; // @[PLFGDspBlockMem.scala 159:36]
+  reg [2:0] repeatedChirpNums_0; // @[PLFGDspBlockMem.scala 162:36]
   reg [31:0] _RAND_34;
-  reg [2:0] repeatedChirpNums_5; // @[PLFGDspBlockMem.scala 159:36]
+  reg [2:0] repeatedChirpNums_1; // @[PLFGDspBlockMem.scala 162:36]
   reg [31:0] _RAND_35;
-  reg [2:0] repeatedChirpNums_6; // @[PLFGDspBlockMem.scala 159:36]
+  reg [2:0] repeatedChirpNums_2; // @[PLFGDspBlockMem.scala 162:36]
   reg [31:0] _RAND_36;
-  reg [2:0] repeatedChirpNums_7; // @[PLFGDspBlockMem.scala 159:36]
+  reg [2:0] repeatedChirpNums_3; // @[PLFGDspBlockMem.scala 162:36]
   reg [31:0] _RAND_37;
-  reg [1:0] chirpOrdinalNums_0; // @[PLFGDspBlockMem.scala 160:35]
+  reg [2:0] repeatedChirpNums_4; // @[PLFGDspBlockMem.scala 162:36]
   reg [31:0] _RAND_38;
-  reg [1:0] chirpOrdinalNums_1; // @[PLFGDspBlockMem.scala 160:35]
+  reg [2:0] repeatedChirpNums_5; // @[PLFGDspBlockMem.scala 162:36]
   reg [31:0] _RAND_39;
-  reg [1:0] chirpOrdinalNums_2; // @[PLFGDspBlockMem.scala 160:35]
+  reg [2:0] repeatedChirpNums_6; // @[PLFGDspBlockMem.scala 162:36]
   reg [31:0] _RAND_40;
-  reg [1:0] chirpOrdinalNums_3; // @[PLFGDspBlockMem.scala 160:35]
+  reg [2:0] repeatedChirpNums_7; // @[PLFGDspBlockMem.scala 162:36]
   reg [31:0] _RAND_41;
-  reg [1:0] chirpOrdinalNums_4; // @[PLFGDspBlockMem.scala 160:35]
+  reg [1:0] chirpOrdinalNums_0; // @[PLFGDspBlockMem.scala 163:35]
   reg [31:0] _RAND_42;
-  reg [1:0] chirpOrdinalNums_5; // @[PLFGDspBlockMem.scala 160:35]
+  reg [1:0] chirpOrdinalNums_1; // @[PLFGDspBlockMem.scala 163:35]
   reg [31:0] _RAND_43;
-  reg [1:0] chirpOrdinalNums_6; // @[PLFGDspBlockMem.scala 160:35]
+  reg [1:0] chirpOrdinalNums_2; // @[PLFGDspBlockMem.scala 163:35]
   reg [31:0] _RAND_44;
-  reg [1:0] chirpOrdinalNums_7; // @[PLFGDspBlockMem.scala 160:35]
+  reg [1:0] chirpOrdinalNums_3; // @[PLFGDspBlockMem.scala 163:35]
   reg [31:0] _RAND_45;
-  wire [25:0] dataFromMem = configParamsMem1__T_64_data; // @[PLFGDspBlockMem.scala 162:27 PLFGDspBlockMem.scala 163:17]
-  wire  _T_66 = dataFromMem[23:16] > 8'h1; // @[UIntTypeClass.scala 54:47]
-  wire [7:0] _T_70 = dataFromMem[23:16] + 8'h1; // @[UIntTypeClass.scala 18:40]
-  wire [7:0] numsOfSamples = _T_66 ? dataFromMem[23:16] : _T_70; // @[PLFGDspBlockMem.scala 172:28]
-  wire  slopeSigns = dataFromMem[24]; // @[PLFGDspBlockMem.scala 174:33]
-  wire  segmentResets = dataFromMem[25]; // @[PLFGDspBlockMem.scala 175:36]
+  reg [1:0] chirpOrdinalNums_4; // @[PLFGDspBlockMem.scala 163:35]
+  reg [31:0] _RAND_46;
+  reg [1:0] chirpOrdinalNums_5; // @[PLFGDspBlockMem.scala 163:35]
+  reg [31:0] _RAND_47;
+  reg [1:0] chirpOrdinalNums_6; // @[PLFGDspBlockMem.scala 163:35]
+  reg [31:0] _RAND_48;
+  reg [1:0] chirpOrdinalNums_7; // @[PLFGDspBlockMem.scala 163:35]
+  reg [31:0] _RAND_49;
+  wire [25:0] dataFromMem = configParamsMem1__T_69_data; // @[PLFGDspBlockMem.scala 165:27 PLFGDspBlockMem.scala 166:17]
+  wire  _T_71 = dataFromMem[23:16] > 8'h1; // @[UIntTypeClass.scala 54:47]
+  wire [7:0] _T_75 = dataFromMem[23:16] + 8'h1; // @[UIntTypeClass.scala 18:40]
+  wire [7:0] numsOfSamples = _T_71 ? dataFromMem[23:16] : _T_75; // @[PLFGDspBlockMem.scala 175:28]
+  wire  slopeSigns = dataFromMem[24]; // @[PLFGDspBlockMem.scala 177:33]
+  wire  segmentResets = dataFromMem[25]; // @[PLFGDspBlockMem.scala 178:36]
   wire  _T_2_aw_valid = axi4xbar_auto_out_1_aw_valid; // @[Nodes.scala 370:76 LazyModule.scala 167:31]
   wire  _T_2_w_valid = axi4xbar_auto_out_1_w_valid; // @[Nodes.scala 370:76 LazyModule.scala 167:31]
-  wire  _T_72 = _T_2_aw_valid & _T_2_w_valid; // @[RegisterRouter.scala 40:39]
+  wire  _T_77 = _T_2_aw_valid & _T_2_w_valid; // @[RegisterRouter.scala 40:39]
   wire  _T_2_ar_valid = axi4xbar_auto_out_1_ar_valid; // @[Nodes.scala 370:76 LazyModule.scala 167:31]
-  wire  _T_73 = _T_2_ar_valid | _T_72; // @[RegisterRouter.scala 40:26]
-  wire  _T_74 = ~_T_2_ar_valid; // @[RegisterRouter.scala 42:29]
-  wire  _T_117_ready = Queue_io_enq_ready; // @[RegisterRouter.scala 59:16 Decoupled.scala 299:17]
+  wire  _T_78 = _T_2_ar_valid | _T_77; // @[RegisterRouter.scala 40:26]
+  wire  _T_79 = ~_T_2_ar_valid; // @[RegisterRouter.scala 42:29]
+  wire  _T_122_ready = Queue_io_enq_ready; // @[RegisterRouter.scala 59:16 Decoupled.scala 299:17]
   wire [29:0] _T_2_ar_bits_addr = axi4xbar_auto_out_1_ar_bits_addr; // @[Nodes.scala 370:76 LazyModule.scala 167:31]
   wire [29:0] _T_2_aw_bits_addr = axi4xbar_auto_out_1_aw_bits_addr; // @[Nodes.scala 370:76 LazyModule.scala 167:31]
-  wire [29:0] _T_81 = _T_2_ar_valid ? _T_2_ar_bits_addr : _T_2_aw_bits_addr; // @[RegisterRouter.scala 48:19]
-  wire [4:0] _T_825 = {_T_81[6],_T_81[5],_T_81[4],_T_81[3],_T_81[2]}; // @[Cat.scala 29:58]
-  wire [5:0] _T_121 = _T_81[7:2] & 6'h20; // @[RegisterRouter.scala 59:16]
-  wire  _T_131 = _T_121 == 6'h0; // @[RegisterRouter.scala 59:16]
-  wire  _T_75 = _T_117_ready & _T_74; // @[RegisterRouter.scala 42:26]
+  wire [29:0] _T_86 = _T_2_ar_valid ? _T_2_ar_bits_addr : _T_2_aw_bits_addr; // @[RegisterRouter.scala 48:19]
+  wire [4:0] _T_830 = {_T_86[6],_T_86[5],_T_86[4],_T_86[3],_T_86[2]}; // @[Cat.scala 29:58]
+  wire [5:0] _T_126 = _T_86[7:2] & 6'h20; // @[RegisterRouter.scala 59:16]
+  wire  _T_136 = _T_126 == 6'h0; // @[RegisterRouter.scala 59:16]
+  wire  _T_80 = _T_122_ready & _T_79; // @[RegisterRouter.scala 42:26]
   wire  _T_2_ar_bits_id = axi4xbar_auto_out_1_ar_bits_id; // @[Nodes.scala 370:76 LazyModule.scala 167:31]
   wire  _T_2_aw_bits_id = axi4xbar_auto_out_1_aw_bits_id; // @[Nodes.scala 370:76 LazyModule.scala 167:31]
   wire [2:0] _T_2_ar_bits_size = axi4xbar_auto_out_1_ar_bits_size; // @[Nodes.scala 370:76 LazyModule.scala 167:31]
-  wire [1:0] _T_84 = 2'h1 << _T_2_ar_bits_size[0]; // @[OneHot.scala 65:12]
-  wire [1:0] _T_86 = _T_84 | 2'h1; // @[Misc.scala 200:81]
-  wire  _T_87 = _T_2_ar_bits_size >= 3'h2; // @[Misc.scala 204:21]
-  wire  _T_90 = ~_T_2_ar_bits_addr[1]; // @[Misc.scala 209:20]
-  wire  _T_92 = _T_86[1] & _T_90; // @[Misc.scala 213:38]
-  wire  _T_93 = _T_87 | _T_92; // @[Misc.scala 213:29]
-  wire  _T_95 = _T_86[1] & _T_2_ar_bits_addr[1]; // @[Misc.scala 213:38]
-  wire  _T_96 = _T_87 | _T_95; // @[Misc.scala 213:29]
-  wire  _T_99 = ~_T_2_ar_bits_addr[0]; // @[Misc.scala 209:20]
-  wire  _T_100 = _T_90 & _T_99; // @[Misc.scala 212:27]
-  wire  _T_101 = _T_86[0] & _T_100; // @[Misc.scala 213:38]
-  wire  _T_102 = _T_93 | _T_101; // @[Misc.scala 213:29]
-  wire  _T_103 = _T_90 & _T_2_ar_bits_addr[0]; // @[Misc.scala 212:27]
-  wire  _T_104 = _T_86[0] & _T_103; // @[Misc.scala 213:38]
-  wire  _T_105 = _T_93 | _T_104; // @[Misc.scala 213:29]
-  wire  _T_106 = _T_2_ar_bits_addr[1] & _T_99; // @[Misc.scala 212:27]
-  wire  _T_107 = _T_86[0] & _T_106; // @[Misc.scala 213:38]
-  wire  _T_108 = _T_96 | _T_107; // @[Misc.scala 213:29]
-  wire  _T_109 = _T_2_ar_bits_addr[1] & _T_2_ar_bits_addr[0]; // @[Misc.scala 212:27]
-  wire  _T_110 = _T_86[0] & _T_109; // @[Misc.scala 213:38]
-  wire  _T_111 = _T_96 | _T_110; // @[Misc.scala 213:29]
-  wire [3:0] _T_114 = {_T_111,_T_108,_T_105,_T_102}; // @[Cat.scala 29:58]
+  wire [1:0] _T_89 = 2'h1 << _T_2_ar_bits_size[0]; // @[OneHot.scala 65:12]
+  wire [1:0] _T_91 = _T_89 | 2'h1; // @[Misc.scala 200:81]
+  wire  _T_92 = _T_2_ar_bits_size >= 3'h2; // @[Misc.scala 204:21]
+  wire  _T_95 = ~_T_2_ar_bits_addr[1]; // @[Misc.scala 209:20]
+  wire  _T_97 = _T_91[1] & _T_95; // @[Misc.scala 213:38]
+  wire  _T_98 = _T_92 | _T_97; // @[Misc.scala 213:29]
+  wire  _T_100 = _T_91[1] & _T_2_ar_bits_addr[1]; // @[Misc.scala 213:38]
+  wire  _T_101 = _T_92 | _T_100; // @[Misc.scala 213:29]
+  wire  _T_104 = ~_T_2_ar_bits_addr[0]; // @[Misc.scala 209:20]
+  wire  _T_105 = _T_95 & _T_104; // @[Misc.scala 212:27]
+  wire  _T_106 = _T_91[0] & _T_105; // @[Misc.scala 213:38]
+  wire  _T_107 = _T_98 | _T_106; // @[Misc.scala 213:29]
+  wire  _T_108 = _T_95 & _T_2_ar_bits_addr[0]; // @[Misc.scala 212:27]
+  wire  _T_109 = _T_91[0] & _T_108; // @[Misc.scala 213:38]
+  wire  _T_110 = _T_98 | _T_109; // @[Misc.scala 213:29]
+  wire  _T_111 = _T_2_ar_bits_addr[1] & _T_104; // @[Misc.scala 212:27]
+  wire  _T_112 = _T_91[0] & _T_111; // @[Misc.scala 213:38]
+  wire  _T_113 = _T_101 | _T_112; // @[Misc.scala 213:29]
+  wire  _T_114 = _T_2_ar_bits_addr[1] & _T_2_ar_bits_addr[0]; // @[Misc.scala 212:27]
+  wire  _T_115 = _T_91[0] & _T_114; // @[Misc.scala 213:38]
+  wire  _T_116 = _T_101 | _T_115; // @[Misc.scala 213:29]
+  wire [3:0] _T_119 = {_T_116,_T_113,_T_110,_T_107}; // @[Cat.scala 29:58]
   wire [3:0] _T_2_w_bits_strb = axi4xbar_auto_out_1_w_bits_strb; // @[Nodes.scala 370:76 LazyModule.scala 167:31]
-  wire [3:0] _T_116 = _T_2_ar_valid ? _T_114 : _T_2_w_bits_strb; // @[RegisterRouter.scala 54:25]
-  wire [7:0] _T_183 = _T_116[0] ? 8'hff : 8'h0; // @[Bitwise.scala 72:12]
-  wire [7:0] _T_185 = _T_116[1] ? 8'hff : 8'h0; // @[Bitwise.scala 72:12]
-  wire [7:0] _T_187 = _T_116[2] ? 8'hff : 8'h0; // @[Bitwise.scala 72:12]
-  wire [7:0] _T_189 = _T_116[3] ? 8'hff : 8'h0; // @[Bitwise.scala 72:12]
-  wire [31:0] _T_192 = {_T_189,_T_187,_T_185,_T_183}; // @[Cat.scala 29:58]
-  wire  _T_892 = _T_73 & _T_117_ready; // @[RegisterRouter.scala 59:16]
-  wire [31:0] _T_826 = 32'h1 << _T_825; // @[OneHot.scala 58:35]
-  wire  _T_1059 = _T_892 & _T_74; // @[RegisterRouter.scala 59:16]
-  wire  _T_1061 = _T_1059 & _T_826[0]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1062 = _T_1061 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_218 = _T_1062 & _T_192[0]; // @[RegisterRouter.scala 59:16]
+  wire [3:0] _T_121 = _T_2_ar_valid ? _T_119 : _T_2_w_bits_strb; // @[RegisterRouter.scala 54:25]
+  wire [7:0] _T_188 = _T_121[0] ? 8'hff : 8'h0; // @[Bitwise.scala 72:12]
+  wire [7:0] _T_190 = _T_121[1] ? 8'hff : 8'h0; // @[Bitwise.scala 72:12]
+  wire [7:0] _T_192 = _T_121[2] ? 8'hff : 8'h0; // @[Bitwise.scala 72:12]
+  wire [7:0] _T_194 = _T_121[3] ? 8'hff : 8'h0; // @[Bitwise.scala 72:12]
+  wire [31:0] _T_197 = {_T_194,_T_192,_T_190,_T_188}; // @[Cat.scala 29:58]
+  wire  _T_897 = _T_78 & _T_122_ready; // @[RegisterRouter.scala 59:16]
+  wire [31:0] _T_831 = 32'h1 << _T_830; // @[OneHot.scala 58:35]
+  wire  _T_1064 = _T_897 & _T_79; // @[RegisterRouter.scala 59:16]
+  wire  _T_1066 = _T_1064 & _T_831[0]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1067 = _T_1066 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_223 = _T_1067 & _T_197[0]; // @[RegisterRouter.scala 59:16]
   wire [31:0] _T_2_w_bits_data = axi4xbar_auto_out_1_w_bits_data; // @[Nodes.scala 370:76 LazyModule.scala 167:31]
-  wire  _T_234 = _T_192[15:0] == 16'hffff; // @[RegisterRouter.scala 59:16]
-  wire  _T_1086 = _T_1059 & _T_826[5]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1087 = _T_1086 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_241 = _T_1087 & _T_234; // @[RegisterRouter.scala 59:16]
-  wire  _T_257 = _T_192[2:0] == 3'h7; // @[RegisterRouter.scala 59:16]
-  wire  _T_1111 = _T_1059 & _T_826[10]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1112 = _T_1111 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_264 = _T_1112 & _T_257; // @[RegisterRouter.scala 59:16]
-  wire  _T_280 = _T_192[1:0] == 2'h3; // @[RegisterRouter.scala 59:16]
-  wire  _T_1181 = _T_1059 & _T_826[24]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1182 = _T_1181 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_287 = _T_1182 & _T_280; // @[RegisterRouter.scala 59:16]
-  wire  _T_1186 = _T_1059 & _T_826[25]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1187 = _T_1186 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_310 = _T_1187 & _T_280; // @[RegisterRouter.scala 59:16]
-  wire  _T_1131 = _T_1059 & _T_826[14]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1132 = _T_1131 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_333 = _T_1132 & _T_257; // @[RegisterRouter.scala 59:16]
-  wire  _T_1161 = _T_1059 & _T_826[20]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1162 = _T_1161 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_356 = _T_1162 & _T_280; // @[RegisterRouter.scala 59:16]
-  wire  _T_1066 = _T_1059 & _T_826[1]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1067 = _T_1066 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_379 = _T_1067 & _T_192[0]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1091 = _T_1059 & _T_826[6]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1092 = _T_1091 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_402 = _T_1092 & _T_280; // @[RegisterRouter.scala 59:16]
-  wire  _T_1166 = _T_1059 & _T_826[21]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1167 = _T_1166 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_425 = _T_1167 & _T_280; // @[RegisterRouter.scala 59:16]
-  wire  _T_1106 = _T_1059 & _T_826[9]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1107 = _T_1106 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_448 = _T_1107 & _T_280; // @[RegisterRouter.scala 59:16]
-  wire  _T_1126 = _T_1059 & _T_826[13]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1127 = _T_1126 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_471 = _T_1127 & _T_257; // @[RegisterRouter.scala 59:16]
-  wire  _T_1071 = _T_1059 & _T_826[2]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1072 = _T_1071 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_494 = _T_1072 & _T_280; // @[RegisterRouter.scala 59:16]
-  wire  _T_1146 = _T_1059 & _T_826[17]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1147 = _T_1146 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_517 = _T_1147 & _T_257; // @[RegisterRouter.scala 59:16]
-  wire  _T_1171 = _T_1059 & _T_826[22]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1172 = _T_1171 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_540 = _T_1172 & _T_280; // @[RegisterRouter.scala 59:16]
-  wire  _T_1121 = _T_1059 & _T_826[12]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1122 = _T_1121 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_563 = _T_1122 & _T_257; // @[RegisterRouter.scala 59:16]
-  wire  _T_1096 = _T_1059 & _T_826[7]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1097 = _T_1096 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_586 = _T_1097 & _T_280; // @[RegisterRouter.scala 59:16]
-  wire  _T_602 = _T_192[9:0] == 10'h3ff; // @[RegisterRouter.scala 59:16]
-  wire  _T_1076 = _T_1059 & _T_826[3]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1077 = _T_1076 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_609 = _T_1077 & _T_602; // @[RegisterRouter.scala 59:16]
-  wire [9:0] _GEN_24 = _T_609 ? _T_2_w_bits_data[9:0] : {{2'd0}, interframeNumOfSamples}; // @[RegField.scala 134:88]
-  wire [9:0] _T_620 = {{2'd0}, interframeNumOfSamples}; // @[RegisterRouter.scala 59:16]
-  wire  _T_1151 = _T_1059 & _T_826[18]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1152 = _T_1151 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_632 = _T_1152 & _T_280; // @[RegisterRouter.scala 59:16]
-  wire  _T_1141 = _T_1059 & _T_826[16]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1142 = _T_1141 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_655 = _T_1142 & _T_257; // @[RegisterRouter.scala 59:16]
-  wire  _T_1116 = _T_1059 & _T_826[11]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1117 = _T_1116 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_678 = _T_1117 & _T_257; // @[RegisterRouter.scala 59:16]
-  wire  _T_1176 = _T_1059 & _T_826[23]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1177 = _T_1176 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_701 = _T_1177 & _T_280; // @[RegisterRouter.scala 59:16]
-  wire  _T_1101 = _T_1059 & _T_826[8]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1102 = _T_1101 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_724 = _T_1102 & _T_280; // @[RegisterRouter.scala 59:16]
-  wire  _T_1156 = _T_1059 & _T_826[19]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1157 = _T_1156 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_747 = _T_1157 & _T_280; // @[RegisterRouter.scala 59:16]
-  wire  _T_1081 = _T_1059 & _T_826[4]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1082 = _T_1081 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_770 = _T_1082 & _T_257; // @[RegisterRouter.scala 59:16]
-  wire  _T_1136 = _T_1059 & _T_826[15]; // @[RegisterRouter.scala 59:16]
-  wire  _T_1137 = _T_1136 & _T_131; // @[RegisterRouter.scala 59:16]
-  wire  _T_793 = _T_1137 & _T_257; // @[RegisterRouter.scala 59:16]
-  wire  _GEN_162 = 5'h1 == _T_825 ? _T_131 : _T_131; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_163 = 5'h2 == _T_825 ? _T_131 : _GEN_162; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_164 = 5'h3 == _T_825 ? _T_131 : _GEN_163; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_165 = 5'h4 == _T_825 ? _T_131 : _GEN_164; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_166 = 5'h5 == _T_825 ? _T_131 : _GEN_165; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_167 = 5'h6 == _T_825 ? _T_131 : _GEN_166; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_168 = 5'h7 == _T_825 ? _T_131 : _GEN_167; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_169 = 5'h8 == _T_825 ? _T_131 : _GEN_168; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_170 = 5'h9 == _T_825 ? _T_131 : _GEN_169; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_171 = 5'ha == _T_825 ? _T_131 : _GEN_170; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_172 = 5'hb == _T_825 ? _T_131 : _GEN_171; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_173 = 5'hc == _T_825 ? _T_131 : _GEN_172; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_174 = 5'hd == _T_825 ? _T_131 : _GEN_173; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_175 = 5'he == _T_825 ? _T_131 : _GEN_174; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_176 = 5'hf == _T_825 ? _T_131 : _GEN_175; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_177 = 5'h10 == _T_825 ? _T_131 : _GEN_176; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_178 = 5'h11 == _T_825 ? _T_131 : _GEN_177; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_179 = 5'h12 == _T_825 ? _T_131 : _GEN_178; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_180 = 5'h13 == _T_825 ? _T_131 : _GEN_179; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_181 = 5'h14 == _T_825 ? _T_131 : _GEN_180; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_182 = 5'h15 == _T_825 ? _T_131 : _GEN_181; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_183 = 5'h16 == _T_825 ? _T_131 : _GEN_182; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_184 = 5'h17 == _T_825 ? _T_131 : _GEN_183; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_185 = 5'h18 == _T_825 ? _T_131 : _GEN_184; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_186 = 5'h19 == _T_825 ? _T_131 : _GEN_185; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_351 = 5'h1a == _T_825; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_187 = _GEN_351 | _GEN_186; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_352 = 5'h1b == _T_825; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_188 = _GEN_352 | _GEN_187; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_353 = 5'h1c == _T_825; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_189 = _GEN_353 | _GEN_188; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_354 = 5'h1d == _T_825; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_190 = _GEN_354 | _GEN_189; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_355 = 5'h1e == _T_825; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_191 = _GEN_355 | _GEN_190; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_356 = 5'h1f == _T_825; // @[MuxLiteral.scala 48:10]
-  wire  _GEN_192 = _GEN_356 | _GEN_191; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_0 = {{15'd0}, enable}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _T_1564_1 = {{15'd0}, reset_bit}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_194 = 5'h1 == _T_825 ? _T_1564_1 : _T_1564_0; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_2 = {{14'd0}, frameNum}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_195 = 5'h2 == _T_825 ? _T_1564_2 : _GEN_194; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_3 = {{6'd0}, _T_620}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_196 = 5'h3 == _T_825 ? _T_1564_3 : _GEN_195; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_4 = {{13'd0}, differentChirpsNum}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_197 = 5'h4 == _T_825 ? _T_1564_4 : _GEN_196; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _GEN_198 = 5'h5 == _T_825 ? startingPoint : _GEN_197; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_6 = {{14'd0}, segmentNums_0}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_199 = 5'h6 == _T_825 ? _T_1564_6 : _GEN_198; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_7 = {{14'd0}, segmentNums_1}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_200 = 5'h7 == _T_825 ? _T_1564_7 : _GEN_199; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_8 = {{14'd0}, segmentNums_2}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_201 = 5'h8 == _T_825 ? _T_1564_8 : _GEN_200; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_9 = {{14'd0}, segmentNums_3}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_202 = 5'h9 == _T_825 ? _T_1564_9 : _GEN_201; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_10 = {{13'd0}, repeatedChirpNums_0}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_203 = 5'ha == _T_825 ? _T_1564_10 : _GEN_202; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_11 = {{13'd0}, repeatedChirpNums_1}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_204 = 5'hb == _T_825 ? _T_1564_11 : _GEN_203; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_12 = {{13'd0}, repeatedChirpNums_2}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_205 = 5'hc == _T_825 ? _T_1564_12 : _GEN_204; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_13 = {{13'd0}, repeatedChirpNums_3}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_206 = 5'hd == _T_825 ? _T_1564_13 : _GEN_205; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_14 = {{13'd0}, repeatedChirpNums_4}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_207 = 5'he == _T_825 ? _T_1564_14 : _GEN_206; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_15 = {{13'd0}, repeatedChirpNums_5}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_208 = 5'hf == _T_825 ? _T_1564_15 : _GEN_207; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_16 = {{13'd0}, repeatedChirpNums_6}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_209 = 5'h10 == _T_825 ? _T_1564_16 : _GEN_208; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_17 = {{13'd0}, repeatedChirpNums_7}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_210 = 5'h11 == _T_825 ? _T_1564_17 : _GEN_209; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_18 = {{14'd0}, chirpOrdinalNums_0}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_211 = 5'h12 == _T_825 ? _T_1564_18 : _GEN_210; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_19 = {{14'd0}, chirpOrdinalNums_1}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_212 = 5'h13 == _T_825 ? _T_1564_19 : _GEN_211; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_20 = {{14'd0}, chirpOrdinalNums_2}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_213 = 5'h14 == _T_825 ? _T_1564_20 : _GEN_212; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_21 = {{14'd0}, chirpOrdinalNums_3}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_214 = 5'h15 == _T_825 ? _T_1564_21 : _GEN_213; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_22 = {{14'd0}, chirpOrdinalNums_4}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_215 = 5'h16 == _T_825 ? _T_1564_22 : _GEN_214; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_23 = {{14'd0}, chirpOrdinalNums_5}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_216 = 5'h17 == _T_825 ? _T_1564_23 : _GEN_215; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_24 = {{14'd0}, chirpOrdinalNums_6}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_217 = 5'h18 == _T_825 ? _T_1564_24 : _GEN_216; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1564_25 = {{14'd0}, chirpOrdinalNums_7}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
-  wire [15:0] _GEN_218 = 5'h19 == _T_825 ? _T_1564_25 : _GEN_217; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _GEN_219 = 5'h1a == _T_825 ? 16'h0 : _GEN_218; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _GEN_220 = 5'h1b == _T_825 ? 16'h0 : _GEN_219; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _GEN_221 = 5'h1c == _T_825 ? 16'h0 : _GEN_220; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _GEN_222 = 5'h1d == _T_825 ? 16'h0 : _GEN_221; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _GEN_223 = 5'h1e == _T_825 ? 16'h0 : _GEN_222; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _GEN_224 = 5'h1f == _T_825 ? 16'h0 : _GEN_223; // @[MuxLiteral.scala 48:10]
-  wire [15:0] _T_1566 = _GEN_192 ? _GEN_224 : 16'h0; // @[RegisterRouter.scala 59:16]
-  wire  _T_1567_bits_read = Queue_io_deq_bits_read; // @[Decoupled.scala 317:19 Decoupled.scala 318:14]
+  wire  _T_239 = _T_197[15:0] == 16'hffff; // @[RegisterRouter.scala 59:16]
+  wire  _T_1091 = _T_1064 & _T_831[5]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1092 = _T_1091 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_246 = _T_1092 & _T_239; // @[RegisterRouter.scala 59:16]
+  wire  _T_262 = _T_197[2:0] == 3'h7; // @[RegisterRouter.scala 59:16]
+  wire  _T_1116 = _T_1064 & _T_831[10]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1117 = _T_1116 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_269 = _T_1117 & _T_262; // @[RegisterRouter.scala 59:16]
+  wire  _T_285 = _T_197[1:0] == 2'h3; // @[RegisterRouter.scala 59:16]
+  wire  _T_1186 = _T_1064 & _T_831[24]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1187 = _T_1186 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_292 = _T_1187 & _T_285; // @[RegisterRouter.scala 59:16]
+  wire  _T_1191 = _T_1064 & _T_831[25]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1192 = _T_1191 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_315 = _T_1192 & _T_285; // @[RegisterRouter.scala 59:16]
+  wire  _T_1136 = _T_1064 & _T_831[14]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1137 = _T_1136 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_338 = _T_1137 & _T_262; // @[RegisterRouter.scala 59:16]
+  wire  _T_1166 = _T_1064 & _T_831[20]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1167 = _T_1166 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_361 = _T_1167 & _T_285; // @[RegisterRouter.scala 59:16]
+  wire  _T_1071 = _T_1064 & _T_831[1]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1072 = _T_1071 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_384 = _T_1072 & _T_197[0]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1096 = _T_1064 & _T_831[6]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1097 = _T_1096 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_407 = _T_1097 & _T_285; // @[RegisterRouter.scala 59:16]
+  wire  _T_1171 = _T_1064 & _T_831[21]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1172 = _T_1171 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_430 = _T_1172 & _T_285; // @[RegisterRouter.scala 59:16]
+  wire  _T_1111 = _T_1064 & _T_831[9]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1112 = _T_1111 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_453 = _T_1112 & _T_285; // @[RegisterRouter.scala 59:16]
+  wire  _T_1131 = _T_1064 & _T_831[13]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1132 = _T_1131 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_476 = _T_1132 & _T_262; // @[RegisterRouter.scala 59:16]
+  wire  _T_1076 = _T_1064 & _T_831[2]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1077 = _T_1076 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_499 = _T_1077 & _T_285; // @[RegisterRouter.scala 59:16]
+  wire  _T_1151 = _T_1064 & _T_831[17]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1152 = _T_1151 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_522 = _T_1152 & _T_262; // @[RegisterRouter.scala 59:16]
+  wire  _T_1176 = _T_1064 & _T_831[22]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1177 = _T_1176 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_545 = _T_1177 & _T_285; // @[RegisterRouter.scala 59:16]
+  wire  _T_1126 = _T_1064 & _T_831[12]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1127 = _T_1126 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_568 = _T_1127 & _T_262; // @[RegisterRouter.scala 59:16]
+  wire  _T_1101 = _T_1064 & _T_831[7]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1102 = _T_1101 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_591 = _T_1102 & _T_285; // @[RegisterRouter.scala 59:16]
+  wire  _T_607 = _T_197[9:0] == 10'h3ff; // @[RegisterRouter.scala 59:16]
+  wire  _T_1081 = _T_1064 & _T_831[3]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1082 = _T_1081 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_614 = _T_1082 & _T_607; // @[RegisterRouter.scala 59:16]
+  wire [9:0] _GEN_24 = _T_614 ? _T_2_w_bits_data[9:0] : {{2'd0}, interframeNumOfSamples}; // @[RegField.scala 134:88]
+  wire [9:0] _T_625 = {{2'd0}, interframeNumOfSamples}; // @[RegisterRouter.scala 59:16]
+  wire  _T_1156 = _T_1064 & _T_831[18]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1157 = _T_1156 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_637 = _T_1157 & _T_285; // @[RegisterRouter.scala 59:16]
+  wire  _T_1146 = _T_1064 & _T_831[16]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1147 = _T_1146 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_660 = _T_1147 & _T_262; // @[RegisterRouter.scala 59:16]
+  wire  _T_1121 = _T_1064 & _T_831[11]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1122 = _T_1121 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_683 = _T_1122 & _T_262; // @[RegisterRouter.scala 59:16]
+  wire  _T_1181 = _T_1064 & _T_831[23]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1182 = _T_1181 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_706 = _T_1182 & _T_285; // @[RegisterRouter.scala 59:16]
+  wire  _T_1106 = _T_1064 & _T_831[8]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1107 = _T_1106 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_729 = _T_1107 & _T_285; // @[RegisterRouter.scala 59:16]
+  wire  _T_1161 = _T_1064 & _T_831[19]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1162 = _T_1161 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_752 = _T_1162 & _T_285; // @[RegisterRouter.scala 59:16]
+  wire  _T_1086 = _T_1064 & _T_831[4]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1087 = _T_1086 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_775 = _T_1087 & _T_262; // @[RegisterRouter.scala 59:16]
+  wire  _T_1141 = _T_1064 & _T_831[15]; // @[RegisterRouter.scala 59:16]
+  wire  _T_1142 = _T_1141 & _T_136; // @[RegisterRouter.scala 59:16]
+  wire  _T_798 = _T_1142 & _T_262; // @[RegisterRouter.scala 59:16]
+  wire  _GEN_162 = 5'h1 == _T_830 ? _T_136 : _T_136; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_163 = 5'h2 == _T_830 ? _T_136 : _GEN_162; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_164 = 5'h3 == _T_830 ? _T_136 : _GEN_163; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_165 = 5'h4 == _T_830 ? _T_136 : _GEN_164; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_166 = 5'h5 == _T_830 ? _T_136 : _GEN_165; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_167 = 5'h6 == _T_830 ? _T_136 : _GEN_166; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_168 = 5'h7 == _T_830 ? _T_136 : _GEN_167; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_169 = 5'h8 == _T_830 ? _T_136 : _GEN_168; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_170 = 5'h9 == _T_830 ? _T_136 : _GEN_169; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_171 = 5'ha == _T_830 ? _T_136 : _GEN_170; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_172 = 5'hb == _T_830 ? _T_136 : _GEN_171; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_173 = 5'hc == _T_830 ? _T_136 : _GEN_172; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_174 = 5'hd == _T_830 ? _T_136 : _GEN_173; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_175 = 5'he == _T_830 ? _T_136 : _GEN_174; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_176 = 5'hf == _T_830 ? _T_136 : _GEN_175; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_177 = 5'h10 == _T_830 ? _T_136 : _GEN_176; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_178 = 5'h11 == _T_830 ? _T_136 : _GEN_177; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_179 = 5'h12 == _T_830 ? _T_136 : _GEN_178; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_180 = 5'h13 == _T_830 ? _T_136 : _GEN_179; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_181 = 5'h14 == _T_830 ? _T_136 : _GEN_180; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_182 = 5'h15 == _T_830 ? _T_136 : _GEN_181; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_183 = 5'h16 == _T_830 ? _T_136 : _GEN_182; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_184 = 5'h17 == _T_830 ? _T_136 : _GEN_183; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_185 = 5'h18 == _T_830 ? _T_136 : _GEN_184; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_186 = 5'h19 == _T_830 ? _T_136 : _GEN_185; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_343 = 5'h1a == _T_830; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_187 = _GEN_343 | _GEN_186; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_344 = 5'h1b == _T_830; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_188 = _GEN_344 | _GEN_187; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_345 = 5'h1c == _T_830; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_189 = _GEN_345 | _GEN_188; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_346 = 5'h1d == _T_830; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_190 = _GEN_346 | _GEN_189; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_347 = 5'h1e == _T_830; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_191 = _GEN_347 | _GEN_190; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_348 = 5'h1f == _T_830; // @[MuxLiteral.scala 48:10]
+  wire  _GEN_192 = _GEN_348 | _GEN_191; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_0 = {{15'd0}, enable}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _T_1569_1 = {{15'd0}, reset_bit}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_194 = 5'h1 == _T_830 ? _T_1569_1 : _T_1569_0; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_2 = {{14'd0}, frameNum}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_195 = 5'h2 == _T_830 ? _T_1569_2 : _GEN_194; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_3 = {{6'd0}, _T_625}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_196 = 5'h3 == _T_830 ? _T_1569_3 : _GEN_195; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_4 = {{13'd0}, differentChirpsNum}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_197 = 5'h4 == _T_830 ? _T_1569_4 : _GEN_196; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _GEN_198 = 5'h5 == _T_830 ? startingPoint : _GEN_197; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_6 = {{14'd0}, segmentNums_0}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_199 = 5'h6 == _T_830 ? _T_1569_6 : _GEN_198; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_7 = {{14'd0}, segmentNums_1}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_200 = 5'h7 == _T_830 ? _T_1569_7 : _GEN_199; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_8 = {{14'd0}, segmentNums_2}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_201 = 5'h8 == _T_830 ? _T_1569_8 : _GEN_200; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_9 = {{14'd0}, segmentNums_3}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_202 = 5'h9 == _T_830 ? _T_1569_9 : _GEN_201; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_10 = {{13'd0}, repeatedChirpNums_0}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_203 = 5'ha == _T_830 ? _T_1569_10 : _GEN_202; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_11 = {{13'd0}, repeatedChirpNums_1}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_204 = 5'hb == _T_830 ? _T_1569_11 : _GEN_203; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_12 = {{13'd0}, repeatedChirpNums_2}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_205 = 5'hc == _T_830 ? _T_1569_12 : _GEN_204; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_13 = {{13'd0}, repeatedChirpNums_3}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_206 = 5'hd == _T_830 ? _T_1569_13 : _GEN_205; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_14 = {{13'd0}, repeatedChirpNums_4}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_207 = 5'he == _T_830 ? _T_1569_14 : _GEN_206; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_15 = {{13'd0}, repeatedChirpNums_5}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_208 = 5'hf == _T_830 ? _T_1569_15 : _GEN_207; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_16 = {{13'd0}, repeatedChirpNums_6}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_209 = 5'h10 == _T_830 ? _T_1569_16 : _GEN_208; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_17 = {{13'd0}, repeatedChirpNums_7}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_210 = 5'h11 == _T_830 ? _T_1569_17 : _GEN_209; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_18 = {{14'd0}, chirpOrdinalNums_0}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_211 = 5'h12 == _T_830 ? _T_1569_18 : _GEN_210; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_19 = {{14'd0}, chirpOrdinalNums_1}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_212 = 5'h13 == _T_830 ? _T_1569_19 : _GEN_211; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_20 = {{14'd0}, chirpOrdinalNums_2}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_213 = 5'h14 == _T_830 ? _T_1569_20 : _GEN_212; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_21 = {{14'd0}, chirpOrdinalNums_3}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_214 = 5'h15 == _T_830 ? _T_1569_21 : _GEN_213; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_22 = {{14'd0}, chirpOrdinalNums_4}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_215 = 5'h16 == _T_830 ? _T_1569_22 : _GEN_214; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_23 = {{14'd0}, chirpOrdinalNums_5}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_216 = 5'h17 == _T_830 ? _T_1569_23 : _GEN_215; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_24 = {{14'd0}, chirpOrdinalNums_6}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_217 = 5'h18 == _T_830 ? _T_1569_24 : _GEN_216; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1569_25 = {{14'd0}, chirpOrdinalNums_7}; // @[MuxLiteral.scala 48:48 MuxLiteral.scala 48:48]
+  wire [15:0] _GEN_218 = 5'h19 == _T_830 ? _T_1569_25 : _GEN_217; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _GEN_219 = 5'h1a == _T_830 ? 16'h0 : _GEN_218; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _GEN_220 = 5'h1b == _T_830 ? 16'h0 : _GEN_219; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _GEN_221 = 5'h1c == _T_830 ? 16'h0 : _GEN_220; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _GEN_222 = 5'h1d == _T_830 ? 16'h0 : _GEN_221; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _GEN_223 = 5'h1e == _T_830 ? 16'h0 : _GEN_222; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _GEN_224 = 5'h1f == _T_830 ? 16'h0 : _GEN_223; // @[MuxLiteral.scala 48:10]
+  wire [15:0] _T_1571 = _GEN_192 ? _GEN_224 : 16'h0; // @[RegisterRouter.scala 59:16]
+  wire  _T_1572_bits_read = Queue_io_deq_bits_read; // @[Decoupled.scala 317:19 Decoupled.scala 318:14]
   wire  _T_2_r_ready = axi4xbar_auto_out_1_r_ready; // @[Nodes.scala 370:76 LazyModule.scala 167:31]
   wire  _T_2_b_ready = axi4xbar_auto_out_1_b_ready; // @[Nodes.scala 370:76 LazyModule.scala 167:31]
-  wire  _T_1567_valid = Queue_io_deq_valid; // @[Decoupled.scala 317:19 Decoupled.scala 319:15]
-  wire  _T_1570 = ~_T_1567_bits_read; // @[RegisterRouter.scala 65:29]
-  reg  enable2; // @[PLFGDspBlockMem.scala 218:26]
-  reg [31:0] _RAND_46;
-  reg [1:0] chirpIndexOld; // @[PLFGDspBlockMem.scala 219:32]
-  reg [31:0] _RAND_47;
-  reg  started; // @[PLFGDspBlockMem.scala 220:26]
-  reg [31:0] _RAND_48;
-  wire [1:0] _GEN_226 = 3'h1 == differentChirpsCounter ? chirpOrdinalNums_1 : chirpOrdinalNums_0; // @[PLFGDspBlockMem.scala 238:18]
-  wire [1:0] _GEN_227 = 3'h2 == differentChirpsCounter ? chirpOrdinalNums_2 : _GEN_226; // @[PLFGDspBlockMem.scala 238:18]
-  wire [1:0] _GEN_228 = 3'h3 == differentChirpsCounter ? chirpOrdinalNums_3 : _GEN_227; // @[PLFGDspBlockMem.scala 238:18]
-  wire [1:0] _GEN_229 = 3'h4 == differentChirpsCounter ? chirpOrdinalNums_4 : _GEN_228; // @[PLFGDspBlockMem.scala 238:18]
-  wire [1:0] _GEN_230 = 3'h5 == differentChirpsCounter ? chirpOrdinalNums_5 : _GEN_229; // @[PLFGDspBlockMem.scala 238:18]
-  wire [1:0] _GEN_231 = 3'h6 == differentChirpsCounter ? chirpOrdinalNums_6 : _GEN_230; // @[PLFGDspBlockMem.scala 238:18]
-  wire [1:0] _GEN_232 = 3'h7 == differentChirpsCounter ? chirpOrdinalNums_7 : _GEN_231; // @[PLFGDspBlockMem.scala 238:18]
-  wire  _T_1573 = enable & auto_stream_out_ready; // @[PLFGDspBlockMem.scala 239:19]
-  wire  _T_1574 = ~end_; // @[PLFGDspBlockMem.scala 239:35]
-  wire  _T_1575 = _T_1573 & _T_1574; // @[PLFGDspBlockMem.scala 239:32]
-  wire [7:0] _T_1577 = samplesCounter + 8'h1; // @[PLFGDspBlockMem.scala 241:30]
-  wire  _T_1578 = _T_1577 >= numsOfSamples; // @[PLFGDspBlockMem.scala 241:37]
-  wire [1:0] _T_1580 = segmentCounter + 2'h1; // @[PLFGDspBlockMem.scala 242:32]
-  wire [1:0] chirpIndex = reset_bit ? 2'h0 : _GEN_232; // @[PLFGDspBlockMem.scala 224:20]
-  wire [1:0] _GEN_234 = 2'h1 == chirpIndex ? segmentNums_1 : segmentNums_0; // @[PLFGDspBlockMem.scala 242:39]
-  wire [1:0] _GEN_235 = 2'h2 == chirpIndex ? segmentNums_2 : _GEN_234; // @[PLFGDspBlockMem.scala 242:39]
-  wire [1:0] _GEN_236 = 2'h3 == chirpIndex ? segmentNums_3 : _GEN_235; // @[PLFGDspBlockMem.scala 242:39]
-  wire  _T_1581 = _T_1580 >= _GEN_236; // @[PLFGDspBlockMem.scala 242:39]
-  wire [2:0] _T_1583 = repeatedChirpsCounter + 3'h1; // @[PLFGDspBlockMem.scala 243:41]
-  wire [2:0] _GEN_238 = 3'h1 == differentChirpsCounter ? repeatedChirpNums_1 : repeatedChirpNums_0; // @[PLFGDspBlockMem.scala 243:48]
-  wire [2:0] _GEN_239 = 3'h2 == differentChirpsCounter ? repeatedChirpNums_2 : _GEN_238; // @[PLFGDspBlockMem.scala 243:48]
-  wire [2:0] _GEN_240 = 3'h3 == differentChirpsCounter ? repeatedChirpNums_3 : _GEN_239; // @[PLFGDspBlockMem.scala 243:48]
-  wire [2:0] _GEN_241 = 3'h4 == differentChirpsCounter ? repeatedChirpNums_4 : _GEN_240; // @[PLFGDspBlockMem.scala 243:48]
-  wire [2:0] _GEN_242 = 3'h5 == differentChirpsCounter ? repeatedChirpNums_5 : _GEN_241; // @[PLFGDspBlockMem.scala 243:48]
-  wire [2:0] _GEN_243 = 3'h6 == differentChirpsCounter ? repeatedChirpNums_6 : _GEN_242; // @[PLFGDspBlockMem.scala 243:48]
-  wire [2:0] _GEN_244 = 3'h7 == differentChirpsCounter ? repeatedChirpNums_7 : _GEN_243; // @[PLFGDspBlockMem.scala 243:48]
-  wire  _T_1584 = _T_1583 >= _GEN_244; // @[PLFGDspBlockMem.scala 243:48]
-  wire [2:0] _T_1586 = differentChirpsCounter + 3'h1; // @[PLFGDspBlockMem.scala 244:44]
-  wire  _T_1587 = _T_1586 >= differentChirpsNum; // @[PLFGDspBlockMem.scala 244:51]
-  wire  _T_1590 = frameNum == 2'h0; // @[PLFGDspBlockMem.scala 245:31]
-  wire [5:0] _T_1592 = framePauseCounter + 6'h1; // @[PLFGDspBlockMem.scala 247:43]
-  wire [7:0] _GEN_357 = {{2'd0}, _T_1592}; // @[PLFGDspBlockMem.scala 247:50]
-  wire  _T_1593 = _GEN_357 >= interframeNumOfSamples; // @[PLFGDspBlockMem.scala 247:50]
-  wire [1:0] _T_1597 = frameCounter + 2'h1; // @[PLFGDspBlockMem.scala 258:38]
-  wire  _T_1598 = _T_1597 >= frameNum; // @[PLFGDspBlockMem.scala 258:45]
-  wire  _GEN_257 = _T_1598 | end_; // @[PLFGDspBlockMem.scala 258:57]
-  wire  _T_1616 = enable2 & auto_stream_out_ready; // @[PLFGDspBlockMem.scala 298:20]
-  wire  _T_1617 = ~end2; // @[PLFGDspBlockMem.scala 298:36]
-  wire  _T_1618 = _T_1616 & _T_1617; // @[PLFGDspBlockMem.scala 298:33]
-  wire [7:0] _T_1620 = samplesCounter2 + 8'h1; // @[PLFGDspBlockMem.scala 300:31]
-  wire  _T_1621 = _T_1620 >= numsOfSamples; // @[PLFGDspBlockMem.scala 300:38]
-  wire [1:0] _T_1623 = segmentCounter2 + 2'h1; // @[PLFGDspBlockMem.scala 301:34]
-  wire [1:0] _GEN_318 = 2'h1 == chirpIndexOld ? segmentNums_1 : segmentNums_0; // @[PLFGDspBlockMem.scala 301:41]
-  wire [1:0] _GEN_319 = 2'h2 == chirpIndexOld ? segmentNums_2 : _GEN_318; // @[PLFGDspBlockMem.scala 301:41]
-  wire [1:0] _GEN_320 = 2'h3 == chirpIndexOld ? segmentNums_3 : _GEN_319; // @[PLFGDspBlockMem.scala 301:41]
-  wire  _T_1626 = _T_1623 >= _GEN_320; // @[PLFGDspBlockMem.scala 301:41]
-  wire [2:0] _T_1630 = repeatedChirpsCounter2 + 3'h1; // @[PLFGDspBlockMem.scala 303:42]
-  wire  _T_1631 = _T_1630 >= _GEN_244; // @[PLFGDspBlockMem.scala 303:49]
-  wire [2:0] _T_1633 = differentChirpsCounter2 + 3'h1; // @[PLFGDspBlockMem.scala 304:45]
-  wire  _T_1634 = _T_1633 >= differentChirpsNum; // @[PLFGDspBlockMem.scala 304:52]
-  wire  _T_1640 = frameCounter2 >= frameNum; // @[PLFGDspBlockMem.scala 309:38]
-  wire  _GEN_321 = _T_1640 | end2; // @[PLFGDspBlockMem.scala 309:50]
-  wire [15:0] _T_1652 = dataFromMem[15:0]; // @[PLFGDspBlockMem.scala 326:73]
-  wire [15:0] _T_1655 = $signed(currentVal) + $signed(_T_1652); // @[FixedPointTypeClass.scala 20:58]
-  wire [15:0] _T_1660 = $signed(currentVal) - $signed(_T_1652); // @[FixedPointTypeClass.scala 30:68]
-  wire  _T_1675 = ~started; // @[PLFGDspBlockMem.scala 337:14]
-  wire  _GEN_336 = _T_1618 | started; // @[PLFGDspBlockMem.scala 298:42]
-  wire [15:0] _GEN_342 = reset_bit ? startingPoint : currentVal; // @[PLFGDspBlockMem.scala 295:20]
-  reg  _T_1679; // @[PLFGDspBlockMem.scala 345:39]
-  reg [31:0] _RAND_49;
-  wire  _T_1680 = ~_T_1679; // @[PLFGDspBlockMem.scala 345:31]
-  wire  _T_1681 = enable2 & _T_1680; // @[PLFGDspBlockMem.scala 345:28]
-  reg  lastOutReg; // @[PLFGDspBlockMem.scala 351:29]
+  wire  _T_1572_valid = Queue_io_deq_valid; // @[Decoupled.scala 317:19 Decoupled.scala 319:15]
+  wire  _T_1575 = ~_T_1572_bits_read; // @[RegisterRouter.scala 65:29]
+  reg  _T_1578; // @[PLFGDspBlockMem.scala 221:34]
   reg [31:0] _RAND_50;
-  reg  _T_1682; // @[PLFGDspBlockMem.scala 352:25]
+  reg  enable2; // @[PLFGDspBlockMem.scala 221:26]
   reg [31:0] _RAND_51;
-  wire  _T_1683 = ~_T_1682; // @[PLFGDspBlockMem.scala 352:17]
-  wire  lastOut = end_ & _T_1683; // @[PLFGDspBlockMem.scala 352:14]
-  reg  _T_1685; // @[PLFGDspBlockMem.scala 357:25]
+  reg [1:0] chirpIndexOld; // @[PLFGDspBlockMem.scala 222:32]
   reg [31:0] _RAND_52;
-  wire  _T_1686 = ~_T_1685; // @[PLFGDspBlockMem.scala 357:17]
-  wire  _T_1687 = end_ & _T_1686; // @[PLFGDspBlockMem.scala 357:14]
-  reg  _T_1688; // @[PLFGDspBlockMem.scala 359:36]
+  reg  started; // @[PLFGDspBlockMem.scala 223:26]
   reg [31:0] _RAND_53;
-  wire  _T_1689 = auto_stream_out_ready & _T_1688; // @[PLFGDspBlockMem.scala 359:26]
-  wire  _GEN_345 = _T_1689 ? 1'h0 : lastOutReg; // @[PLFGDspBlockMem.scala 359:42]
-  wire  _GEN_346 = _T_1687 | _GEN_345; // @[PLFGDspBlockMem.scala 357:31]
-  wire  _T_1691 = lastOut | lastOutReg; // @[PLFGDspBlockMem.scala 362:46]
-  wire  _T_1693 = ~reset_bit; // @[PLFGDspBlockMem.scala 365:10]
-  wire [2:0] _GEN_359 = {{1'd0}, chirpIndex}; // @[UIntTypeClass.scala 39:41]
-  wire [4:0] _T_1694 = _GEN_359 * 3'h4; // @[UIntTypeClass.scala 39:41]
-  wire [4:0] _GEN_360 = {{3'd0}, segmentCounter}; // @[PLFGDspBlockMem.scala 367:57]
-  wire [4:0] _T_1696 = _T_1694 + _GEN_360; // @[PLFGDspBlockMem.scala 367:57]
+  wire [1:0] _GEN_226 = 3'h1 == differentChirpsCounter ? chirpOrdinalNums_1 : chirpOrdinalNums_0; // @[PLFGDspBlockMem.scala 241:18]
+  wire [1:0] _GEN_227 = 3'h2 == differentChirpsCounter ? chirpOrdinalNums_2 : _GEN_226; // @[PLFGDspBlockMem.scala 241:18]
+  wire [1:0] _GEN_228 = 3'h3 == differentChirpsCounter ? chirpOrdinalNums_3 : _GEN_227; // @[PLFGDspBlockMem.scala 241:18]
+  wire [1:0] _GEN_229 = 3'h4 == differentChirpsCounter ? chirpOrdinalNums_4 : _GEN_228; // @[PLFGDspBlockMem.scala 241:18]
+  wire [1:0] _GEN_230 = 3'h5 == differentChirpsCounter ? chirpOrdinalNums_5 : _GEN_229; // @[PLFGDspBlockMem.scala 241:18]
+  wire [1:0] _GEN_231 = 3'h6 == differentChirpsCounter ? chirpOrdinalNums_6 : _GEN_230; // @[PLFGDspBlockMem.scala 241:18]
+  wire [1:0] _GEN_232 = 3'h7 == differentChirpsCounter ? chirpOrdinalNums_7 : _GEN_231; // @[PLFGDspBlockMem.scala 241:18]
+  wire  _T_1579 = enable & auto_stream_out_ready; // @[PLFGDspBlockMem.scala 242:19]
+  wire  _T_1580 = ~end_; // @[PLFGDspBlockMem.scala 242:35]
+  wire  _T_1581 = _T_1579 & _T_1580; // @[PLFGDspBlockMem.scala 242:32]
+  wire [7:0] _T_1583 = samplesCounter + 8'h1; // @[PLFGDspBlockMem.scala 244:30]
+  wire  _T_1584 = _T_1583 >= numsOfSamples; // @[PLFGDspBlockMem.scala 244:37]
+  wire [1:0] _T_1586 = segmentCounter + 2'h1; // @[PLFGDspBlockMem.scala 245:32]
+  wire [1:0] chirpIndex = reset_bit ? 2'h0 : _GEN_232; // @[PLFGDspBlockMem.scala 227:20]
+  wire [1:0] _GEN_234 = 2'h1 == chirpIndex ? segmentNums_1 : segmentNums_0; // @[PLFGDspBlockMem.scala 245:39]
+  wire [1:0] _GEN_235 = 2'h2 == chirpIndex ? segmentNums_2 : _GEN_234; // @[PLFGDspBlockMem.scala 245:39]
+  wire [1:0] _GEN_236 = 2'h3 == chirpIndex ? segmentNums_3 : _GEN_235; // @[PLFGDspBlockMem.scala 245:39]
+  wire  _T_1587 = _T_1586 >= _GEN_236; // @[PLFGDspBlockMem.scala 245:39]
+  wire [2:0] _T_1589 = repeatedChirpsCounter + 3'h1; // @[PLFGDspBlockMem.scala 246:41]
+  wire [2:0] _GEN_238 = 3'h1 == differentChirpsCounter ? repeatedChirpNums_1 : repeatedChirpNums_0; // @[PLFGDspBlockMem.scala 246:48]
+  wire [2:0] _GEN_239 = 3'h2 == differentChirpsCounter ? repeatedChirpNums_2 : _GEN_238; // @[PLFGDspBlockMem.scala 246:48]
+  wire [2:0] _GEN_240 = 3'h3 == differentChirpsCounter ? repeatedChirpNums_3 : _GEN_239; // @[PLFGDspBlockMem.scala 246:48]
+  wire [2:0] _GEN_241 = 3'h4 == differentChirpsCounter ? repeatedChirpNums_4 : _GEN_240; // @[PLFGDspBlockMem.scala 246:48]
+  wire [2:0] _GEN_242 = 3'h5 == differentChirpsCounter ? repeatedChirpNums_5 : _GEN_241; // @[PLFGDspBlockMem.scala 246:48]
+  wire [2:0] _GEN_243 = 3'h6 == differentChirpsCounter ? repeatedChirpNums_6 : _GEN_242; // @[PLFGDspBlockMem.scala 246:48]
+  wire [2:0] _GEN_244 = 3'h7 == differentChirpsCounter ? repeatedChirpNums_7 : _GEN_243; // @[PLFGDspBlockMem.scala 246:48]
+  wire  _T_1590 = _T_1589 >= _GEN_244; // @[PLFGDspBlockMem.scala 246:48]
+  wire [2:0] _T_1592 = differentChirpsCounter + 3'h1; // @[PLFGDspBlockMem.scala 247:44]
+  wire  _T_1593 = _T_1592 >= differentChirpsNum; // @[PLFGDspBlockMem.scala 247:51]
+  wire  _T_1596 = frameNum == 2'h0; // @[PLFGDspBlockMem.scala 248:31]
+  wire [5:0] _T_1598 = framePauseCounter + 6'h1; // @[PLFGDspBlockMem.scala 250:43]
+  wire [7:0] _GEN_349 = {{2'd0}, _T_1598}; // @[PLFGDspBlockMem.scala 250:50]
+  wire  _T_1599 = _GEN_349 >= interframeNumOfSamples; // @[PLFGDspBlockMem.scala 250:50]
+  wire [1:0] _T_1603 = frameCounter + 2'h1; // @[PLFGDspBlockMem.scala 261:38]
+  wire  _T_1604 = _T_1603 >= frameNum; // @[PLFGDspBlockMem.scala 261:45]
+  wire  _GEN_257 = _T_1604 | end_; // @[PLFGDspBlockMem.scala 261:57]
+  wire  _T_1622 = enable2 & auto_stream_out_ready; // @[PLFGDspBlockMem.scala 301:20]
+  wire  _T_1623 = ~end2; // @[PLFGDspBlockMem.scala 301:36]
+  wire  _T_1624 = _T_1622 & _T_1623; // @[PLFGDspBlockMem.scala 301:33]
+  wire [7:0] _T_1626 = samplesCounter2 + 8'h1; // @[PLFGDspBlockMem.scala 303:31]
+  reg [7:0] _T_1627; // @[PLFGDspBlockMem.scala 303:48]
+  reg [31:0] _RAND_54;
+  wire  _T_1628 = _T_1626 >= _T_1627; // @[PLFGDspBlockMem.scala 303:38]
+  wire [1:0] _T_1630 = segmentCounter2 + 2'h1; // @[PLFGDspBlockMem.scala 304:34]
+  wire [1:0] _GEN_318 = 2'h1 == chirpIndexOld ? segmentNums_1 : segmentNums_0; // @[PLFGDspBlockMem.scala 304:41]
+  wire [1:0] _GEN_319 = 2'h2 == chirpIndexOld ? segmentNums_2 : _GEN_318; // @[PLFGDspBlockMem.scala 304:41]
+  wire [1:0] _GEN_320 = 2'h3 == chirpIndexOld ? segmentNums_3 : _GEN_319; // @[PLFGDspBlockMem.scala 304:41]
+  wire  _T_1633 = _T_1630 >= _GEN_320; // @[PLFGDspBlockMem.scala 304:41]
+  wire [2:0] _T_1637 = repeatedChirpsCounter2 + 3'h1; // @[PLFGDspBlockMem.scala 306:42]
+  wire  _T_1638 = _T_1637 >= _GEN_244; // @[PLFGDspBlockMem.scala 306:49]
+  wire [2:0] _T_1640 = differentChirpsCounter2 + 3'h1; // @[PLFGDspBlockMem.scala 307:45]
+  wire  _T_1641 = _T_1640 >= differentChirpsNum; // @[PLFGDspBlockMem.scala 307:52]
+  wire  _T_1647 = frameCounter2 >= frameNum; // @[PLFGDspBlockMem.scala 312:38]
+  wire [15:0] _T_1659 = dataFromMem[15:0]; // @[PLFGDspBlockMem.scala 329:73]
+  wire [15:0] _T_1662 = $signed(currentVal) + $signed(_T_1659); // @[FixedPointTypeClass.scala 20:58]
+  wire [15:0] _T_1667 = $signed(currentVal) - $signed(_T_1659); // @[FixedPointTypeClass.scala 30:68]
+  wire  _T_1682 = ~started; // @[PLFGDspBlockMem.scala 340:14]
+  wire  _GEN_330 = _T_1624 | started; // @[PLFGDspBlockMem.scala 301:42]
+  wire [15:0] _GEN_334 = reset_bit ? startingPoint : currentVal; // @[PLFGDspBlockMem.scala 298:20]
+  wire  _T_1687 = enable2 & _T_1623; // @[PLFGDspBlockMem.scala 348:28]
+  reg  lastOutReg; // @[PLFGDspBlockMem.scala 354:29]
+  reg [31:0] _RAND_55;
+  reg  _T_1688; // @[PLFGDspBlockMem.scala 356:17]
+  reg [31:0] _RAND_56;
+  wire  lastOut = _T_1688 & _T_1623; // @[PLFGDspBlockMem.scala 356:23]
+  reg  _T_1691; // @[PLFGDspBlockMem.scala 361:17]
+  reg [31:0] _RAND_57;
+  wire  _T_1693 = _T_1691 & _T_1623; // @[PLFGDspBlockMem.scala 361:23]
+  wire  _T_1694 = ~auto_stream_out_ready; // @[PLFGDspBlockMem.scala 361:35]
+  wire  _T_1695 = _T_1693 & _T_1694; // @[PLFGDspBlockMem.scala 361:32]
+  wire  _T_1696 = auto_stream_out_ready & end2; // @[PLFGDspBlockMem.scala 363:26]
+  wire  _GEN_337 = _T_1696 ? 1'h0 : lastOutReg; // @[PLFGDspBlockMem.scala 363:34]
+  wire  _GEN_338 = _T_1695 | _GEN_337; // @[PLFGDspBlockMem.scala 361:46]
+  wire  _T_1697 = lastOut | lastOutReg; // @[PLFGDspBlockMem.scala 366:46]
+  wire  _T_1699 = ~reset_bit; // @[PLFGDspBlockMem.scala 381:10]
+  wire [2:0] _GEN_351 = {{1'd0}, chirpIndex}; // @[UIntTypeClass.scala 39:41]
+  wire [4:0] _T_1700 = _GEN_351 * 3'h4; // @[UIntTypeClass.scala 39:41]
+  wire [4:0] _GEN_352 = {{3'd0}, segmentCounter}; // @[PLFGDspBlockMem.scala 383:57]
+  wire [4:0] _T_1702 = _T_1700 + _GEN_352; // @[PLFGDspBlockMem.scala 383:57]
   AXI4Xbar axi4xbar ( // @[Xbar.scala 211:30]
     .clock(axi4xbar_clock),
     .reset(axi4xbar_reset),
@@ -2277,8 +2283,8 @@ module PLFGDspBlockMem(
     .io_deq_bits_data(Queue_io_deq_bits_data),
     .io_deq_bits_extra(Queue_io_deq_bits_extra)
   );
-  assign configParamsMem1__T_64_addr = configParamsMem1__T_64_addr_pipe_0;
-  assign configParamsMem1__T_64_data = configParamsMem1[configParamsMem1__T_64_addr]; // @[PLFGDspBlockMem.scala 110:39]
+  assign configParamsMem1__T_69_addr = configParamsMem1__T_69_addr_pipe_0;
+  assign configParamsMem1__T_69_data = configParamsMem1[configParamsMem1__T_69_addr]; // @[PLFGDspBlockMem.scala 112:39]
   assign configParamsMem1__T_14_data = ramIn1_w_bits_data[25:0];
   assign configParamsMem1__T_14_addr = ramIn1_aw_bits_addr[5:2];
   assign configParamsMem1__T_14_mask = 1'h1;
@@ -2292,9 +2298,9 @@ module PLFGDspBlockMem(
   assign auto_mem_in_r_bits_data = axi4xbar_auto_in_r_bits_data; // @[LazyModule.scala 173:31]
   assign auto_mem_in_r_bits_resp = axi4xbar_auto_in_r_bits_resp; // @[LazyModule.scala 173:31]
   assign auto_mem_in_r_bits_last = axi4xbar_auto_in_r_bits_last; // @[LazyModule.scala 173:31]
-  assign auto_stream_out_valid = auto_stream_out_ready ? _T_1681 : auto_stream_out_ready; // @[LazyModule.scala 173:49]
-  assign auto_stream_out_bits_data = {{16'd0}, _GEN_342}; // @[LazyModule.scala 173:49]
-  assign auto_stream_out_bits_last = auto_stream_out_ready & _T_1691; // @[LazyModule.scala 173:49]
+  assign auto_stream_out_valid = auto_stream_out_ready ? _T_1687 : auto_stream_out_ready; // @[LazyModule.scala 173:49]
+  assign auto_stream_out_bits_data = {{16'd0}, _GEN_334}; // @[LazyModule.scala 173:49]
+  assign auto_stream_out_bits_last = auto_stream_out_ready & _T_1697; // @[LazyModule.scala 173:49]
   assign axi4xbar_clock = clock;
   assign axi4xbar_reset = reset;
   assign axi4xbar_auto_in_aw_valid = auto_mem_in_aw_valid; // @[LazyModule.scala 167:57]
@@ -2310,12 +2316,12 @@ module PLFGDspBlockMem(
   assign axi4xbar_auto_in_ar_bits_addr = auto_mem_in_ar_bits_addr; // @[LazyModule.scala 167:57]
   assign axi4xbar_auto_in_ar_bits_size = auto_mem_in_ar_bits_size; // @[LazyModule.scala 167:57]
   assign axi4xbar_auto_in_r_ready = auto_mem_in_r_ready; // @[LazyModule.scala 167:57]
-  assign axi4xbar_auto_out_1_aw_ready = _T_75 & _T_2_w_valid; // @[LazyModule.scala 167:31]
-  assign axi4xbar_auto_out_1_w_ready = _T_75 & _T_2_aw_valid; // @[LazyModule.scala 167:31]
-  assign axi4xbar_auto_out_1_b_valid = _T_1567_valid & _T_1570; // @[LazyModule.scala 167:31]
+  assign axi4xbar_auto_out_1_aw_ready = _T_80 & _T_2_w_valid; // @[LazyModule.scala 167:31]
+  assign axi4xbar_auto_out_1_w_ready = _T_80 & _T_2_aw_valid; // @[LazyModule.scala 167:31]
+  assign axi4xbar_auto_out_1_b_valid = _T_1572_valid & _T_1575; // @[LazyModule.scala 167:31]
   assign axi4xbar_auto_out_1_b_bits_id = Queue_io_deq_bits_extra; // @[LazyModule.scala 167:31]
   assign axi4xbar_auto_out_1_ar_ready = Queue_io_enq_ready; // @[LazyModule.scala 167:31]
-  assign axi4xbar_auto_out_1_r_valid = _T_1567_valid & _T_1567_bits_read; // @[LazyModule.scala 167:31]
+  assign axi4xbar_auto_out_1_r_valid = _T_1572_valid & _T_1572_bits_read; // @[LazyModule.scala 167:31]
   assign axi4xbar_auto_out_1_r_bits_id = Queue_io_deq_bits_extra; // @[LazyModule.scala 167:31]
   assign axi4xbar_auto_out_1_r_bits_data = Queue_io_deq_bits_data; // @[LazyModule.scala 167:31]
   assign axi4xbar_auto_out_0_aw_ready = ramIn1_w_valid & _T_6; // @[LazyModule.scala 167:31]
@@ -2323,11 +2329,11 @@ module PLFGDspBlockMem(
   assign axi4xbar_auto_out_0_b_valid = w_full1; // @[LazyModule.scala 167:31]
   assign Queue_clock = clock;
   assign Queue_reset = reset;
-  assign Queue_io_enq_valid = _T_2_ar_valid | _T_72; // @[Decoupled.scala 297:22]
+  assign Queue_io_enq_valid = _T_2_ar_valid | _T_77; // @[Decoupled.scala 297:22]
   assign Queue_io_enq_bits_read = axi4xbar_auto_out_1_ar_valid; // @[Decoupled.scala 298:21]
-  assign Queue_io_enq_bits_data = {{16'd0}, _T_1566}; // @[Decoupled.scala 298:21]
+  assign Queue_io_enq_bits_data = {{16'd0}, _T_1571}; // @[Decoupled.scala 298:21]
   assign Queue_io_enq_bits_extra = _T_2_ar_valid ? _T_2_ar_bits_id : _T_2_aw_bits_id; // @[Decoupled.scala 298:21]
-  assign Queue_io_deq_ready = _T_1567_bits_read ? _T_2_r_ready : _T_2_b_ready; // @[Decoupled.scala 320:15]
+  assign Queue_io_deq_ready = _T_1572_bits_read ? _T_2_r_ready : _T_2_b_ready; // @[Decoupled.scala 320:15]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -2366,11 +2372,11 @@ initial begin
   `endif // RANDOMIZE_MEM_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_1 = {1{`RANDOM}};
-  configParamsMem1__T_64_en_pipe_0 = _RAND_1[0:0];
+  configParamsMem1__T_69_en_pipe_0 = _RAND_1[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_2 = {1{`RANDOM}};
-  configParamsMem1__T_64_addr_pipe_0 = _RAND_2[3:0];
+  configParamsMem1__T_69_addr_pipe_0 = _RAND_2[3:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_3 = {1{`RANDOM}};
@@ -2426,172 +2432,188 @@ initial begin
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_16 = {1{`RANDOM}};
-  samplesCounter2 = _RAND_16[7:0];
+  _T_19 = _RAND_16[7:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_17 = {1{`RANDOM}};
-  segmentCounter2 = _RAND_17[1:0];
+  samplesCounter2 = _RAND_17[7:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_18 = {1{`RANDOM}};
-  frameCounter2 = _RAND_18[1:0];
+  _T_20 = _RAND_18[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_19 = {1{`RANDOM}};
-  end2 = _RAND_19[0:0];
+  segmentCounter2 = _RAND_19[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_20 = {1{`RANDOM}};
-  repeatedChirpsCounter = _RAND_20[2:0];
+  _T_21 = _RAND_20[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_21 = {1{`RANDOM}};
-  differentChirpsCounter = _RAND_21[2:0];
+  frameCounter2 = _RAND_21[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_22 = {1{`RANDOM}};
-  _T_19 = _RAND_22[2:0];
+  _T_23 = _RAND_22[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_23 = {1{`RANDOM}};
-  repeatedChirpsCounter2 = _RAND_23[2:0];
+  end2 = _RAND_23[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_24 = {1{`RANDOM}};
-  _T_20 = _RAND_24[2:0];
+  repeatedChirpsCounter = _RAND_24[2:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_25 = {1{`RANDOM}};
-  differentChirpsCounter2 = _RAND_25[2:0];
+  differentChirpsCounter = _RAND_25[2:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_26 = {1{`RANDOM}};
-  segmentNums_0 = _RAND_26[1:0];
+  _T_24 = _RAND_26[2:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_27 = {1{`RANDOM}};
-  segmentNums_1 = _RAND_27[1:0];
+  repeatedChirpsCounter2 = _RAND_27[2:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_28 = {1{`RANDOM}};
-  segmentNums_2 = _RAND_28[1:0];
+  _T_25 = _RAND_28[2:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_29 = {1{`RANDOM}};
-  segmentNums_3 = _RAND_29[1:0];
+  differentChirpsCounter2 = _RAND_29[2:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_30 = {1{`RANDOM}};
-  repeatedChirpNums_0 = _RAND_30[2:0];
+  segmentNums_0 = _RAND_30[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_31 = {1{`RANDOM}};
-  repeatedChirpNums_1 = _RAND_31[2:0];
+  segmentNums_1 = _RAND_31[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_32 = {1{`RANDOM}};
-  repeatedChirpNums_2 = _RAND_32[2:0];
+  segmentNums_2 = _RAND_32[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_33 = {1{`RANDOM}};
-  repeatedChirpNums_3 = _RAND_33[2:0];
+  segmentNums_3 = _RAND_33[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_34 = {1{`RANDOM}};
-  repeatedChirpNums_4 = _RAND_34[2:0];
+  repeatedChirpNums_0 = _RAND_34[2:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_35 = {1{`RANDOM}};
-  repeatedChirpNums_5 = _RAND_35[2:0];
+  repeatedChirpNums_1 = _RAND_35[2:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_36 = {1{`RANDOM}};
-  repeatedChirpNums_6 = _RAND_36[2:0];
+  repeatedChirpNums_2 = _RAND_36[2:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_37 = {1{`RANDOM}};
-  repeatedChirpNums_7 = _RAND_37[2:0];
+  repeatedChirpNums_3 = _RAND_37[2:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_38 = {1{`RANDOM}};
-  chirpOrdinalNums_0 = _RAND_38[1:0];
+  repeatedChirpNums_4 = _RAND_38[2:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_39 = {1{`RANDOM}};
-  chirpOrdinalNums_1 = _RAND_39[1:0];
+  repeatedChirpNums_5 = _RAND_39[2:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_40 = {1{`RANDOM}};
-  chirpOrdinalNums_2 = _RAND_40[1:0];
+  repeatedChirpNums_6 = _RAND_40[2:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_41 = {1{`RANDOM}};
-  chirpOrdinalNums_3 = _RAND_41[1:0];
+  repeatedChirpNums_7 = _RAND_41[2:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_42 = {1{`RANDOM}};
-  chirpOrdinalNums_4 = _RAND_42[1:0];
+  chirpOrdinalNums_0 = _RAND_42[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_43 = {1{`RANDOM}};
-  chirpOrdinalNums_5 = _RAND_43[1:0];
+  chirpOrdinalNums_1 = _RAND_43[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_44 = {1{`RANDOM}};
-  chirpOrdinalNums_6 = _RAND_44[1:0];
+  chirpOrdinalNums_2 = _RAND_44[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_45 = {1{`RANDOM}};
-  chirpOrdinalNums_7 = _RAND_45[1:0];
+  chirpOrdinalNums_3 = _RAND_45[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_46 = {1{`RANDOM}};
-  enable2 = _RAND_46[0:0];
+  chirpOrdinalNums_4 = _RAND_46[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_47 = {1{`RANDOM}};
-  chirpIndexOld = _RAND_47[1:0];
+  chirpOrdinalNums_5 = _RAND_47[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_48 = {1{`RANDOM}};
-  started = _RAND_48[0:0];
+  chirpOrdinalNums_6 = _RAND_48[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_49 = {1{`RANDOM}};
-  _T_1679 = _RAND_49[0:0];
+  chirpOrdinalNums_7 = _RAND_49[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_50 = {1{`RANDOM}};
-  lastOutReg = _RAND_50[0:0];
+  _T_1578 = _RAND_50[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_51 = {1{`RANDOM}};
-  _T_1682 = _RAND_51[0:0];
+  enable2 = _RAND_51[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_52 = {1{`RANDOM}};
-  _T_1685 = _RAND_52[0:0];
+  chirpIndexOld = _RAND_52[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_53 = {1{`RANDOM}};
-  _T_1688 = _RAND_53[0:0];
+  started = _RAND_53[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_54 = {1{`RANDOM}};
+  _T_1627 = _RAND_54[7:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_55 = {1{`RANDOM}};
+  lastOutReg = _RAND_55[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_56 = {1{`RANDOM}};
+  _T_1688 = _RAND_56[0:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_57 = {1{`RANDOM}};
+  _T_1691 = _RAND_57[0:0];
   `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
 `endif // SYNTHESIS
   always @(posedge clock) begin
     if(configParamsMem1__T_14_en & configParamsMem1__T_14_mask) begin
-      configParamsMem1[configParamsMem1__T_14_addr] <= configParamsMem1__T_14_data; // @[PLFGDspBlockMem.scala 110:39]
+      configParamsMem1[configParamsMem1__T_14_addr] <= configParamsMem1__T_14_data; // @[PLFGDspBlockMem.scala 112:39]
     end
-    configParamsMem1__T_64_en_pipe_0 <= 1'h1;
-    if (_T_1693) begin
+    configParamsMem1__T_69_en_pipe_0 <= 1'h1;
+    if (_T_1699) begin
       if (enable) begin
-        configParamsMem1__T_64_addr_pipe_0 <= _T_1696[3:0];
+        configParamsMem1__T_69_addr_pipe_0 <= _T_1702[3:0];
       end else begin
-        configParamsMem1__T_64_addr_pipe_0 <= 4'h0;
+        configParamsMem1__T_69_addr_pipe_0 <= 4'h0;
       end
     end else begin
-      configParamsMem1__T_64_addr_pipe_0 <= 4'h0;
+      configParamsMem1__T_69_addr_pipe_0 <= 4'h0;
     end
     if (reset) begin
       w_full1 <= 1'h0;
@@ -2600,22 +2622,22 @@ end // initial
     end
     if (reset) begin
       enable <= 1'h0;
-    end else if (_T_218) begin
+    end else if (_T_223) begin
       enable <= _T_2_w_bits_data[0];
     end
     if (reset) begin
       reset_bit <= 1'h0;
-    end else if (_T_379) begin
+    end else if (_T_384) begin
       reset_bit <= _T_2_w_bits_data[0];
     end
     if (reset) begin
       frameNum <= 2'h1;
-    end else if (_T_494) begin
+    end else if (_T_499) begin
       frameNum <= _T_2_w_bits_data[1:0];
     end
     if (reset) begin
       startingPoint <= 16'h0;
-    end else if (_T_241) begin
+    end else if (_T_246) begin
       startingPoint <= _T_2_w_bits_data[15:0];
     end
     if (reset) begin
@@ -2625,21 +2647,21 @@ end // initial
     end
     if (reset) begin
       differentChirpsNum <= 3'h1;
-    end else if (_T_770) begin
+    end else if (_T_775) begin
       differentChirpsNum <= _T_2_w_bits_data[2:0];
     end
     if (reset) begin
       currentVal <= startingPoint;
     end else if (reset_bit) begin
       currentVal <= startingPoint;
-    end else if (_T_1618) begin
-      if (_T_1621) begin
-        if (_T_1626) begin
-          if (_T_1631) begin
-            if (_T_1634) begin
-              if (_T_1590) begin
+    end else if (_T_1624) begin
+      if (_T_1628) begin
+        if (_T_1633) begin
+          if (_T_1638) begin
+            if (_T_1641) begin
+              if (_T_1596) begin
                 currentVal <= startingPoint;
-              end else if (_T_1640) begin
+              end else if (_T_1647) begin
                 currentVal <= startingPoint;
               end else begin
                 currentVal <= startingPoint;
@@ -2653,35 +2675,35 @@ end // initial
         end else if (segmentResets) begin
           currentVal <= startingPoint;
         end else if (slopeSigns) begin
-          currentVal <= _T_1655;
+          currentVal <= _T_1662;
         end else begin
-          currentVal <= _T_1660;
+          currentVal <= _T_1667;
         end
       end else if (segmentResets) begin
         currentVal <= startingPoint;
       end else if (slopeSigns) begin
-        currentVal <= _T_1655;
+        currentVal <= _T_1662;
       end else begin
-        currentVal <= _T_1660;
+        currentVal <= _T_1667;
       end
-    end else if (_T_1675) begin
+    end else if (_T_1682) begin
       currentVal <= startingPoint;
     end
     if (reset) begin
       samplesCounter <= 8'h0;
     end else if (reset_bit) begin
       samplesCounter <= 8'h0;
-    end else if (_T_1575) begin
-      if (_T_1578) begin
-        if (_T_1581) begin
-          if (_T_1584) begin
-            if (_T_1587) begin
-              if (_T_1590) begin
-                if (_T_1593) begin
+    end else if (_T_1581) begin
+      if (_T_1584) begin
+        if (_T_1587) begin
+          if (_T_1590) begin
+            if (_T_1593) begin
+              if (_T_1596) begin
+                if (_T_1599) begin
                   samplesCounter <= 8'h0;
                 end
-              end else if (!(_T_1598)) begin
-                if (_T_1593) begin
+              end else if (!(_T_1604)) begin
+                if (_T_1599) begin
                   samplesCounter <= 8'h0;
                 end
               end
@@ -2695,24 +2717,24 @@ end // initial
           samplesCounter <= 8'h0;
         end
       end else begin
-        samplesCounter <= _T_1577;
+        samplesCounter <= _T_1583;
       end
     end
     if (reset) begin
       segmentCounter <= 2'h0;
     end else if (reset_bit) begin
       segmentCounter <= 2'h0;
-    end else if (_T_1575) begin
-      if (_T_1578) begin
-        if (_T_1581) begin
-          if (_T_1584) begin
-            if (_T_1587) begin
-              if (_T_1590) begin
-                if (_T_1593) begin
+    end else if (_T_1581) begin
+      if (_T_1584) begin
+        if (_T_1587) begin
+          if (_T_1590) begin
+            if (_T_1593) begin
+              if (_T_1596) begin
+                if (_T_1599) begin
                   segmentCounter <= 2'h0;
                 end
-              end else if (!(_T_1598)) begin
-                if (_T_1593) begin
+              end else if (!(_T_1604)) begin
+                if (_T_1599) begin
                   segmentCounter <= 2'h0;
                 end
               end
@@ -2723,7 +2745,7 @@ end // initial
             segmentCounter <= 2'h0;
           end
         end else begin
-          segmentCounter <= _T_1580;
+          segmentCounter <= _T_1586;
         end
       end
     end
@@ -2731,18 +2753,18 @@ end // initial
       frameCounter <= 2'h0;
     end else if (reset_bit) begin
       frameCounter <= 2'h0;
-    end else if (_T_1575) begin
-      if (_T_1578) begin
-        if (_T_1581) begin
-          if (_T_1584) begin
-            if (_T_1587) begin
-              if (_T_1590) begin
-                if (_T_1593) begin
+    end else if (_T_1581) begin
+      if (_T_1584) begin
+        if (_T_1587) begin
+          if (_T_1590) begin
+            if (_T_1593) begin
+              if (_T_1596) begin
+                if (_T_1599) begin
                   frameCounter <= 2'h0;
                 end
-              end else if (!(_T_1598)) begin
-                if (_T_1593) begin
-                  frameCounter <= _T_1597;
+              end else if (!(_T_1604)) begin
+                if (_T_1599) begin
+                  frameCounter <= _T_1603;
                 end
               end
             end
@@ -2754,22 +2776,22 @@ end // initial
       framePauseCounter <= 6'h0;
     end else if (reset_bit) begin
       framePauseCounter <= 6'h0;
-    end else if (_T_1575) begin
-      if (_T_1578) begin
-        if (_T_1581) begin
-          if (_T_1584) begin
-            if (_T_1587) begin
-              if (_T_1590) begin
-                if (_T_1593) begin
+    end else if (_T_1581) begin
+      if (_T_1584) begin
+        if (_T_1587) begin
+          if (_T_1590) begin
+            if (_T_1593) begin
+              if (_T_1596) begin
+                if (_T_1599) begin
                   framePauseCounter <= 6'h0;
                 end else begin
-                  framePauseCounter <= _T_1592;
+                  framePauseCounter <= _T_1598;
                 end
-              end else if (!(_T_1598)) begin
-                if (_T_1593) begin
+              end else if (!(_T_1604)) begin
+                if (_T_1599) begin
                   framePauseCounter <= 6'h0;
                 end else begin
-                  framePauseCounter <= _T_1592;
+                  framePauseCounter <= _T_1598;
                 end
               end
             end
@@ -2780,12 +2802,12 @@ end // initial
     if (reset) begin
       end_ <= 1'h0;
     end else if (!(reset_bit)) begin
-      if (_T_1575) begin
-        if (_T_1578) begin
-          if (_T_1581) begin
-            if (_T_1584) begin
-              if (_T_1587) begin
-                if (_T_1590) begin
+      if (_T_1581) begin
+        if (_T_1584) begin
+          if (_T_1587) begin
+            if (_T_1590) begin
+              if (_T_1593) begin
+                if (_T_1596) begin
                   end_ <= 1'h0;
                 end else begin
                   end_ <= _GEN_257;
@@ -2796,43 +2818,61 @@ end // initial
         end
       end
     end
-    samplesCounter2 <= samplesCounter;
-    segmentCounter2 <= segmentCounter;
-    frameCounter2 <= frameCounter;
+    if (reset) begin
+      _T_19 <= 8'h0;
+    end else begin
+      _T_19 <= samplesCounter;
+    end
+    if (reset) begin
+      samplesCounter2 <= 8'h0;
+    end else begin
+      samplesCounter2 <= _T_19;
+    end
+    if (reset) begin
+      _T_20 <= 2'h0;
+    end else begin
+      _T_20 <= segmentCounter;
+    end
+    if (reset) begin
+      segmentCounter2 <= 2'h0;
+    end else begin
+      segmentCounter2 <= _T_20;
+    end
+    if (reset) begin
+      _T_21 <= 2'h0;
+    end else begin
+      _T_21 <= frameCounter;
+    end
+    if (reset) begin
+      frameCounter2 <= 2'h0;
+    end else begin
+      frameCounter2 <= _T_21;
+    end
+    if (reset) begin
+      _T_23 <= 1'h0;
+    end else begin
+      _T_23 <= end_;
+    end
     if (reset) begin
       end2 <= 1'h0;
-    end else if (!(reset_bit)) begin
-      if (_T_1618) begin
-        if (_T_1621) begin
-          if (_T_1626) begin
-            if (_T_1631) begin
-              if (_T_1634) begin
-                if (_T_1590) begin
-                  end2 <= 1'h0;
-                end else begin
-                  end2 <= _GEN_321;
-                end
-              end
-            end
-          end
-        end
-      end
+    end else begin
+      end2 <= _T_23;
     end
     if (reset) begin
       repeatedChirpsCounter <= 3'h0;
     end else if (reset_bit) begin
       repeatedChirpsCounter <= 3'h0;
-    end else if (_T_1575) begin
-      if (_T_1578) begin
-        if (_T_1581) begin
-          if (_T_1584) begin
-            if (_T_1587) begin
-              if (_T_1590) begin
-                if (_T_1593) begin
+    end else if (_T_1581) begin
+      if (_T_1584) begin
+        if (_T_1587) begin
+          if (_T_1590) begin
+            if (_T_1593) begin
+              if (_T_1596) begin
+                if (_T_1599) begin
                   repeatedChirpsCounter <= 3'h0;
                 end
-              end else if (!(_T_1598)) begin
-                if (_T_1593) begin
+              end else if (!(_T_1604)) begin
+                if (_T_1599) begin
                   repeatedChirpsCounter <= 3'h0;
                 end
               end
@@ -2840,7 +2880,7 @@ end // initial
               repeatedChirpsCounter <= 3'h0;
             end
           end else begin
-            repeatedChirpsCounter <= _T_1583;
+            repeatedChirpsCounter <= _T_1589;
           end
         end
       end
@@ -2849,132 +2889,141 @@ end // initial
       differentChirpsCounter <= 3'h0;
     end else if (reset_bit) begin
       differentChirpsCounter <= 3'h0;
-    end else if (_T_1575) begin
-      if (_T_1578) begin
-        if (_T_1581) begin
-          if (_T_1584) begin
-            if (_T_1587) begin
-              if (_T_1590) begin
-                if (_T_1593) begin
+    end else if (_T_1581) begin
+      if (_T_1584) begin
+        if (_T_1587) begin
+          if (_T_1590) begin
+            if (_T_1593) begin
+              if (_T_1596) begin
+                if (_T_1599) begin
                   differentChirpsCounter <= 3'h0;
                 end
-              end else if (!(_T_1598)) begin
-                if (_T_1593) begin
+              end else if (!(_T_1604)) begin
+                if (_T_1599) begin
                   differentChirpsCounter <= 3'h0;
                 end
               end
             end else begin
-              differentChirpsCounter <= _T_1586;
+              differentChirpsCounter <= _T_1592;
             end
           end
         end
       end
     end
-    _T_19 <= repeatedChirpsCounter;
-    repeatedChirpsCounter2 <= _T_19;
-    _T_20 <= differentChirpsCounter;
-    differentChirpsCounter2 <= _T_20;
+    _T_24 <= repeatedChirpsCounter;
+    repeatedChirpsCounter2 <= _T_24;
+    _T_25 <= differentChirpsCounter;
+    differentChirpsCounter2 <= _T_25;
     if (reset) begin
       segmentNums_0 <= 2'h0;
-    end else if (_T_402) begin
+    end else if (_T_407) begin
       segmentNums_0 <= _T_2_w_bits_data[1:0];
     end
     if (reset) begin
       segmentNums_1 <= 2'h0;
-    end else if (_T_586) begin
+    end else if (_T_591) begin
       segmentNums_1 <= _T_2_w_bits_data[1:0];
     end
     if (reset) begin
       segmentNums_2 <= 2'h0;
-    end else if (_T_724) begin
+    end else if (_T_729) begin
       segmentNums_2 <= _T_2_w_bits_data[1:0];
     end
     if (reset) begin
       segmentNums_3 <= 2'h0;
-    end else if (_T_448) begin
+    end else if (_T_453) begin
       segmentNums_3 <= _T_2_w_bits_data[1:0];
     end
     if (reset) begin
       repeatedChirpNums_0 <= 3'h0;
-    end else if (_T_264) begin
+    end else if (_T_269) begin
       repeatedChirpNums_0 <= _T_2_w_bits_data[2:0];
     end
     if (reset) begin
       repeatedChirpNums_1 <= 3'h0;
-    end else if (_T_678) begin
+    end else if (_T_683) begin
       repeatedChirpNums_1 <= _T_2_w_bits_data[2:0];
     end
     if (reset) begin
       repeatedChirpNums_2 <= 3'h0;
-    end else if (_T_563) begin
+    end else if (_T_568) begin
       repeatedChirpNums_2 <= _T_2_w_bits_data[2:0];
     end
     if (reset) begin
       repeatedChirpNums_3 <= 3'h0;
-    end else if (_T_471) begin
+    end else if (_T_476) begin
       repeatedChirpNums_3 <= _T_2_w_bits_data[2:0];
     end
     if (reset) begin
       repeatedChirpNums_4 <= 3'h0;
-    end else if (_T_333) begin
+    end else if (_T_338) begin
       repeatedChirpNums_4 <= _T_2_w_bits_data[2:0];
     end
     if (reset) begin
       repeatedChirpNums_5 <= 3'h0;
-    end else if (_T_793) begin
+    end else if (_T_798) begin
       repeatedChirpNums_5 <= _T_2_w_bits_data[2:0];
     end
     if (reset) begin
       repeatedChirpNums_6 <= 3'h0;
-    end else if (_T_655) begin
+    end else if (_T_660) begin
       repeatedChirpNums_6 <= _T_2_w_bits_data[2:0];
     end
     if (reset) begin
       repeatedChirpNums_7 <= 3'h0;
-    end else if (_T_517) begin
+    end else if (_T_522) begin
       repeatedChirpNums_7 <= _T_2_w_bits_data[2:0];
     end
     if (reset) begin
       chirpOrdinalNums_0 <= 2'h0;
-    end else if (_T_632) begin
+    end else if (_T_637) begin
       chirpOrdinalNums_0 <= _T_2_w_bits_data[1:0];
     end
     if (reset) begin
       chirpOrdinalNums_1 <= 2'h0;
-    end else if (_T_747) begin
+    end else if (_T_752) begin
       chirpOrdinalNums_1 <= _T_2_w_bits_data[1:0];
     end
     if (reset) begin
       chirpOrdinalNums_2 <= 2'h0;
-    end else if (_T_356) begin
+    end else if (_T_361) begin
       chirpOrdinalNums_2 <= _T_2_w_bits_data[1:0];
     end
     if (reset) begin
       chirpOrdinalNums_3 <= 2'h0;
-    end else if (_T_425) begin
+    end else if (_T_430) begin
       chirpOrdinalNums_3 <= _T_2_w_bits_data[1:0];
     end
     if (reset) begin
       chirpOrdinalNums_4 <= 2'h0;
-    end else if (_T_540) begin
+    end else if (_T_545) begin
       chirpOrdinalNums_4 <= _T_2_w_bits_data[1:0];
     end
     if (reset) begin
       chirpOrdinalNums_5 <= 2'h0;
-    end else if (_T_701) begin
+    end else if (_T_706) begin
       chirpOrdinalNums_5 <= _T_2_w_bits_data[1:0];
     end
     if (reset) begin
       chirpOrdinalNums_6 <= 2'h0;
-    end else if (_T_287) begin
+    end else if (_T_292) begin
       chirpOrdinalNums_6 <= _T_2_w_bits_data[1:0];
     end
     if (reset) begin
       chirpOrdinalNums_7 <= 2'h0;
-    end else if (_T_310) begin
+    end else if (_T_315) begin
       chirpOrdinalNums_7 <= _T_2_w_bits_data[1:0];
     end
-    enable2 <= enable;
+    if (reset) begin
+      _T_1578 <= 1'h0;
+    end else begin
+      _T_1578 <= enable;
+    end
+    if (reset) begin
+      enable2 <= 1'h0;
+    end else begin
+      enable2 <= _T_1578;
+    end
     if (reset_bit) begin
       chirpIndexOld <= 2'h0;
     end else if (3'h7 == differentChirpsCounter) begin
@@ -2997,17 +3046,22 @@ end // initial
     if (reset) begin
       started <= 1'h0;
     end else if (!(reset_bit)) begin
-      started <= _GEN_336;
+      started <= _GEN_330;
     end
-    _T_1679 <= end_;
+    if (reset) begin
+      _T_1627 <= 8'h0;
+    end else if (_T_71) begin
+      _T_1627 <= dataFromMem[23:16];
+    end else begin
+      _T_1627 <= _T_75;
+    end
     if (reset) begin
       lastOutReg <= 1'h0;
     end else begin
-      lastOutReg <= _GEN_346;
+      lastOutReg <= _GEN_338;
     end
-    _T_1682 <= end_;
-    _T_1685 <= end_;
     _T_1688 <= end_;
+    _T_1691 <= end_;
   end
 endmodule
 module AXI4Splitter_1(
@@ -3621,10 +3675,10 @@ module NCOTableStandardMode(
   output [15:0] io_sinOut,
   output [15:0] io_cosOut
 );
-  wire [1:0] msbs = io_phase[8:7]; // @[NCOTable.scala 123:15]
-  wire [6:0] addr = io_phase[6:0]; // @[NCOTable.scala 131:15]
+  wire [1:0] msbs = io_phase[8:7]; // @[NCOTable.scala 125:15]
+  wire [6:0] addr = io_phase[6:0]; // @[NCOTable.scala 133:15]
   wire  _T_24 = 2'h0 == msbs; // @[Conditional.scala 37:30]
-  wire [6:0] _T_26 = 7'h0 - addr; // @[NCOTable.scala 173:9]
+  wire [6:0] _T_26 = 7'h0 - addr; // @[NCOTable.scala 175:9]
   wire  _T_33 = 2'h1 == msbs; // @[Conditional.scala 37:30]
   wire  _T_42 = 2'h2 == msbs; // @[Conditional.scala 37:30]
   wire  _T_51 = 2'h3 == msbs; // @[Conditional.scala 37:30]
@@ -3632,15 +3686,15 @@ module NCOTableStandardMode(
   wire [6:0] _GEN_7 = _T_42 ? _T_26 : _GEN_1; // @[Conditional.scala 39:67]
   wire [6:0] _GEN_15 = _T_33 ? addr : _GEN_7; // @[Conditional.scala 39:67]
   wire [6:0] cosAddr = _T_24 ? _T_26 : _GEN_15; // @[Conditional.scala 40:58]
-  wire  _T_27 = cosAddr == 7'h0; // @[NCOTable.scala 199:27]
-  wire  _T_28 = addr == 7'h0; // @[NCOTable.scala 199:43]
-  wire  _T_29 = _T_27 & _T_28; // @[NCOTable.scala 199:35]
+  wire  _T_27 = cosAddr == 7'h0; // @[NCOTable.scala 201:27]
+  wire  _T_28 = addr == 7'h0; // @[NCOTable.scala 201:43]
+  wire  _T_29 = _T_27 & _T_28; // @[NCOTable.scala 201:35]
   wire [6:0] _GEN_0 = _T_51 ? _T_26 : 7'h0; // @[Conditional.scala 39:67]
   wire [6:0] _GEN_6 = _T_42 ? addr : _GEN_0; // @[Conditional.scala 39:67]
   wire [6:0] _GEN_14 = _T_33 ? _T_26 : _GEN_6; // @[Conditional.scala 39:67]
   wire [6:0] sinAddr = _T_24 ? addr : _GEN_14; // @[Conditional.scala 40:58]
-  wire  _T_36 = sinAddr == 7'h0; // @[NCOTable.scala 209:27]
-  wire  _T_38 = _T_36 & _T_28; // @[NCOTable.scala 209:35]
+  wire  _T_36 = sinAddr == 7'h0; // @[NCOTable.scala 211:27]
+  wire  _T_38 = _T_36 & _T_28; // @[NCOTable.scala 211:35]
   wire  _GEN_4 = _T_51 & _T_38; // @[Conditional.scala 39:67]
   wire  _GEN_8 = _T_42 | _T_51; // @[Conditional.scala 39:67]
   wire  _GEN_10 = _T_42 & _T_29; // @[Conditional.scala 39:67]
@@ -3653,398 +3707,283 @@ module NCOTableStandardMode(
   wire  cosNegative2 = _T_24 ? 1'h0 : _GEN_17; // @[Conditional.scala 40:58]
   wire  _GEN_26 = _T_24 ? _T_29 : _GEN_20; // @[Conditional.scala 40:58]
   wire  _GEN_28 = _T_24 ? 1'h0 : _GEN_18; // @[Conditional.scala 40:58]
-  wire [15:0] _GEN_31 = 7'h1 == sinAddr ? $signed(16'shc9) : $signed(16'sh0); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_32 = 7'h2 == sinAddr ? $signed(16'sh192) : $signed(_GEN_31); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_33 = 7'h3 == sinAddr ? $signed(16'sh25b) : $signed(_GEN_32); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_34 = 7'h4 == sinAddr ? $signed(16'sh324) : $signed(_GEN_33); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_35 = 7'h5 == sinAddr ? $signed(16'sh3ed) : $signed(_GEN_34); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_36 = 7'h6 == sinAddr ? $signed(16'sh4b5) : $signed(_GEN_35); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_37 = 7'h7 == sinAddr ? $signed(16'sh57e) : $signed(_GEN_36); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_38 = 7'h8 == sinAddr ? $signed(16'sh646) : $signed(_GEN_37); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_39 = 7'h9 == sinAddr ? $signed(16'sh70e) : $signed(_GEN_38); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_40 = 7'ha == sinAddr ? $signed(16'sh7d6) : $signed(_GEN_39); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_41 = 7'hb == sinAddr ? $signed(16'sh89d) : $signed(_GEN_40); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_42 = 7'hc == sinAddr ? $signed(16'sh964) : $signed(_GEN_41); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_43 = 7'hd == sinAddr ? $signed(16'sha2b) : $signed(_GEN_42); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_44 = 7'he == sinAddr ? $signed(16'shaf1) : $signed(_GEN_43); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_45 = 7'hf == sinAddr ? $signed(16'shbb7) : $signed(_GEN_44); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_46 = 7'h10 == sinAddr ? $signed(16'shc7c) : $signed(_GEN_45); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_47 = 7'h11 == sinAddr ? $signed(16'shd41) : $signed(_GEN_46); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_48 = 7'h12 == sinAddr ? $signed(16'she06) : $signed(_GEN_47); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_49 = 7'h13 == sinAddr ? $signed(16'sheca) : $signed(_GEN_48); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_50 = 7'h14 == sinAddr ? $signed(16'shf8d) : $signed(_GEN_49); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_51 = 7'h15 == sinAddr ? $signed(16'sh1050) : $signed(_GEN_50); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_52 = 7'h16 == sinAddr ? $signed(16'sh1112) : $signed(_GEN_51); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_53 = 7'h17 == sinAddr ? $signed(16'sh11d3) : $signed(_GEN_52); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_54 = 7'h18 == sinAddr ? $signed(16'sh1294) : $signed(_GEN_53); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_55 = 7'h19 == sinAddr ? $signed(16'sh1354) : $signed(_GEN_54); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_56 = 7'h1a == sinAddr ? $signed(16'sh1413) : $signed(_GEN_55); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_57 = 7'h1b == sinAddr ? $signed(16'sh14d2) : $signed(_GEN_56); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_58 = 7'h1c == sinAddr ? $signed(16'sh1590) : $signed(_GEN_57); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_59 = 7'h1d == sinAddr ? $signed(16'sh164c) : $signed(_GEN_58); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_60 = 7'h1e == sinAddr ? $signed(16'sh1709) : $signed(_GEN_59); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_61 = 7'h1f == sinAddr ? $signed(16'sh17c4) : $signed(_GEN_60); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_62 = 7'h20 == sinAddr ? $signed(16'sh187e) : $signed(_GEN_61); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_63 = 7'h21 == sinAddr ? $signed(16'sh1937) : $signed(_GEN_62); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_64 = 7'h22 == sinAddr ? $signed(16'sh19ef) : $signed(_GEN_63); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_65 = 7'h23 == sinAddr ? $signed(16'sh1aa7) : $signed(_GEN_64); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_66 = 7'h24 == sinAddr ? $signed(16'sh1b5d) : $signed(_GEN_65); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_67 = 7'h25 == sinAddr ? $signed(16'sh1c12) : $signed(_GEN_66); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_68 = 7'h26 == sinAddr ? $signed(16'sh1cc6) : $signed(_GEN_67); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_69 = 7'h27 == sinAddr ? $signed(16'sh1d79) : $signed(_GEN_68); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_70 = 7'h28 == sinAddr ? $signed(16'sh1e2b) : $signed(_GEN_69); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_71 = 7'h29 == sinAddr ? $signed(16'sh1edc) : $signed(_GEN_70); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_72 = 7'h2a == sinAddr ? $signed(16'sh1f8c) : $signed(_GEN_71); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_73 = 7'h2b == sinAddr ? $signed(16'sh203a) : $signed(_GEN_72); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_74 = 7'h2c == sinAddr ? $signed(16'sh20e7) : $signed(_GEN_73); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_75 = 7'h2d == sinAddr ? $signed(16'sh2193) : $signed(_GEN_74); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_76 = 7'h2e == sinAddr ? $signed(16'sh223d) : $signed(_GEN_75); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_77 = 7'h2f == sinAddr ? $signed(16'sh22e7) : $signed(_GEN_76); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_78 = 7'h30 == sinAddr ? $signed(16'sh238e) : $signed(_GEN_77); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_79 = 7'h31 == sinAddr ? $signed(16'sh2435) : $signed(_GEN_78); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_80 = 7'h32 == sinAddr ? $signed(16'sh24da) : $signed(_GEN_79); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_81 = 7'h33 == sinAddr ? $signed(16'sh257e) : $signed(_GEN_80); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_82 = 7'h34 == sinAddr ? $signed(16'sh2620) : $signed(_GEN_81); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_83 = 7'h35 == sinAddr ? $signed(16'sh26c1) : $signed(_GEN_82); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_84 = 7'h36 == sinAddr ? $signed(16'sh2760) : $signed(_GEN_83); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_85 = 7'h37 == sinAddr ? $signed(16'sh27fe) : $signed(_GEN_84); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_86 = 7'h38 == sinAddr ? $signed(16'sh289a) : $signed(_GEN_85); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_87 = 7'h39 == sinAddr ? $signed(16'sh2935) : $signed(_GEN_86); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_88 = 7'h3a == sinAddr ? $signed(16'sh29ce) : $signed(_GEN_87); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_89 = 7'h3b == sinAddr ? $signed(16'sh2a65) : $signed(_GEN_88); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_90 = 7'h3c == sinAddr ? $signed(16'sh2afb) : $signed(_GEN_89); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_91 = 7'h3d == sinAddr ? $signed(16'sh2b8f) : $signed(_GEN_90); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_92 = 7'h3e == sinAddr ? $signed(16'sh2c21) : $signed(_GEN_91); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_93 = 7'h3f == sinAddr ? $signed(16'sh2cb2) : $signed(_GEN_92); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_94 = 7'h40 == sinAddr ? $signed(16'sh2d41) : $signed(_GEN_93); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_95 = 7'h41 == sinAddr ? $signed(16'sh2dcf) : $signed(_GEN_94); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_96 = 7'h42 == sinAddr ? $signed(16'sh2e5a) : $signed(_GEN_95); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_97 = 7'h43 == sinAddr ? $signed(16'sh2ee4) : $signed(_GEN_96); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_98 = 7'h44 == sinAddr ? $signed(16'sh2f6c) : $signed(_GEN_97); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_99 = 7'h45 == sinAddr ? $signed(16'sh2ff2) : $signed(_GEN_98); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_100 = 7'h46 == sinAddr ? $signed(16'sh3076) : $signed(_GEN_99); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_101 = 7'h47 == sinAddr ? $signed(16'sh30f9) : $signed(_GEN_100); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_102 = 7'h48 == sinAddr ? $signed(16'sh3179) : $signed(_GEN_101); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_103 = 7'h49 == sinAddr ? $signed(16'sh31f8) : $signed(_GEN_102); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_104 = 7'h4a == sinAddr ? $signed(16'sh3274) : $signed(_GEN_103); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_105 = 7'h4b == sinAddr ? $signed(16'sh32ef) : $signed(_GEN_104); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_106 = 7'h4c == sinAddr ? $signed(16'sh3368) : $signed(_GEN_105); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_107 = 7'h4d == sinAddr ? $signed(16'sh33df) : $signed(_GEN_106); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_108 = 7'h4e == sinAddr ? $signed(16'sh3453) : $signed(_GEN_107); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_109 = 7'h4f == sinAddr ? $signed(16'sh34c6) : $signed(_GEN_108); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_110 = 7'h50 == sinAddr ? $signed(16'sh3537) : $signed(_GEN_109); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_111 = 7'h51 == sinAddr ? $signed(16'sh35a5) : $signed(_GEN_110); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_112 = 7'h52 == sinAddr ? $signed(16'sh3612) : $signed(_GEN_111); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_113 = 7'h53 == sinAddr ? $signed(16'sh367d) : $signed(_GEN_112); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_114 = 7'h54 == sinAddr ? $signed(16'sh36e5) : $signed(_GEN_113); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_115 = 7'h55 == sinAddr ? $signed(16'sh374b) : $signed(_GEN_114); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_116 = 7'h56 == sinAddr ? $signed(16'sh37b0) : $signed(_GEN_115); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_117 = 7'h57 == sinAddr ? $signed(16'sh3812) : $signed(_GEN_116); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_118 = 7'h58 == sinAddr ? $signed(16'sh3871) : $signed(_GEN_117); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_119 = 7'h59 == sinAddr ? $signed(16'sh38cf) : $signed(_GEN_118); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_120 = 7'h5a == sinAddr ? $signed(16'sh392b) : $signed(_GEN_119); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_121 = 7'h5b == sinAddr ? $signed(16'sh3984) : $signed(_GEN_120); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_122 = 7'h5c == sinAddr ? $signed(16'sh39db) : $signed(_GEN_121); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_123 = 7'h5d == sinAddr ? $signed(16'sh3a30) : $signed(_GEN_122); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_124 = 7'h5e == sinAddr ? $signed(16'sh3a82) : $signed(_GEN_123); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_125 = 7'h5f == sinAddr ? $signed(16'sh3ad3) : $signed(_GEN_124); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_126 = 7'h60 == sinAddr ? $signed(16'sh3b21) : $signed(_GEN_125); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_127 = 7'h61 == sinAddr ? $signed(16'sh3b6d) : $signed(_GEN_126); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_128 = 7'h62 == sinAddr ? $signed(16'sh3bb6) : $signed(_GEN_127); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_129 = 7'h63 == sinAddr ? $signed(16'sh3bfd) : $signed(_GEN_128); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_130 = 7'h64 == sinAddr ? $signed(16'sh3c42) : $signed(_GEN_129); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_131 = 7'h65 == sinAddr ? $signed(16'sh3c85) : $signed(_GEN_130); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_132 = 7'h66 == sinAddr ? $signed(16'sh3cc5) : $signed(_GEN_131); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_133 = 7'h67 == sinAddr ? $signed(16'sh3d03) : $signed(_GEN_132); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_134 = 7'h68 == sinAddr ? $signed(16'sh3d3f) : $signed(_GEN_133); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_135 = 7'h69 == sinAddr ? $signed(16'sh3d78) : $signed(_GEN_134); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_136 = 7'h6a == sinAddr ? $signed(16'sh3daf) : $signed(_GEN_135); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_137 = 7'h6b == sinAddr ? $signed(16'sh3de3) : $signed(_GEN_136); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_138 = 7'h6c == sinAddr ? $signed(16'sh3e15) : $signed(_GEN_137); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_139 = 7'h6d == sinAddr ? $signed(16'sh3e45) : $signed(_GEN_138); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_140 = 7'h6e == sinAddr ? $signed(16'sh3e72) : $signed(_GEN_139); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_141 = 7'h6f == sinAddr ? $signed(16'sh3e9d) : $signed(_GEN_140); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_142 = 7'h70 == sinAddr ? $signed(16'sh3ec5) : $signed(_GEN_141); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_143 = 7'h71 == sinAddr ? $signed(16'sh3eeb) : $signed(_GEN_142); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_144 = 7'h72 == sinAddr ? $signed(16'sh3f0f) : $signed(_GEN_143); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_145 = 7'h73 == sinAddr ? $signed(16'sh3f30) : $signed(_GEN_144); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_146 = 7'h74 == sinAddr ? $signed(16'sh3f4f) : $signed(_GEN_145); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_147 = 7'h75 == sinAddr ? $signed(16'sh3f6b) : $signed(_GEN_146); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_148 = 7'h76 == sinAddr ? $signed(16'sh3f85) : $signed(_GEN_147); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_149 = 7'h77 == sinAddr ? $signed(16'sh3f9c) : $signed(_GEN_148); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_150 = 7'h78 == sinAddr ? $signed(16'sh3fb1) : $signed(_GEN_149); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_151 = 7'h79 == sinAddr ? $signed(16'sh3fc4) : $signed(_GEN_150); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_152 = 7'h7a == sinAddr ? $signed(16'sh3fd4) : $signed(_GEN_151); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_153 = 7'h7b == sinAddr ? $signed(16'sh3fe1) : $signed(_GEN_152); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_154 = 7'h7c == sinAddr ? $signed(16'sh3fec) : $signed(_GEN_153); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_155 = 7'h7d == sinAddr ? $signed(16'sh3ff5) : $signed(_GEN_154); // @[NCOTable.scala 260:64]
-  wire [15:0] _GEN_156 = 7'h7e == sinAddr ? $signed(16'sh3ffb) : $signed(_GEN_155); // @[NCOTable.scala 260:64]
-  wire [15:0] _T_65 = 7'h7f == sinAddr ? $signed(16'sh3fff) : $signed(_GEN_156); // @[NCOTable.scala 260:64]
-  wire [15:0] sinTableOut = _GEN_28 ? $signed(16'sh4000) : $signed(_T_65); // @[NCOTable.scala 260:23]
-  wire [15:0] _GEN_159 = 7'h1 == cosAddr ? $signed(16'shc9) : $signed(16'sh0); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_160 = 7'h2 == cosAddr ? $signed(16'sh192) : $signed(_GEN_159); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_161 = 7'h3 == cosAddr ? $signed(16'sh25b) : $signed(_GEN_160); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_162 = 7'h4 == cosAddr ? $signed(16'sh324) : $signed(_GEN_161); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_163 = 7'h5 == cosAddr ? $signed(16'sh3ed) : $signed(_GEN_162); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_164 = 7'h6 == cosAddr ? $signed(16'sh4b5) : $signed(_GEN_163); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_165 = 7'h7 == cosAddr ? $signed(16'sh57e) : $signed(_GEN_164); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_166 = 7'h8 == cosAddr ? $signed(16'sh646) : $signed(_GEN_165); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_167 = 7'h9 == cosAddr ? $signed(16'sh70e) : $signed(_GEN_166); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_168 = 7'ha == cosAddr ? $signed(16'sh7d6) : $signed(_GEN_167); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_169 = 7'hb == cosAddr ? $signed(16'sh89d) : $signed(_GEN_168); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_170 = 7'hc == cosAddr ? $signed(16'sh964) : $signed(_GEN_169); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_171 = 7'hd == cosAddr ? $signed(16'sha2b) : $signed(_GEN_170); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_172 = 7'he == cosAddr ? $signed(16'shaf1) : $signed(_GEN_171); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_173 = 7'hf == cosAddr ? $signed(16'shbb7) : $signed(_GEN_172); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_174 = 7'h10 == cosAddr ? $signed(16'shc7c) : $signed(_GEN_173); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_175 = 7'h11 == cosAddr ? $signed(16'shd41) : $signed(_GEN_174); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_176 = 7'h12 == cosAddr ? $signed(16'she06) : $signed(_GEN_175); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_177 = 7'h13 == cosAddr ? $signed(16'sheca) : $signed(_GEN_176); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_178 = 7'h14 == cosAddr ? $signed(16'shf8d) : $signed(_GEN_177); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_179 = 7'h15 == cosAddr ? $signed(16'sh1050) : $signed(_GEN_178); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_180 = 7'h16 == cosAddr ? $signed(16'sh1112) : $signed(_GEN_179); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_181 = 7'h17 == cosAddr ? $signed(16'sh11d3) : $signed(_GEN_180); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_182 = 7'h18 == cosAddr ? $signed(16'sh1294) : $signed(_GEN_181); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_183 = 7'h19 == cosAddr ? $signed(16'sh1354) : $signed(_GEN_182); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_184 = 7'h1a == cosAddr ? $signed(16'sh1413) : $signed(_GEN_183); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_185 = 7'h1b == cosAddr ? $signed(16'sh14d2) : $signed(_GEN_184); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_186 = 7'h1c == cosAddr ? $signed(16'sh1590) : $signed(_GEN_185); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_187 = 7'h1d == cosAddr ? $signed(16'sh164c) : $signed(_GEN_186); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_188 = 7'h1e == cosAddr ? $signed(16'sh1709) : $signed(_GEN_187); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_189 = 7'h1f == cosAddr ? $signed(16'sh17c4) : $signed(_GEN_188); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_190 = 7'h20 == cosAddr ? $signed(16'sh187e) : $signed(_GEN_189); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_191 = 7'h21 == cosAddr ? $signed(16'sh1937) : $signed(_GEN_190); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_192 = 7'h22 == cosAddr ? $signed(16'sh19ef) : $signed(_GEN_191); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_193 = 7'h23 == cosAddr ? $signed(16'sh1aa7) : $signed(_GEN_192); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_194 = 7'h24 == cosAddr ? $signed(16'sh1b5d) : $signed(_GEN_193); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_195 = 7'h25 == cosAddr ? $signed(16'sh1c12) : $signed(_GEN_194); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_196 = 7'h26 == cosAddr ? $signed(16'sh1cc6) : $signed(_GEN_195); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_197 = 7'h27 == cosAddr ? $signed(16'sh1d79) : $signed(_GEN_196); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_198 = 7'h28 == cosAddr ? $signed(16'sh1e2b) : $signed(_GEN_197); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_199 = 7'h29 == cosAddr ? $signed(16'sh1edc) : $signed(_GEN_198); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_200 = 7'h2a == cosAddr ? $signed(16'sh1f8c) : $signed(_GEN_199); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_201 = 7'h2b == cosAddr ? $signed(16'sh203a) : $signed(_GEN_200); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_202 = 7'h2c == cosAddr ? $signed(16'sh20e7) : $signed(_GEN_201); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_203 = 7'h2d == cosAddr ? $signed(16'sh2193) : $signed(_GEN_202); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_204 = 7'h2e == cosAddr ? $signed(16'sh223d) : $signed(_GEN_203); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_205 = 7'h2f == cosAddr ? $signed(16'sh22e7) : $signed(_GEN_204); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_206 = 7'h30 == cosAddr ? $signed(16'sh238e) : $signed(_GEN_205); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_207 = 7'h31 == cosAddr ? $signed(16'sh2435) : $signed(_GEN_206); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_208 = 7'h32 == cosAddr ? $signed(16'sh24da) : $signed(_GEN_207); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_209 = 7'h33 == cosAddr ? $signed(16'sh257e) : $signed(_GEN_208); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_210 = 7'h34 == cosAddr ? $signed(16'sh2620) : $signed(_GEN_209); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_211 = 7'h35 == cosAddr ? $signed(16'sh26c1) : $signed(_GEN_210); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_212 = 7'h36 == cosAddr ? $signed(16'sh2760) : $signed(_GEN_211); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_213 = 7'h37 == cosAddr ? $signed(16'sh27fe) : $signed(_GEN_212); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_214 = 7'h38 == cosAddr ? $signed(16'sh289a) : $signed(_GEN_213); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_215 = 7'h39 == cosAddr ? $signed(16'sh2935) : $signed(_GEN_214); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_216 = 7'h3a == cosAddr ? $signed(16'sh29ce) : $signed(_GEN_215); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_217 = 7'h3b == cosAddr ? $signed(16'sh2a65) : $signed(_GEN_216); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_218 = 7'h3c == cosAddr ? $signed(16'sh2afb) : $signed(_GEN_217); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_219 = 7'h3d == cosAddr ? $signed(16'sh2b8f) : $signed(_GEN_218); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_220 = 7'h3e == cosAddr ? $signed(16'sh2c21) : $signed(_GEN_219); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_221 = 7'h3f == cosAddr ? $signed(16'sh2cb2) : $signed(_GEN_220); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_222 = 7'h40 == cosAddr ? $signed(16'sh2d41) : $signed(_GEN_221); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_223 = 7'h41 == cosAddr ? $signed(16'sh2dcf) : $signed(_GEN_222); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_224 = 7'h42 == cosAddr ? $signed(16'sh2e5a) : $signed(_GEN_223); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_225 = 7'h43 == cosAddr ? $signed(16'sh2ee4) : $signed(_GEN_224); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_226 = 7'h44 == cosAddr ? $signed(16'sh2f6c) : $signed(_GEN_225); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_227 = 7'h45 == cosAddr ? $signed(16'sh2ff2) : $signed(_GEN_226); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_228 = 7'h46 == cosAddr ? $signed(16'sh3076) : $signed(_GEN_227); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_229 = 7'h47 == cosAddr ? $signed(16'sh30f9) : $signed(_GEN_228); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_230 = 7'h48 == cosAddr ? $signed(16'sh3179) : $signed(_GEN_229); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_231 = 7'h49 == cosAddr ? $signed(16'sh31f8) : $signed(_GEN_230); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_232 = 7'h4a == cosAddr ? $signed(16'sh3274) : $signed(_GEN_231); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_233 = 7'h4b == cosAddr ? $signed(16'sh32ef) : $signed(_GEN_232); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_234 = 7'h4c == cosAddr ? $signed(16'sh3368) : $signed(_GEN_233); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_235 = 7'h4d == cosAddr ? $signed(16'sh33df) : $signed(_GEN_234); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_236 = 7'h4e == cosAddr ? $signed(16'sh3453) : $signed(_GEN_235); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_237 = 7'h4f == cosAddr ? $signed(16'sh34c6) : $signed(_GEN_236); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_238 = 7'h50 == cosAddr ? $signed(16'sh3537) : $signed(_GEN_237); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_239 = 7'h51 == cosAddr ? $signed(16'sh35a5) : $signed(_GEN_238); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_240 = 7'h52 == cosAddr ? $signed(16'sh3612) : $signed(_GEN_239); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_241 = 7'h53 == cosAddr ? $signed(16'sh367d) : $signed(_GEN_240); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_242 = 7'h54 == cosAddr ? $signed(16'sh36e5) : $signed(_GEN_241); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_243 = 7'h55 == cosAddr ? $signed(16'sh374b) : $signed(_GEN_242); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_244 = 7'h56 == cosAddr ? $signed(16'sh37b0) : $signed(_GEN_243); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_245 = 7'h57 == cosAddr ? $signed(16'sh3812) : $signed(_GEN_244); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_246 = 7'h58 == cosAddr ? $signed(16'sh3871) : $signed(_GEN_245); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_247 = 7'h59 == cosAddr ? $signed(16'sh38cf) : $signed(_GEN_246); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_248 = 7'h5a == cosAddr ? $signed(16'sh392b) : $signed(_GEN_247); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_249 = 7'h5b == cosAddr ? $signed(16'sh3984) : $signed(_GEN_248); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_250 = 7'h5c == cosAddr ? $signed(16'sh39db) : $signed(_GEN_249); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_251 = 7'h5d == cosAddr ? $signed(16'sh3a30) : $signed(_GEN_250); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_252 = 7'h5e == cosAddr ? $signed(16'sh3a82) : $signed(_GEN_251); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_253 = 7'h5f == cosAddr ? $signed(16'sh3ad3) : $signed(_GEN_252); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_254 = 7'h60 == cosAddr ? $signed(16'sh3b21) : $signed(_GEN_253); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_255 = 7'h61 == cosAddr ? $signed(16'sh3b6d) : $signed(_GEN_254); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_256 = 7'h62 == cosAddr ? $signed(16'sh3bb6) : $signed(_GEN_255); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_257 = 7'h63 == cosAddr ? $signed(16'sh3bfd) : $signed(_GEN_256); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_258 = 7'h64 == cosAddr ? $signed(16'sh3c42) : $signed(_GEN_257); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_259 = 7'h65 == cosAddr ? $signed(16'sh3c85) : $signed(_GEN_258); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_260 = 7'h66 == cosAddr ? $signed(16'sh3cc5) : $signed(_GEN_259); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_261 = 7'h67 == cosAddr ? $signed(16'sh3d03) : $signed(_GEN_260); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_262 = 7'h68 == cosAddr ? $signed(16'sh3d3f) : $signed(_GEN_261); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_263 = 7'h69 == cosAddr ? $signed(16'sh3d78) : $signed(_GEN_262); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_264 = 7'h6a == cosAddr ? $signed(16'sh3daf) : $signed(_GEN_263); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_265 = 7'h6b == cosAddr ? $signed(16'sh3de3) : $signed(_GEN_264); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_266 = 7'h6c == cosAddr ? $signed(16'sh3e15) : $signed(_GEN_265); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_267 = 7'h6d == cosAddr ? $signed(16'sh3e45) : $signed(_GEN_266); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_268 = 7'h6e == cosAddr ? $signed(16'sh3e72) : $signed(_GEN_267); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_269 = 7'h6f == cosAddr ? $signed(16'sh3e9d) : $signed(_GEN_268); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_270 = 7'h70 == cosAddr ? $signed(16'sh3ec5) : $signed(_GEN_269); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_271 = 7'h71 == cosAddr ? $signed(16'sh3eeb) : $signed(_GEN_270); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_272 = 7'h72 == cosAddr ? $signed(16'sh3f0f) : $signed(_GEN_271); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_273 = 7'h73 == cosAddr ? $signed(16'sh3f30) : $signed(_GEN_272); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_274 = 7'h74 == cosAddr ? $signed(16'sh3f4f) : $signed(_GEN_273); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_275 = 7'h75 == cosAddr ? $signed(16'sh3f6b) : $signed(_GEN_274); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_276 = 7'h76 == cosAddr ? $signed(16'sh3f85) : $signed(_GEN_275); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_277 = 7'h77 == cosAddr ? $signed(16'sh3f9c) : $signed(_GEN_276); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_278 = 7'h78 == cosAddr ? $signed(16'sh3fb1) : $signed(_GEN_277); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_279 = 7'h79 == cosAddr ? $signed(16'sh3fc4) : $signed(_GEN_278); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_280 = 7'h7a == cosAddr ? $signed(16'sh3fd4) : $signed(_GEN_279); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_281 = 7'h7b == cosAddr ? $signed(16'sh3fe1) : $signed(_GEN_280); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_282 = 7'h7c == cosAddr ? $signed(16'sh3fec) : $signed(_GEN_281); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_283 = 7'h7d == cosAddr ? $signed(16'sh3ff5) : $signed(_GEN_282); // @[NCOTable.scala 261:64]
-  wire [15:0] _GEN_284 = 7'h7e == cosAddr ? $signed(16'sh3ffb) : $signed(_GEN_283); // @[NCOTable.scala 261:64]
-  wire [15:0] _T_71 = 7'h7f == cosAddr ? $signed(16'sh3fff) : $signed(_GEN_284); // @[NCOTable.scala 261:64]
-  wire [15:0] cosTableOut = _GEN_26 ? $signed(16'sh4000) : $signed(_T_71); // @[NCOTable.scala 261:23]
+  wire [15:0] _GEN_31 = 7'h1 == sinAddr ? $signed(16'shc9) : $signed(16'sh0); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_32 = 7'h2 == sinAddr ? $signed(16'sh192) : $signed(_GEN_31); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_33 = 7'h3 == sinAddr ? $signed(16'sh25b) : $signed(_GEN_32); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_34 = 7'h4 == sinAddr ? $signed(16'sh324) : $signed(_GEN_33); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_35 = 7'h5 == sinAddr ? $signed(16'sh3ed) : $signed(_GEN_34); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_36 = 7'h6 == sinAddr ? $signed(16'sh4b5) : $signed(_GEN_35); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_37 = 7'h7 == sinAddr ? $signed(16'sh57e) : $signed(_GEN_36); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_38 = 7'h8 == sinAddr ? $signed(16'sh646) : $signed(_GEN_37); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_39 = 7'h9 == sinAddr ? $signed(16'sh70e) : $signed(_GEN_38); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_40 = 7'ha == sinAddr ? $signed(16'sh7d6) : $signed(_GEN_39); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_41 = 7'hb == sinAddr ? $signed(16'sh89d) : $signed(_GEN_40); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_42 = 7'hc == sinAddr ? $signed(16'sh964) : $signed(_GEN_41); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_43 = 7'hd == sinAddr ? $signed(16'sha2b) : $signed(_GEN_42); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_44 = 7'he == sinAddr ? $signed(16'shaf1) : $signed(_GEN_43); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_45 = 7'hf == sinAddr ? $signed(16'shbb7) : $signed(_GEN_44); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_46 = 7'h10 == sinAddr ? $signed(16'shc7c) : $signed(_GEN_45); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_47 = 7'h11 == sinAddr ? $signed(16'shd41) : $signed(_GEN_46); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_48 = 7'h12 == sinAddr ? $signed(16'she06) : $signed(_GEN_47); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_49 = 7'h13 == sinAddr ? $signed(16'sheca) : $signed(_GEN_48); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_50 = 7'h14 == sinAddr ? $signed(16'shf8d) : $signed(_GEN_49); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_51 = 7'h15 == sinAddr ? $signed(16'sh1050) : $signed(_GEN_50); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_52 = 7'h16 == sinAddr ? $signed(16'sh1112) : $signed(_GEN_51); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_53 = 7'h17 == sinAddr ? $signed(16'sh11d3) : $signed(_GEN_52); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_54 = 7'h18 == sinAddr ? $signed(16'sh1294) : $signed(_GEN_53); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_55 = 7'h19 == sinAddr ? $signed(16'sh1354) : $signed(_GEN_54); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_56 = 7'h1a == sinAddr ? $signed(16'sh1413) : $signed(_GEN_55); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_57 = 7'h1b == sinAddr ? $signed(16'sh14d2) : $signed(_GEN_56); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_58 = 7'h1c == sinAddr ? $signed(16'sh1590) : $signed(_GEN_57); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_59 = 7'h1d == sinAddr ? $signed(16'sh164c) : $signed(_GEN_58); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_60 = 7'h1e == sinAddr ? $signed(16'sh1709) : $signed(_GEN_59); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_61 = 7'h1f == sinAddr ? $signed(16'sh17c4) : $signed(_GEN_60); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_62 = 7'h20 == sinAddr ? $signed(16'sh187e) : $signed(_GEN_61); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_63 = 7'h21 == sinAddr ? $signed(16'sh1937) : $signed(_GEN_62); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_64 = 7'h22 == sinAddr ? $signed(16'sh19ef) : $signed(_GEN_63); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_65 = 7'h23 == sinAddr ? $signed(16'sh1aa7) : $signed(_GEN_64); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_66 = 7'h24 == sinAddr ? $signed(16'sh1b5d) : $signed(_GEN_65); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_67 = 7'h25 == sinAddr ? $signed(16'sh1c12) : $signed(_GEN_66); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_68 = 7'h26 == sinAddr ? $signed(16'sh1cc6) : $signed(_GEN_67); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_69 = 7'h27 == sinAddr ? $signed(16'sh1d79) : $signed(_GEN_68); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_70 = 7'h28 == sinAddr ? $signed(16'sh1e2b) : $signed(_GEN_69); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_71 = 7'h29 == sinAddr ? $signed(16'sh1edc) : $signed(_GEN_70); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_72 = 7'h2a == sinAddr ? $signed(16'sh1f8c) : $signed(_GEN_71); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_73 = 7'h2b == sinAddr ? $signed(16'sh203a) : $signed(_GEN_72); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_74 = 7'h2c == sinAddr ? $signed(16'sh20e7) : $signed(_GEN_73); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_75 = 7'h2d == sinAddr ? $signed(16'sh2193) : $signed(_GEN_74); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_76 = 7'h2e == sinAddr ? $signed(16'sh223d) : $signed(_GEN_75); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_77 = 7'h2f == sinAddr ? $signed(16'sh22e7) : $signed(_GEN_76); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_78 = 7'h30 == sinAddr ? $signed(16'sh238e) : $signed(_GEN_77); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_79 = 7'h31 == sinAddr ? $signed(16'sh2435) : $signed(_GEN_78); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_80 = 7'h32 == sinAddr ? $signed(16'sh24da) : $signed(_GEN_79); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_81 = 7'h33 == sinAddr ? $signed(16'sh257e) : $signed(_GEN_80); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_82 = 7'h34 == sinAddr ? $signed(16'sh2620) : $signed(_GEN_81); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_83 = 7'h35 == sinAddr ? $signed(16'sh26c1) : $signed(_GEN_82); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_84 = 7'h36 == sinAddr ? $signed(16'sh2760) : $signed(_GEN_83); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_85 = 7'h37 == sinAddr ? $signed(16'sh27fe) : $signed(_GEN_84); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_86 = 7'h38 == sinAddr ? $signed(16'sh289a) : $signed(_GEN_85); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_87 = 7'h39 == sinAddr ? $signed(16'sh2935) : $signed(_GEN_86); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_88 = 7'h3a == sinAddr ? $signed(16'sh29ce) : $signed(_GEN_87); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_89 = 7'h3b == sinAddr ? $signed(16'sh2a65) : $signed(_GEN_88); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_90 = 7'h3c == sinAddr ? $signed(16'sh2afb) : $signed(_GEN_89); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_91 = 7'h3d == sinAddr ? $signed(16'sh2b8f) : $signed(_GEN_90); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_92 = 7'h3e == sinAddr ? $signed(16'sh2c21) : $signed(_GEN_91); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_93 = 7'h3f == sinAddr ? $signed(16'sh2cb2) : $signed(_GEN_92); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_94 = 7'h40 == sinAddr ? $signed(16'sh2d41) : $signed(_GEN_93); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_95 = 7'h41 == sinAddr ? $signed(16'sh2dcf) : $signed(_GEN_94); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_96 = 7'h42 == sinAddr ? $signed(16'sh2e5a) : $signed(_GEN_95); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_97 = 7'h43 == sinAddr ? $signed(16'sh2ee4) : $signed(_GEN_96); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_98 = 7'h44 == sinAddr ? $signed(16'sh2f6c) : $signed(_GEN_97); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_99 = 7'h45 == sinAddr ? $signed(16'sh2ff2) : $signed(_GEN_98); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_100 = 7'h46 == sinAddr ? $signed(16'sh3076) : $signed(_GEN_99); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_101 = 7'h47 == sinAddr ? $signed(16'sh30f9) : $signed(_GEN_100); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_102 = 7'h48 == sinAddr ? $signed(16'sh3179) : $signed(_GEN_101); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_103 = 7'h49 == sinAddr ? $signed(16'sh31f8) : $signed(_GEN_102); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_104 = 7'h4a == sinAddr ? $signed(16'sh3274) : $signed(_GEN_103); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_105 = 7'h4b == sinAddr ? $signed(16'sh32ef) : $signed(_GEN_104); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_106 = 7'h4c == sinAddr ? $signed(16'sh3368) : $signed(_GEN_105); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_107 = 7'h4d == sinAddr ? $signed(16'sh33df) : $signed(_GEN_106); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_108 = 7'h4e == sinAddr ? $signed(16'sh3453) : $signed(_GEN_107); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_109 = 7'h4f == sinAddr ? $signed(16'sh34c6) : $signed(_GEN_108); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_110 = 7'h50 == sinAddr ? $signed(16'sh3537) : $signed(_GEN_109); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_111 = 7'h51 == sinAddr ? $signed(16'sh35a5) : $signed(_GEN_110); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_112 = 7'h52 == sinAddr ? $signed(16'sh3612) : $signed(_GEN_111); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_113 = 7'h53 == sinAddr ? $signed(16'sh367d) : $signed(_GEN_112); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_114 = 7'h54 == sinAddr ? $signed(16'sh36e5) : $signed(_GEN_113); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_115 = 7'h55 == sinAddr ? $signed(16'sh374b) : $signed(_GEN_114); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_116 = 7'h56 == sinAddr ? $signed(16'sh37b0) : $signed(_GEN_115); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_117 = 7'h57 == sinAddr ? $signed(16'sh3812) : $signed(_GEN_116); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_118 = 7'h58 == sinAddr ? $signed(16'sh3871) : $signed(_GEN_117); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_119 = 7'h59 == sinAddr ? $signed(16'sh38cf) : $signed(_GEN_118); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_120 = 7'h5a == sinAddr ? $signed(16'sh392b) : $signed(_GEN_119); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_121 = 7'h5b == sinAddr ? $signed(16'sh3984) : $signed(_GEN_120); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_122 = 7'h5c == sinAddr ? $signed(16'sh39db) : $signed(_GEN_121); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_123 = 7'h5d == sinAddr ? $signed(16'sh3a30) : $signed(_GEN_122); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_124 = 7'h5e == sinAddr ? $signed(16'sh3a82) : $signed(_GEN_123); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_125 = 7'h5f == sinAddr ? $signed(16'sh3ad3) : $signed(_GEN_124); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_126 = 7'h60 == sinAddr ? $signed(16'sh3b21) : $signed(_GEN_125); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_127 = 7'h61 == sinAddr ? $signed(16'sh3b6d) : $signed(_GEN_126); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_128 = 7'h62 == sinAddr ? $signed(16'sh3bb6) : $signed(_GEN_127); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_129 = 7'h63 == sinAddr ? $signed(16'sh3bfd) : $signed(_GEN_128); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_130 = 7'h64 == sinAddr ? $signed(16'sh3c42) : $signed(_GEN_129); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_131 = 7'h65 == sinAddr ? $signed(16'sh3c85) : $signed(_GEN_130); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_132 = 7'h66 == sinAddr ? $signed(16'sh3cc5) : $signed(_GEN_131); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_133 = 7'h67 == sinAddr ? $signed(16'sh3d03) : $signed(_GEN_132); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_134 = 7'h68 == sinAddr ? $signed(16'sh3d3f) : $signed(_GEN_133); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_135 = 7'h69 == sinAddr ? $signed(16'sh3d78) : $signed(_GEN_134); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_136 = 7'h6a == sinAddr ? $signed(16'sh3daf) : $signed(_GEN_135); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_137 = 7'h6b == sinAddr ? $signed(16'sh3de3) : $signed(_GEN_136); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_138 = 7'h6c == sinAddr ? $signed(16'sh3e15) : $signed(_GEN_137); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_139 = 7'h6d == sinAddr ? $signed(16'sh3e45) : $signed(_GEN_138); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_140 = 7'h6e == sinAddr ? $signed(16'sh3e72) : $signed(_GEN_139); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_141 = 7'h6f == sinAddr ? $signed(16'sh3e9d) : $signed(_GEN_140); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_142 = 7'h70 == sinAddr ? $signed(16'sh3ec5) : $signed(_GEN_141); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_143 = 7'h71 == sinAddr ? $signed(16'sh3eeb) : $signed(_GEN_142); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_144 = 7'h72 == sinAddr ? $signed(16'sh3f0f) : $signed(_GEN_143); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_145 = 7'h73 == sinAddr ? $signed(16'sh3f30) : $signed(_GEN_144); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_146 = 7'h74 == sinAddr ? $signed(16'sh3f4f) : $signed(_GEN_145); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_147 = 7'h75 == sinAddr ? $signed(16'sh3f6b) : $signed(_GEN_146); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_148 = 7'h76 == sinAddr ? $signed(16'sh3f85) : $signed(_GEN_147); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_149 = 7'h77 == sinAddr ? $signed(16'sh3f9c) : $signed(_GEN_148); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_150 = 7'h78 == sinAddr ? $signed(16'sh3fb1) : $signed(_GEN_149); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_151 = 7'h79 == sinAddr ? $signed(16'sh3fc4) : $signed(_GEN_150); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_152 = 7'h7a == sinAddr ? $signed(16'sh3fd4) : $signed(_GEN_151); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_153 = 7'h7b == sinAddr ? $signed(16'sh3fe1) : $signed(_GEN_152); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_154 = 7'h7c == sinAddr ? $signed(16'sh3fec) : $signed(_GEN_153); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_155 = 7'h7d == sinAddr ? $signed(16'sh3ff5) : $signed(_GEN_154); // @[NCOTable.scala 262:64]
+  wire [15:0] _GEN_156 = 7'h7e == sinAddr ? $signed(16'sh3ffb) : $signed(_GEN_155); // @[NCOTable.scala 262:64]
+  wire [15:0] _T_65 = 7'h7f == sinAddr ? $signed(16'sh3fff) : $signed(_GEN_156); // @[NCOTable.scala 262:64]
+  wire [15:0] sinTableOut = _GEN_28 ? $signed(16'sh4000) : $signed(_T_65); // @[NCOTable.scala 262:23]
+  wire [15:0] _GEN_159 = 7'h1 == cosAddr ? $signed(16'shc9) : $signed(16'sh0); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_160 = 7'h2 == cosAddr ? $signed(16'sh192) : $signed(_GEN_159); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_161 = 7'h3 == cosAddr ? $signed(16'sh25b) : $signed(_GEN_160); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_162 = 7'h4 == cosAddr ? $signed(16'sh324) : $signed(_GEN_161); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_163 = 7'h5 == cosAddr ? $signed(16'sh3ed) : $signed(_GEN_162); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_164 = 7'h6 == cosAddr ? $signed(16'sh4b5) : $signed(_GEN_163); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_165 = 7'h7 == cosAddr ? $signed(16'sh57e) : $signed(_GEN_164); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_166 = 7'h8 == cosAddr ? $signed(16'sh646) : $signed(_GEN_165); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_167 = 7'h9 == cosAddr ? $signed(16'sh70e) : $signed(_GEN_166); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_168 = 7'ha == cosAddr ? $signed(16'sh7d6) : $signed(_GEN_167); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_169 = 7'hb == cosAddr ? $signed(16'sh89d) : $signed(_GEN_168); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_170 = 7'hc == cosAddr ? $signed(16'sh964) : $signed(_GEN_169); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_171 = 7'hd == cosAddr ? $signed(16'sha2b) : $signed(_GEN_170); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_172 = 7'he == cosAddr ? $signed(16'shaf1) : $signed(_GEN_171); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_173 = 7'hf == cosAddr ? $signed(16'shbb7) : $signed(_GEN_172); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_174 = 7'h10 == cosAddr ? $signed(16'shc7c) : $signed(_GEN_173); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_175 = 7'h11 == cosAddr ? $signed(16'shd41) : $signed(_GEN_174); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_176 = 7'h12 == cosAddr ? $signed(16'she06) : $signed(_GEN_175); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_177 = 7'h13 == cosAddr ? $signed(16'sheca) : $signed(_GEN_176); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_178 = 7'h14 == cosAddr ? $signed(16'shf8d) : $signed(_GEN_177); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_179 = 7'h15 == cosAddr ? $signed(16'sh1050) : $signed(_GEN_178); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_180 = 7'h16 == cosAddr ? $signed(16'sh1112) : $signed(_GEN_179); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_181 = 7'h17 == cosAddr ? $signed(16'sh11d3) : $signed(_GEN_180); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_182 = 7'h18 == cosAddr ? $signed(16'sh1294) : $signed(_GEN_181); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_183 = 7'h19 == cosAddr ? $signed(16'sh1354) : $signed(_GEN_182); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_184 = 7'h1a == cosAddr ? $signed(16'sh1413) : $signed(_GEN_183); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_185 = 7'h1b == cosAddr ? $signed(16'sh14d2) : $signed(_GEN_184); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_186 = 7'h1c == cosAddr ? $signed(16'sh1590) : $signed(_GEN_185); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_187 = 7'h1d == cosAddr ? $signed(16'sh164c) : $signed(_GEN_186); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_188 = 7'h1e == cosAddr ? $signed(16'sh1709) : $signed(_GEN_187); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_189 = 7'h1f == cosAddr ? $signed(16'sh17c4) : $signed(_GEN_188); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_190 = 7'h20 == cosAddr ? $signed(16'sh187e) : $signed(_GEN_189); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_191 = 7'h21 == cosAddr ? $signed(16'sh1937) : $signed(_GEN_190); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_192 = 7'h22 == cosAddr ? $signed(16'sh19ef) : $signed(_GEN_191); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_193 = 7'h23 == cosAddr ? $signed(16'sh1aa7) : $signed(_GEN_192); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_194 = 7'h24 == cosAddr ? $signed(16'sh1b5d) : $signed(_GEN_193); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_195 = 7'h25 == cosAddr ? $signed(16'sh1c12) : $signed(_GEN_194); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_196 = 7'h26 == cosAddr ? $signed(16'sh1cc6) : $signed(_GEN_195); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_197 = 7'h27 == cosAddr ? $signed(16'sh1d79) : $signed(_GEN_196); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_198 = 7'h28 == cosAddr ? $signed(16'sh1e2b) : $signed(_GEN_197); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_199 = 7'h29 == cosAddr ? $signed(16'sh1edc) : $signed(_GEN_198); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_200 = 7'h2a == cosAddr ? $signed(16'sh1f8c) : $signed(_GEN_199); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_201 = 7'h2b == cosAddr ? $signed(16'sh203a) : $signed(_GEN_200); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_202 = 7'h2c == cosAddr ? $signed(16'sh20e7) : $signed(_GEN_201); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_203 = 7'h2d == cosAddr ? $signed(16'sh2193) : $signed(_GEN_202); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_204 = 7'h2e == cosAddr ? $signed(16'sh223d) : $signed(_GEN_203); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_205 = 7'h2f == cosAddr ? $signed(16'sh22e7) : $signed(_GEN_204); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_206 = 7'h30 == cosAddr ? $signed(16'sh238e) : $signed(_GEN_205); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_207 = 7'h31 == cosAddr ? $signed(16'sh2435) : $signed(_GEN_206); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_208 = 7'h32 == cosAddr ? $signed(16'sh24da) : $signed(_GEN_207); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_209 = 7'h33 == cosAddr ? $signed(16'sh257e) : $signed(_GEN_208); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_210 = 7'h34 == cosAddr ? $signed(16'sh2620) : $signed(_GEN_209); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_211 = 7'h35 == cosAddr ? $signed(16'sh26c1) : $signed(_GEN_210); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_212 = 7'h36 == cosAddr ? $signed(16'sh2760) : $signed(_GEN_211); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_213 = 7'h37 == cosAddr ? $signed(16'sh27fe) : $signed(_GEN_212); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_214 = 7'h38 == cosAddr ? $signed(16'sh289a) : $signed(_GEN_213); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_215 = 7'h39 == cosAddr ? $signed(16'sh2935) : $signed(_GEN_214); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_216 = 7'h3a == cosAddr ? $signed(16'sh29ce) : $signed(_GEN_215); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_217 = 7'h3b == cosAddr ? $signed(16'sh2a65) : $signed(_GEN_216); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_218 = 7'h3c == cosAddr ? $signed(16'sh2afb) : $signed(_GEN_217); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_219 = 7'h3d == cosAddr ? $signed(16'sh2b8f) : $signed(_GEN_218); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_220 = 7'h3e == cosAddr ? $signed(16'sh2c21) : $signed(_GEN_219); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_221 = 7'h3f == cosAddr ? $signed(16'sh2cb2) : $signed(_GEN_220); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_222 = 7'h40 == cosAddr ? $signed(16'sh2d41) : $signed(_GEN_221); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_223 = 7'h41 == cosAddr ? $signed(16'sh2dcf) : $signed(_GEN_222); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_224 = 7'h42 == cosAddr ? $signed(16'sh2e5a) : $signed(_GEN_223); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_225 = 7'h43 == cosAddr ? $signed(16'sh2ee4) : $signed(_GEN_224); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_226 = 7'h44 == cosAddr ? $signed(16'sh2f6c) : $signed(_GEN_225); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_227 = 7'h45 == cosAddr ? $signed(16'sh2ff2) : $signed(_GEN_226); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_228 = 7'h46 == cosAddr ? $signed(16'sh3076) : $signed(_GEN_227); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_229 = 7'h47 == cosAddr ? $signed(16'sh30f9) : $signed(_GEN_228); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_230 = 7'h48 == cosAddr ? $signed(16'sh3179) : $signed(_GEN_229); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_231 = 7'h49 == cosAddr ? $signed(16'sh31f8) : $signed(_GEN_230); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_232 = 7'h4a == cosAddr ? $signed(16'sh3274) : $signed(_GEN_231); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_233 = 7'h4b == cosAddr ? $signed(16'sh32ef) : $signed(_GEN_232); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_234 = 7'h4c == cosAddr ? $signed(16'sh3368) : $signed(_GEN_233); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_235 = 7'h4d == cosAddr ? $signed(16'sh33df) : $signed(_GEN_234); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_236 = 7'h4e == cosAddr ? $signed(16'sh3453) : $signed(_GEN_235); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_237 = 7'h4f == cosAddr ? $signed(16'sh34c6) : $signed(_GEN_236); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_238 = 7'h50 == cosAddr ? $signed(16'sh3537) : $signed(_GEN_237); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_239 = 7'h51 == cosAddr ? $signed(16'sh35a5) : $signed(_GEN_238); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_240 = 7'h52 == cosAddr ? $signed(16'sh3612) : $signed(_GEN_239); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_241 = 7'h53 == cosAddr ? $signed(16'sh367d) : $signed(_GEN_240); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_242 = 7'h54 == cosAddr ? $signed(16'sh36e5) : $signed(_GEN_241); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_243 = 7'h55 == cosAddr ? $signed(16'sh374b) : $signed(_GEN_242); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_244 = 7'h56 == cosAddr ? $signed(16'sh37b0) : $signed(_GEN_243); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_245 = 7'h57 == cosAddr ? $signed(16'sh3812) : $signed(_GEN_244); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_246 = 7'h58 == cosAddr ? $signed(16'sh3871) : $signed(_GEN_245); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_247 = 7'h59 == cosAddr ? $signed(16'sh38cf) : $signed(_GEN_246); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_248 = 7'h5a == cosAddr ? $signed(16'sh392b) : $signed(_GEN_247); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_249 = 7'h5b == cosAddr ? $signed(16'sh3984) : $signed(_GEN_248); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_250 = 7'h5c == cosAddr ? $signed(16'sh39db) : $signed(_GEN_249); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_251 = 7'h5d == cosAddr ? $signed(16'sh3a30) : $signed(_GEN_250); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_252 = 7'h5e == cosAddr ? $signed(16'sh3a82) : $signed(_GEN_251); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_253 = 7'h5f == cosAddr ? $signed(16'sh3ad3) : $signed(_GEN_252); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_254 = 7'h60 == cosAddr ? $signed(16'sh3b21) : $signed(_GEN_253); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_255 = 7'h61 == cosAddr ? $signed(16'sh3b6d) : $signed(_GEN_254); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_256 = 7'h62 == cosAddr ? $signed(16'sh3bb6) : $signed(_GEN_255); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_257 = 7'h63 == cosAddr ? $signed(16'sh3bfd) : $signed(_GEN_256); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_258 = 7'h64 == cosAddr ? $signed(16'sh3c42) : $signed(_GEN_257); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_259 = 7'h65 == cosAddr ? $signed(16'sh3c85) : $signed(_GEN_258); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_260 = 7'h66 == cosAddr ? $signed(16'sh3cc5) : $signed(_GEN_259); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_261 = 7'h67 == cosAddr ? $signed(16'sh3d03) : $signed(_GEN_260); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_262 = 7'h68 == cosAddr ? $signed(16'sh3d3f) : $signed(_GEN_261); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_263 = 7'h69 == cosAddr ? $signed(16'sh3d78) : $signed(_GEN_262); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_264 = 7'h6a == cosAddr ? $signed(16'sh3daf) : $signed(_GEN_263); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_265 = 7'h6b == cosAddr ? $signed(16'sh3de3) : $signed(_GEN_264); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_266 = 7'h6c == cosAddr ? $signed(16'sh3e15) : $signed(_GEN_265); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_267 = 7'h6d == cosAddr ? $signed(16'sh3e45) : $signed(_GEN_266); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_268 = 7'h6e == cosAddr ? $signed(16'sh3e72) : $signed(_GEN_267); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_269 = 7'h6f == cosAddr ? $signed(16'sh3e9d) : $signed(_GEN_268); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_270 = 7'h70 == cosAddr ? $signed(16'sh3ec5) : $signed(_GEN_269); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_271 = 7'h71 == cosAddr ? $signed(16'sh3eeb) : $signed(_GEN_270); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_272 = 7'h72 == cosAddr ? $signed(16'sh3f0f) : $signed(_GEN_271); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_273 = 7'h73 == cosAddr ? $signed(16'sh3f30) : $signed(_GEN_272); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_274 = 7'h74 == cosAddr ? $signed(16'sh3f4f) : $signed(_GEN_273); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_275 = 7'h75 == cosAddr ? $signed(16'sh3f6b) : $signed(_GEN_274); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_276 = 7'h76 == cosAddr ? $signed(16'sh3f85) : $signed(_GEN_275); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_277 = 7'h77 == cosAddr ? $signed(16'sh3f9c) : $signed(_GEN_276); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_278 = 7'h78 == cosAddr ? $signed(16'sh3fb1) : $signed(_GEN_277); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_279 = 7'h79 == cosAddr ? $signed(16'sh3fc4) : $signed(_GEN_278); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_280 = 7'h7a == cosAddr ? $signed(16'sh3fd4) : $signed(_GEN_279); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_281 = 7'h7b == cosAddr ? $signed(16'sh3fe1) : $signed(_GEN_280); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_282 = 7'h7c == cosAddr ? $signed(16'sh3fec) : $signed(_GEN_281); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_283 = 7'h7d == cosAddr ? $signed(16'sh3ff5) : $signed(_GEN_282); // @[NCOTable.scala 263:64]
+  wire [15:0] _GEN_284 = 7'h7e == cosAddr ? $signed(16'sh3ffb) : $signed(_GEN_283); // @[NCOTable.scala 263:64]
+  wire [15:0] _T_71 = 7'h7f == cosAddr ? $signed(16'sh3fff) : $signed(_GEN_284); // @[NCOTable.scala 263:64]
+  wire [15:0] cosTableOut = _GEN_26 ? $signed(16'sh4000) : $signed(_T_71); // @[NCOTable.scala 263:23]
   wire [15:0] _T_75 = 16'sh0 - $signed(sinTableOut); // @[FixedPointTypeClass.scala 39:43]
   wire [15:0] _T_78 = 16'sh0 - $signed(cosTableOut); // @[FixedPointTypeClass.scala 39:43]
-  assign io_sinOut = sinNegative2 ? $signed(_T_75) : $signed(sinTableOut); // @[NCOTable.scala 314:13]
-  assign io_cosOut = cosNegative2 ? $signed(_T_78) : $signed(cosTableOut); // @[NCOTable.scala 315:13]
+  assign io_sinOut = sinNegative2 ? $signed(_T_75) : $signed(sinTableOut); // @[NCOTable.scala 316:13]
+  assign io_cosOut = cosNegative2 ? $signed(_T_78) : $signed(cosTableOut); // @[NCOTable.scala 317:13]
 endmodule
 module NCOTable(
   input  [8:0]  io_phase,
   output [15:0] io_sinOut,
   output [15:0] io_cosOut
 );
-  wire [8:0] tableNCO_io_phase; // @[NCOTable.scala 473:13]
-  wire [15:0] tableNCO_io_sinOut; // @[NCOTable.scala 473:13]
-  wire [15:0] tableNCO_io_cosOut; // @[NCOTable.scala 473:13]
-  NCOTableStandardMode tableNCO ( // @[NCOTable.scala 473:13]
+  wire [8:0] tableNCO_io_phase; // @[NCOTable.scala 475:13]
+  wire [15:0] tableNCO_io_sinOut; // @[NCOTable.scala 475:13]
+  wire [15:0] tableNCO_io_cosOut; // @[NCOTable.scala 475:13]
+  NCOTableStandardMode tableNCO ( // @[NCOTable.scala 475:13]
     .io_phase(tableNCO_io_phase),
     .io_sinOut(tableNCO_io_sinOut),
     .io_cosOut(tableNCO_io_cosOut)
   );
-  assign io_sinOut = tableNCO_io_sinOut; // @[NCOTable.scala 478:13]
-  assign io_cosOut = tableNCO_io_cosOut; // @[NCOTable.scala 479:13]
-  assign tableNCO_io_phase = io_phase; // @[NCOTable.scala 477:21]
-endmodule
-module Queue_6(
-  input   clock,
-  input   reset,
-  output  io_enq_ready,
-  input   io_enq_valid,
-  input   io_enq_bits,
-  input   io_deq_ready,
-  output  io_deq_valid,
-  output  io_deq_bits
-);
-  reg  _T [0:1]; // @[Decoupled.scala 218:24]
-  reg [31:0] _RAND_0;
-  wire  _T__T_18_data; // @[Decoupled.scala 218:24]
-  wire  _T__T_18_addr; // @[Decoupled.scala 218:24]
-  wire  _T__T_10_data; // @[Decoupled.scala 218:24]
-  wire  _T__T_10_addr; // @[Decoupled.scala 218:24]
-  wire  _T__T_10_mask; // @[Decoupled.scala 218:24]
-  wire  _T__T_10_en; // @[Decoupled.scala 218:24]
-  reg  value; // @[Counter.scala 29:33]
-  reg [31:0] _RAND_1;
-  reg  value_1; // @[Counter.scala 29:33]
-  reg [31:0] _RAND_2;
-  reg  _T_1; // @[Decoupled.scala 221:35]
-  reg [31:0] _RAND_3;
-  wire  _T_2 = value == value_1; // @[Decoupled.scala 223:41]
-  wire  _T_3 = ~_T_1; // @[Decoupled.scala 224:36]
-  wire  _T_4 = _T_2 & _T_3; // @[Decoupled.scala 224:33]
-  wire  _T_5 = _T_2 & _T_1; // @[Decoupled.scala 225:32]
-  wire  _T_6 = io_enq_ready & io_enq_valid; // @[Decoupled.scala 40:37]
-  wire  _T_8 = io_deq_ready & io_deq_valid; // @[Decoupled.scala 40:37]
-  wire  _T_12 = value + 1'h1; // @[Counter.scala 39:22]
-  wire  _T_14 = value_1 + 1'h1; // @[Counter.scala 39:22]
-  wire  _T_15 = _T_6 != _T_8; // @[Decoupled.scala 236:16]
-  wire  _T_17 = ~_T_5; // @[Decoupled.scala 241:19]
-  assign _T__T_18_addr = value_1;
-  assign _T__T_18_data = _T[_T__T_18_addr]; // @[Decoupled.scala 218:24]
-  assign _T__T_10_data = io_enq_bits;
-  assign _T__T_10_addr = value;
-  assign _T__T_10_mask = 1'h1;
-  assign _T__T_10_en = io_enq_ready & io_enq_valid;
-  assign io_enq_ready = io_deq_ready | _T_17; // @[Decoupled.scala 241:16 Decoupled.scala 254:40]
-  assign io_deq_valid = ~_T_4; // @[Decoupled.scala 240:16]
-  assign io_deq_bits = _T__T_18_data; // @[Decoupled.scala 242:15]
-`ifdef RANDOMIZE_GARBAGE_ASSIGN
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_INVALID_ASSIGN
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_REG_INIT
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_MEM_INIT
-`define RANDOMIZE
-`endif
-`ifndef RANDOM
-`define RANDOM $random
-`endif
-`ifdef RANDOMIZE_MEM_INIT
-  integer initvar;
-`endif
-`ifndef SYNTHESIS
-initial begin
-  `ifdef RANDOMIZE
-    `ifdef INIT_RANDOM
-      `INIT_RANDOM
-    `endif
-    `ifndef VERILATOR
-      `ifdef RANDOMIZE_DELAY
-        #`RANDOMIZE_DELAY begin end
-      `else
-        #0.002 begin end
-      `endif
-    `endif
-  _RAND_0 = {1{`RANDOM}};
-  `ifdef RANDOMIZE_MEM_INIT
-  for (initvar = 0; initvar < 2; initvar = initvar+1)
-    _T[initvar] = _RAND_0[0:0];
-  `endif // RANDOMIZE_MEM_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_1 = {1{`RANDOM}};
-  value = _RAND_1[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_2 = {1{`RANDOM}};
-  value_1 = _RAND_2[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_3 = {1{`RANDOM}};
-  _T_1 = _RAND_3[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `endif // RANDOMIZE
-end // initial
-`endif // SYNTHESIS
-  always @(posedge clock) begin
-    if(_T__T_10_en & _T__T_10_mask) begin
-      _T[_T__T_10_addr] <= _T__T_10_data; // @[Decoupled.scala 218:24]
-    end
-    if (reset) begin
-      value <= 1'h0;
-    end else if (_T_6) begin
-      value <= _T_12;
-    end
-    if (reset) begin
-      value_1 <= 1'h0;
-    end else if (_T_8) begin
-      value_1 <= _T_14;
-    end
-    if (reset) begin
-      _T_1 <= 1'h0;
-    end else if (_T_15) begin
-      _T_1 <= _T_6;
-    end
-  end
+  assign io_sinOut = tableNCO_io_sinOut; // @[NCOTable.scala 480:13]
+  assign io_cosOut = tableNCO_io_cosOut; // @[NCOTable.scala 481:13]
+  assign tableNCO_io_phase = io_phase; // @[NCOTable.scala 479:21]
 endmodule
 module AXI4NCOLazyModuleBlock(
   input         clock,
@@ -4058,123 +3997,97 @@ module AXI4NCOLazyModuleBlock(
   input  [31:0] auto_freq_in_bits_data,
   input         auto_freq_in_bits_last
 );
-  wire [8:0] phaseConverter_io_phase; // @[NCOLazyModuleBlock.scala 35:32]
-  wire [15:0] phaseConverter_io_sinOut; // @[NCOLazyModuleBlock.scala 35:32]
-  wire [15:0] phaseConverter_io_cosOut; // @[NCOLazyModuleBlock.scala 35:32]
-  wire  Queue_clock; // @[Skid.scala 21:23]
-  wire  Queue_reset; // @[Skid.scala 21:23]
-  wire  Queue_io_enq_ready; // @[Skid.scala 21:23]
-  wire  Queue_io_enq_valid; // @[Skid.scala 21:23]
-  wire  Queue_io_enq_bits; // @[Skid.scala 21:23]
-  wire  Queue_io_deq_ready; // @[Skid.scala 21:23]
-  wire  Queue_io_deq_valid; // @[Skid.scala 21:23]
-  wire  Queue_io_deq_bits; // @[Skid.scala 21:23]
-  reg [8:0] phaseCounter; // @[NCOLazyModuleBlock.scala 36:33]
+  wire [8:0] phaseConverter_io_phase; // @[NCOLazyModuleBlock.scala 37:32]
+  wire [15:0] phaseConverter_io_sinOut; // @[NCOLazyModuleBlock.scala 37:32]
+  wire [15:0] phaseConverter_io_cosOut; // @[NCOLazyModuleBlock.scala 37:32]
+  reg [8:0] phaseCounter; // @[NCOLazyModuleBlock.scala 38:33]
   reg [31:0] _RAND_0;
-  reg [1:0] _T_35; // @[NCOLazyModuleBlock.scala 213:33]
+  reg [1:0] _T_35; // @[NCOLazyModuleBlock.scala 209:33]
   reg [31:0] _RAND_1;
-  wire  _T_52 = _T_35 < 2'h2; // @[NCOLazyModuleBlock.scala 223:48]
-  wire  _T_53 = _T_35 == 2'h2; // @[NCOLazyModuleBlock.scala 223:78]
-  wire  _T_54 = _T_53 & auto_stream_out_ready; // @[NCOLazyModuleBlock.scala 223:92]
-  wire  _T_55 = _T_52 | _T_54; // @[NCOLazyModuleBlock.scala 223:61]
-  wire  _T_5 = _T_55 & auto_freq_in_valid; // @[Decoupled.scala 40:37]
-  wire [31:0] _GEN_15 = {{23'd0}, phaseCounter}; // @[NCOLazyModuleBlock.scala 190:40]
-  wire [31:0] _T_7 = _GEN_15 + auto_freq_in_bits_data; // @[NCOLazyModuleBlock.scala 190:40]
-  wire [31:0] _GEN_0 = _T_5 ? _T_7 : {{23'd0}, phaseCounter}; // @[NCOLazyModuleBlock.scala 189:40]
-  wire [16:0] _T_8 = {{8'd0}, phaseCounter}; // @[NCOLazyModuleBlock.scala 199:47]
-  reg  queueCounter; // @[Skid.scala 22:31]
+  wire  _T_50 = _T_35 < 2'h2; // @[NCOLazyModuleBlock.scala 216:48]
+  wire  _T_51 = _T_35 == 2'h2; // @[NCOLazyModuleBlock.scala 216:78]
+  wire  _T_52 = _T_51 & auto_stream_out_ready; // @[NCOLazyModuleBlock.scala 216:92]
+  wire  _T_53 = _T_50 | _T_52; // @[NCOLazyModuleBlock.scala 216:61]
+  wire  _T_4 = _T_53 & auto_freq_in_valid; // @[Decoupled.scala 40:37]
+  wire [31:0] _GEN_17 = {{23'd0}, phaseCounter}; // @[NCOLazyModuleBlock.scala 187:40]
+  wire [31:0] _T_6 = _GEN_17 + auto_freq_in_bits_data; // @[NCOLazyModuleBlock.scala 187:40]
+  wire [31:0] _GEN_0 = _T_4 ? _T_6 : {{23'd0}, phaseCounter}; // @[NCOLazyModuleBlock.scala 186:40]
+  wire [16:0] _T_7 = {{8'd0}, phaseCounter}; // @[NCOLazyModuleBlock.scala 196:47]
+  reg  _T_9; // @[NCOLazyModuleBlock.scala 198:27]
   reg [31:0] _RAND_2;
-  wire  _T_26 = queueCounter < 1'h1; // @[Skid.scala 29:31]
-  wire  _T_28 = queueCounter & auto_stream_out_ready; // @[Skid.scala 29:75]
-  wire  _T_29 = _T_26 | _T_28; // @[Skid.scala 29:44]
-  wire  _T_14 = _T_29 & auto_freq_in_valid; // @[Decoupled.scala 40:37]
-  wire [1:0] _T_15 = queueCounter + _T_14; // @[Skid.scala 23:34]
-  wire  _T_11_valid = Queue_io_deq_valid; // @[NCOLazyModuleBlock.scala 202:29 Skid.scala 31:15]
-  wire  _T_16 = auto_stream_out_ready & _T_11_valid; // @[Decoupled.scala 40:37]
-  wire [1:0] _GEN_16 = {{1'd0}, _T_16}; // @[Skid.scala 23:47]
-  wire [2:0] _T_17 = _T_15 - _GEN_16; // @[Skid.scala 23:47]
-  reg  _T_20; // @[Reg.scala 27:20]
+  reg  _T_11; // @[NCOLazyModuleBlock.scala 201:28]
   reg [31:0] _RAND_3;
-  wire  _T_21 = ~Queue_io_enq_valid; // @[Skid.scala 26:12]
-  wire  _T_22 = _T_21 | Queue_io_enq_ready; // @[Skid.scala 26:32]
-  wire  _T_24 = _T_22 | reset; // @[Skid.scala 26:11]
-  wire  _T_25 = ~_T_24; // @[Skid.scala 26:11]
-  reg  ioout_bits_last; // @[NCOLazyModuleBlock.scala 207:28]
+  reg  _T_12; // @[NCOLazyModuleBlock.scala 202:30]
   reg [31:0] _RAND_4;
-  reg  _T_31; // @[NCOLazyModuleBlock.scala 208:30]
+  reg [1:0] _T_13; // @[NCOLazyModuleBlock.scala 203:32]
   reg [31:0] _RAND_5;
-  wire  _T_11_bits = Queue_io_deq_bits; // @[NCOLazyModuleBlock.scala 202:29 Skid.scala 32:14]
-  wire  _GEN_2 = _T_11_bits | _T_31; // @[NCOLazyModuleBlock.scala 209:30]
-  wire  _T_32 = ~_T_31; // @[NCOLazyModuleBlock.scala 210:32]
-  wire  _T_33 = _T_11_bits & _T_32; // @[NCOLazyModuleBlock.scala 210:29]
-  wire  _T_57 = _T_35 == 2'h1; // @[NCOLazyModuleBlock.scala 224:65]
-  reg [1:0] _T_46; // @[NCOLazyModuleBlock.scala 218:64]
+  wire  _T_14 = ~auto_freq_in_bits_last; // @[NCOLazyModuleBlock.scala 204:12]
+  wire  _T_16 = _T_14 & _T_4; // @[NCOLazyModuleBlock.scala 204:41]
+  wire  _T_17 = ~_T_11; // @[NCOLazyModuleBlock.scala 204:72]
+  wire  _T_18 = _T_16 & _T_17; // @[NCOLazyModuleBlock.scala 204:69]
+  wire  _T_20 = auto_freq_in_bits_last & _T_4; // @[NCOLazyModuleBlock.scala 204:142]
+  wire  _GEN_2 = _T_20 ? 1'h0 : _T_12; // @[NCOLazyModuleBlock.scala 204:170]
+  wire  _GEN_3 = _T_18 | _GEN_2; // @[NCOLazyModuleBlock.scala 204:82]
+  wire  _T_23 = _T_20 & _T_12; // @[NCOLazyModuleBlock.scala 205:68]
+  wire  _T_32 = _T_13 >= 2'h1; // @[NCOLazyModuleBlock.scala 207:39]
+  wire  _T_55 = _T_35 == 2'h1; // @[NCOLazyModuleBlock.scala 217:65]
+  reg [1:0] _T_46; // @[NCOLazyModuleBlock.scala 214:64]
   reg [31:0] _RAND_6;
-  wire  _T_47 = _T_35 != _T_46; // @[NCOLazyModuleBlock.scala 218:53]
-  reg [1:0] _T_48; // @[NCOLazyModuleBlock.scala 218:87]
+  wire  _T_47 = _T_35 != _T_46; // @[NCOLazyModuleBlock.scala 214:53]
+  reg [1:0] _T_48; // @[NCOLazyModuleBlock.scala 214:87]
   reg [31:0] _RAND_7;
-  reg [1:0] _T_41; // @[NCOLazyModuleBlock.scala 215:42]
+  reg [1:0] _T_41; // @[NCOLazyModuleBlock.scala 211:42]
   reg [31:0] _RAND_8;
-  wire [1:0] _T_49 = _T_47 ? _T_48 : _T_41; // @[NCOLazyModuleBlock.scala 218:39]
-  wire  _T_58 = _T_49 == 2'h2; // @[NCOLazyModuleBlock.scala 224:104]
-  wire  _T_59 = _T_57 & _T_58; // @[NCOLazyModuleBlock.scala 224:74]
-  wire  _T_60 = _T_53 | _T_59; // @[NCOLazyModuleBlock.scala 224:47]
-  wire  ioout_valid = _T_60 & auto_stream_out_ready; // @[NCOLazyModuleBlock.scala 224:115]
-  wire [1:0] _GEN_17 = {{1'd0}, _T_5}; // @[NCOLazyModuleBlock.scala 214:36]
-  wire [2:0] _T_37 = _T_35 + _GEN_17; // @[NCOLazyModuleBlock.scala 214:36]
+  wire [1:0] _T_49 = _T_47 ? _T_48 : _T_41; // @[NCOLazyModuleBlock.scala 214:39]
+  wire  _T_56 = _T_49 == 2'h2; // @[NCOLazyModuleBlock.scala 217:104]
+  wire  _T_57 = _T_55 & _T_56; // @[NCOLazyModuleBlock.scala 217:74]
+  wire  _T_58 = _T_51 | _T_57; // @[NCOLazyModuleBlock.scala 217:47]
+  wire  ioout_valid = _T_58 & auto_stream_out_ready; // @[NCOLazyModuleBlock.scala 217:115]
+  wire  _T_33 = _T_32 & ioout_valid; // @[NCOLazyModuleBlock.scala 207:47]
+  wire  ioout_bits_last = _T_33 & _T_11; // @[NCOLazyModuleBlock.scala 207:62]
+  wire  _GEN_4 = ioout_bits_last ? 1'h0 : _T_11; // @[NCOLazyModuleBlock.scala 205:128]
+  wire  _GEN_5 = _T_23 | _GEN_4; // @[NCOLazyModuleBlock.scala 205:81]
+  wire  _T_28 = ioout_bits_last | _T_17; // @[NCOLazyModuleBlock.scala 206:61]
+  wire  _T_29 = _T_11 & ioout_valid; // @[NCOLazyModuleBlock.scala 206:112]
+  wire [1:0] _T_31 = _T_13 + 2'h1; // @[NCOLazyModuleBlock.scala 206:156]
+  wire [1:0] _GEN_18 = {{1'd0}, _T_4}; // @[NCOLazyModuleBlock.scala 210:36]
+  wire [2:0] _T_37 = _T_35 + _GEN_18; // @[NCOLazyModuleBlock.scala 210:36]
   wire  _T_38 = auto_stream_out_ready & ioout_valid; // @[Decoupled.scala 40:37]
-  wire [2:0] _GEN_18 = {{2'd0}, _T_38}; // @[NCOLazyModuleBlock.scala 214:64]
-  wire [3:0] _T_39 = _T_37 - _GEN_18; // @[NCOLazyModuleBlock.scala 214:64]
-  reg [1:0] _T_42; // @[NCOLazyModuleBlock.scala 216:37]
+  wire [2:0] _GEN_19 = {{2'd0}, _T_38}; // @[NCOLazyModuleBlock.scala 210:64]
+  wire [3:0] _T_39 = _T_37 - _GEN_19; // @[NCOLazyModuleBlock.scala 210:64]
+  reg [1:0] _T_42; // @[NCOLazyModuleBlock.scala 212:37]
   reg [31:0] _RAND_9;
-  wire  _T_43 = _T_35 != _T_42; // @[NCOLazyModuleBlock.scala 216:26]
-  reg [1:0] _T_44; // @[NCOLazyModuleBlock.scala 216:86]
+  wire  _T_43 = _T_35 != _T_42; // @[NCOLazyModuleBlock.scala 212:26]
+  reg [1:0] _T_44; // @[NCOLazyModuleBlock.scala 212:86]
   reg [31:0] _RAND_10;
-  reg  _T_50; // @[NCOLazyModuleBlock.scala 220:27]
+  reg [15:0] _T_62; // @[NCOLazyModuleBlock.scala 219:36]
   reg [31:0] _RAND_11;
-  reg [15:0] _T_64; // @[NCOLazyModuleBlock.scala 226:36]
+  reg [15:0] _T_65; // @[NCOLazyModuleBlock.scala 220:36]
   reg [31:0] _RAND_12;
-  reg [15:0] _T_67; // @[NCOLazyModuleBlock.scala 227:36]
+  reg [15:0] _T_68; // @[NCOLazyModuleBlock.scala 222:37]
   reg [31:0] _RAND_13;
-  reg [15:0] _T_70; // @[NCOLazyModuleBlock.scala 229:37]
+  reg [15:0] _T_71; // @[NCOLazyModuleBlock.scala 223:37]
   reg [31:0] _RAND_14;
-  reg [15:0] _T_73; // @[NCOLazyModuleBlock.scala 230:37]
-  reg [31:0] _RAND_15;
-  wire  _T_76 = _T_5 & _T_50; // @[NCOLazyModuleBlock.scala 258:39]
-  wire [31:0] _T_79 = {_T_67,_T_64}; // @[Cat.scala 29:58]
-  wire  _T_81 = ~_T_50; // @[NCOLazyModuleBlock.scala 260:48]
-  wire  _T_82 = _T_5 & _T_81; // @[NCOLazyModuleBlock.scala 260:45]
-  wire [31:0] _T_85 = {_T_73,_T_70}; // @[Cat.scala 29:58]
-  wire  _T_87 = ~_T_5; // @[NCOLazyModuleBlock.scala 262:20]
-  wire  _T_88 = _T_87 & _T_50; // @[NCOLazyModuleBlock.scala 262:46]
-  wire [31:0] _GEN_11 = _T_88 ? _T_79 : _T_85; // @[NCOLazyModuleBlock.scala 262:56]
-  wire [31:0] _GEN_12 = _T_82 ? _T_85 : _GEN_11; // @[NCOLazyModuleBlock.scala 260:56]
-  wire [31:0] _GEN_13 = _T_76 ? _T_79 : _GEN_12; // @[NCOLazyModuleBlock.scala 258:49]
-  NCOTable phaseConverter ( // @[NCOLazyModuleBlock.scala 35:32]
+  wire  _T_74 = _T_4 & _T_9; // @[NCOLazyModuleBlock.scala 251:39]
+  wire [31:0] _T_77 = {_T_65,_T_62}; // @[Cat.scala 29:58]
+  wire  _T_79 = ~_T_9; // @[NCOLazyModuleBlock.scala 253:48]
+  wire  _T_80 = _T_4 & _T_79; // @[NCOLazyModuleBlock.scala 253:45]
+  wire [31:0] _T_83 = {_T_71,_T_68}; // @[Cat.scala 29:58]
+  wire  _T_85 = ~_T_4; // @[NCOLazyModuleBlock.scala 255:20]
+  wire  _T_86 = _T_85 & _T_9; // @[NCOLazyModuleBlock.scala 255:46]
+  wire [31:0] _GEN_13 = _T_86 ? _T_77 : _T_83; // @[NCOLazyModuleBlock.scala 255:56]
+  wire [31:0] _GEN_14 = _T_80 ? _T_83 : _GEN_13; // @[NCOLazyModuleBlock.scala 253:56]
+  wire [31:0] _GEN_15 = _T_74 ? _T_77 : _GEN_14; // @[NCOLazyModuleBlock.scala 251:49]
+  NCOTable phaseConverter ( // @[NCOLazyModuleBlock.scala 37:32]
     .io_phase(phaseConverter_io_phase),
     .io_sinOut(phaseConverter_io_sinOut),
     .io_cosOut(phaseConverter_io_cosOut)
   );
-  Queue_6 Queue ( // @[Skid.scala 21:23]
-    .clock(Queue_clock),
-    .reset(Queue_reset),
-    .io_enq_ready(Queue_io_enq_ready),
-    .io_enq_valid(Queue_io_enq_valid),
-    .io_enq_bits(Queue_io_enq_bits),
-    .io_deq_ready(Queue_io_deq_ready),
-    .io_deq_valid(Queue_io_deq_valid),
-    .io_deq_bits(Queue_io_deq_bits)
-  );
-  assign auto_stream_out_valid = _T_60 & auto_stream_out_ready; // @[LazyModule.scala 173:49]
-  assign auto_stream_out_bits_data = _T_53 ? _GEN_13 : _T_79; // @[LazyModule.scala 173:49]
-  assign auto_stream_out_bits_last = ioout_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_freq_in_ready = _T_52 | _T_54; // @[LazyModule.scala 173:31]
-  assign phaseConverter_io_phase = _T_8[8:0]; // @[NCOLazyModuleBlock.scala 199:31]
-  assign Queue_clock = clock;
-  assign Queue_reset = reset;
-  assign Queue_io_enq_valid = _T_20; // @[Skid.scala 25:24]
-  assign Queue_io_enq_bits = auto_freq_in_bits_last & _T_5; // @[NCOLazyModuleBlock.scala 206:41]
-  assign Queue_io_deq_ready = auto_stream_out_ready; // @[Skid.scala 30:24]
+  assign auto_stream_out_valid = _T_58 & auto_stream_out_ready; // @[LazyModule.scala 173:49]
+  assign auto_stream_out_bits_data = _T_51 ? _GEN_15 : _T_77; // @[LazyModule.scala 173:49]
+  assign auto_stream_out_bits_last = _T_33 & _T_11; // @[LazyModule.scala 173:49]
+  assign auto_freq_in_ready = _T_50 | _T_52; // @[LazyModule.scala 173:31]
+  assign phaseConverter_io_phase = _T_7[8:0]; // @[NCOLazyModuleBlock.scala 196:31]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -4216,19 +4129,19 @@ initial begin
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_2 = {1{`RANDOM}};
-  queueCounter = _RAND_2[0:0];
+  _T_9 = _RAND_2[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_3 = {1{`RANDOM}};
-  _T_20 = _RAND_3[0:0];
+  _T_11 = _RAND_3[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_4 = {1{`RANDOM}};
-  ioout_bits_last = _RAND_4[0:0];
+  _T_12 = _RAND_4[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_5 = {1{`RANDOM}};
-  _T_31 = _RAND_5[0:0];
+  _T_13 = _RAND_5[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_6 = {1{`RANDOM}};
@@ -4252,23 +4165,19 @@ initial begin
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_11 = {1{`RANDOM}};
-  _T_50 = _RAND_11[0:0];
+  _T_62 = _RAND_11[15:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_12 = {1{`RANDOM}};
-  _T_64 = _RAND_12[15:0];
+  _T_65 = _RAND_12[15:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_13 = {1{`RANDOM}};
-  _T_67 = _RAND_13[15:0];
+  _T_68 = _RAND_13[15:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_14 = {1{`RANDOM}};
-  _T_70 = _RAND_14[15:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_15 = {1{`RANDOM}};
-  _T_73 = _RAND_15[15:0];
+  _T_71 = _RAND_14[15:0];
   `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -4285,24 +4194,26 @@ end // initial
       _T_35 <= _T_39[1:0];
     end
     if (reset) begin
-      queueCounter <= 1'h0;
+      _T_9 <= 1'h0;
     end else begin
-      queueCounter <= _T_17[0];
+      _T_9 <= _T_4;
     end
     if (reset) begin
-      _T_20 <= 1'h0;
+      _T_11 <= 1'h0;
     end else begin
-      _T_20 <= _T_14;
+      _T_11 <= _GEN_5;
     end
     if (reset) begin
-      ioout_bits_last <= 1'h0;
+      _T_12 <= 1'h0;
     end else begin
-      ioout_bits_last <= _T_33;
+      _T_12 <= _GEN_3;
     end
     if (reset) begin
-      _T_31 <= 1'h0;
-    end else begin
-      _T_31 <= _GEN_2;
+      _T_13 <= 2'h0;
+    end else if (_T_28) begin
+      _T_13 <= 2'h0;
+    end else if (_T_29) begin
+      _T_13 <= _T_31;
     end
     _T_46 <= _T_35;
     _T_48 <= _T_35;
@@ -4314,52 +4225,25 @@ end // initial
     _T_42 <= _T_35;
     _T_44 <= _T_35;
     if (reset) begin
-      _T_50 <= 1'h0;
-    end else begin
-      _T_50 <= _T_5;
+      _T_62 <= 16'sh0;
+    end else if (_T_9) begin
+      _T_62 <= phaseConverter_io_sinOut;
     end
     if (reset) begin
-      _T_64 <= 16'sh0;
-    end else if (_T_50) begin
-      _T_64 <= phaseConverter_io_sinOut;
+      _T_65 <= 16'sh0;
+    end else if (_T_9) begin
+      _T_65 <= phaseConverter_io_cosOut;
     end
     if (reset) begin
-      _T_67 <= 16'sh0;
-    end else if (_T_50) begin
-      _T_67 <= phaseConverter_io_cosOut;
+      _T_68 <= 16'sh0;
+    end else if (_T_9) begin
+      _T_68 <= _T_62;
     end
     if (reset) begin
-      _T_70 <= 16'sh0;
-    end else if (_T_50) begin
-      _T_70 <= _T_64;
+      _T_71 <= 16'sh0;
+    end else if (_T_9) begin
+      _T_71 <= _T_65;
     end
-    if (reset) begin
-      _T_73 <= 16'sh0;
-    end else if (_T_50) begin
-      _T_73 <= _T_67;
-    end
-    `ifndef SYNTHESIS
-    `ifdef PRINTF_COND
-      if (`PRINTF_COND) begin
-    `endif
-        if (_T_25) begin
-          $fwrite(32'h80000002,"Assertion failed\n    at Skid.scala:26 assert(!queue.io.enq.valid || queue.io.enq.ready) // we control in.ready such that the queue can't fill up!\n"); // @[Skid.scala 26:11]
-        end
-    `ifdef PRINTF_COND
-      end
-    `endif
-    `endif // SYNTHESIS
-    `ifndef SYNTHESIS
-    `ifdef STOP_COND
-      if (`STOP_COND) begin
-    `endif
-        if (_T_25) begin
-          $fatal; // @[Skid.scala 26:11]
-        end
-    `ifdef STOP_COND
-      end
-    `endif
-    `endif // SYNTHESIS
   end
 endmodule
 module AXI4Splitter_2(
@@ -4793,7 +4677,7 @@ module SDFStageRadix22(
   input  [6:0]  io_cntr,
   input         io_en
 );
-  wire  load_input = io_cntr < 7'h40; // @[SDFChainRadix22.scala 426:66]
+  wire  load_input = io_cntr < 7'h40; // @[SDFChainRadix22.scala 428:66]
   reg [15:0] shift_out_real; // @[Reg.scala 15:16]
   reg [31:0] _RAND_0;
   wire [16:0] butt_outputs_1_real = $signed(shift_out_real) - $signed(io_in_real); // @[FixedPointTypeClass.scala 33:22]
@@ -5078,8 +4962,8 @@ module SDFStageRadix22(
   reg [31:0] _RAND_131;
   reg  load_output; // @[Reg.scala 27:20]
   reg [31:0] _RAND_132;
-  assign io_out_real = load_output ? $signed(feedback_real) : $signed(butt_out_0_real); // @[SDFChainRadix22.scala 422:10]
-  assign io_out_imag = load_output ? $signed(feedback_imag) : $signed(butt_out_0_imag); // @[SDFChainRadix22.scala 422:10]
+  assign io_out_real = load_output ? $signed(feedback_real) : $signed(butt_out_0_real); // @[SDFChainRadix22.scala 424:10]
+  assign io_out_imag = load_output ? $signed(feedback_imag) : $signed(butt_out_0_imag); // @[SDFChainRadix22.scala 424:10]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -6060,7 +5944,7 @@ module SDFStageRadix22_1(
   input  [6:0]  io_cntr,
   input         io_en
 );
-  wire  load_input = io_cntr < 7'h20; // @[SDFChainRadix22.scala 426:66]
+  wire  load_input = io_cntr < 7'h20; // @[SDFChainRadix22.scala 428:66]
   reg [15:0] shift_out_real; // @[Reg.scala 15:16]
   reg [31:0] _RAND_0;
   wire [16:0] butt_outputs_1_real = $signed(shift_out_real) - $signed(io_in_real); // @[FixedPointTypeClass.scala 33:22]
@@ -6217,8 +6101,8 @@ module SDFStageRadix22_1(
   reg [31:0] _RAND_67;
   reg  load_output; // @[Reg.scala 27:20]
   reg [31:0] _RAND_68;
-  assign io_out_real = load_output ? $signed(feedback_real) : $signed(butt_out_0_real); // @[SDFChainRadix22.scala 422:10]
-  assign io_out_imag = load_output ? $signed(feedback_imag) : $signed(butt_out_0_imag); // @[SDFChainRadix22.scala 422:10]
+  assign io_out_real = load_output ? $signed(feedback_real) : $signed(butt_out_0_real); // @[SDFChainRadix22.scala 424:10]
+  assign io_out_imag = load_output ? $signed(feedback_imag) : $signed(butt_out_0_imag); // @[SDFChainRadix22.scala 424:10]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -6751,7 +6635,7 @@ module SDFStageRadix22_2(
   input  [6:0]  io_cntr,
   input         io_en
 );
-  wire  load_input = io_cntr < 7'h10; // @[SDFChainRadix22.scala 426:66]
+  wire  load_input = io_cntr < 7'h10; // @[SDFChainRadix22.scala 428:66]
   reg [15:0] shift_out_real; // @[Reg.scala 15:16]
   reg [31:0] _RAND_0;
   wire [16:0] butt_outputs_1_real = $signed(shift_out_real) - $signed(io_in_real); // @[FixedPointTypeClass.scala 33:22]
@@ -6844,8 +6728,8 @@ module SDFStageRadix22_2(
   reg [31:0] _RAND_35;
   reg  load_output; // @[Reg.scala 27:20]
   reg [31:0] _RAND_36;
-  assign io_out_real = load_output ? $signed(feedback_real) : $signed(butt_out_0_real); // @[SDFChainRadix22.scala 422:10]
-  assign io_out_imag = load_output ? $signed(feedback_imag) : $signed(butt_out_0_imag); // @[SDFChainRadix22.scala 422:10]
+  assign io_out_real = load_output ? $signed(feedback_real) : $signed(butt_out_0_real); // @[SDFChainRadix22.scala 424:10]
+  assign io_out_imag = load_output ? $signed(feedback_imag) : $signed(butt_out_0_imag); // @[SDFChainRadix22.scala 424:10]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -7154,7 +7038,7 @@ module SDFStageRadix22_3(
   input  [6:0]  io_cntr,
   input         io_en
 );
-  wire  load_input = io_cntr < 7'h8; // @[SDFChainRadix22.scala 426:66]
+  wire  load_input = io_cntr < 7'h8; // @[SDFChainRadix22.scala 428:66]
   reg [15:0] shift_out_real; // @[Reg.scala 15:16]
   reg [31:0] _RAND_0;
   wire [16:0] butt_outputs_1_real = $signed(shift_out_real) - $signed(io_in_real); // @[FixedPointTypeClass.scala 33:22]
@@ -7215,8 +7099,8 @@ module SDFStageRadix22_3(
   reg [31:0] _RAND_19;
   reg  load_output; // @[Reg.scala 27:20]
   reg [31:0] _RAND_20;
-  assign io_out_real = load_output ? $signed(feedback_real) : $signed(butt_out_0_real); // @[SDFChainRadix22.scala 422:10]
-  assign io_out_imag = load_output ? $signed(feedback_imag) : $signed(butt_out_0_imag); // @[SDFChainRadix22.scala 422:10]
+  assign io_out_real = load_output ? $signed(feedback_real) : $signed(butt_out_0_real); // @[SDFChainRadix22.scala 424:10]
+  assign io_out_imag = load_output ? $signed(feedback_imag) : $signed(butt_out_0_imag); // @[SDFChainRadix22.scala 424:10]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -7413,7 +7297,7 @@ module SDFStageRadix22_4(
   input  [6:0]  io_cntr,
   input         io_en
 );
-  wire  load_input = io_cntr < 7'h4; // @[SDFChainRadix22.scala 426:66]
+  wire  load_input = io_cntr < 7'h4; // @[SDFChainRadix22.scala 428:66]
   reg [15:0] shift_out_real; // @[Reg.scala 15:16]
   reg [31:0] _RAND_0;
   wire [16:0] butt_outputs_1_real = $signed(shift_out_real) - $signed(io_in_real); // @[FixedPointTypeClass.scala 33:22]
@@ -7458,8 +7342,8 @@ module SDFStageRadix22_4(
   reg [31:0] _RAND_11;
   reg  load_output; // @[Reg.scala 27:20]
   reg [31:0] _RAND_12;
-  assign io_out_real = load_output ? $signed(feedback_real) : $signed(butt_out_0_real); // @[SDFChainRadix22.scala 422:10]
-  assign io_out_imag = load_output ? $signed(feedback_imag) : $signed(butt_out_0_imag); // @[SDFChainRadix22.scala 422:10]
+  assign io_out_real = load_output ? $signed(feedback_real) : $signed(butt_out_0_real); // @[SDFChainRadix22.scala 424:10]
+  assign io_out_imag = load_output ? $signed(feedback_imag) : $signed(butt_out_0_imag); // @[SDFChainRadix22.scala 424:10]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -7600,7 +7484,7 @@ module SDFStageRadix22_5(
   input  [6:0]  io_cntr,
   input         io_en
 );
-  wire  load_input = io_cntr < 7'h2; // @[SDFChainRadix22.scala 426:66]
+  wire  load_input = io_cntr < 7'h2; // @[SDFChainRadix22.scala 428:66]
   reg [15:0] shift_out_real; // @[Reg.scala 15:16]
   reg [31:0] _RAND_0;
   wire [16:0] butt_outputs_1_real = $signed(shift_out_real) - $signed(io_in_real); // @[FixedPointTypeClass.scala 33:22]
@@ -7637,8 +7521,8 @@ module SDFStageRadix22_5(
   reg [31:0] _RAND_7;
   reg  load_output; // @[Reg.scala 27:20]
   reg [31:0] _RAND_8;
-  assign io_out_real = load_output ? $signed(feedback_real) : $signed(butt_out_0_real); // @[SDFChainRadix22.scala 422:10]
-  assign io_out_imag = load_output ? $signed(feedback_imag) : $signed(butt_out_0_imag); // @[SDFChainRadix22.scala 422:10]
+  assign io_out_real = load_output ? $signed(feedback_real) : $signed(butt_out_0_real); // @[SDFChainRadix22.scala 424:10]
+  assign io_out_imag = load_output ? $signed(feedback_imag) : $signed(butt_out_0_imag); // @[SDFChainRadix22.scala 424:10]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -7751,7 +7635,7 @@ module SDFStageRadix22_6(
   input  [6:0]  io_cntr,
   input         io_en
 );
-  wire  load_input = io_cntr < 7'h1; // @[SDFChainRadix22.scala 426:66]
+  wire  load_input = io_cntr < 7'h1; // @[SDFChainRadix22.scala 428:66]
   reg [15:0] shift_out_real; // @[Reg.scala 15:16]
   reg [31:0] _RAND_0;
   wire [16:0] butt_outputs_1_real = $signed(shift_out_real) - $signed(io_in_real); // @[FixedPointTypeClass.scala 33:22]
@@ -7784,8 +7668,8 @@ module SDFStageRadix22_6(
   reg [31:0] _RAND_5;
   reg  load_output; // @[Reg.scala 27:20]
   reg [31:0] _RAND_6;
-  assign io_out_real = load_output ? $signed(feedback_real) : $signed(butt_out_0_real); // @[SDFChainRadix22.scala 422:10]
-  assign io_out_imag = load_output ? $signed(feedback_imag) : $signed(butt_out_0_imag); // @[SDFChainRadix22.scala 422:10]
+  assign io_out_real = load_output ? $signed(feedback_real) : $signed(butt_out_0_real); // @[SDFChainRadix22.scala 424:10]
+  assign io_out_imag = load_output ? $signed(feedback_imag) : $signed(butt_out_0_imag); // @[SDFChainRadix22.scala 424:10]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -7874,7 +7758,7 @@ end // initial
     end
   end
 endmodule
-module Queue_10(
+module Queue_9(
   input         clock,
   input         reset,
   output        io_enq_ready,
@@ -8064,390 +7948,390 @@ module SDFChainRadix22(
   input  [6:0]  io_fftSize,
   output        io_busy
 );
-  wire  sdf_stages_0_clock; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_0_reset; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_0_io_in_real; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_0_io_in_imag; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_0_io_out_real; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_0_io_out_imag; // @[SDFChainRadix22.scala 155:25]
-  wire [6:0] sdf_stages_0_io_cntr; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_0_io_en; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_1_clock; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_1_reset; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_1_io_in_real; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_1_io_in_imag; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_1_io_out_real; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_1_io_out_imag; // @[SDFChainRadix22.scala 155:25]
-  wire [6:0] sdf_stages_1_io_cntr; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_1_io_en; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_2_clock; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_2_reset; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_2_io_in_real; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_2_io_in_imag; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_2_io_out_real; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_2_io_out_imag; // @[SDFChainRadix22.scala 155:25]
-  wire [6:0] sdf_stages_2_io_cntr; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_2_io_en; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_3_clock; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_3_reset; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_3_io_in_real; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_3_io_in_imag; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_3_io_out_real; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_3_io_out_imag; // @[SDFChainRadix22.scala 155:25]
-  wire [6:0] sdf_stages_3_io_cntr; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_3_io_en; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_4_clock; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_4_reset; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_4_io_in_real; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_4_io_in_imag; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_4_io_out_real; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_4_io_out_imag; // @[SDFChainRadix22.scala 155:25]
-  wire [6:0] sdf_stages_4_io_cntr; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_4_io_en; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_5_clock; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_5_reset; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_5_io_in_real; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_5_io_in_imag; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_5_io_out_real; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_5_io_out_imag; // @[SDFChainRadix22.scala 155:25]
-  wire [6:0] sdf_stages_5_io_cntr; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_5_io_en; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_6_clock; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_6_reset; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_6_io_in_real; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_6_io_in_imag; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_6_io_out_real; // @[SDFChainRadix22.scala 155:25]
-  wire [15:0] sdf_stages_6_io_out_imag; // @[SDFChainRadix22.scala 155:25]
-  wire [6:0] sdf_stages_6_io_cntr; // @[SDFChainRadix22.scala 155:25]
-  wire  sdf_stages_6_io_en; // @[SDFChainRadix22.scala 155:25]
-  wire  outQueue_clock; // @[SDFChainRadix22.scala 356:25]
-  wire  outQueue_reset; // @[SDFChainRadix22.scala 356:25]
-  wire  outQueue_io_enq_ready; // @[SDFChainRadix22.scala 356:25]
-  wire  outQueue_io_enq_valid; // @[SDFChainRadix22.scala 356:25]
-  wire [15:0] outQueue_io_enq_bits_real; // @[SDFChainRadix22.scala 356:25]
-  wire [15:0] outQueue_io_enq_bits_imag; // @[SDFChainRadix22.scala 356:25]
-  wire  outQueue_io_deq_ready; // @[SDFChainRadix22.scala 356:25]
-  wire  outQueue_io_deq_valid; // @[SDFChainRadix22.scala 356:25]
-  wire [15:0] outQueue_io_deq_bits_real; // @[SDFChainRadix22.scala 356:25]
-  wire [15:0] outQueue_io_deq_bits_imag; // @[SDFChainRadix22.scala 356:25]
-  reg [6:0] regNumStages; // @[SDFChainRadix22.scala 41:29]
+  wire  sdf_stages_0_clock; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_0_reset; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_0_io_in_real; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_0_io_in_imag; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_0_io_out_real; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_0_io_out_imag; // @[SDFChainRadix22.scala 157:25]
+  wire [6:0] sdf_stages_0_io_cntr; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_0_io_en; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_1_clock; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_1_reset; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_1_io_in_real; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_1_io_in_imag; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_1_io_out_real; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_1_io_out_imag; // @[SDFChainRadix22.scala 157:25]
+  wire [6:0] sdf_stages_1_io_cntr; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_1_io_en; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_2_clock; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_2_reset; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_2_io_in_real; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_2_io_in_imag; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_2_io_out_real; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_2_io_out_imag; // @[SDFChainRadix22.scala 157:25]
+  wire [6:0] sdf_stages_2_io_cntr; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_2_io_en; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_3_clock; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_3_reset; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_3_io_in_real; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_3_io_in_imag; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_3_io_out_real; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_3_io_out_imag; // @[SDFChainRadix22.scala 157:25]
+  wire [6:0] sdf_stages_3_io_cntr; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_3_io_en; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_4_clock; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_4_reset; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_4_io_in_real; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_4_io_in_imag; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_4_io_out_real; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_4_io_out_imag; // @[SDFChainRadix22.scala 157:25]
+  wire [6:0] sdf_stages_4_io_cntr; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_4_io_en; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_5_clock; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_5_reset; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_5_io_in_real; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_5_io_in_imag; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_5_io_out_real; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_5_io_out_imag; // @[SDFChainRadix22.scala 157:25]
+  wire [6:0] sdf_stages_5_io_cntr; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_5_io_en; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_6_clock; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_6_reset; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_6_io_in_real; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_6_io_in_imag; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_6_io_out_real; // @[SDFChainRadix22.scala 157:25]
+  wire [15:0] sdf_stages_6_io_out_imag; // @[SDFChainRadix22.scala 157:25]
+  wire [6:0] sdf_stages_6_io_cntr; // @[SDFChainRadix22.scala 157:25]
+  wire  sdf_stages_6_io_en; // @[SDFChainRadix22.scala 157:25]
+  wire  outQueue_clock; // @[SDFChainRadix22.scala 358:25]
+  wire  outQueue_reset; // @[SDFChainRadix22.scala 358:25]
+  wire  outQueue_io_enq_ready; // @[SDFChainRadix22.scala 358:25]
+  wire  outQueue_io_enq_valid; // @[SDFChainRadix22.scala 358:25]
+  wire [15:0] outQueue_io_enq_bits_real; // @[SDFChainRadix22.scala 358:25]
+  wire [15:0] outQueue_io_enq_bits_imag; // @[SDFChainRadix22.scala 358:25]
+  wire  outQueue_io_deq_ready; // @[SDFChainRadix22.scala 358:25]
+  wire  outQueue_io_deq_valid; // @[SDFChainRadix22.scala 358:25]
+  wire [15:0] outQueue_io_deq_bits_real; // @[SDFChainRadix22.scala 358:25]
+  wire [15:0] outQueue_io_deq_bits_imag; // @[SDFChainRadix22.scala 358:25]
+  reg [6:0] regNumStages; // @[SDFChainRadix22.scala 43:29]
   reg [31:0] _RAND_0;
-  reg [1:0] state; // @[SDFChainRadix22.scala 52:22]
+  reg [1:0] state; // @[SDFChainRadix22.scala 54:22]
   reg [31:0] _RAND_1;
-  reg  initialOutDone; // @[SDFChainRadix22.scala 55:31]
+  reg  initialOutDone; // @[SDFChainRadix22.scala 57:31]
   reg [31:0] _RAND_2;
-  reg [7:0] cnt; // @[SDFChainRadix22.scala 56:20]
+  reg [7:0] cnt; // @[SDFChainRadix22.scala 58:20]
   reg [31:0] _RAND_3;
-  wire [6:0] _T_39 = regNumStages - 7'h1; // @[SDFChainRadix22.scala 69:39]
-  wire [128:0] _T_40 = 129'h2 << _T_39; // @[SDFChainRadix22.scala 69:23]
+  wire [6:0] _T_39 = regNumStages - 7'h1; // @[SDFChainRadix22.scala 71:39]
+  wire [128:0] _T_40 = 129'h2 << _T_39; // @[SDFChainRadix22.scala 71:23]
   wire  _T_41 = io_in_ready & io_in_valid; // @[Decoupled.scala 40:37]
-  wire  fireLast = io_lastIn & _T_41; // @[SDFChainRadix22.scala 75:28]
+  wire  fireLast = io_lastIn & _T_41; // @[SDFChainRadix22.scala 77:28]
   wire  _T_42 = 2'h0 == state; // @[Conditional.scala 37:30]
-  wire [1:0] _GEN_0 = _T_41 ? 2'h1 : state; // @[SDFChainRadix22.scala 82:27]
+  wire [1:0] _GEN_0 = _T_41 ? 2'h1 : state; // @[SDFChainRadix22.scala 84:27]
   wire  _T_45 = 2'h1 == state; // @[Conditional.scala 37:30]
-  wire [1:0] _GEN_1 = fireLast ? 2'h2 : state; // @[SDFChainRadix22.scala 85:23]
+  wire [1:0] _GEN_1 = fireLast ? 2'h2 : state; // @[SDFChainRadix22.scala 87:23]
   wire  _T_46 = 2'h2 == state; // @[Conditional.scala 37:30]
-  wire [1:0] _GEN_2 = io_lastOut ? 2'h0 : state; // @[SDFChainRadix22.scala 90:25]
+  wire [1:0] _GEN_2 = io_lastOut ? 2'h0 : state; // @[SDFChainRadix22.scala 92:25]
   wire [1:0] _GEN_3 = _T_46 ? _GEN_2 : state; // @[Conditional.scala 39:67]
   wire [1:0] _GEN_4 = _T_45 ? _GEN_1 : _GEN_3; // @[Conditional.scala 39:67]
   wire [1:0] state_next = _T_42 ? _GEN_0 : _GEN_4; // @[Conditional.scala 40:58]
-  reg [6:0] cntValidOut; // @[SDFChainRadix22.scala 99:28]
+  reg [6:0] cntValidOut; // @[SDFChainRadix22.scala 101:28]
   reg [31:0] _RAND_4;
-  reg  lastWait; // @[SDFChainRadix22.scala 100:25]
+  reg  lastWait; // @[SDFChainRadix22.scala 102:25]
   reg [31:0] _RAND_5;
-  reg  lastIndeed; // @[SDFChainRadix22.scala 101:27]
+  reg  lastIndeed; // @[SDFChainRadix22.scala 103:27]
   reg [31:0] _RAND_6;
-  reg  initialInDone; // @[SDFChainRadix22.scala 102:30]
+  reg  initialInDone; // @[SDFChainRadix22.scala 104:30]
   reg [31:0] _RAND_7;
-  reg  initialInDonePrev; // @[SDFChainRadix22.scala 103:34]
+  reg  initialInDonePrev; // @[SDFChainRadix22.scala 105:34]
   reg [31:0] _RAND_8;
-  wire [7:0] numPoints = _T_40[7:0]; // @[SDFChainRadix22.scala 46:23 SDFChainRadix22.scala 69:15]
-  wire [7:0] _T_48 = numPoints - 8'h1; // @[SDFChainRadix22.scala 104:44]
-  wire [7:0] _GEN_939 = {{1'd0}, cntValidOut}; // @[SDFChainRadix22.scala 104:29]
-  wire  _T_49 = _GEN_939 == _T_48; // @[SDFChainRadix22.scala 104:29]
+  wire [7:0] numPoints = _T_40[7:0]; // @[SDFChainRadix22.scala 48:23 SDFChainRadix22.scala 71:15]
+  wire [7:0] _T_48 = numPoints - 8'h1; // @[SDFChainRadix22.scala 106:44]
+  wire [7:0] _GEN_939 = {{1'd0}, cntValidOut}; // @[SDFChainRadix22.scala 106:29]
+  wire  _T_49 = _GEN_939 == _T_48; // @[SDFChainRadix22.scala 106:29]
   wire  _T_50 = io_out_ready & io_out_valid; // @[Decoupled.scala 40:37]
-  wire  pktEnd = _T_49 & _T_50; // @[SDFChainRadix22.scala 104:52]
-  wire  _T_51 = state_next == 2'h0; // @[SDFChainRadix22.scala 106:20]
-  wire  _T_54 = cnt == _T_48; // @[SDFChainRadix22.scala 109:18]
-  wire  _T_56 = _T_54 & _T_41; // @[SDFChainRadix22.scala 109:40]
-  wire  _GEN_15 = _T_56 | initialInDone; // @[SDFChainRadix22.scala 109:57]
-  wire  _T_58 = initialInDone & initialInDonePrev; // @[SDFChainRadix22.scala 117:41]
-  wire  _T_59 = fireLast & _T_58; // @[SDFChainRadix22.scala 117:23]
-  wire  _GEN_17 = _T_59 | lastWait; // @[SDFChainRadix22.scala 117:64]
-  wire  _T_61 = _T_51 & pktEnd; // @[SDFChainRadix22.scala 121:30]
-  wire [6:0] _T_64 = cntValidOut + 7'h1; // @[SDFChainRadix22.scala 125:32]
-  wire  _T_66 = lastWait & pktEnd; // @[SDFChainRadix22.scala 131:23]
-  wire  _GEN_21 = _T_66 | lastIndeed; // @[SDFChainRadix22.scala 131:34]
-  wire  _T_67 = lastIndeed & pktEnd; // @[SDFChainRadix22.scala 135:132]
-  wire  _T_68 = state == 2'h2; // @[SDFChainRadix22.scala 135:159]
-  wire  _T_69 = pktEnd & _T_68; // @[SDFChainRadix22.scala 135:150]
-  wire [6:0] _T_71 = 7'h7 - regNumStages; // @[SDFChainRadix22.scala 138:62]
-  wire [6:0] _GEN_24 = 3'h1 == _T_71[2:0] ? 7'h40 : 7'h0; // @[SDFChainRadix22.scala 138:25]
-  wire [6:0] _GEN_25 = 3'h2 == _T_71[2:0] ? 7'h60 : _GEN_24; // @[SDFChainRadix22.scala 138:25]
-  wire [6:0] _GEN_26 = 3'h3 == _T_71[2:0] ? 7'h70 : _GEN_25; // @[SDFChainRadix22.scala 138:25]
-  wire [6:0] _GEN_27 = 3'h4 == _T_71[2:0] ? 7'h78 : _GEN_26; // @[SDFChainRadix22.scala 138:25]
-  wire [6:0] _GEN_28 = 3'h5 == _T_71[2:0] ? 7'h7c : _GEN_27; // @[SDFChainRadix22.scala 138:25]
-  wire [6:0] _GEN_29 = 3'h6 == _T_71[2:0] ? 7'h7e : _GEN_28; // @[SDFChainRadix22.scala 138:25]
-  wire [6:0] cumulativeDelayWire = 3'h7 == _T_71[2:0] ? 7'h7f : _GEN_29; // @[SDFChainRadix22.scala 138:25]
-  wire  activeStages_0 = _T_71 <= 7'h0; // @[SDFChainRadix22.scala 146:48]
-  wire  activeStages_1 = _T_71 <= 7'h1; // @[SDFChainRadix22.scala 146:48]
-  wire  activeStages_2 = _T_71 <= 7'h2; // @[SDFChainRadix22.scala 146:48]
-  wire  activeStages_3 = _T_71 <= 7'h3; // @[SDFChainRadix22.scala 146:48]
-  wire  activeStages_4 = _T_71 <= 7'h4; // @[SDFChainRadix22.scala 146:48]
-  wire  activeStages_5 = _T_71 <= 7'h5; // @[SDFChainRadix22.scala 146:48]
-  wire  activeStages_6 = _T_71 <= 7'h6; // @[SDFChainRadix22.scala 146:48]
-  wire  _T_103 = _T_68 & io_out_ready; // @[SDFChainRadix22.scala 164:54]
-  wire  enableInit = _T_41 | _T_103; // @[SDFChainRadix22.scala 164:33]
-  wire [7:0] _T_106 = cnt + 8'h1; // @[SDFChainRadix22.scala 170:16]
-  reg  _T_108; // @[SDFFFTUtil.scala 14:20]
+  wire  pktEnd = _T_49 & _T_50; // @[SDFChainRadix22.scala 106:52]
+  wire  _T_51 = state_next == 2'h0; // @[SDFChainRadix22.scala 108:20]
+  wire  _T_54 = cnt == _T_48; // @[SDFChainRadix22.scala 111:18]
+  wire  _T_56 = _T_54 & _T_41; // @[SDFChainRadix22.scala 111:40]
+  wire  _GEN_15 = _T_56 | initialInDone; // @[SDFChainRadix22.scala 111:57]
+  wire  _T_58 = initialInDone & initialInDonePrev; // @[SDFChainRadix22.scala 119:41]
+  wire  _T_59 = fireLast & _T_58; // @[SDFChainRadix22.scala 119:23]
+  wire  _GEN_17 = _T_59 | lastWait; // @[SDFChainRadix22.scala 119:64]
+  wire  _T_61 = _T_51 & pktEnd; // @[SDFChainRadix22.scala 123:30]
+  wire [6:0] _T_64 = cntValidOut + 7'h1; // @[SDFChainRadix22.scala 127:32]
+  wire  _T_66 = lastWait & pktEnd; // @[SDFChainRadix22.scala 133:23]
+  wire  _GEN_21 = _T_66 | lastIndeed; // @[SDFChainRadix22.scala 133:34]
+  wire  _T_67 = lastIndeed & pktEnd; // @[SDFChainRadix22.scala 137:132]
+  wire  _T_68 = state == 2'h2; // @[SDFChainRadix22.scala 137:159]
+  wire  _T_69 = pktEnd & _T_68; // @[SDFChainRadix22.scala 137:150]
+  wire [6:0] _T_71 = 7'h7 - regNumStages; // @[SDFChainRadix22.scala 140:62]
+  wire [6:0] _GEN_24 = 3'h1 == _T_71[2:0] ? 7'h40 : 7'h0; // @[SDFChainRadix22.scala 140:25]
+  wire [6:0] _GEN_25 = 3'h2 == _T_71[2:0] ? 7'h60 : _GEN_24; // @[SDFChainRadix22.scala 140:25]
+  wire [6:0] _GEN_26 = 3'h3 == _T_71[2:0] ? 7'h70 : _GEN_25; // @[SDFChainRadix22.scala 140:25]
+  wire [6:0] _GEN_27 = 3'h4 == _T_71[2:0] ? 7'h78 : _GEN_26; // @[SDFChainRadix22.scala 140:25]
+  wire [6:0] _GEN_28 = 3'h5 == _T_71[2:0] ? 7'h7c : _GEN_27; // @[SDFChainRadix22.scala 140:25]
+  wire [6:0] _GEN_29 = 3'h6 == _T_71[2:0] ? 7'h7e : _GEN_28; // @[SDFChainRadix22.scala 140:25]
+  wire [6:0] cumulativeDelayWire = 3'h7 == _T_71[2:0] ? 7'h7f : _GEN_29; // @[SDFChainRadix22.scala 140:25]
+  wire  activeStages_0 = _T_71 <= 7'h0; // @[SDFChainRadix22.scala 148:48]
+  wire  activeStages_1 = _T_71 <= 7'h1; // @[SDFChainRadix22.scala 148:48]
+  wire  activeStages_2 = _T_71 <= 7'h2; // @[SDFChainRadix22.scala 148:48]
+  wire  activeStages_3 = _T_71 <= 7'h3; // @[SDFChainRadix22.scala 148:48]
+  wire  activeStages_4 = _T_71 <= 7'h4; // @[SDFChainRadix22.scala 148:48]
+  wire  activeStages_5 = _T_71 <= 7'h5; // @[SDFChainRadix22.scala 148:48]
+  wire  activeStages_6 = _T_71 <= 7'h6; // @[SDFChainRadix22.scala 148:48]
+  wire  _T_103 = _T_68 & io_out_ready; // @[SDFChainRadix22.scala 166:54]
+  wire  enableInit = _T_41 | _T_103; // @[SDFChainRadix22.scala 166:33]
+  wire [7:0] _T_106 = cnt + 8'h1; // @[SDFChainRadix22.scala 172:16]
+  reg  _T_108; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_9;
-  reg  _T_109; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_109; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_10;
-  reg  _T_110; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_110; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_11;
-  reg  enableVector_1; // @[SDFFFTUtil.scala 14:20]
+  reg  enableVector_1; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_12;
-  reg [7:0] _T_113; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_113; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_13;
-  reg [7:0] _T_114; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_114; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_14;
-  reg [7:0] _T_115; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_115; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_15;
-  reg [7:0] _T_116; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_116; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_16;
-  reg  _T_118; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_118; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_17;
-  reg  _T_119; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_119; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_18;
-  reg  _T_120; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_120; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_19;
-  reg  enableVector_2; // @[SDFFFTUtil.scala 14:20]
+  reg  enableVector_2; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_20;
-  reg [7:0] _T_123; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_123; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_21;
-  reg [7:0] _T_124; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_124; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_22;
-  reg [7:0] _T_125; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_125; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_23;
-  reg [7:0] _T_126; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_126; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_24;
-  reg  _T_128; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_128; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_25;
-  reg  _T_129; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_129; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_26;
-  reg  _T_130; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_130; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_27;
-  reg  enableVector_3; // @[SDFFFTUtil.scala 14:20]
+  reg  enableVector_3; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_28;
-  reg [7:0] _T_133; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_133; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_29;
-  reg [7:0] _T_134; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_134; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_30;
-  reg [7:0] _T_135; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_135; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_31;
-  reg [7:0] _T_136; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_136; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_32;
-  reg  _T_138; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_138; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_33;
-  reg  _T_139; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_139; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_34;
-  reg  _T_140; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_140; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_35;
-  reg  enableVector_4; // @[SDFFFTUtil.scala 14:20]
+  reg  enableVector_4; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_36;
-  reg [7:0] _T_143; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_143; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_37;
-  reg [7:0] _T_144; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_144; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_38;
-  reg [7:0] _T_145; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_145; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_39;
-  reg [7:0] _T_146; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_146; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_40;
-  reg  _T_148; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_148; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_41;
-  reg  _T_149; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_149; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_42;
-  reg  _T_150; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_150; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_43;
-  reg  enableVector_5; // @[SDFFFTUtil.scala 14:20]
+  reg  enableVector_5; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_44;
-  reg [7:0] _T_153; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_153; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_45;
-  reg [7:0] _T_154; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_154; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_46;
-  reg [7:0] _T_155; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_155; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_47;
-  reg [7:0] _T_156; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_156; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_48;
-  reg  _T_158; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_158; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_49;
-  reg  _T_159; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_159; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_50;
-  reg  _T_160; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_160; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_51;
-  reg  enableVector_6; // @[SDFFFTUtil.scala 14:20]
+  reg  enableVector_6; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_52;
-  reg [7:0] _T_163; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_163; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_53;
-  reg [7:0] _T_164; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_164; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_54;
-  reg [7:0] _T_165; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_165; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_55;
-  reg [7:0] _T_166; // @[SDFFFTUtil.scala 14:20]
+  reg [7:0] _T_166; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_56;
-  wire [7:0] _T_184 = numPoints - 8'h2; // @[SDFChainRadix22.scala 186:37]
-  wire [6:0] cntr_wires_0 = cnt[6:0]; // @[SDFChainRadix22.scala 48:24 SDFChainRadix22.scala 176:29]
-  wire [6:0] cntr_wires_1 = _T_116[6:0]; // @[SDFChainRadix22.scala 48:24 SDFChainRadix22.scala 176:29]
-  wire [6:0] _GEN_146 = 3'h1 == _T_39[2:0] ? cntr_wires_1 : cntr_wires_0; // @[SDFChainRadix22.scala 186:22]
-  wire [6:0] cntr_wires_2 = _T_126[6:0]; // @[SDFChainRadix22.scala 48:24 SDFChainRadix22.scala 176:29]
-  wire [6:0] _GEN_147 = 3'h2 == _T_39[2:0] ? cntr_wires_2 : _GEN_146; // @[SDFChainRadix22.scala 186:22]
-  wire [6:0] cntr_wires_3 = _T_136[6:0]; // @[SDFChainRadix22.scala 48:24 SDFChainRadix22.scala 176:29]
-  wire [6:0] _GEN_148 = 3'h3 == _T_39[2:0] ? cntr_wires_3 : _GEN_147; // @[SDFChainRadix22.scala 186:22]
-  wire [6:0] cntr_wires_4 = _T_146[6:0]; // @[SDFChainRadix22.scala 48:24 SDFChainRadix22.scala 176:29]
-  wire [6:0] _GEN_149 = 3'h4 == _T_39[2:0] ? cntr_wires_4 : _GEN_148; // @[SDFChainRadix22.scala 186:22]
-  wire [6:0] cntr_wires_5 = _T_156[6:0]; // @[SDFChainRadix22.scala 48:24 SDFChainRadix22.scala 176:29]
-  wire [6:0] _GEN_150 = 3'h5 == _T_39[2:0] ? cntr_wires_5 : _GEN_149; // @[SDFChainRadix22.scala 186:22]
-  wire [6:0] cntr_wires_6 = _T_166[6:0]; // @[SDFChainRadix22.scala 48:24 SDFChainRadix22.scala 176:29]
-  wire [6:0] _GEN_151 = 3'h6 == _T_39[2:0] ? cntr_wires_6 : _GEN_150; // @[SDFChainRadix22.scala 186:22]
-  wire [7:0] _GEN_940 = {{1'd0}, _GEN_151}; // @[SDFChainRadix22.scala 186:22]
-  wire  _T_185 = _GEN_940 == _T_184; // @[SDFChainRadix22.scala 186:22]
-  wire  _GEN_153 = 3'h1 == _T_39[2:0] ? enableVector_1 : enableInit; // @[SDFChainRadix22.scala 186:44]
-  wire  _GEN_154 = 3'h2 == _T_39[2:0] ? enableVector_2 : _GEN_153; // @[SDFChainRadix22.scala 186:44]
-  wire  _GEN_155 = 3'h3 == _T_39[2:0] ? enableVector_3 : _GEN_154; // @[SDFChainRadix22.scala 186:44]
-  wire  _GEN_156 = 3'h4 == _T_39[2:0] ? enableVector_4 : _GEN_155; // @[SDFChainRadix22.scala 186:44]
-  wire  _GEN_157 = 3'h5 == _T_39[2:0] ? enableVector_5 : _GEN_156; // @[SDFChainRadix22.scala 186:44]
-  wire  _GEN_158 = 3'h6 == _T_39[2:0] ? enableVector_6 : _GEN_157; // @[SDFChainRadix22.scala 186:44]
-  wire  _T_186 = _T_185 & _GEN_158; // @[SDFChainRadix22.scala 186:44]
-  wire  _GEN_159 = _T_51 ? 1'h0 : initialOutDone; // @[SDFChainRadix22.scala 189:36]
-  wire  _GEN_160 = _T_186 | _GEN_159; // @[SDFChainRadix22.scala 186:60]
-  wire  _T_188 = numPoints == 8'h2; // @[SDFChainRadix22.scala 193:43]
-  reg  _T_189; // @[SDFChainRadix22.scala 193:59]
+  wire [7:0] _T_184 = numPoints - 8'h2; // @[SDFChainRadix22.scala 188:37]
+  wire [6:0] cntr_wires_0 = cnt[6:0]; // @[SDFChainRadix22.scala 50:24 SDFChainRadix22.scala 178:29]
+  wire [6:0] cntr_wires_1 = _T_116[6:0]; // @[SDFChainRadix22.scala 50:24 SDFChainRadix22.scala 178:29]
+  wire [6:0] _GEN_146 = 3'h1 == _T_39[2:0] ? cntr_wires_1 : cntr_wires_0; // @[SDFChainRadix22.scala 188:22]
+  wire [6:0] cntr_wires_2 = _T_126[6:0]; // @[SDFChainRadix22.scala 50:24 SDFChainRadix22.scala 178:29]
+  wire [6:0] _GEN_147 = 3'h2 == _T_39[2:0] ? cntr_wires_2 : _GEN_146; // @[SDFChainRadix22.scala 188:22]
+  wire [6:0] cntr_wires_3 = _T_136[6:0]; // @[SDFChainRadix22.scala 50:24 SDFChainRadix22.scala 178:29]
+  wire [6:0] _GEN_148 = 3'h3 == _T_39[2:0] ? cntr_wires_3 : _GEN_147; // @[SDFChainRadix22.scala 188:22]
+  wire [6:0] cntr_wires_4 = _T_146[6:0]; // @[SDFChainRadix22.scala 50:24 SDFChainRadix22.scala 178:29]
+  wire [6:0] _GEN_149 = 3'h4 == _T_39[2:0] ? cntr_wires_4 : _GEN_148; // @[SDFChainRadix22.scala 188:22]
+  wire [6:0] cntr_wires_5 = _T_156[6:0]; // @[SDFChainRadix22.scala 50:24 SDFChainRadix22.scala 178:29]
+  wire [6:0] _GEN_150 = 3'h5 == _T_39[2:0] ? cntr_wires_5 : _GEN_149; // @[SDFChainRadix22.scala 188:22]
+  wire [6:0] cntr_wires_6 = _T_166[6:0]; // @[SDFChainRadix22.scala 50:24 SDFChainRadix22.scala 178:29]
+  wire [6:0] _GEN_151 = 3'h6 == _T_39[2:0] ? cntr_wires_6 : _GEN_150; // @[SDFChainRadix22.scala 188:22]
+  wire [7:0] _GEN_940 = {{1'd0}, _GEN_151}; // @[SDFChainRadix22.scala 188:22]
+  wire  _T_185 = _GEN_940 == _T_184; // @[SDFChainRadix22.scala 188:22]
+  wire  _GEN_153 = 3'h1 == _T_39[2:0] ? enableVector_1 : enableInit; // @[SDFChainRadix22.scala 188:44]
+  wire  _GEN_154 = 3'h2 == _T_39[2:0] ? enableVector_2 : _GEN_153; // @[SDFChainRadix22.scala 188:44]
+  wire  _GEN_155 = 3'h3 == _T_39[2:0] ? enableVector_3 : _GEN_154; // @[SDFChainRadix22.scala 188:44]
+  wire  _GEN_156 = 3'h4 == _T_39[2:0] ? enableVector_4 : _GEN_155; // @[SDFChainRadix22.scala 188:44]
+  wire  _GEN_157 = 3'h5 == _T_39[2:0] ? enableVector_5 : _GEN_156; // @[SDFChainRadix22.scala 188:44]
+  wire  _GEN_158 = 3'h6 == _T_39[2:0] ? enableVector_6 : _GEN_157; // @[SDFChainRadix22.scala 188:44]
+  wire  _T_186 = _T_185 & _GEN_158; // @[SDFChainRadix22.scala 188:44]
+  wire  _GEN_159 = _T_51 ? 1'h0 : initialOutDone; // @[SDFChainRadix22.scala 191:36]
+  wire  _GEN_160 = _T_186 | _GEN_159; // @[SDFChainRadix22.scala 188:60]
+  wire  _T_188 = numPoints == 8'h2; // @[SDFChainRadix22.scala 195:43]
+  reg  _T_189; // @[SDFChainRadix22.scala 195:59]
   reg [31:0] _RAND_57;
-  wire  _T_191 = _T_189 & _T_41; // @[SDFChainRadix22.scala 193:72]
-  wire  _T_192 = _GEN_158 & initialOutDone; // @[SDFChainRadix22.scala 193:101]
-  wire [15:0] input_data_real = activeStages_0 ? $signed(io_in_bits_real) : $signed(16'sh0); // @[SDFChainRadix22.scala 211:23]
-  wire [15:0] input_data_imag = activeStages_0 ? $signed(io_in_bits_imag) : $signed(16'sh0); // @[SDFChainRadix22.scala 211:23]
-  wire  _T_202 = 7'h0 < _T_71; // @[SDFChainRadix22.scala 214:67]
-  wire [6:0] _T_206 = 7'h0 - _T_71; // @[SDFChainRadix22.scala 215:63]
-  wire  _GEN_164 = 3'h1 == _T_206[2:0] ? enableVector_1 : enableInit; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_165 = 3'h2 == _T_206[2:0] ? enableVector_2 : _GEN_164; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_166 = 3'h3 == _T_206[2:0] ? enableVector_3 : _GEN_165; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_167 = 3'h4 == _T_206[2:0] ? enableVector_4 : _GEN_166; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_168 = 3'h5 == _T_206[2:0] ? enableVector_5 : _GEN_167; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_169 = 3'h6 == _T_206[2:0] ? enableVector_6 : _GEN_168; // @[SDFChainRadix22.scala 216:20]
-  wire [6:0] _T_211 = 7'h0 - cumulativeDelayWire; // @[SDFChainRadix22.scala 217:68]
-  wire [6:0] _GEN_171 = 3'h1 == _T_206[2:0] ? cntr_wires_1 : cntr_wires_0; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_172 = 3'h2 == _T_206[2:0] ? cntr_wires_2 : _GEN_171; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_173 = 3'h3 == _T_206[2:0] ? cntr_wires_3 : _GEN_172; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_174 = 3'h4 == _T_206[2:0] ? cntr_wires_4 : _GEN_173; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_175 = 3'h5 == _T_206[2:0] ? cntr_wires_5 : _GEN_174; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_176 = 3'h6 == _T_206[2:0] ? cntr_wires_6 : _GEN_175; // @[SDFChainRadix22.scala 217:38]
-  wire  _T_217 = 7'h1 < _T_71; // @[SDFChainRadix22.scala 214:67]
-  wire [6:0] _T_221 = 7'h1 - _T_71; // @[SDFChainRadix22.scala 215:63]
-  wire  _GEN_178 = 3'h1 == _T_221[2:0] ? enableVector_1 : enableInit; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_179 = 3'h2 == _T_221[2:0] ? enableVector_2 : _GEN_178; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_180 = 3'h3 == _T_221[2:0] ? enableVector_3 : _GEN_179; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_181 = 3'h4 == _T_221[2:0] ? enableVector_4 : _GEN_180; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_182 = 3'h5 == _T_221[2:0] ? enableVector_5 : _GEN_181; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_183 = 3'h6 == _T_221[2:0] ? enableVector_6 : _GEN_182; // @[SDFChainRadix22.scala 216:20]
-  wire [6:0] _T_226 = 7'h40 - cumulativeDelayWire; // @[SDFChainRadix22.scala 217:68]
-  wire [6:0] _GEN_185 = 3'h1 == _T_221[2:0] ? cntr_wires_1 : cntr_wires_0; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_186 = 3'h2 == _T_221[2:0] ? cntr_wires_2 : _GEN_185; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_187 = 3'h3 == _T_221[2:0] ? cntr_wires_3 : _GEN_186; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_188 = 3'h4 == _T_221[2:0] ? cntr_wires_4 : _GEN_187; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_189 = 3'h5 == _T_221[2:0] ? cntr_wires_5 : _GEN_188; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_190 = 3'h6 == _T_221[2:0] ? cntr_wires_6 : _GEN_189; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _T_228 = _GEN_190 - _T_226; // @[SDFChainRadix22.scala 217:38]
-  wire  _T_232 = 7'h2 < _T_71; // @[SDFChainRadix22.scala 214:67]
-  wire [6:0] _T_236 = 7'h2 - _T_71; // @[SDFChainRadix22.scala 215:63]
-  wire  _GEN_192 = 3'h1 == _T_236[2:0] ? enableVector_1 : enableInit; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_193 = 3'h2 == _T_236[2:0] ? enableVector_2 : _GEN_192; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_194 = 3'h3 == _T_236[2:0] ? enableVector_3 : _GEN_193; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_195 = 3'h4 == _T_236[2:0] ? enableVector_4 : _GEN_194; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_196 = 3'h5 == _T_236[2:0] ? enableVector_5 : _GEN_195; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_197 = 3'h6 == _T_236[2:0] ? enableVector_6 : _GEN_196; // @[SDFChainRadix22.scala 216:20]
-  wire [6:0] _T_241 = 7'h60 - cumulativeDelayWire; // @[SDFChainRadix22.scala 217:68]
-  wire [6:0] _GEN_199 = 3'h1 == _T_236[2:0] ? cntr_wires_1 : cntr_wires_0; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_200 = 3'h2 == _T_236[2:0] ? cntr_wires_2 : _GEN_199; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_201 = 3'h3 == _T_236[2:0] ? cntr_wires_3 : _GEN_200; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_202 = 3'h4 == _T_236[2:0] ? cntr_wires_4 : _GEN_201; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_203 = 3'h5 == _T_236[2:0] ? cntr_wires_5 : _GEN_202; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_204 = 3'h6 == _T_236[2:0] ? cntr_wires_6 : _GEN_203; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _T_243 = _GEN_204 - _T_241; // @[SDFChainRadix22.scala 217:38]
-  wire  _T_247 = 7'h3 < _T_71; // @[SDFChainRadix22.scala 214:67]
-  wire [6:0] _T_251 = 7'h3 - _T_71; // @[SDFChainRadix22.scala 215:63]
-  wire  _GEN_206 = 3'h1 == _T_251[2:0] ? enableVector_1 : enableInit; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_207 = 3'h2 == _T_251[2:0] ? enableVector_2 : _GEN_206; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_208 = 3'h3 == _T_251[2:0] ? enableVector_3 : _GEN_207; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_209 = 3'h4 == _T_251[2:0] ? enableVector_4 : _GEN_208; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_210 = 3'h5 == _T_251[2:0] ? enableVector_5 : _GEN_209; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_211 = 3'h6 == _T_251[2:0] ? enableVector_6 : _GEN_210; // @[SDFChainRadix22.scala 216:20]
-  wire [6:0] _T_256 = 7'h70 - cumulativeDelayWire; // @[SDFChainRadix22.scala 217:68]
-  wire [6:0] _GEN_213 = 3'h1 == _T_251[2:0] ? cntr_wires_1 : cntr_wires_0; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_214 = 3'h2 == _T_251[2:0] ? cntr_wires_2 : _GEN_213; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_215 = 3'h3 == _T_251[2:0] ? cntr_wires_3 : _GEN_214; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_216 = 3'h4 == _T_251[2:0] ? cntr_wires_4 : _GEN_215; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_217 = 3'h5 == _T_251[2:0] ? cntr_wires_5 : _GEN_216; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_218 = 3'h6 == _T_251[2:0] ? cntr_wires_6 : _GEN_217; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _T_258 = _GEN_218 - _T_256; // @[SDFChainRadix22.scala 217:38]
-  wire  _T_262 = 7'h4 < _T_71; // @[SDFChainRadix22.scala 214:67]
-  wire [6:0] _T_266 = 7'h4 - _T_71; // @[SDFChainRadix22.scala 215:63]
-  wire  _GEN_220 = 3'h1 == _T_266[2:0] ? enableVector_1 : enableInit; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_221 = 3'h2 == _T_266[2:0] ? enableVector_2 : _GEN_220; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_222 = 3'h3 == _T_266[2:0] ? enableVector_3 : _GEN_221; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_223 = 3'h4 == _T_266[2:0] ? enableVector_4 : _GEN_222; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_224 = 3'h5 == _T_266[2:0] ? enableVector_5 : _GEN_223; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_225 = 3'h6 == _T_266[2:0] ? enableVector_6 : _GEN_224; // @[SDFChainRadix22.scala 216:20]
-  wire [6:0] _T_271 = 7'h78 - cumulativeDelayWire; // @[SDFChainRadix22.scala 217:68]
-  wire [6:0] _GEN_227 = 3'h1 == _T_266[2:0] ? cntr_wires_1 : cntr_wires_0; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_228 = 3'h2 == _T_266[2:0] ? cntr_wires_2 : _GEN_227; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_229 = 3'h3 == _T_266[2:0] ? cntr_wires_3 : _GEN_228; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_230 = 3'h4 == _T_266[2:0] ? cntr_wires_4 : _GEN_229; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_231 = 3'h5 == _T_266[2:0] ? cntr_wires_5 : _GEN_230; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_232 = 3'h6 == _T_266[2:0] ? cntr_wires_6 : _GEN_231; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _T_273 = _GEN_232 - _T_271; // @[SDFChainRadix22.scala 217:38]
-  wire  _T_277 = 7'h5 < _T_71; // @[SDFChainRadix22.scala 214:67]
-  wire [6:0] _T_281 = 7'h5 - _T_71; // @[SDFChainRadix22.scala 215:63]
-  wire  _GEN_234 = 3'h1 == _T_281[2:0] ? enableVector_1 : enableInit; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_235 = 3'h2 == _T_281[2:0] ? enableVector_2 : _GEN_234; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_236 = 3'h3 == _T_281[2:0] ? enableVector_3 : _GEN_235; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_237 = 3'h4 == _T_281[2:0] ? enableVector_4 : _GEN_236; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_238 = 3'h5 == _T_281[2:0] ? enableVector_5 : _GEN_237; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_239 = 3'h6 == _T_281[2:0] ? enableVector_6 : _GEN_238; // @[SDFChainRadix22.scala 216:20]
-  wire [6:0] _T_286 = 7'h7c - cumulativeDelayWire; // @[SDFChainRadix22.scala 217:68]
-  wire [6:0] _GEN_241 = 3'h1 == _T_281[2:0] ? cntr_wires_1 : cntr_wires_0; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_242 = 3'h2 == _T_281[2:0] ? cntr_wires_2 : _GEN_241; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_243 = 3'h3 == _T_281[2:0] ? cntr_wires_3 : _GEN_242; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_244 = 3'h4 == _T_281[2:0] ? cntr_wires_4 : _GEN_243; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_245 = 3'h5 == _T_281[2:0] ? cntr_wires_5 : _GEN_244; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_246 = 3'h6 == _T_281[2:0] ? cntr_wires_6 : _GEN_245; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _T_288 = _GEN_246 - _T_286; // @[SDFChainRadix22.scala 217:38]
-  wire  _T_292 = 7'h6 < _T_71; // @[SDFChainRadix22.scala 214:67]
-  wire [6:0] _T_296 = 7'h6 - _T_71; // @[SDFChainRadix22.scala 215:63]
-  wire  _GEN_248 = 3'h1 == _T_296[2:0] ? enableVector_1 : enableInit; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_249 = 3'h2 == _T_296[2:0] ? enableVector_2 : _GEN_248; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_250 = 3'h3 == _T_296[2:0] ? enableVector_3 : _GEN_249; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_251 = 3'h4 == _T_296[2:0] ? enableVector_4 : _GEN_250; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_252 = 3'h5 == _T_296[2:0] ? enableVector_5 : _GEN_251; // @[SDFChainRadix22.scala 216:20]
-  wire  _GEN_253 = 3'h6 == _T_296[2:0] ? enableVector_6 : _GEN_252; // @[SDFChainRadix22.scala 216:20]
-  wire [6:0] _T_301 = 7'h7e - cumulativeDelayWire; // @[SDFChainRadix22.scala 217:68]
-  wire [6:0] _GEN_255 = 3'h1 == _T_296[2:0] ? cntr_wires_1 : cntr_wires_0; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_256 = 3'h2 == _T_296[2:0] ? cntr_wires_2 : _GEN_255; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_257 = 3'h3 == _T_296[2:0] ? cntr_wires_3 : _GEN_256; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_258 = 3'h4 == _T_296[2:0] ? cntr_wires_4 : _GEN_257; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_259 = 3'h5 == _T_296[2:0] ? cntr_wires_5 : _GEN_258; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _GEN_260 = 3'h6 == _T_296[2:0] ? cntr_wires_6 : _GEN_259; // @[SDFChainRadix22.scala 217:38]
-  wire [6:0] _T_303 = _GEN_260 - _T_301; // @[SDFChainRadix22.scala 217:38]
-  wire  _T_310 = 7'h0 == _T_71; // @[SDFChainRadix22.scala 234:23]
-  wire [15:0] _GEN_261 = _T_310 ? $signed(io_in_bits_imag) : $signed(input_data_imag); // @[SDFChainRadix22.scala 234:55]
-  wire [15:0] _GEN_262 = _T_310 ? $signed(io_in_bits_real) : $signed(input_data_real); // @[SDFChainRadix22.scala 234:55]
-  wire  _T_311 = sdf_stages_0_io_cntr < 7'h40; // @[SDFChainRadix22.scala 320:98]
-  wire  _T_313 = sdf_stages_0_io_cntr < 7'h20; // @[SDFChainRadix22.scala 320:135]
-  wire  _T_314 = _T_313 ? 1'h0 : 1'h1; // @[SDFChainRadix22.scala 320:122]
+  wire  _T_191 = _T_189 & _T_41; // @[SDFChainRadix22.scala 195:72]
+  wire  _T_192 = _GEN_158 & initialOutDone; // @[SDFChainRadix22.scala 195:101]
+  wire [15:0] input_data_real = activeStages_0 ? $signed(io_in_bits_real) : $signed(16'sh0); // @[SDFChainRadix22.scala 213:23]
+  wire [15:0] input_data_imag = activeStages_0 ? $signed(io_in_bits_imag) : $signed(16'sh0); // @[SDFChainRadix22.scala 213:23]
+  wire  _T_202 = 7'h0 < _T_71; // @[SDFChainRadix22.scala 216:67]
+  wire [6:0] _T_206 = 7'h0 - _T_71; // @[SDFChainRadix22.scala 217:63]
+  wire  _GEN_164 = 3'h1 == _T_206[2:0] ? enableVector_1 : enableInit; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_165 = 3'h2 == _T_206[2:0] ? enableVector_2 : _GEN_164; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_166 = 3'h3 == _T_206[2:0] ? enableVector_3 : _GEN_165; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_167 = 3'h4 == _T_206[2:0] ? enableVector_4 : _GEN_166; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_168 = 3'h5 == _T_206[2:0] ? enableVector_5 : _GEN_167; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_169 = 3'h6 == _T_206[2:0] ? enableVector_6 : _GEN_168; // @[SDFChainRadix22.scala 218:20]
+  wire [6:0] _T_211 = 7'h0 - cumulativeDelayWire; // @[SDFChainRadix22.scala 219:68]
+  wire [6:0] _GEN_171 = 3'h1 == _T_206[2:0] ? cntr_wires_1 : cntr_wires_0; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_172 = 3'h2 == _T_206[2:0] ? cntr_wires_2 : _GEN_171; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_173 = 3'h3 == _T_206[2:0] ? cntr_wires_3 : _GEN_172; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_174 = 3'h4 == _T_206[2:0] ? cntr_wires_4 : _GEN_173; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_175 = 3'h5 == _T_206[2:0] ? cntr_wires_5 : _GEN_174; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_176 = 3'h6 == _T_206[2:0] ? cntr_wires_6 : _GEN_175; // @[SDFChainRadix22.scala 219:38]
+  wire  _T_217 = 7'h1 < _T_71; // @[SDFChainRadix22.scala 216:67]
+  wire [6:0] _T_221 = 7'h1 - _T_71; // @[SDFChainRadix22.scala 217:63]
+  wire  _GEN_178 = 3'h1 == _T_221[2:0] ? enableVector_1 : enableInit; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_179 = 3'h2 == _T_221[2:0] ? enableVector_2 : _GEN_178; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_180 = 3'h3 == _T_221[2:0] ? enableVector_3 : _GEN_179; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_181 = 3'h4 == _T_221[2:0] ? enableVector_4 : _GEN_180; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_182 = 3'h5 == _T_221[2:0] ? enableVector_5 : _GEN_181; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_183 = 3'h6 == _T_221[2:0] ? enableVector_6 : _GEN_182; // @[SDFChainRadix22.scala 218:20]
+  wire [6:0] _T_226 = 7'h40 - cumulativeDelayWire; // @[SDFChainRadix22.scala 219:68]
+  wire [6:0] _GEN_185 = 3'h1 == _T_221[2:0] ? cntr_wires_1 : cntr_wires_0; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_186 = 3'h2 == _T_221[2:0] ? cntr_wires_2 : _GEN_185; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_187 = 3'h3 == _T_221[2:0] ? cntr_wires_3 : _GEN_186; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_188 = 3'h4 == _T_221[2:0] ? cntr_wires_4 : _GEN_187; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_189 = 3'h5 == _T_221[2:0] ? cntr_wires_5 : _GEN_188; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_190 = 3'h6 == _T_221[2:0] ? cntr_wires_6 : _GEN_189; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _T_228 = _GEN_190 - _T_226; // @[SDFChainRadix22.scala 219:38]
+  wire  _T_232 = 7'h2 < _T_71; // @[SDFChainRadix22.scala 216:67]
+  wire [6:0] _T_236 = 7'h2 - _T_71; // @[SDFChainRadix22.scala 217:63]
+  wire  _GEN_192 = 3'h1 == _T_236[2:0] ? enableVector_1 : enableInit; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_193 = 3'h2 == _T_236[2:0] ? enableVector_2 : _GEN_192; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_194 = 3'h3 == _T_236[2:0] ? enableVector_3 : _GEN_193; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_195 = 3'h4 == _T_236[2:0] ? enableVector_4 : _GEN_194; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_196 = 3'h5 == _T_236[2:0] ? enableVector_5 : _GEN_195; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_197 = 3'h6 == _T_236[2:0] ? enableVector_6 : _GEN_196; // @[SDFChainRadix22.scala 218:20]
+  wire [6:0] _T_241 = 7'h60 - cumulativeDelayWire; // @[SDFChainRadix22.scala 219:68]
+  wire [6:0] _GEN_199 = 3'h1 == _T_236[2:0] ? cntr_wires_1 : cntr_wires_0; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_200 = 3'h2 == _T_236[2:0] ? cntr_wires_2 : _GEN_199; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_201 = 3'h3 == _T_236[2:0] ? cntr_wires_3 : _GEN_200; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_202 = 3'h4 == _T_236[2:0] ? cntr_wires_4 : _GEN_201; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_203 = 3'h5 == _T_236[2:0] ? cntr_wires_5 : _GEN_202; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_204 = 3'h6 == _T_236[2:0] ? cntr_wires_6 : _GEN_203; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _T_243 = _GEN_204 - _T_241; // @[SDFChainRadix22.scala 219:38]
+  wire  _T_247 = 7'h3 < _T_71; // @[SDFChainRadix22.scala 216:67]
+  wire [6:0] _T_251 = 7'h3 - _T_71; // @[SDFChainRadix22.scala 217:63]
+  wire  _GEN_206 = 3'h1 == _T_251[2:0] ? enableVector_1 : enableInit; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_207 = 3'h2 == _T_251[2:0] ? enableVector_2 : _GEN_206; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_208 = 3'h3 == _T_251[2:0] ? enableVector_3 : _GEN_207; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_209 = 3'h4 == _T_251[2:0] ? enableVector_4 : _GEN_208; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_210 = 3'h5 == _T_251[2:0] ? enableVector_5 : _GEN_209; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_211 = 3'h6 == _T_251[2:0] ? enableVector_6 : _GEN_210; // @[SDFChainRadix22.scala 218:20]
+  wire [6:0] _T_256 = 7'h70 - cumulativeDelayWire; // @[SDFChainRadix22.scala 219:68]
+  wire [6:0] _GEN_213 = 3'h1 == _T_251[2:0] ? cntr_wires_1 : cntr_wires_0; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_214 = 3'h2 == _T_251[2:0] ? cntr_wires_2 : _GEN_213; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_215 = 3'h3 == _T_251[2:0] ? cntr_wires_3 : _GEN_214; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_216 = 3'h4 == _T_251[2:0] ? cntr_wires_4 : _GEN_215; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_217 = 3'h5 == _T_251[2:0] ? cntr_wires_5 : _GEN_216; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_218 = 3'h6 == _T_251[2:0] ? cntr_wires_6 : _GEN_217; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _T_258 = _GEN_218 - _T_256; // @[SDFChainRadix22.scala 219:38]
+  wire  _T_262 = 7'h4 < _T_71; // @[SDFChainRadix22.scala 216:67]
+  wire [6:0] _T_266 = 7'h4 - _T_71; // @[SDFChainRadix22.scala 217:63]
+  wire  _GEN_220 = 3'h1 == _T_266[2:0] ? enableVector_1 : enableInit; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_221 = 3'h2 == _T_266[2:0] ? enableVector_2 : _GEN_220; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_222 = 3'h3 == _T_266[2:0] ? enableVector_3 : _GEN_221; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_223 = 3'h4 == _T_266[2:0] ? enableVector_4 : _GEN_222; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_224 = 3'h5 == _T_266[2:0] ? enableVector_5 : _GEN_223; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_225 = 3'h6 == _T_266[2:0] ? enableVector_6 : _GEN_224; // @[SDFChainRadix22.scala 218:20]
+  wire [6:0] _T_271 = 7'h78 - cumulativeDelayWire; // @[SDFChainRadix22.scala 219:68]
+  wire [6:0] _GEN_227 = 3'h1 == _T_266[2:0] ? cntr_wires_1 : cntr_wires_0; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_228 = 3'h2 == _T_266[2:0] ? cntr_wires_2 : _GEN_227; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_229 = 3'h3 == _T_266[2:0] ? cntr_wires_3 : _GEN_228; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_230 = 3'h4 == _T_266[2:0] ? cntr_wires_4 : _GEN_229; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_231 = 3'h5 == _T_266[2:0] ? cntr_wires_5 : _GEN_230; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_232 = 3'h6 == _T_266[2:0] ? cntr_wires_6 : _GEN_231; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _T_273 = _GEN_232 - _T_271; // @[SDFChainRadix22.scala 219:38]
+  wire  _T_277 = 7'h5 < _T_71; // @[SDFChainRadix22.scala 216:67]
+  wire [6:0] _T_281 = 7'h5 - _T_71; // @[SDFChainRadix22.scala 217:63]
+  wire  _GEN_234 = 3'h1 == _T_281[2:0] ? enableVector_1 : enableInit; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_235 = 3'h2 == _T_281[2:0] ? enableVector_2 : _GEN_234; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_236 = 3'h3 == _T_281[2:0] ? enableVector_3 : _GEN_235; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_237 = 3'h4 == _T_281[2:0] ? enableVector_4 : _GEN_236; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_238 = 3'h5 == _T_281[2:0] ? enableVector_5 : _GEN_237; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_239 = 3'h6 == _T_281[2:0] ? enableVector_6 : _GEN_238; // @[SDFChainRadix22.scala 218:20]
+  wire [6:0] _T_286 = 7'h7c - cumulativeDelayWire; // @[SDFChainRadix22.scala 219:68]
+  wire [6:0] _GEN_241 = 3'h1 == _T_281[2:0] ? cntr_wires_1 : cntr_wires_0; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_242 = 3'h2 == _T_281[2:0] ? cntr_wires_2 : _GEN_241; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_243 = 3'h3 == _T_281[2:0] ? cntr_wires_3 : _GEN_242; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_244 = 3'h4 == _T_281[2:0] ? cntr_wires_4 : _GEN_243; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_245 = 3'h5 == _T_281[2:0] ? cntr_wires_5 : _GEN_244; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_246 = 3'h6 == _T_281[2:0] ? cntr_wires_6 : _GEN_245; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _T_288 = _GEN_246 - _T_286; // @[SDFChainRadix22.scala 219:38]
+  wire  _T_292 = 7'h6 < _T_71; // @[SDFChainRadix22.scala 216:67]
+  wire [6:0] _T_296 = 7'h6 - _T_71; // @[SDFChainRadix22.scala 217:63]
+  wire  _GEN_248 = 3'h1 == _T_296[2:0] ? enableVector_1 : enableInit; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_249 = 3'h2 == _T_296[2:0] ? enableVector_2 : _GEN_248; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_250 = 3'h3 == _T_296[2:0] ? enableVector_3 : _GEN_249; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_251 = 3'h4 == _T_296[2:0] ? enableVector_4 : _GEN_250; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_252 = 3'h5 == _T_296[2:0] ? enableVector_5 : _GEN_251; // @[SDFChainRadix22.scala 218:20]
+  wire  _GEN_253 = 3'h6 == _T_296[2:0] ? enableVector_6 : _GEN_252; // @[SDFChainRadix22.scala 218:20]
+  wire [6:0] _T_301 = 7'h7e - cumulativeDelayWire; // @[SDFChainRadix22.scala 219:68]
+  wire [6:0] _GEN_255 = 3'h1 == _T_296[2:0] ? cntr_wires_1 : cntr_wires_0; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_256 = 3'h2 == _T_296[2:0] ? cntr_wires_2 : _GEN_255; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_257 = 3'h3 == _T_296[2:0] ? cntr_wires_3 : _GEN_256; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_258 = 3'h4 == _T_296[2:0] ? cntr_wires_4 : _GEN_257; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_259 = 3'h5 == _T_296[2:0] ? cntr_wires_5 : _GEN_258; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _GEN_260 = 3'h6 == _T_296[2:0] ? cntr_wires_6 : _GEN_259; // @[SDFChainRadix22.scala 219:38]
+  wire [6:0] _T_303 = _GEN_260 - _T_301; // @[SDFChainRadix22.scala 219:38]
+  wire  _T_310 = 7'h0 == _T_71; // @[SDFChainRadix22.scala 236:23]
+  wire [15:0] _GEN_261 = _T_310 ? $signed(io_in_bits_imag) : $signed(input_data_imag); // @[SDFChainRadix22.scala 236:55]
+  wire [15:0] _GEN_262 = _T_310 ? $signed(io_in_bits_real) : $signed(input_data_real); // @[SDFChainRadix22.scala 236:55]
+  wire  _T_311 = sdf_stages_0_io_cntr < 7'h40; // @[SDFChainRadix22.scala 322:98]
+  wire  _T_313 = sdf_stages_0_io_cntr < 7'h20; // @[SDFChainRadix22.scala 322:135]
+  wire  _T_314 = _T_313 ? 1'h0 : 1'h1; // @[SDFChainRadix22.scala 322:122]
   reg  _T_316; // @[Reg.scala 15:16]
   reg [31:0] _RAND_58;
   wire [15:0] _T_322 = 16'sh0 - $signed(sdf_stages_0_io_out_real); // @[FixedPointTypeClass.scala 39:43]
-  wire [15:0] _T_319_real = sdf_stages_0_io_out_imag; // @[SDFChainRadix22.scala 322:32 SDFChainRadix22.scala 325:29]
+  wire [15:0] _T_319_real = sdf_stages_0_io_out_imag; // @[SDFChainRadix22.scala 324:32 SDFChainRadix22.scala 327:29]
   reg [15:0] _T_328_real; // @[Reg.scala 15:16]
   reg [31:0] _RAND_59;
   reg [15:0] _T_328_imag; // @[Reg.scala 15:16]
@@ -8460,11 +8344,11 @@ module SDFChainRadix22(
   reg [31:0] _RAND_63;
   reg [15:0] outputWires_0_imag; // @[Reg.scala 15:16]
   reg [31:0] _RAND_64;
-  wire  _T_340 = 7'h1 == _T_71; // @[SDFChainRadix22.scala 234:23]
-  wire [15:0] _GEN_272 = _T_340 ? $signed(io_in_bits_imag) : $signed(outputWires_0_imag); // @[SDFChainRadix22.scala 234:55]
-  wire [15:0] _GEN_273 = _T_340 ? $signed(io_in_bits_real) : $signed(outputWires_0_real); // @[SDFChainRadix22.scala 234:55]
-  wire [6:0] _T_673 = _GEN_190 + 7'h1; // @[SDFChainRadix22.scala 276:83]
-  wire [6:0] _T_677 = _T_673 - _T_241; // @[SDFChainRadix22.scala 276:89]
+  wire  _T_340 = 7'h1 == _T_71; // @[SDFChainRadix22.scala 236:23]
+  wire [15:0] _GEN_272 = _T_340 ? $signed(io_in_bits_imag) : $signed(outputWires_0_imag); // @[SDFChainRadix22.scala 236:55]
+  wire [15:0] _GEN_273 = _T_340 ? $signed(io_in_bits_real) : $signed(outputWires_0_real); // @[SDFChainRadix22.scala 236:55]
+  wire [6:0] _T_673 = _GEN_190 + 7'h1; // @[SDFChainRadix22.scala 278:83]
+  wire [6:0] _T_677 = _T_673 - _T_241; // @[SDFChainRadix22.scala 278:89]
   reg [6:0] _T_679; // @[Reg.scala 15:16]
   reg [31:0] _RAND_65;
   reg [15:0] twiddles_1_real; // @[Reg.scala 15:16]
@@ -8604,18 +8488,18 @@ module SDFChainRadix22(
   wire [19:0] _T_725 = _T_724[34:15]; // @[FixedPointTypeClass.scala 176:41]
   wire [34:0] _T_728 = $signed(_T_718) + 35'sh4000; // @[FixedPointTypeClass.scala 20:58]
   wire [19:0] _T_729 = _T_728[34:15]; // @[FixedPointTypeClass.scala 176:41]
-  wire  _T_738 = 7'h2 == _T_71; // @[SDFChainRadix22.scala 234:23]
-  wire [15:0] outputWires_1_imag = _T_729[15:0]; // @[SDFChainRadix22.scala 286:27 SDFChainRadix22.scala 306:19]
-  wire [15:0] _GEN_695 = _T_738 ? $signed(io_in_bits_imag) : $signed(outputWires_1_imag); // @[SDFChainRadix22.scala 234:55]
-  wire [15:0] outputWires_1_real = _T_725[15:0]; // @[SDFChainRadix22.scala 286:27 SDFChainRadix22.scala 306:19]
-  wire [15:0] _GEN_696 = _T_738 ? $signed(io_in_bits_real) : $signed(outputWires_1_real); // @[SDFChainRadix22.scala 234:55]
-  wire  _T_739 = sdf_stages_2_io_cntr < 7'h10; // @[SDFChainRadix22.scala 320:98]
-  wire  _T_741 = sdf_stages_2_io_cntr < 7'h8; // @[SDFChainRadix22.scala 320:135]
-  wire  _T_742 = _T_741 ? 1'h0 : 1'h1; // @[SDFChainRadix22.scala 320:122]
+  wire  _T_738 = 7'h2 == _T_71; // @[SDFChainRadix22.scala 236:23]
+  wire [15:0] outputWires_1_imag = _T_729[15:0]; // @[SDFChainRadix22.scala 288:27 SDFChainRadix22.scala 308:19]
+  wire [15:0] _GEN_695 = _T_738 ? $signed(io_in_bits_imag) : $signed(outputWires_1_imag); // @[SDFChainRadix22.scala 236:55]
+  wire [15:0] outputWires_1_real = _T_725[15:0]; // @[SDFChainRadix22.scala 288:27 SDFChainRadix22.scala 308:19]
+  wire [15:0] _GEN_696 = _T_738 ? $signed(io_in_bits_real) : $signed(outputWires_1_real); // @[SDFChainRadix22.scala 236:55]
+  wire  _T_739 = sdf_stages_2_io_cntr < 7'h10; // @[SDFChainRadix22.scala 322:98]
+  wire  _T_741 = sdf_stages_2_io_cntr < 7'h8; // @[SDFChainRadix22.scala 322:135]
+  wire  _T_742 = _T_741 ? 1'h0 : 1'h1; // @[SDFChainRadix22.scala 322:122]
   reg  _T_744; // @[Reg.scala 15:16]
   reg [31:0] _RAND_79;
   wire [15:0] _T_750 = 16'sh0 - $signed(sdf_stages_2_io_out_real); // @[FixedPointTypeClass.scala 39:43]
-  wire [15:0] _T_747_real = sdf_stages_2_io_out_imag; // @[SDFChainRadix22.scala 322:32 SDFChainRadix22.scala 325:29]
+  wire [15:0] _T_747_real = sdf_stages_2_io_out_imag; // @[SDFChainRadix22.scala 324:32 SDFChainRadix22.scala 327:29]
   reg [15:0] _T_756_real; // @[Reg.scala 15:16]
   reg [31:0] _RAND_80;
   reg [15:0] _T_756_imag; // @[Reg.scala 15:16]
@@ -8628,11 +8512,11 @@ module SDFChainRadix22(
   reg [31:0] _RAND_84;
   reg [15:0] outputWires_2_imag; // @[Reg.scala 15:16]
   reg [31:0] _RAND_85;
-  wire  _T_768 = 7'h3 == _T_71; // @[SDFChainRadix22.scala 234:23]
-  wire [15:0] _GEN_706 = _T_768 ? $signed(io_in_bits_imag) : $signed(outputWires_2_imag); // @[SDFChainRadix22.scala 234:55]
-  wire [15:0] _GEN_707 = _T_768 ? $signed(io_in_bits_real) : $signed(outputWires_2_real); // @[SDFChainRadix22.scala 234:55]
-  wire [6:0] _T_861 = _GEN_218 + 7'h1; // @[SDFChainRadix22.scala 276:83]
-  wire [6:0] _T_865 = _T_861 - _T_271; // @[SDFChainRadix22.scala 276:89]
+  wire  _T_768 = 7'h3 == _T_71; // @[SDFChainRadix22.scala 236:23]
+  wire [15:0] _GEN_706 = _T_768 ? $signed(io_in_bits_imag) : $signed(outputWires_2_imag); // @[SDFChainRadix22.scala 236:55]
+  wire [15:0] _GEN_707 = _T_768 ? $signed(io_in_bits_real) : $signed(outputWires_2_real); // @[SDFChainRadix22.scala 236:55]
+  wire [6:0] _T_861 = _GEN_218 + 7'h1; // @[SDFChainRadix22.scala 278:83]
+  wire [6:0] _T_865 = _T_861 - _T_271; // @[SDFChainRadix22.scala 278:89]
   reg [6:0] _T_867; // @[Reg.scala 15:16]
   reg [31:0] _RAND_86;
   reg [15:0] twiddles_3_real; // @[Reg.scala 15:16]
@@ -8700,18 +8584,18 @@ module SDFChainRadix22(
   wire [19:0] _T_914 = _T_913[34:15]; // @[FixedPointTypeClass.scala 176:41]
   wire [34:0] _T_917 = $signed(_T_907) + 35'sh4000; // @[FixedPointTypeClass.scala 20:58]
   wire [19:0] _T_918 = _T_917[34:15]; // @[FixedPointTypeClass.scala 176:41]
-  wire  _T_927 = 7'h4 == _T_71; // @[SDFChainRadix22.scala 234:23]
-  wire [15:0] outputWires_3_imag = _T_918[15:0]; // @[SDFChainRadix22.scala 286:27 SDFChainRadix22.scala 306:19]
-  wire [15:0] _GEN_841 = _T_927 ? $signed(io_in_bits_imag) : $signed(outputWires_3_imag); // @[SDFChainRadix22.scala 234:55]
-  wire [15:0] outputWires_3_real = _T_914[15:0]; // @[SDFChainRadix22.scala 286:27 SDFChainRadix22.scala 306:19]
-  wire [15:0] _GEN_842 = _T_927 ? $signed(io_in_bits_real) : $signed(outputWires_3_real); // @[SDFChainRadix22.scala 234:55]
-  wire  _T_928 = sdf_stages_4_io_cntr < 7'h4; // @[SDFChainRadix22.scala 320:98]
-  wire  _T_930 = sdf_stages_4_io_cntr < 7'h2; // @[SDFChainRadix22.scala 320:135]
-  wire  _T_931 = _T_930 ? 1'h0 : 1'h1; // @[SDFChainRadix22.scala 320:122]
+  wire  _T_927 = 7'h4 == _T_71; // @[SDFChainRadix22.scala 236:23]
+  wire [15:0] outputWires_3_imag = _T_918[15:0]; // @[SDFChainRadix22.scala 288:27 SDFChainRadix22.scala 308:19]
+  wire [15:0] _GEN_841 = _T_927 ? $signed(io_in_bits_imag) : $signed(outputWires_3_imag); // @[SDFChainRadix22.scala 236:55]
+  wire [15:0] outputWires_3_real = _T_914[15:0]; // @[SDFChainRadix22.scala 288:27 SDFChainRadix22.scala 308:19]
+  wire [15:0] _GEN_842 = _T_927 ? $signed(io_in_bits_real) : $signed(outputWires_3_real); // @[SDFChainRadix22.scala 236:55]
+  wire  _T_928 = sdf_stages_4_io_cntr < 7'h4; // @[SDFChainRadix22.scala 322:98]
+  wire  _T_930 = sdf_stages_4_io_cntr < 7'h2; // @[SDFChainRadix22.scala 322:135]
+  wire  _T_931 = _T_930 ? 1'h0 : 1'h1; // @[SDFChainRadix22.scala 322:122]
   reg  _T_933; // @[Reg.scala 15:16]
   reg [31:0] _RAND_100;
   wire [15:0] _T_939 = 16'sh0 - $signed(sdf_stages_4_io_out_real); // @[FixedPointTypeClass.scala 39:43]
-  wire [15:0] _T_936_real = sdf_stages_4_io_out_imag; // @[SDFChainRadix22.scala 322:32 SDFChainRadix22.scala 325:29]
+  wire [15:0] _T_936_real = sdf_stages_4_io_out_imag; // @[SDFChainRadix22.scala 324:32 SDFChainRadix22.scala 327:29]
   reg [15:0] _T_945_real; // @[Reg.scala 15:16]
   reg [31:0] _RAND_101;
   reg [15:0] _T_945_imag; // @[Reg.scala 15:16]
@@ -8724,11 +8608,11 @@ module SDFChainRadix22(
   reg [31:0] _RAND_105;
   reg [15:0] outputWires_4_imag; // @[Reg.scala 15:16]
   reg [31:0] _RAND_106;
-  wire  _T_957 = 7'h5 == _T_71; // @[SDFChainRadix22.scala 234:23]
-  wire [15:0] _GEN_852 = _T_957 ? $signed(io_in_bits_imag) : $signed(outputWires_4_imag); // @[SDFChainRadix22.scala 234:55]
-  wire [15:0] _GEN_853 = _T_957 ? $signed(io_in_bits_real) : $signed(outputWires_4_real); // @[SDFChainRadix22.scala 234:55]
-  wire [6:0] _T_990 = _GEN_246 + 7'h1; // @[SDFChainRadix22.scala 276:83]
-  wire [6:0] _T_994 = _T_990 - _T_301; // @[SDFChainRadix22.scala 276:89]
+  wire  _T_957 = 7'h5 == _T_71; // @[SDFChainRadix22.scala 236:23]
+  wire [15:0] _GEN_852 = _T_957 ? $signed(io_in_bits_imag) : $signed(outputWires_4_imag); // @[SDFChainRadix22.scala 236:55]
+  wire [15:0] _GEN_853 = _T_957 ? $signed(io_in_bits_real) : $signed(outputWires_4_real); // @[SDFChainRadix22.scala 236:55]
+  wire [6:0] _T_990 = _GEN_246 + 7'h1; // @[SDFChainRadix22.scala 278:83]
+  wire [6:0] _T_994 = _T_990 - _T_301; // @[SDFChainRadix22.scala 278:89]
   reg [6:0] _T_996; // @[Reg.scala 15:16]
   reg [31:0] _RAND_107;
   reg [15:0] twiddles_5_real; // @[Reg.scala 15:16]
@@ -8778,11 +8662,11 @@ module SDFChainRadix22(
   wire [19:0] _T_1043 = _T_1042[34:15]; // @[FixedPointTypeClass.scala 176:41]
   wire [34:0] _T_1046 = $signed(_T_1036) + 35'sh4000; // @[FixedPointTypeClass.scala 20:58]
   wire [19:0] _T_1047 = _T_1046[34:15]; // @[FixedPointTypeClass.scala 176:41]
-  wire  _T_1056 = 7'h6 == _T_71; // @[SDFChainRadix22.scala 234:23]
-  wire [15:0] outputWires_5_imag = _T_1047[15:0]; // @[SDFChainRadix22.scala 286:27 SDFChainRadix22.scala 306:19]
-  wire [15:0] _GEN_915 = _T_1056 ? $signed(io_in_bits_imag) : $signed(outputWires_5_imag); // @[SDFChainRadix22.scala 234:55]
-  wire [15:0] outputWires_5_real = _T_1043[15:0]; // @[SDFChainRadix22.scala 286:27 SDFChainRadix22.scala 306:19]
-  wire [15:0] _GEN_916 = _T_1056 ? $signed(io_in_bits_real) : $signed(outputWires_5_real); // @[SDFChainRadix22.scala 234:55]
+  wire  _T_1056 = 7'h6 == _T_71; // @[SDFChainRadix22.scala 236:23]
+  wire [15:0] outputWires_5_imag = _T_1047[15:0]; // @[SDFChainRadix22.scala 288:27 SDFChainRadix22.scala 308:19]
+  wire [15:0] _GEN_915 = _T_1056 ? $signed(io_in_bits_imag) : $signed(outputWires_5_imag); // @[SDFChainRadix22.scala 236:55]
+  wire [15:0] outputWires_5_real = _T_1043[15:0]; // @[SDFChainRadix22.scala 288:27 SDFChainRadix22.scala 308:19]
+  wire [15:0] _GEN_916 = _T_1056 ? $signed(io_in_bits_real) : $signed(outputWires_5_real); // @[SDFChainRadix22.scala 236:55]
   reg [15:0] _T_1059_real; // @[Reg.scala 15:16]
   reg [31:0] _RAND_121;
   reg [15:0] _T_1059_imag; // @[Reg.scala 15:16]
@@ -8795,15 +8679,15 @@ module SDFChainRadix22(
   reg [31:0] _RAND_125;
   reg [15:0] outputWires_6_imag; // @[Reg.scala 15:16]
   reg [31:0] _RAND_126;
-  reg  _T_1067; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_1067; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_127;
-  reg  _T_1068; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_1068; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_128;
-  reg  _T_1069; // @[SDFFFTUtil.scala 14:20]
+  reg  _T_1069; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_129;
-  reg  outValid; // @[SDFFFTUtil.scala 14:20]
+  reg  outValid; // @[SDFFFTUtil.scala 16:20]
   reg [31:0] _RAND_130;
-  wire  _T_1070 = ~initialOutDone; // @[SDFChainRadix22.scala 361:33]
+  wire  _T_1070 = ~initialOutDone; // @[SDFChainRadix22.scala 363:33]
   reg  _T_1071; // @[Reg.scala 27:20]
   reg [31:0] _RAND_131;
   reg  _T_1072; // @[Reg.scala 27:20]
@@ -8812,15 +8696,15 @@ module SDFChainRadix22(
   reg [31:0] _RAND_133;
   reg  _T_1074; // @[Reg.scala 27:20]
   reg [31:0] _RAND_134;
-  wire  _T_1075 = state != 2'h2; // @[SDFChainRadix22.scala 361:127]
-  wire  _T_1076 = io_out_ready & _T_1075; // @[SDFChainRadix22.scala 361:117]
-  wire [29:0] _GEN_965 = {$signed(outQueue_io_deq_bits_imag), 14'h0}; // @[SDFChainRadix22.scala 375:33]
-  wire [31:0] _GEN_937 = {{2{_GEN_965[29]}},_GEN_965}; // @[SDFChainRadix22.scala 375:33]
-  wire [29:0] _GEN_966 = {$signed(outQueue_io_deq_bits_real), 14'h0}; // @[SDFChainRadix22.scala 375:33]
-  wire [31:0] _GEN_938 = {{2{_GEN_966[29]}},_GEN_966}; // @[SDFChainRadix22.scala 375:33]
-  wire [17:0] _GEN_967 = _GEN_938[31:14]; // @[SDFChainRadix22.scala 59:26 SDFChainRadix22.scala 376:20 SDFChainRadix22.scala 379:25]
-  wire [17:0] _GEN_969 = _GEN_937[31:14]; // @[SDFChainRadix22.scala 59:26 SDFChainRadix22.scala 376:20 SDFChainRadix22.scala 380:25]
-  SDFStageRadix22 sdf_stages_0 ( // @[SDFChainRadix22.scala 155:25]
+  wire  _T_1075 = state != 2'h2; // @[SDFChainRadix22.scala 363:127]
+  wire  _T_1076 = io_out_ready & _T_1075; // @[SDFChainRadix22.scala 363:117]
+  wire [29:0] _GEN_965 = {$signed(outQueue_io_deq_bits_imag), 14'h0}; // @[SDFChainRadix22.scala 377:33]
+  wire [31:0] _GEN_937 = {{2{_GEN_965[29]}},_GEN_965}; // @[SDFChainRadix22.scala 377:33]
+  wire [29:0] _GEN_966 = {$signed(outQueue_io_deq_bits_real), 14'h0}; // @[SDFChainRadix22.scala 377:33]
+  wire [31:0] _GEN_938 = {{2{_GEN_966[29]}},_GEN_966}; // @[SDFChainRadix22.scala 377:33]
+  wire [17:0] _GEN_967 = _GEN_938[31:14]; // @[SDFChainRadix22.scala 61:26 SDFChainRadix22.scala 378:20 SDFChainRadix22.scala 381:25]
+  wire [17:0] _GEN_969 = _GEN_937[31:14]; // @[SDFChainRadix22.scala 61:26 SDFChainRadix22.scala 378:20 SDFChainRadix22.scala 382:25]
+  SDFStageRadix22 sdf_stages_0 ( // @[SDFChainRadix22.scala 157:25]
     .clock(sdf_stages_0_clock),
     .reset(sdf_stages_0_reset),
     .io_in_real(sdf_stages_0_io_in_real),
@@ -8830,7 +8714,7 @@ module SDFChainRadix22(
     .io_cntr(sdf_stages_0_io_cntr),
     .io_en(sdf_stages_0_io_en)
   );
-  SDFStageRadix22_1 sdf_stages_1 ( // @[SDFChainRadix22.scala 155:25]
+  SDFStageRadix22_1 sdf_stages_1 ( // @[SDFChainRadix22.scala 157:25]
     .clock(sdf_stages_1_clock),
     .reset(sdf_stages_1_reset),
     .io_in_real(sdf_stages_1_io_in_real),
@@ -8840,7 +8724,7 @@ module SDFChainRadix22(
     .io_cntr(sdf_stages_1_io_cntr),
     .io_en(sdf_stages_1_io_en)
   );
-  SDFStageRadix22_2 sdf_stages_2 ( // @[SDFChainRadix22.scala 155:25]
+  SDFStageRadix22_2 sdf_stages_2 ( // @[SDFChainRadix22.scala 157:25]
     .clock(sdf_stages_2_clock),
     .reset(sdf_stages_2_reset),
     .io_in_real(sdf_stages_2_io_in_real),
@@ -8850,7 +8734,7 @@ module SDFChainRadix22(
     .io_cntr(sdf_stages_2_io_cntr),
     .io_en(sdf_stages_2_io_en)
   );
-  SDFStageRadix22_3 sdf_stages_3 ( // @[SDFChainRadix22.scala 155:25]
+  SDFStageRadix22_3 sdf_stages_3 ( // @[SDFChainRadix22.scala 157:25]
     .clock(sdf_stages_3_clock),
     .reset(sdf_stages_3_reset),
     .io_in_real(sdf_stages_3_io_in_real),
@@ -8860,7 +8744,7 @@ module SDFChainRadix22(
     .io_cntr(sdf_stages_3_io_cntr),
     .io_en(sdf_stages_3_io_en)
   );
-  SDFStageRadix22_4 sdf_stages_4 ( // @[SDFChainRadix22.scala 155:25]
+  SDFStageRadix22_4 sdf_stages_4 ( // @[SDFChainRadix22.scala 157:25]
     .clock(sdf_stages_4_clock),
     .reset(sdf_stages_4_reset),
     .io_in_real(sdf_stages_4_io_in_real),
@@ -8870,7 +8754,7 @@ module SDFChainRadix22(
     .io_cntr(sdf_stages_4_io_cntr),
     .io_en(sdf_stages_4_io_en)
   );
-  SDFStageRadix22_5 sdf_stages_5 ( // @[SDFChainRadix22.scala 155:25]
+  SDFStageRadix22_5 sdf_stages_5 ( // @[SDFChainRadix22.scala 157:25]
     .clock(sdf_stages_5_clock),
     .reset(sdf_stages_5_reset),
     .io_in_real(sdf_stages_5_io_in_real),
@@ -8880,7 +8764,7 @@ module SDFChainRadix22(
     .io_cntr(sdf_stages_5_io_cntr),
     .io_en(sdf_stages_5_io_en)
   );
-  SDFStageRadix22_6 sdf_stages_6 ( // @[SDFChainRadix22.scala 155:25]
+  SDFStageRadix22_6 sdf_stages_6 ( // @[SDFChainRadix22.scala 157:25]
     .clock(sdf_stages_6_clock),
     .reset(sdf_stages_6_reset),
     .io_in_real(sdf_stages_6_io_in_real),
@@ -8890,7 +8774,7 @@ module SDFChainRadix22(
     .io_cntr(sdf_stages_6_io_cntr),
     .io_en(sdf_stages_6_io_en)
   );
-  Queue_10 outQueue ( // @[SDFChainRadix22.scala 356:25]
+  Queue_9 outQueue ( // @[SDFChainRadix22.scala 358:25]
     .clock(outQueue_clock),
     .reset(outQueue_reset),
     .io_enq_ready(outQueue_io_enq_ready),
@@ -8902,60 +8786,60 @@ module SDFChainRadix22(
     .io_deq_bits_real(outQueue_io_deq_bits_real),
     .io_deq_bits_imag(outQueue_io_deq_bits_imag)
   );
-  assign io_in_ready = _T_1074 | _T_1076; // @[SDFChainRadix22.scala 361:15]
-  assign io_out_valid = outQueue_io_deq_valid; // @[SDFChainRadix22.scala 383:18]
-  assign io_out_bits_real = _GEN_967[15:0]; // @[SDFChainRadix22.scala 382:17]
-  assign io_out_bits_imag = _GEN_969[15:0]; // @[SDFChainRadix22.scala 382:17]
-  assign io_lastOut = lastWait ? _T_67 : _T_69; // @[SDFChainRadix22.scala 389:14]
-  assign io_busy = state == 2'h2; // @[SDFChainRadix22.scala 390:11]
+  assign io_in_ready = _T_1074 | _T_1076; // @[SDFChainRadix22.scala 363:15]
+  assign io_out_valid = outQueue_io_deq_valid; // @[SDFChainRadix22.scala 385:18]
+  assign io_out_bits_real = _GEN_967[15:0]; // @[SDFChainRadix22.scala 384:17]
+  assign io_out_bits_imag = _GEN_969[15:0]; // @[SDFChainRadix22.scala 384:17]
+  assign io_lastOut = lastWait ? _T_67 : _T_69; // @[SDFChainRadix22.scala 391:14]
+  assign io_busy = state == 2'h2; // @[SDFChainRadix22.scala 392:11]
   assign sdf_stages_0_clock = clock;
   assign sdf_stages_0_reset = reset;
-  assign sdf_stages_0_io_in_real = activeStages_0 ? $signed(_GEN_262) : $signed(16'sh0); // @[SDFChainRadix22.scala 245:21 SDFChainRadix22.scala 248:21]
-  assign sdf_stages_0_io_in_imag = activeStages_0 ? $signed(_GEN_261) : $signed(16'sh0); // @[SDFChainRadix22.scala 245:21 SDFChainRadix22.scala 248:21]
-  assign sdf_stages_0_io_cntr = _GEN_176 - _T_211; // @[SDFChainRadix22.scala 217:16]
-  assign sdf_stages_0_io_en = _T_202 ? 1'h0 : _GEN_169; // @[SDFChainRadix22.scala 216:14]
+  assign sdf_stages_0_io_in_real = activeStages_0 ? $signed(_GEN_262) : $signed(16'sh0); // @[SDFChainRadix22.scala 247:21 SDFChainRadix22.scala 250:21]
+  assign sdf_stages_0_io_in_imag = activeStages_0 ? $signed(_GEN_261) : $signed(16'sh0); // @[SDFChainRadix22.scala 247:21 SDFChainRadix22.scala 250:21]
+  assign sdf_stages_0_io_cntr = _GEN_176 - _T_211; // @[SDFChainRadix22.scala 219:16]
+  assign sdf_stages_0_io_en = _T_202 ? 1'h0 : _GEN_169; // @[SDFChainRadix22.scala 218:14]
   assign sdf_stages_1_clock = clock;
   assign sdf_stages_1_reset = reset;
-  assign sdf_stages_1_io_in_real = activeStages_1 ? $signed(_GEN_273) : $signed(16'sh0); // @[SDFChainRadix22.scala 245:21 SDFChainRadix22.scala 248:21]
-  assign sdf_stages_1_io_in_imag = activeStages_1 ? $signed(_GEN_272) : $signed(16'sh0); // @[SDFChainRadix22.scala 245:21 SDFChainRadix22.scala 248:21]
-  assign sdf_stages_1_io_cntr = {{1'd0}, _T_228[5:0]}; // @[SDFChainRadix22.scala 217:16]
-  assign sdf_stages_1_io_en = _T_217 ? 1'h0 : _GEN_183; // @[SDFChainRadix22.scala 216:14]
+  assign sdf_stages_1_io_in_real = activeStages_1 ? $signed(_GEN_273) : $signed(16'sh0); // @[SDFChainRadix22.scala 247:21 SDFChainRadix22.scala 250:21]
+  assign sdf_stages_1_io_in_imag = activeStages_1 ? $signed(_GEN_272) : $signed(16'sh0); // @[SDFChainRadix22.scala 247:21 SDFChainRadix22.scala 250:21]
+  assign sdf_stages_1_io_cntr = {{1'd0}, _T_228[5:0]}; // @[SDFChainRadix22.scala 219:16]
+  assign sdf_stages_1_io_en = _T_217 ? 1'h0 : _GEN_183; // @[SDFChainRadix22.scala 218:14]
   assign sdf_stages_2_clock = clock;
   assign sdf_stages_2_reset = reset;
-  assign sdf_stages_2_io_in_real = activeStages_2 ? $signed(_GEN_696) : $signed(16'sh0); // @[SDFChainRadix22.scala 245:21 SDFChainRadix22.scala 248:21]
-  assign sdf_stages_2_io_in_imag = activeStages_2 ? $signed(_GEN_695) : $signed(16'sh0); // @[SDFChainRadix22.scala 245:21 SDFChainRadix22.scala 248:21]
-  assign sdf_stages_2_io_cntr = {{2'd0}, _T_243[4:0]}; // @[SDFChainRadix22.scala 217:16]
-  assign sdf_stages_2_io_en = _T_232 ? 1'h0 : _GEN_197; // @[SDFChainRadix22.scala 216:14]
+  assign sdf_stages_2_io_in_real = activeStages_2 ? $signed(_GEN_696) : $signed(16'sh0); // @[SDFChainRadix22.scala 247:21 SDFChainRadix22.scala 250:21]
+  assign sdf_stages_2_io_in_imag = activeStages_2 ? $signed(_GEN_695) : $signed(16'sh0); // @[SDFChainRadix22.scala 247:21 SDFChainRadix22.scala 250:21]
+  assign sdf_stages_2_io_cntr = {{2'd0}, _T_243[4:0]}; // @[SDFChainRadix22.scala 219:16]
+  assign sdf_stages_2_io_en = _T_232 ? 1'h0 : _GEN_197; // @[SDFChainRadix22.scala 218:14]
   assign sdf_stages_3_clock = clock;
   assign sdf_stages_3_reset = reset;
-  assign sdf_stages_3_io_in_real = activeStages_3 ? $signed(_GEN_707) : $signed(16'sh0); // @[SDFChainRadix22.scala 245:21 SDFChainRadix22.scala 248:21]
-  assign sdf_stages_3_io_in_imag = activeStages_3 ? $signed(_GEN_706) : $signed(16'sh0); // @[SDFChainRadix22.scala 245:21 SDFChainRadix22.scala 248:21]
-  assign sdf_stages_3_io_cntr = {{3'd0}, _T_258[3:0]}; // @[SDFChainRadix22.scala 217:16]
-  assign sdf_stages_3_io_en = _T_247 ? 1'h0 : _GEN_211; // @[SDFChainRadix22.scala 216:14]
+  assign sdf_stages_3_io_in_real = activeStages_3 ? $signed(_GEN_707) : $signed(16'sh0); // @[SDFChainRadix22.scala 247:21 SDFChainRadix22.scala 250:21]
+  assign sdf_stages_3_io_in_imag = activeStages_3 ? $signed(_GEN_706) : $signed(16'sh0); // @[SDFChainRadix22.scala 247:21 SDFChainRadix22.scala 250:21]
+  assign sdf_stages_3_io_cntr = {{3'd0}, _T_258[3:0]}; // @[SDFChainRadix22.scala 219:16]
+  assign sdf_stages_3_io_en = _T_247 ? 1'h0 : _GEN_211; // @[SDFChainRadix22.scala 218:14]
   assign sdf_stages_4_clock = clock;
   assign sdf_stages_4_reset = reset;
-  assign sdf_stages_4_io_in_real = activeStages_4 ? $signed(_GEN_842) : $signed(16'sh0); // @[SDFChainRadix22.scala 245:21 SDFChainRadix22.scala 248:21]
-  assign sdf_stages_4_io_in_imag = activeStages_4 ? $signed(_GEN_841) : $signed(16'sh0); // @[SDFChainRadix22.scala 245:21 SDFChainRadix22.scala 248:21]
-  assign sdf_stages_4_io_cntr = {{4'd0}, _T_273[2:0]}; // @[SDFChainRadix22.scala 217:16]
-  assign sdf_stages_4_io_en = _T_262 ? 1'h0 : _GEN_225; // @[SDFChainRadix22.scala 216:14]
+  assign sdf_stages_4_io_in_real = activeStages_4 ? $signed(_GEN_842) : $signed(16'sh0); // @[SDFChainRadix22.scala 247:21 SDFChainRadix22.scala 250:21]
+  assign sdf_stages_4_io_in_imag = activeStages_4 ? $signed(_GEN_841) : $signed(16'sh0); // @[SDFChainRadix22.scala 247:21 SDFChainRadix22.scala 250:21]
+  assign sdf_stages_4_io_cntr = {{4'd0}, _T_273[2:0]}; // @[SDFChainRadix22.scala 219:16]
+  assign sdf_stages_4_io_en = _T_262 ? 1'h0 : _GEN_225; // @[SDFChainRadix22.scala 218:14]
   assign sdf_stages_5_clock = clock;
   assign sdf_stages_5_reset = reset;
-  assign sdf_stages_5_io_in_real = activeStages_5 ? $signed(_GEN_853) : $signed(16'sh0); // @[SDFChainRadix22.scala 245:21 SDFChainRadix22.scala 248:21]
-  assign sdf_stages_5_io_in_imag = activeStages_5 ? $signed(_GEN_852) : $signed(16'sh0); // @[SDFChainRadix22.scala 245:21 SDFChainRadix22.scala 248:21]
-  assign sdf_stages_5_io_cntr = {{5'd0}, _T_288[1:0]}; // @[SDFChainRadix22.scala 217:16]
-  assign sdf_stages_5_io_en = _T_277 ? 1'h0 : _GEN_239; // @[SDFChainRadix22.scala 216:14]
+  assign sdf_stages_5_io_in_real = activeStages_5 ? $signed(_GEN_853) : $signed(16'sh0); // @[SDFChainRadix22.scala 247:21 SDFChainRadix22.scala 250:21]
+  assign sdf_stages_5_io_in_imag = activeStages_5 ? $signed(_GEN_852) : $signed(16'sh0); // @[SDFChainRadix22.scala 247:21 SDFChainRadix22.scala 250:21]
+  assign sdf_stages_5_io_cntr = {{5'd0}, _T_288[1:0]}; // @[SDFChainRadix22.scala 219:16]
+  assign sdf_stages_5_io_en = _T_277 ? 1'h0 : _GEN_239; // @[SDFChainRadix22.scala 218:14]
   assign sdf_stages_6_clock = clock;
   assign sdf_stages_6_reset = reset;
-  assign sdf_stages_6_io_in_real = activeStages_6 ? $signed(_GEN_916) : $signed(16'sh0); // @[SDFChainRadix22.scala 245:21 SDFChainRadix22.scala 248:21]
-  assign sdf_stages_6_io_in_imag = activeStages_6 ? $signed(_GEN_915) : $signed(16'sh0); // @[SDFChainRadix22.scala 245:21 SDFChainRadix22.scala 248:21]
-  assign sdf_stages_6_io_cntr = {{6'd0}, _T_303[0]}; // @[SDFChainRadix22.scala 217:16]
-  assign sdf_stages_6_io_en = _T_292 ? 1'h0 : _GEN_253; // @[SDFChainRadix22.scala 216:14]
+  assign sdf_stages_6_io_in_real = activeStages_6 ? $signed(_GEN_916) : $signed(16'sh0); // @[SDFChainRadix22.scala 247:21 SDFChainRadix22.scala 250:21]
+  assign sdf_stages_6_io_in_imag = activeStages_6 ? $signed(_GEN_915) : $signed(16'sh0); // @[SDFChainRadix22.scala 247:21 SDFChainRadix22.scala 250:21]
+  assign sdf_stages_6_io_cntr = {{6'd0}, _T_303[0]}; // @[SDFChainRadix22.scala 219:16]
+  assign sdf_stages_6_io_en = _T_292 ? 1'h0 : _GEN_253; // @[SDFChainRadix22.scala 218:14]
   assign outQueue_clock = clock;
   assign outQueue_reset = reset;
-  assign outQueue_io_enq_valid = outValid; // @[SDFChainRadix22.scala 358:25]
-  assign outQueue_io_enq_bits_real = outputWires_6_real; // @[SDFChainRadix22.scala 357:24]
-  assign outQueue_io_enq_bits_imag = outputWires_6_imag; // @[SDFChainRadix22.scala 357:24]
-  assign outQueue_io_deq_ready = io_out_ready; // @[SDFChainRadix22.scala 359:25]
+  assign outQueue_io_enq_valid = outValid; // @[SDFChainRadix22.scala 360:25]
+  assign outQueue_io_enq_bits_real = outputWires_6_real; // @[SDFChainRadix22.scala 359:24]
+  assign outQueue_io_enq_bits_imag = outputWires_6_imag; // @[SDFChainRadix22.scala 359:24]
+  assign outQueue_io_deq_ready = io_out_ready; // @[SDFChainRadix22.scala 361:25]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -10436,41 +10320,41 @@ module SDFFFT_128_16(
   input  [6:0]  io_fftSize,
   output        io_busy
 );
-  wire  SDFChainRadix22_clock; // @[SDFFFT.scala 418:119]
-  wire  SDFChainRadix22_reset; // @[SDFFFT.scala 418:119]
-  wire  SDFChainRadix22_io_in_ready; // @[SDFFFT.scala 418:119]
-  wire  SDFChainRadix22_io_in_valid; // @[SDFFFT.scala 418:119]
-  wire [15:0] SDFChainRadix22_io_in_bits_real; // @[SDFFFT.scala 418:119]
-  wire [15:0] SDFChainRadix22_io_in_bits_imag; // @[SDFFFT.scala 418:119]
-  wire  SDFChainRadix22_io_out_ready; // @[SDFFFT.scala 418:119]
-  wire  SDFChainRadix22_io_out_valid; // @[SDFFFT.scala 418:119]
-  wire [15:0] SDFChainRadix22_io_out_bits_real; // @[SDFFFT.scala 418:119]
-  wire [15:0] SDFChainRadix22_io_out_bits_imag; // @[SDFFFT.scala 418:119]
-  wire  SDFChainRadix22_io_lastOut; // @[SDFFFT.scala 418:119]
-  wire  SDFChainRadix22_io_lastIn; // @[SDFFFT.scala 418:119]
-  wire [6:0] SDFChainRadix22_io_fftSize; // @[SDFFFT.scala 418:119]
-  wire  SDFChainRadix22_io_busy; // @[SDFFFT.scala 418:119]
-  reg [6:0] cntWin; // @[SDFFFT.scala 265:23]
+  wire  SDFChainRadix22_clock; // @[SDFFFT.scala 420:119]
+  wire  SDFChainRadix22_reset; // @[SDFFFT.scala 420:119]
+  wire  SDFChainRadix22_io_in_ready; // @[SDFFFT.scala 420:119]
+  wire  SDFChainRadix22_io_in_valid; // @[SDFFFT.scala 420:119]
+  wire [15:0] SDFChainRadix22_io_in_bits_real; // @[SDFFFT.scala 420:119]
+  wire [15:0] SDFChainRadix22_io_in_bits_imag; // @[SDFFFT.scala 420:119]
+  wire  SDFChainRadix22_io_out_ready; // @[SDFFFT.scala 420:119]
+  wire  SDFChainRadix22_io_out_valid; // @[SDFFFT.scala 420:119]
+  wire [15:0] SDFChainRadix22_io_out_bits_real; // @[SDFFFT.scala 420:119]
+  wire [15:0] SDFChainRadix22_io_out_bits_imag; // @[SDFFFT.scala 420:119]
+  wire  SDFChainRadix22_io_lastOut; // @[SDFFFT.scala 420:119]
+  wire  SDFChainRadix22_io_lastIn; // @[SDFFFT.scala 420:119]
+  wire [6:0] SDFChainRadix22_io_fftSize; // @[SDFFFT.scala 420:119]
+  wire  SDFChainRadix22_io_busy; // @[SDFFFT.scala 420:119]
+  reg [6:0] cntWin; // @[SDFFFT.scala 267:23]
   reg [31:0] _RAND_0;
-  wire [6:0] _T_5 = io_fftSize - 7'h1; // @[SDFFFT.scala 269:41]
-  wire [128:0] _T_6 = 129'h2 << _T_5; // @[SDFFFT.scala 269:23]
+  wire [6:0] _T_5 = io_fftSize - 7'h1; // @[SDFFFT.scala 271:41]
+  wire [128:0] _T_6 = 129'h2 << _T_5; // @[SDFFFT.scala 271:23]
   wire  _T_7 = io_in_ready & io_in_valid; // @[Decoupled.scala 40:37]
-  wire [6:0] _T_9 = cntWin + 7'h1; // @[SDFFFT.scala 274:22]
-  wire [6:0] numPoints = _T_6[6:0]; // @[SDFFFT.scala 266:23 SDFFFT.scala 269:15]
-  wire [6:0] _T_11 = numPoints - 7'h1; // @[SDFFFT.scala 276:44]
-  wire  _T_12 = cntWin == _T_11; // @[SDFFFT.scala 276:29]
-  wire  _T_13 = io_lastIn | _T_12; // @[SDFFFT.scala 276:19]
+  wire [6:0] _T_9 = cntWin + 7'h1; // @[SDFFFT.scala 276:22]
+  wire [6:0] numPoints = _T_6[6:0]; // @[SDFFFT.scala 268:23 SDFFFT.scala 271:15]
+  wire [6:0] _T_11 = numPoints - 7'h1; // @[SDFFFT.scala 278:44]
+  wire  _T_12 = cntWin == _T_11; // @[SDFFFT.scala 278:29]
+  wire  _T_13 = io_lastIn | _T_12; // @[SDFFFT.scala 278:19]
   wire [31:0] _T_84 = $signed(io_in_bits_real) * 16'sh4000; // @[FixedPointTypeClass.scala 42:59]
   wire [31:0] _T_85 = $signed(io_in_bits_imag) * 16'sh4000; // @[FixedPointTypeClass.scala 42:59]
-  wire [29:0] _GEN_138 = {$signed(SDFChainRadix22_io_out_bits_imag), 14'h0}; // @[SDFFFT.scala 500:56]
-  wire [31:0] _GEN_134 = {{2{_GEN_138[29]}},_GEN_138}; // @[SDFFFT.scala 500:56]
-  wire [29:0] _GEN_139 = {$signed(SDFChainRadix22_io_out_bits_real), 14'h0}; // @[SDFFFT.scala 500:56]
-  wire [31:0] _GEN_135 = {{2{_GEN_139[29]}},_GEN_139}; // @[SDFFFT.scala 500:56]
-  wire [17:0] _GEN_140 = _GEN_135[31:14]; // @[SDFFFT.scala 508:18 SDFFFT.scala 513:28]
-  wire [17:0] _GEN_142 = _GEN_134[31:14]; // @[SDFFFT.scala 508:18 SDFFFT.scala 514:28]
-  wire [17:0] _GEN_144 = _T_84[31:14]; // @[SDFFFT.scala 503:31 SDFFFT.scala 511:21]
-  wire [17:0] _GEN_146 = _T_85[31:14]; // @[SDFFFT.scala 504:31 SDFFFT.scala 511:21]
-  SDFChainRadix22 SDFChainRadix22 ( // @[SDFFFT.scala 418:119]
+  wire [29:0] _GEN_138 = {$signed(SDFChainRadix22_io_out_bits_imag), 14'h0}; // @[SDFFFT.scala 502:56]
+  wire [31:0] _GEN_134 = {{2{_GEN_138[29]}},_GEN_138}; // @[SDFFFT.scala 502:56]
+  wire [29:0] _GEN_139 = {$signed(SDFChainRadix22_io_out_bits_real), 14'h0}; // @[SDFFFT.scala 502:56]
+  wire [31:0] _GEN_135 = {{2{_GEN_139[29]}},_GEN_139}; // @[SDFFFT.scala 502:56]
+  wire [17:0] _GEN_140 = _GEN_135[31:14]; // @[SDFFFT.scala 510:18 SDFFFT.scala 515:28]
+  wire [17:0] _GEN_142 = _GEN_134[31:14]; // @[SDFFFT.scala 510:18 SDFFFT.scala 516:28]
+  wire [17:0] _GEN_144 = _T_84[31:14]; // @[SDFFFT.scala 505:31 SDFFFT.scala 513:21]
+  wire [17:0] _GEN_146 = _T_85[31:14]; // @[SDFFFT.scala 506:31 SDFFFT.scala 513:21]
+  SDFChainRadix22 SDFChainRadix22 ( // @[SDFFFT.scala 420:119]
     .clock(SDFChainRadix22_clock),
     .reset(SDFChainRadix22_reset),
     .io_in_ready(SDFChainRadix22_io_in_ready),
@@ -10486,20 +10370,20 @@ module SDFFFT_128_16(
     .io_fftSize(SDFChainRadix22_io_fftSize),
     .io_busy(SDFChainRadix22_io_busy)
   );
-  assign io_in_ready = SDFChainRadix22_io_in_ready; // @[SDFFFT.scala 507:23 SDFFFT.scala 511:21]
-  assign io_out_valid = SDFChainRadix22_io_out_valid; // @[SDFFFT.scala 508:18 SDFFFT.scala 516:24]
-  assign io_out_bits_real = _GEN_140[15:0]; // @[SDFFFT.scala 508:18 SDFFFT.scala 513:28]
-  assign io_out_bits_imag = _GEN_142[15:0]; // @[SDFFFT.scala 508:18 SDFFFT.scala 514:28]
-  assign io_lastOut = SDFChainRadix22_io_lastOut; // @[SDFFFT.scala 520:20]
-  assign io_busy = SDFChainRadix22_io_busy; // @[SDFFFT.scala 523:15]
+  assign io_in_ready = SDFChainRadix22_io_in_ready; // @[SDFFFT.scala 509:23 SDFFFT.scala 513:21]
+  assign io_out_valid = SDFChainRadix22_io_out_valid; // @[SDFFFT.scala 510:18 SDFFFT.scala 518:24]
+  assign io_out_bits_real = _GEN_140[15:0]; // @[SDFFFT.scala 510:18 SDFFFT.scala 515:28]
+  assign io_out_bits_imag = _GEN_142[15:0]; // @[SDFFFT.scala 510:18 SDFFFT.scala 516:28]
+  assign io_lastOut = SDFChainRadix22_io_lastOut; // @[SDFFFT.scala 522:20]
+  assign io_busy = SDFChainRadix22_io_busy; // @[SDFFFT.scala 525:15]
   assign SDFChainRadix22_clock = clock;
   assign SDFChainRadix22_reset = reset;
-  assign SDFChainRadix22_io_in_valid = io_in_valid; // @[SDFFFT.scala 506:27 SDFFFT.scala 511:21]
-  assign SDFChainRadix22_io_in_bits_real = _GEN_144[15:0]; // @[SDFFFT.scala 503:31 SDFFFT.scala 511:21]
-  assign SDFChainRadix22_io_in_bits_imag = _GEN_146[15:0]; // @[SDFFFT.scala 504:31 SDFFFT.scala 511:21]
-  assign SDFChainRadix22_io_out_ready = io_out_ready; // @[SDFFFT.scala 508:18 SDFFFT.scala 517:28]
-  assign SDFChainRadix22_io_lastIn = io_lastIn; // @[SDFFFT.scala 519:23]
-  assign SDFChainRadix22_io_fftSize = io_fftSize; // @[SDFFFT.scala 526:28]
+  assign SDFChainRadix22_io_in_valid = io_in_valid; // @[SDFFFT.scala 508:27 SDFFFT.scala 513:21]
+  assign SDFChainRadix22_io_in_bits_real = _GEN_144[15:0]; // @[SDFFFT.scala 505:31 SDFFFT.scala 513:21]
+  assign SDFChainRadix22_io_in_bits_imag = _GEN_146[15:0]; // @[SDFFFT.scala 506:31 SDFFFT.scala 513:21]
+  assign SDFChainRadix22_io_out_ready = io_out_ready; // @[SDFFFT.scala 510:18 SDFFFT.scala 519:28]
+  assign SDFChainRadix22_io_lastIn = io_lastIn; // @[SDFFFT.scala 521:23]
+  assign SDFChainRadix22_io_fftSize = io_fftSize; // @[SDFFFT.scala 528:28]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -10580,20 +10464,20 @@ module AXI4FFTBlock(
   output [31:0] auto_stream_out_bits_data,
   output        auto_stream_out_bits_last
 );
-  wire  fft_clock; // @[FFTBlock.scala 53:21]
-  wire  fft_reset; // @[FFTBlock.scala 53:21]
-  wire  fft_io_in_ready; // @[FFTBlock.scala 53:21]
-  wire  fft_io_in_valid; // @[FFTBlock.scala 53:21]
-  wire [15:0] fft_io_in_bits_real; // @[FFTBlock.scala 53:21]
-  wire [15:0] fft_io_in_bits_imag; // @[FFTBlock.scala 53:21]
-  wire  fft_io_out_ready; // @[FFTBlock.scala 53:21]
-  wire  fft_io_out_valid; // @[FFTBlock.scala 53:21]
-  wire [15:0] fft_io_out_bits_real; // @[FFTBlock.scala 53:21]
-  wire [15:0] fft_io_out_bits_imag; // @[FFTBlock.scala 53:21]
-  wire  fft_io_lastOut; // @[FFTBlock.scala 53:21]
-  wire  fft_io_lastIn; // @[FFTBlock.scala 53:21]
-  wire [6:0] fft_io_fftSize; // @[FFTBlock.scala 53:21]
-  wire  fft_io_busy; // @[FFTBlock.scala 53:21]
+  wire  fft_clock; // @[FFTBlock.scala 55:21]
+  wire  fft_reset; // @[FFTBlock.scala 55:21]
+  wire  fft_io_in_ready; // @[FFTBlock.scala 55:21]
+  wire  fft_io_in_valid; // @[FFTBlock.scala 55:21]
+  wire [15:0] fft_io_in_bits_real; // @[FFTBlock.scala 55:21]
+  wire [15:0] fft_io_in_bits_imag; // @[FFTBlock.scala 55:21]
+  wire  fft_io_out_ready; // @[FFTBlock.scala 55:21]
+  wire  fft_io_out_valid; // @[FFTBlock.scala 55:21]
+  wire [15:0] fft_io_out_bits_real; // @[FFTBlock.scala 55:21]
+  wire [15:0] fft_io_out_bits_imag; // @[FFTBlock.scala 55:21]
+  wire  fft_io_lastOut; // @[FFTBlock.scala 55:21]
+  wire  fft_io_lastIn; // @[FFTBlock.scala 55:21]
+  wire [6:0] fft_io_fftSize; // @[FFTBlock.scala 55:21]
+  wire  fft_io_busy; // @[FFTBlock.scala 55:21]
   wire  Queue_clock; // @[Decoupled.scala 296:21]
   wire  Queue_reset; // @[Decoupled.scala 296:21]
   wire  Queue_io_enq_ready; // @[Decoupled.scala 296:21]
@@ -10606,13 +10490,13 @@ module AXI4FFTBlock(
   wire  Queue_io_deq_bits_read; // @[Decoupled.scala 296:21]
   wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
   wire  Queue_io_deq_bits_extra; // @[Decoupled.scala 296:21]
-  reg [2:0] fftSize; // @[FFTBlock.scala 59:34]
+  reg [2:0] fftSize; // @[FFTBlock.scala 61:34]
   reg [31:0] _RAND_0;
-  reg  fftDir; // @[FFTBlock.scala 60:34]
+  reg  fftDir; // @[FFTBlock.scala 62:34]
   reg [31:0] _RAND_1;
-  reg [6:0] keepMSBorLSBReg; // @[FFTBlock.scala 61:34]
+  reg [6:0] keepMSBorLSBReg; // @[FFTBlock.scala 63:34]
   reg [31:0] _RAND_2;
-  reg  busy; // @[FFTBlock.scala 64:34]
+  reg  busy; // @[FFTBlock.scala 66:34]
   reg [31:0] _RAND_3;
   wire  _T_2 = auto_mem_in_aw_valid & auto_mem_in_w_valid; // @[RegisterRouter.scala 40:39]
   wire  _T_3 = auto_mem_in_ar_valid | _T_2; // @[RegisterRouter.scala 40:26]
@@ -10690,7 +10574,7 @@ module AXI4FFTBlock(
   wire  _T_440_bits_read = Queue_io_deq_bits_read; // @[Decoupled.scala 317:19 Decoupled.scala 318:14]
   wire  _T_440_valid = Queue_io_deq_valid; // @[Decoupled.scala 317:19 Decoupled.scala 319:15]
   wire  _T_443 = ~_T_440_bits_read; // @[RegisterRouter.scala 65:29]
-  SDFFFT_128_16 fft ( // @[FFTBlock.scala 53:21]
+  SDFFFT_128_16 fft ( // @[FFTBlock.scala 55:21]
     .clock(fft_clock),
     .reset(fft_reset),
     .io_in_ready(fft_io_in_ready),
@@ -10734,12 +10618,12 @@ module AXI4FFTBlock(
   assign auto_stream_out_bits_last = fft_io_lastOut; // @[LazyModule.scala 173:49]
   assign fft_clock = clock;
   assign fft_reset = reset;
-  assign fft_io_in_valid = auto_stream_in_valid; // @[FFTBlock.scala 103:24]
-  assign fft_io_in_bits_real = auto_stream_in_bits_data[31:16]; // @[FFTBlock.scala 104:24]
-  assign fft_io_in_bits_imag = auto_stream_in_bits_data[15:0]; // @[FFTBlock.scala 104:24]
-  assign fft_io_out_ready = auto_stream_out_ready; // @[FFTBlock.scala 111:22]
-  assign fft_io_lastIn = auto_stream_in_bits_last; // @[FFTBlock.scala 106:24]
-  assign fft_io_fftSize = {{4'd0}, fftSize}; // @[FFTBlock.scala 71:26]
+  assign fft_io_in_valid = auto_stream_in_valid; // @[FFTBlock.scala 105:24]
+  assign fft_io_in_bits_real = auto_stream_in_bits_data[31:16]; // @[FFTBlock.scala 106:24]
+  assign fft_io_in_bits_imag = auto_stream_in_bits_data[15:0]; // @[FFTBlock.scala 106:24]
+  assign fft_io_out_ready = auto_stream_out_ready; // @[FFTBlock.scala 113:22]
+  assign fft_io_lastIn = auto_stream_in_bits_last; // @[FFTBlock.scala 108:24]
+  assign fft_io_fftSize = {{4'd0}, fftSize}; // @[FFTBlock.scala 73:26]
   assign Queue_clock = clock;
   assign Queue_reset = reset;
   assign Queue_io_enq_valid = auto_mem_in_ar_valid | _T_2; // @[Decoupled.scala 297:22]
@@ -11422,7 +11306,7 @@ end // initial
     sels_1 <= reset | _GEN_18;
   end
 endmodule
-module Queue_15(
+module Queue_14(
   input         clock,
   input         reset,
   output        io_enq_ready,
@@ -11583,7 +11467,7 @@ end // initial
     end
   end
 endmodule
-module Queue_16(
+module Queue_15(
   input   clock,
   input   reset,
   output  io_enq_ready,
@@ -11728,24 +11612,24 @@ module LogMagMux(
   input  [1:0]  io_sel,
   output        io_lastOut
 );
-  wire  Queue_clock; // @[Skid.scala 21:23]
-  wire  Queue_reset; // @[Skid.scala 21:23]
-  wire  Queue_io_enq_ready; // @[Skid.scala 21:23]
-  wire  Queue_io_enq_valid; // @[Skid.scala 21:23]
-  wire [15:0] Queue_io_enq_bits_real; // @[Skid.scala 21:23]
-  wire [15:0] Queue_io_enq_bits_imag; // @[Skid.scala 21:23]
-  wire  Queue_io_deq_ready; // @[Skid.scala 21:23]
-  wire  Queue_io_deq_valid; // @[Skid.scala 21:23]
-  wire [15:0] Queue_io_deq_bits_real; // @[Skid.scala 21:23]
-  wire [15:0] Queue_io_deq_bits_imag; // @[Skid.scala 21:23]
-  wire  Queue_1_clock; // @[Skid.scala 21:23]
-  wire  Queue_1_reset; // @[Skid.scala 21:23]
-  wire  Queue_1_io_enq_ready; // @[Skid.scala 21:23]
-  wire  Queue_1_io_enq_valid; // @[Skid.scala 21:23]
-  wire  Queue_1_io_enq_bits; // @[Skid.scala 21:23]
-  wire  Queue_1_io_deq_ready; // @[Skid.scala 21:23]
-  wire  Queue_1_io_deq_valid; // @[Skid.scala 21:23]
-  wire  Queue_1_io_deq_bits; // @[Skid.scala 21:23]
+  wire  Queue_clock; // @[Skid.scala 23:23]
+  wire  Queue_reset; // @[Skid.scala 23:23]
+  wire  Queue_io_enq_ready; // @[Skid.scala 23:23]
+  wire  Queue_io_enq_valid; // @[Skid.scala 23:23]
+  wire [15:0] Queue_io_enq_bits_real; // @[Skid.scala 23:23]
+  wire [15:0] Queue_io_enq_bits_imag; // @[Skid.scala 23:23]
+  wire  Queue_io_deq_ready; // @[Skid.scala 23:23]
+  wire  Queue_io_deq_valid; // @[Skid.scala 23:23]
+  wire [15:0] Queue_io_deq_bits_real; // @[Skid.scala 23:23]
+  wire [15:0] Queue_io_deq_bits_imag; // @[Skid.scala 23:23]
+  wire  Queue_1_clock; // @[Skid.scala 23:23]
+  wire  Queue_1_reset; // @[Skid.scala 23:23]
+  wire  Queue_1_io_enq_ready; // @[Skid.scala 23:23]
+  wire  Queue_1_io_enq_valid; // @[Skid.scala 23:23]
+  wire  Queue_1_io_enq_bits; // @[Skid.scala 23:23]
+  wire  Queue_1_io_deq_ready; // @[Skid.scala 23:23]
+  wire  Queue_1_io_deq_valid; // @[Skid.scala 23:23]
+  wire  Queue_1_io_deq_bits; // @[Skid.scala 23:23]
   wire [15:0] _T_7 = 16'sh0 - $signed(io_in_bits_real); // @[FixedPointTypeClass.scala 30:68]
   wire [15:0] absInReal = io_in_bits_real[15] ? $signed(_T_7) : $signed(io_in_bits_real); // @[FixedPointTypeClass.scala 247:8]
   wire [15:0] _T_11 = 16'sh0 - $signed(io_in_bits_imag); // @[FixedPointTypeClass.scala 30:68]
@@ -11787,7 +11671,7 @@ module LogMagMux(
   reg [31:0] _RAND_10;
   reg [17:0] jplMag; // @[Reg.scala 15:16]
   reg [31:0] _RAND_11;
-  wire [17:0] _T_34 = jplMag; // @[LogMagMux.scala 113:35]
+  wire [17:0] _T_34 = jplMag; // @[LogMagMux.scala 115:35]
   wire  _T_37 = _T_34[17:16] != 2'h0; // @[CircuitMath.scala 37:22]
   wire  _T_41 = _T_34[15:8] != 8'h0; // @[CircuitMath.scala 37:22]
   wire  _T_44 = _T_34[15:12] != 4'h0; // @[CircuitMath.scala 37:22]
@@ -11808,533 +11692,533 @@ module LogMagMux(
   wire [3:0] _T_73 = {_T_41,_T_72}; // @[Cat.scala 29:58]
   wire [3:0] _T_74 = _T_37 ? {{3'd0}, _T_34[17]} : _T_73; // @[CircuitMath.scala 38:21]
   wire [4:0] logUInt = {_T_37,_T_74}; // @[Cat.scala 29:58]
-  wire [17:0] _T_589 = _T_32 ? $signed({{1{jplMagOp1[16]}},jplMagOp1}) : $signed(jplMagOp2); // @[LogMagMux.scala 131:50]
+  wire [17:0] _T_589 = _T_32 ? $signed({{1{jplMagOp1[16]}},jplMagOp1}) : $signed(jplMagOp2); // @[LogMagMux.scala 133:50]
   wire [31:0] _T_590 = 32'h1 << logUInt; // @[UIntTypeClass.scala 124:39]
   reg [17:0] noLeadOne; // @[Reg.scala 15:16]
   reg [31:0] _RAND_12;
-  wire [4:0] _T_596 = 5'h10 - logUInt; // @[LogMagMux.scala 132:44]
+  wire [4:0] _T_596 = 5'h10 - logUInt; // @[LogMagMux.scala 134:44]
   reg [4:0] shiftNum; // @[Reg.scala 15:16]
   reg [31:0] _RAND_13;
   wire [48:0] _GEN_563 = {{31'd0}, noLeadOne}; // @[UIntTypeClass.scala 124:39]
   wire [48:0] _T_599 = _GEN_563 << shiftNum; // @[UIntTypeClass.scala 124:39]
-  wire [8:0] logLookUpAddr = _T_599[14:6]; // @[LogMagMux.scala 134:74]
-  wire [9:0] _GEN_15 = 9'h1 == logLookUpAddr ? $signed(10'sh1) : $signed(10'sh0); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_16 = 9'h2 == logLookUpAddr ? $signed(10'sh3) : $signed(_GEN_15); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_17 = 9'h3 == logLookUpAddr ? $signed(10'sh4) : $signed(_GEN_16); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_18 = 9'h4 == logLookUpAddr ? $signed(10'sh6) : $signed(_GEN_17); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_19 = 9'h5 == logLookUpAddr ? $signed(10'sh7) : $signed(_GEN_18); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_20 = 9'h6 == logLookUpAddr ? $signed(10'sh9) : $signed(_GEN_19); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_21 = 9'h7 == logLookUpAddr ? $signed(10'sha) : $signed(_GEN_20); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_22 = 9'h8 == logLookUpAddr ? $signed(10'shb) : $signed(_GEN_21); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_23 = 9'h9 == logLookUpAddr ? $signed(10'shd) : $signed(_GEN_22); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_24 = 9'ha == logLookUpAddr ? $signed(10'she) : $signed(_GEN_23); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_25 = 9'hb == logLookUpAddr ? $signed(10'sh10) : $signed(_GEN_24); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_26 = 9'hc == logLookUpAddr ? $signed(10'sh11) : $signed(_GEN_25); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_27 = 9'hd == logLookUpAddr ? $signed(10'sh13) : $signed(_GEN_26); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_28 = 9'he == logLookUpAddr ? $signed(10'sh14) : $signed(_GEN_27); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_29 = 9'hf == logLookUpAddr ? $signed(10'sh15) : $signed(_GEN_28); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_30 = 9'h10 == logLookUpAddr ? $signed(10'sh17) : $signed(_GEN_29); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_31 = 9'h11 == logLookUpAddr ? $signed(10'sh18) : $signed(_GEN_30); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_32 = 9'h12 == logLookUpAddr ? $signed(10'sh1a) : $signed(_GEN_31); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_33 = 9'h13 == logLookUpAddr ? $signed(10'sh1b) : $signed(_GEN_32); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_34 = 9'h14 == logLookUpAddr ? $signed(10'sh1c) : $signed(_GEN_33); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_35 = 9'h15 == logLookUpAddr ? $signed(10'sh1e) : $signed(_GEN_34); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_36 = 9'h16 == logLookUpAddr ? $signed(10'sh1f) : $signed(_GEN_35); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_37 = 9'h17 == logLookUpAddr ? $signed(10'sh20) : $signed(_GEN_36); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_38 = 9'h18 == logLookUpAddr ? $signed(10'sh22) : $signed(_GEN_37); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_39 = 9'h19 == logLookUpAddr ? $signed(10'sh23) : $signed(_GEN_38); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_40 = 9'h1a == logLookUpAddr ? $signed(10'sh25) : $signed(_GEN_39); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_41 = 9'h1b == logLookUpAddr ? $signed(10'sh26) : $signed(_GEN_40); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_42 = 9'h1c == logLookUpAddr ? $signed(10'sh27) : $signed(_GEN_41); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_43 = 9'h1d == logLookUpAddr ? $signed(10'sh29) : $signed(_GEN_42); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_44 = 9'h1e == logLookUpAddr ? $signed(10'sh2a) : $signed(_GEN_43); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_45 = 9'h1f == logLookUpAddr ? $signed(10'sh2b) : $signed(_GEN_44); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_46 = 9'h20 == logLookUpAddr ? $signed(10'sh2d) : $signed(_GEN_45); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_47 = 9'h21 == logLookUpAddr ? $signed(10'sh2e) : $signed(_GEN_46); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_48 = 9'h22 == logLookUpAddr ? $signed(10'sh2f) : $signed(_GEN_47); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_49 = 9'h23 == logLookUpAddr ? $signed(10'sh31) : $signed(_GEN_48); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_50 = 9'h24 == logLookUpAddr ? $signed(10'sh32) : $signed(_GEN_49); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_51 = 9'h25 == logLookUpAddr ? $signed(10'sh34) : $signed(_GEN_50); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_52 = 9'h26 == logLookUpAddr ? $signed(10'sh35) : $signed(_GEN_51); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_53 = 9'h27 == logLookUpAddr ? $signed(10'sh36) : $signed(_GEN_52); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_54 = 9'h28 == logLookUpAddr ? $signed(10'sh38) : $signed(_GEN_53); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_55 = 9'h29 == logLookUpAddr ? $signed(10'sh39) : $signed(_GEN_54); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_56 = 9'h2a == logLookUpAddr ? $signed(10'sh3a) : $signed(_GEN_55); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_57 = 9'h2b == logLookUpAddr ? $signed(10'sh3c) : $signed(_GEN_56); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_58 = 9'h2c == logLookUpAddr ? $signed(10'sh3d) : $signed(_GEN_57); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_59 = 9'h2d == logLookUpAddr ? $signed(10'sh3e) : $signed(_GEN_58); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_60 = 9'h2e == logLookUpAddr ? $signed(10'sh40) : $signed(_GEN_59); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_61 = 9'h2f == logLookUpAddr ? $signed(10'sh41) : $signed(_GEN_60); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_62 = 9'h30 == logLookUpAddr ? $signed(10'sh42) : $signed(_GEN_61); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_63 = 9'h31 == logLookUpAddr ? $signed(10'sh44) : $signed(_GEN_62); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_64 = 9'h32 == logLookUpAddr ? $signed(10'sh45) : $signed(_GEN_63); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_65 = 9'h33 == logLookUpAddr ? $signed(10'sh46) : $signed(_GEN_64); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_66 = 9'h34 == logLookUpAddr ? $signed(10'sh47) : $signed(_GEN_65); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_67 = 9'h35 == logLookUpAddr ? $signed(10'sh49) : $signed(_GEN_66); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_68 = 9'h36 == logLookUpAddr ? $signed(10'sh4a) : $signed(_GEN_67); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_69 = 9'h37 == logLookUpAddr ? $signed(10'sh4b) : $signed(_GEN_68); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_70 = 9'h38 == logLookUpAddr ? $signed(10'sh4d) : $signed(_GEN_69); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_71 = 9'h39 == logLookUpAddr ? $signed(10'sh4e) : $signed(_GEN_70); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_72 = 9'h3a == logLookUpAddr ? $signed(10'sh4f) : $signed(_GEN_71); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_73 = 9'h3b == logLookUpAddr ? $signed(10'sh51) : $signed(_GEN_72); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_74 = 9'h3c == logLookUpAddr ? $signed(10'sh52) : $signed(_GEN_73); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_75 = 9'h3d == logLookUpAddr ? $signed(10'sh53) : $signed(_GEN_74); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_76 = 9'h3e == logLookUpAddr ? $signed(10'sh54) : $signed(_GEN_75); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_77 = 9'h3f == logLookUpAddr ? $signed(10'sh56) : $signed(_GEN_76); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_78 = 9'h40 == logLookUpAddr ? $signed(10'sh57) : $signed(_GEN_77); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_79 = 9'h41 == logLookUpAddr ? $signed(10'sh58) : $signed(_GEN_78); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_80 = 9'h42 == logLookUpAddr ? $signed(10'sh5a) : $signed(_GEN_79); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_81 = 9'h43 == logLookUpAddr ? $signed(10'sh5b) : $signed(_GEN_80); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_82 = 9'h44 == logLookUpAddr ? $signed(10'sh5c) : $signed(_GEN_81); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_83 = 9'h45 == logLookUpAddr ? $signed(10'sh5d) : $signed(_GEN_82); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_84 = 9'h46 == logLookUpAddr ? $signed(10'sh5f) : $signed(_GEN_83); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_85 = 9'h47 == logLookUpAddr ? $signed(10'sh60) : $signed(_GEN_84); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_86 = 9'h48 == logLookUpAddr ? $signed(10'sh61) : $signed(_GEN_85); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_87 = 9'h49 == logLookUpAddr ? $signed(10'sh62) : $signed(_GEN_86); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_88 = 9'h4a == logLookUpAddr ? $signed(10'sh64) : $signed(_GEN_87); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_89 = 9'h4b == logLookUpAddr ? $signed(10'sh65) : $signed(_GEN_88); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_90 = 9'h4c == logLookUpAddr ? $signed(10'sh66) : $signed(_GEN_89); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_91 = 9'h4d == logLookUpAddr ? $signed(10'sh67) : $signed(_GEN_90); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_92 = 9'h4e == logLookUpAddr ? $signed(10'sh69) : $signed(_GEN_91); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_93 = 9'h4f == logLookUpAddr ? $signed(10'sh6a) : $signed(_GEN_92); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_94 = 9'h50 == logLookUpAddr ? $signed(10'sh6b) : $signed(_GEN_93); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_95 = 9'h51 == logLookUpAddr ? $signed(10'sh6c) : $signed(_GEN_94); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_96 = 9'h52 == logLookUpAddr ? $signed(10'sh6e) : $signed(_GEN_95); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_97 = 9'h53 == logLookUpAddr ? $signed(10'sh6f) : $signed(_GEN_96); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_98 = 9'h54 == logLookUpAddr ? $signed(10'sh70) : $signed(_GEN_97); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_99 = 9'h55 == logLookUpAddr ? $signed(10'sh71) : $signed(_GEN_98); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_100 = 9'h56 == logLookUpAddr ? $signed(10'sh73) : $signed(_GEN_99); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_101 = 9'h57 == logLookUpAddr ? $signed(10'sh74) : $signed(_GEN_100); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_102 = 9'h58 == logLookUpAddr ? $signed(10'sh75) : $signed(_GEN_101); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_103 = 9'h59 == logLookUpAddr ? $signed(10'sh76) : $signed(_GEN_102); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_104 = 9'h5a == logLookUpAddr ? $signed(10'sh78) : $signed(_GEN_103); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_105 = 9'h5b == logLookUpAddr ? $signed(10'sh79) : $signed(_GEN_104); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_106 = 9'h5c == logLookUpAddr ? $signed(10'sh7a) : $signed(_GEN_105); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_107 = 9'h5d == logLookUpAddr ? $signed(10'sh7b) : $signed(_GEN_106); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_108 = 9'h5e == logLookUpAddr ? $signed(10'sh7d) : $signed(_GEN_107); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_109 = 9'h5f == logLookUpAddr ? $signed(10'sh7e) : $signed(_GEN_108); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_110 = 9'h60 == logLookUpAddr ? $signed(10'sh7f) : $signed(_GEN_109); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_111 = 9'h61 == logLookUpAddr ? $signed(10'sh80) : $signed(_GEN_110); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_112 = 9'h62 == logLookUpAddr ? $signed(10'sh81) : $signed(_GEN_111); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_113 = 9'h63 == logLookUpAddr ? $signed(10'sh83) : $signed(_GEN_112); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_114 = 9'h64 == logLookUpAddr ? $signed(10'sh84) : $signed(_GEN_113); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_115 = 9'h65 == logLookUpAddr ? $signed(10'sh85) : $signed(_GEN_114); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_116 = 9'h66 == logLookUpAddr ? $signed(10'sh86) : $signed(_GEN_115); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_117 = 9'h67 == logLookUpAddr ? $signed(10'sh87) : $signed(_GEN_116); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_118 = 9'h68 == logLookUpAddr ? $signed(10'sh89) : $signed(_GEN_117); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_119 = 9'h69 == logLookUpAddr ? $signed(10'sh8a) : $signed(_GEN_118); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_120 = 9'h6a == logLookUpAddr ? $signed(10'sh8b) : $signed(_GEN_119); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_121 = 9'h6b == logLookUpAddr ? $signed(10'sh8c) : $signed(_GEN_120); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_122 = 9'h6c == logLookUpAddr ? $signed(10'sh8d) : $signed(_GEN_121); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_123 = 9'h6d == logLookUpAddr ? $signed(10'sh8f) : $signed(_GEN_122); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_124 = 9'h6e == logLookUpAddr ? $signed(10'sh90) : $signed(_GEN_123); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_125 = 9'h6f == logLookUpAddr ? $signed(10'sh91) : $signed(_GEN_124); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_126 = 9'h70 == logLookUpAddr ? $signed(10'sh92) : $signed(_GEN_125); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_127 = 9'h71 == logLookUpAddr ? $signed(10'sh93) : $signed(_GEN_126); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_128 = 9'h72 == logLookUpAddr ? $signed(10'sh94) : $signed(_GEN_127); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_129 = 9'h73 == logLookUpAddr ? $signed(10'sh96) : $signed(_GEN_128); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_130 = 9'h74 == logLookUpAddr ? $signed(10'sh97) : $signed(_GEN_129); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_131 = 9'h75 == logLookUpAddr ? $signed(10'sh98) : $signed(_GEN_130); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_132 = 9'h76 == logLookUpAddr ? $signed(10'sh99) : $signed(_GEN_131); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_133 = 9'h77 == logLookUpAddr ? $signed(10'sh9a) : $signed(_GEN_132); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_134 = 9'h78 == logLookUpAddr ? $signed(10'sh9c) : $signed(_GEN_133); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_135 = 9'h79 == logLookUpAddr ? $signed(10'sh9d) : $signed(_GEN_134); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_136 = 9'h7a == logLookUpAddr ? $signed(10'sh9e) : $signed(_GEN_135); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_137 = 9'h7b == logLookUpAddr ? $signed(10'sh9f) : $signed(_GEN_136); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_138 = 9'h7c == logLookUpAddr ? $signed(10'sha0) : $signed(_GEN_137); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_139 = 9'h7d == logLookUpAddr ? $signed(10'sha1) : $signed(_GEN_138); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_140 = 9'h7e == logLookUpAddr ? $signed(10'sha3) : $signed(_GEN_139); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_141 = 9'h7f == logLookUpAddr ? $signed(10'sha4) : $signed(_GEN_140); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_142 = 9'h80 == logLookUpAddr ? $signed(10'sha5) : $signed(_GEN_141); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_143 = 9'h81 == logLookUpAddr ? $signed(10'sha6) : $signed(_GEN_142); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_144 = 9'h82 == logLookUpAddr ? $signed(10'sha7) : $signed(_GEN_143); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_145 = 9'h83 == logLookUpAddr ? $signed(10'sha8) : $signed(_GEN_144); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_146 = 9'h84 == logLookUpAddr ? $signed(10'sha9) : $signed(_GEN_145); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_147 = 9'h85 == logLookUpAddr ? $signed(10'shab) : $signed(_GEN_146); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_148 = 9'h86 == logLookUpAddr ? $signed(10'shac) : $signed(_GEN_147); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_149 = 9'h87 == logLookUpAddr ? $signed(10'shad) : $signed(_GEN_148); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_150 = 9'h88 == logLookUpAddr ? $signed(10'shae) : $signed(_GEN_149); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_151 = 9'h89 == logLookUpAddr ? $signed(10'shaf) : $signed(_GEN_150); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_152 = 9'h8a == logLookUpAddr ? $signed(10'shb0) : $signed(_GEN_151); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_153 = 9'h8b == logLookUpAddr ? $signed(10'shb1) : $signed(_GEN_152); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_154 = 9'h8c == logLookUpAddr ? $signed(10'shb3) : $signed(_GEN_153); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_155 = 9'h8d == logLookUpAddr ? $signed(10'shb4) : $signed(_GEN_154); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_156 = 9'h8e == logLookUpAddr ? $signed(10'shb5) : $signed(_GEN_155); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_157 = 9'h8f == logLookUpAddr ? $signed(10'shb6) : $signed(_GEN_156); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_158 = 9'h90 == logLookUpAddr ? $signed(10'shb7) : $signed(_GEN_157); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_159 = 9'h91 == logLookUpAddr ? $signed(10'shb8) : $signed(_GEN_158); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_160 = 9'h92 == logLookUpAddr ? $signed(10'shb9) : $signed(_GEN_159); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_161 = 9'h93 == logLookUpAddr ? $signed(10'shba) : $signed(_GEN_160); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_162 = 9'h94 == logLookUpAddr ? $signed(10'shbc) : $signed(_GEN_161); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_163 = 9'h95 == logLookUpAddr ? $signed(10'shbd) : $signed(_GEN_162); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_164 = 9'h96 == logLookUpAddr ? $signed(10'shbe) : $signed(_GEN_163); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_165 = 9'h97 == logLookUpAddr ? $signed(10'shbf) : $signed(_GEN_164); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_166 = 9'h98 == logLookUpAddr ? $signed(10'shc0) : $signed(_GEN_165); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_167 = 9'h99 == logLookUpAddr ? $signed(10'shc1) : $signed(_GEN_166); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_168 = 9'h9a == logLookUpAddr ? $signed(10'shc2) : $signed(_GEN_167); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_169 = 9'h9b == logLookUpAddr ? $signed(10'shc3) : $signed(_GEN_168); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_170 = 9'h9c == logLookUpAddr ? $signed(10'shc4) : $signed(_GEN_169); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_171 = 9'h9d == logLookUpAddr ? $signed(10'shc6) : $signed(_GEN_170); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_172 = 9'h9e == logLookUpAddr ? $signed(10'shc7) : $signed(_GEN_171); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_173 = 9'h9f == logLookUpAddr ? $signed(10'shc8) : $signed(_GEN_172); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_174 = 9'ha0 == logLookUpAddr ? $signed(10'shc9) : $signed(_GEN_173); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_175 = 9'ha1 == logLookUpAddr ? $signed(10'shca) : $signed(_GEN_174); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_176 = 9'ha2 == logLookUpAddr ? $signed(10'shcb) : $signed(_GEN_175); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_177 = 9'ha3 == logLookUpAddr ? $signed(10'shcc) : $signed(_GEN_176); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_178 = 9'ha4 == logLookUpAddr ? $signed(10'shcd) : $signed(_GEN_177); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_179 = 9'ha5 == logLookUpAddr ? $signed(10'shce) : $signed(_GEN_178); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_180 = 9'ha6 == logLookUpAddr ? $signed(10'shcf) : $signed(_GEN_179); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_181 = 9'ha7 == logLookUpAddr ? $signed(10'shd1) : $signed(_GEN_180); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_182 = 9'ha8 == logLookUpAddr ? $signed(10'shd2) : $signed(_GEN_181); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_183 = 9'ha9 == logLookUpAddr ? $signed(10'shd3) : $signed(_GEN_182); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_184 = 9'haa == logLookUpAddr ? $signed(10'shd4) : $signed(_GEN_183); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_185 = 9'hab == logLookUpAddr ? $signed(10'shd5) : $signed(_GEN_184); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_186 = 9'hac == logLookUpAddr ? $signed(10'shd6) : $signed(_GEN_185); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_187 = 9'had == logLookUpAddr ? $signed(10'shd7) : $signed(_GEN_186); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_188 = 9'hae == logLookUpAddr ? $signed(10'shd8) : $signed(_GEN_187); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_189 = 9'haf == logLookUpAddr ? $signed(10'shd9) : $signed(_GEN_188); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_190 = 9'hb0 == logLookUpAddr ? $signed(10'shda) : $signed(_GEN_189); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_191 = 9'hb1 == logLookUpAddr ? $signed(10'shdb) : $signed(_GEN_190); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_192 = 9'hb2 == logLookUpAddr ? $signed(10'shdc) : $signed(_GEN_191); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_193 = 9'hb3 == logLookUpAddr ? $signed(10'shdd) : $signed(_GEN_192); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_194 = 9'hb4 == logLookUpAddr ? $signed(10'shdf) : $signed(_GEN_193); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_195 = 9'hb5 == logLookUpAddr ? $signed(10'she0) : $signed(_GEN_194); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_196 = 9'hb6 == logLookUpAddr ? $signed(10'she1) : $signed(_GEN_195); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_197 = 9'hb7 == logLookUpAddr ? $signed(10'she2) : $signed(_GEN_196); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_198 = 9'hb8 == logLookUpAddr ? $signed(10'she3) : $signed(_GEN_197); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_199 = 9'hb9 == logLookUpAddr ? $signed(10'she4) : $signed(_GEN_198); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_200 = 9'hba == logLookUpAddr ? $signed(10'she5) : $signed(_GEN_199); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_201 = 9'hbb == logLookUpAddr ? $signed(10'she6) : $signed(_GEN_200); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_202 = 9'hbc == logLookUpAddr ? $signed(10'she7) : $signed(_GEN_201); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_203 = 9'hbd == logLookUpAddr ? $signed(10'she8) : $signed(_GEN_202); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_204 = 9'hbe == logLookUpAddr ? $signed(10'she9) : $signed(_GEN_203); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_205 = 9'hbf == logLookUpAddr ? $signed(10'shea) : $signed(_GEN_204); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_206 = 9'hc0 == logLookUpAddr ? $signed(10'sheb) : $signed(_GEN_205); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_207 = 9'hc1 == logLookUpAddr ? $signed(10'shec) : $signed(_GEN_206); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_208 = 9'hc2 == logLookUpAddr ? $signed(10'shed) : $signed(_GEN_207); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_209 = 9'hc3 == logLookUpAddr ? $signed(10'shee) : $signed(_GEN_208); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_210 = 9'hc4 == logLookUpAddr ? $signed(10'shef) : $signed(_GEN_209); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_211 = 9'hc5 == logLookUpAddr ? $signed(10'shf0) : $signed(_GEN_210); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_212 = 9'hc6 == logLookUpAddr ? $signed(10'shf1) : $signed(_GEN_211); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_213 = 9'hc7 == logLookUpAddr ? $signed(10'shf3) : $signed(_GEN_212); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_214 = 9'hc8 == logLookUpAddr ? $signed(10'shf4) : $signed(_GEN_213); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_215 = 9'hc9 == logLookUpAddr ? $signed(10'shf5) : $signed(_GEN_214); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_216 = 9'hca == logLookUpAddr ? $signed(10'shf6) : $signed(_GEN_215); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_217 = 9'hcb == logLookUpAddr ? $signed(10'shf7) : $signed(_GEN_216); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_218 = 9'hcc == logLookUpAddr ? $signed(10'shf8) : $signed(_GEN_217); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_219 = 9'hcd == logLookUpAddr ? $signed(10'shf9) : $signed(_GEN_218); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_220 = 9'hce == logLookUpAddr ? $signed(10'shfa) : $signed(_GEN_219); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_221 = 9'hcf == logLookUpAddr ? $signed(10'shfb) : $signed(_GEN_220); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_222 = 9'hd0 == logLookUpAddr ? $signed(10'shfc) : $signed(_GEN_221); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_223 = 9'hd1 == logLookUpAddr ? $signed(10'shfd) : $signed(_GEN_222); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_224 = 9'hd2 == logLookUpAddr ? $signed(10'shfe) : $signed(_GEN_223); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_225 = 9'hd3 == logLookUpAddr ? $signed(10'shff) : $signed(_GEN_224); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_226 = 9'hd4 == logLookUpAddr ? $signed(10'sh100) : $signed(_GEN_225); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_227 = 9'hd5 == logLookUpAddr ? $signed(10'sh101) : $signed(_GEN_226); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_228 = 9'hd6 == logLookUpAddr ? $signed(10'sh102) : $signed(_GEN_227); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_229 = 9'hd7 == logLookUpAddr ? $signed(10'sh103) : $signed(_GEN_228); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_230 = 9'hd8 == logLookUpAddr ? $signed(10'sh104) : $signed(_GEN_229); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_231 = 9'hd9 == logLookUpAddr ? $signed(10'sh105) : $signed(_GEN_230); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_232 = 9'hda == logLookUpAddr ? $signed(10'sh106) : $signed(_GEN_231); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_233 = 9'hdb == logLookUpAddr ? $signed(10'sh107) : $signed(_GEN_232); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_234 = 9'hdc == logLookUpAddr ? $signed(10'sh108) : $signed(_GEN_233); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_235 = 9'hdd == logLookUpAddr ? $signed(10'sh109) : $signed(_GEN_234); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_236 = 9'hde == logLookUpAddr ? $signed(10'sh10a) : $signed(_GEN_235); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_237 = 9'hdf == logLookUpAddr ? $signed(10'sh10b) : $signed(_GEN_236); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_238 = 9'he0 == logLookUpAddr ? $signed(10'sh10c) : $signed(_GEN_237); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_239 = 9'he1 == logLookUpAddr ? $signed(10'sh10d) : $signed(_GEN_238); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_240 = 9'he2 == logLookUpAddr ? $signed(10'sh10e) : $signed(_GEN_239); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_241 = 9'he3 == logLookUpAddr ? $signed(10'sh10f) : $signed(_GEN_240); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_242 = 9'he4 == logLookUpAddr ? $signed(10'sh110) : $signed(_GEN_241); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_243 = 9'he5 == logLookUpAddr ? $signed(10'sh111) : $signed(_GEN_242); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_244 = 9'he6 == logLookUpAddr ? $signed(10'sh112) : $signed(_GEN_243); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_245 = 9'he7 == logLookUpAddr ? $signed(10'sh113) : $signed(_GEN_244); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_246 = 9'he8 == logLookUpAddr ? $signed(10'sh114) : $signed(_GEN_245); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_247 = 9'he9 == logLookUpAddr ? $signed(10'sh115) : $signed(_GEN_246); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_248 = 9'hea == logLookUpAddr ? $signed(10'sh116) : $signed(_GEN_247); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_249 = 9'heb == logLookUpAddr ? $signed(10'sh117) : $signed(_GEN_248); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_250 = 9'hec == logLookUpAddr ? $signed(10'sh118) : $signed(_GEN_249); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_251 = 9'hed == logLookUpAddr ? $signed(10'sh119) : $signed(_GEN_250); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_252 = 9'hee == logLookUpAddr ? $signed(10'sh11a) : $signed(_GEN_251); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_253 = 9'hef == logLookUpAddr ? $signed(10'sh11b) : $signed(_GEN_252); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_254 = 9'hf0 == logLookUpAddr ? $signed(10'sh11c) : $signed(_GEN_253); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_255 = 9'hf1 == logLookUpAddr ? $signed(10'sh11d) : $signed(_GEN_254); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_256 = 9'hf2 == logLookUpAddr ? $signed(10'sh11e) : $signed(_GEN_255); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_257 = 9'hf3 == logLookUpAddr ? $signed(10'sh11f) : $signed(_GEN_256); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_258 = 9'hf4 == logLookUpAddr ? $signed(10'sh120) : $signed(_GEN_257); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_259 = 9'hf5 == logLookUpAddr ? $signed(10'sh121) : $signed(_GEN_258); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_260 = 9'hf6 == logLookUpAddr ? $signed(10'sh122) : $signed(_GEN_259); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_261 = 9'hf7 == logLookUpAddr ? $signed(10'sh123) : $signed(_GEN_260); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_262 = 9'hf8 == logLookUpAddr ? $signed(10'sh124) : $signed(_GEN_261); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_263 = 9'hf9 == logLookUpAddr ? $signed(10'sh125) : $signed(_GEN_262); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_264 = 9'hfa == logLookUpAddr ? $signed(10'sh126) : $signed(_GEN_263); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_265 = 9'hfb == logLookUpAddr ? $signed(10'sh127) : $signed(_GEN_264); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_266 = 9'hfc == logLookUpAddr ? $signed(10'sh128) : $signed(_GEN_265); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_267 = 9'hfd == logLookUpAddr ? $signed(10'sh129) : $signed(_GEN_266); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_268 = 9'hfe == logLookUpAddr ? $signed(10'sh12a) : $signed(_GEN_267); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_269 = 9'hff == logLookUpAddr ? $signed(10'sh12b) : $signed(_GEN_268); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_270 = 9'h100 == logLookUpAddr ? $signed(10'sh12c) : $signed(_GEN_269); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_271 = 9'h101 == logLookUpAddr ? $signed(10'sh12c) : $signed(_GEN_270); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_272 = 9'h102 == logLookUpAddr ? $signed(10'sh12d) : $signed(_GEN_271); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_273 = 9'h103 == logLookUpAddr ? $signed(10'sh12e) : $signed(_GEN_272); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_274 = 9'h104 == logLookUpAddr ? $signed(10'sh12f) : $signed(_GEN_273); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_275 = 9'h105 == logLookUpAddr ? $signed(10'sh130) : $signed(_GEN_274); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_276 = 9'h106 == logLookUpAddr ? $signed(10'sh131) : $signed(_GEN_275); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_277 = 9'h107 == logLookUpAddr ? $signed(10'sh132) : $signed(_GEN_276); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_278 = 9'h108 == logLookUpAddr ? $signed(10'sh133) : $signed(_GEN_277); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_279 = 9'h109 == logLookUpAddr ? $signed(10'sh134) : $signed(_GEN_278); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_280 = 9'h10a == logLookUpAddr ? $signed(10'sh135) : $signed(_GEN_279); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_281 = 9'h10b == logLookUpAddr ? $signed(10'sh136) : $signed(_GEN_280); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_282 = 9'h10c == logLookUpAddr ? $signed(10'sh137) : $signed(_GEN_281); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_283 = 9'h10d == logLookUpAddr ? $signed(10'sh138) : $signed(_GEN_282); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_284 = 9'h10e == logLookUpAddr ? $signed(10'sh139) : $signed(_GEN_283); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_285 = 9'h10f == logLookUpAddr ? $signed(10'sh13a) : $signed(_GEN_284); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_286 = 9'h110 == logLookUpAddr ? $signed(10'sh13b) : $signed(_GEN_285); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_287 = 9'h111 == logLookUpAddr ? $signed(10'sh13c) : $signed(_GEN_286); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_288 = 9'h112 == logLookUpAddr ? $signed(10'sh13d) : $signed(_GEN_287); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_289 = 9'h113 == logLookUpAddr ? $signed(10'sh13e) : $signed(_GEN_288); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_290 = 9'h114 == logLookUpAddr ? $signed(10'sh13e) : $signed(_GEN_289); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_291 = 9'h115 == logLookUpAddr ? $signed(10'sh13f) : $signed(_GEN_290); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_292 = 9'h116 == logLookUpAddr ? $signed(10'sh140) : $signed(_GEN_291); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_293 = 9'h117 == logLookUpAddr ? $signed(10'sh141) : $signed(_GEN_292); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_294 = 9'h118 == logLookUpAddr ? $signed(10'sh142) : $signed(_GEN_293); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_295 = 9'h119 == logLookUpAddr ? $signed(10'sh143) : $signed(_GEN_294); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_296 = 9'h11a == logLookUpAddr ? $signed(10'sh144) : $signed(_GEN_295); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_297 = 9'h11b == logLookUpAddr ? $signed(10'sh145) : $signed(_GEN_296); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_298 = 9'h11c == logLookUpAddr ? $signed(10'sh146) : $signed(_GEN_297); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_299 = 9'h11d == logLookUpAddr ? $signed(10'sh147) : $signed(_GEN_298); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_300 = 9'h11e == logLookUpAddr ? $signed(10'sh148) : $signed(_GEN_299); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_301 = 9'h11f == logLookUpAddr ? $signed(10'sh149) : $signed(_GEN_300); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_302 = 9'h120 == logLookUpAddr ? $signed(10'sh14a) : $signed(_GEN_301); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_303 = 9'h121 == logLookUpAddr ? $signed(10'sh14b) : $signed(_GEN_302); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_304 = 9'h122 == logLookUpAddr ? $signed(10'sh14b) : $signed(_GEN_303); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_305 = 9'h123 == logLookUpAddr ? $signed(10'sh14c) : $signed(_GEN_304); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_306 = 9'h124 == logLookUpAddr ? $signed(10'sh14d) : $signed(_GEN_305); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_307 = 9'h125 == logLookUpAddr ? $signed(10'sh14e) : $signed(_GEN_306); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_308 = 9'h126 == logLookUpAddr ? $signed(10'sh14f) : $signed(_GEN_307); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_309 = 9'h127 == logLookUpAddr ? $signed(10'sh150) : $signed(_GEN_308); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_310 = 9'h128 == logLookUpAddr ? $signed(10'sh151) : $signed(_GEN_309); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_311 = 9'h129 == logLookUpAddr ? $signed(10'sh152) : $signed(_GEN_310); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_312 = 9'h12a == logLookUpAddr ? $signed(10'sh153) : $signed(_GEN_311); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_313 = 9'h12b == logLookUpAddr ? $signed(10'sh154) : $signed(_GEN_312); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_314 = 9'h12c == logLookUpAddr ? $signed(10'sh155) : $signed(_GEN_313); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_315 = 9'h12d == logLookUpAddr ? $signed(10'sh156) : $signed(_GEN_314); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_316 = 9'h12e == logLookUpAddr ? $signed(10'sh156) : $signed(_GEN_315); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_317 = 9'h12f == logLookUpAddr ? $signed(10'sh157) : $signed(_GEN_316); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_318 = 9'h130 == logLookUpAddr ? $signed(10'sh158) : $signed(_GEN_317); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_319 = 9'h131 == logLookUpAddr ? $signed(10'sh159) : $signed(_GEN_318); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_320 = 9'h132 == logLookUpAddr ? $signed(10'sh15a) : $signed(_GEN_319); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_321 = 9'h133 == logLookUpAddr ? $signed(10'sh15b) : $signed(_GEN_320); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_322 = 9'h134 == logLookUpAddr ? $signed(10'sh15c) : $signed(_GEN_321); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_323 = 9'h135 == logLookUpAddr ? $signed(10'sh15d) : $signed(_GEN_322); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_324 = 9'h136 == logLookUpAddr ? $signed(10'sh15e) : $signed(_GEN_323); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_325 = 9'h137 == logLookUpAddr ? $signed(10'sh15f) : $signed(_GEN_324); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_326 = 9'h138 == logLookUpAddr ? $signed(10'sh15f) : $signed(_GEN_325); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_327 = 9'h139 == logLookUpAddr ? $signed(10'sh160) : $signed(_GEN_326); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_328 = 9'h13a == logLookUpAddr ? $signed(10'sh161) : $signed(_GEN_327); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_329 = 9'h13b == logLookUpAddr ? $signed(10'sh162) : $signed(_GEN_328); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_330 = 9'h13c == logLookUpAddr ? $signed(10'sh163) : $signed(_GEN_329); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_331 = 9'h13d == logLookUpAddr ? $signed(10'sh164) : $signed(_GEN_330); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_332 = 9'h13e == logLookUpAddr ? $signed(10'sh165) : $signed(_GEN_331); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_333 = 9'h13f == logLookUpAddr ? $signed(10'sh166) : $signed(_GEN_332); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_334 = 9'h140 == logLookUpAddr ? $signed(10'sh167) : $signed(_GEN_333); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_335 = 9'h141 == logLookUpAddr ? $signed(10'sh168) : $signed(_GEN_334); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_336 = 9'h142 == logLookUpAddr ? $signed(10'sh168) : $signed(_GEN_335); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_337 = 9'h143 == logLookUpAddr ? $signed(10'sh169) : $signed(_GEN_336); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_338 = 9'h144 == logLookUpAddr ? $signed(10'sh16a) : $signed(_GEN_337); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_339 = 9'h145 == logLookUpAddr ? $signed(10'sh16b) : $signed(_GEN_338); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_340 = 9'h146 == logLookUpAddr ? $signed(10'sh16c) : $signed(_GEN_339); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_341 = 9'h147 == logLookUpAddr ? $signed(10'sh16d) : $signed(_GEN_340); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_342 = 9'h148 == logLookUpAddr ? $signed(10'sh16e) : $signed(_GEN_341); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_343 = 9'h149 == logLookUpAddr ? $signed(10'sh16f) : $signed(_GEN_342); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_344 = 9'h14a == logLookUpAddr ? $signed(10'sh16f) : $signed(_GEN_343); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_345 = 9'h14b == logLookUpAddr ? $signed(10'sh170) : $signed(_GEN_344); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_346 = 9'h14c == logLookUpAddr ? $signed(10'sh171) : $signed(_GEN_345); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_347 = 9'h14d == logLookUpAddr ? $signed(10'sh172) : $signed(_GEN_346); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_348 = 9'h14e == logLookUpAddr ? $signed(10'sh173) : $signed(_GEN_347); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_349 = 9'h14f == logLookUpAddr ? $signed(10'sh174) : $signed(_GEN_348); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_350 = 9'h150 == logLookUpAddr ? $signed(10'sh175) : $signed(_GEN_349); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_351 = 9'h151 == logLookUpAddr ? $signed(10'sh176) : $signed(_GEN_350); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_352 = 9'h152 == logLookUpAddr ? $signed(10'sh176) : $signed(_GEN_351); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_353 = 9'h153 == logLookUpAddr ? $signed(10'sh177) : $signed(_GEN_352); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_354 = 9'h154 == logLookUpAddr ? $signed(10'sh178) : $signed(_GEN_353); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_355 = 9'h155 == logLookUpAddr ? $signed(10'sh179) : $signed(_GEN_354); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_356 = 9'h156 == logLookUpAddr ? $signed(10'sh17a) : $signed(_GEN_355); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_357 = 9'h157 == logLookUpAddr ? $signed(10'sh17b) : $signed(_GEN_356); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_358 = 9'h158 == logLookUpAddr ? $signed(10'sh17c) : $signed(_GEN_357); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_359 = 9'h159 == logLookUpAddr ? $signed(10'sh17c) : $signed(_GEN_358); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_360 = 9'h15a == logLookUpAddr ? $signed(10'sh17d) : $signed(_GEN_359); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_361 = 9'h15b == logLookUpAddr ? $signed(10'sh17e) : $signed(_GEN_360); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_362 = 9'h15c == logLookUpAddr ? $signed(10'sh17f) : $signed(_GEN_361); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_363 = 9'h15d == logLookUpAddr ? $signed(10'sh180) : $signed(_GEN_362); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_364 = 9'h15e == logLookUpAddr ? $signed(10'sh181) : $signed(_GEN_363); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_365 = 9'h15f == logLookUpAddr ? $signed(10'sh182) : $signed(_GEN_364); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_366 = 9'h160 == logLookUpAddr ? $signed(10'sh183) : $signed(_GEN_365); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_367 = 9'h161 == logLookUpAddr ? $signed(10'sh183) : $signed(_GEN_366); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_368 = 9'h162 == logLookUpAddr ? $signed(10'sh184) : $signed(_GEN_367); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_369 = 9'h163 == logLookUpAddr ? $signed(10'sh185) : $signed(_GEN_368); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_370 = 9'h164 == logLookUpAddr ? $signed(10'sh186) : $signed(_GEN_369); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_371 = 9'h165 == logLookUpAddr ? $signed(10'sh187) : $signed(_GEN_370); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_372 = 9'h166 == logLookUpAddr ? $signed(10'sh188) : $signed(_GEN_371); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_373 = 9'h167 == logLookUpAddr ? $signed(10'sh188) : $signed(_GEN_372); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_374 = 9'h168 == logLookUpAddr ? $signed(10'sh189) : $signed(_GEN_373); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_375 = 9'h169 == logLookUpAddr ? $signed(10'sh18a) : $signed(_GEN_374); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_376 = 9'h16a == logLookUpAddr ? $signed(10'sh18b) : $signed(_GEN_375); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_377 = 9'h16b == logLookUpAddr ? $signed(10'sh18c) : $signed(_GEN_376); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_378 = 9'h16c == logLookUpAddr ? $signed(10'sh18d) : $signed(_GEN_377); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_379 = 9'h16d == logLookUpAddr ? $signed(10'sh18e) : $signed(_GEN_378); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_380 = 9'h16e == logLookUpAddr ? $signed(10'sh18e) : $signed(_GEN_379); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_381 = 9'h16f == logLookUpAddr ? $signed(10'sh18f) : $signed(_GEN_380); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_382 = 9'h170 == logLookUpAddr ? $signed(10'sh190) : $signed(_GEN_381); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_383 = 9'h171 == logLookUpAddr ? $signed(10'sh191) : $signed(_GEN_382); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_384 = 9'h172 == logLookUpAddr ? $signed(10'sh192) : $signed(_GEN_383); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_385 = 9'h173 == logLookUpAddr ? $signed(10'sh193) : $signed(_GEN_384); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_386 = 9'h174 == logLookUpAddr ? $signed(10'sh193) : $signed(_GEN_385); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_387 = 9'h175 == logLookUpAddr ? $signed(10'sh194) : $signed(_GEN_386); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_388 = 9'h176 == logLookUpAddr ? $signed(10'sh195) : $signed(_GEN_387); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_389 = 9'h177 == logLookUpAddr ? $signed(10'sh196) : $signed(_GEN_388); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_390 = 9'h178 == logLookUpAddr ? $signed(10'sh197) : $signed(_GEN_389); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_391 = 9'h179 == logLookUpAddr ? $signed(10'sh198) : $signed(_GEN_390); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_392 = 9'h17a == logLookUpAddr ? $signed(10'sh198) : $signed(_GEN_391); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_393 = 9'h17b == logLookUpAddr ? $signed(10'sh199) : $signed(_GEN_392); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_394 = 9'h17c == logLookUpAddr ? $signed(10'sh19a) : $signed(_GEN_393); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_395 = 9'h17d == logLookUpAddr ? $signed(10'sh19b) : $signed(_GEN_394); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_396 = 9'h17e == logLookUpAddr ? $signed(10'sh19c) : $signed(_GEN_395); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_397 = 9'h17f == logLookUpAddr ? $signed(10'sh19d) : $signed(_GEN_396); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_398 = 9'h180 == logLookUpAddr ? $signed(10'sh19d) : $signed(_GEN_397); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_399 = 9'h181 == logLookUpAddr ? $signed(10'sh19e) : $signed(_GEN_398); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_400 = 9'h182 == logLookUpAddr ? $signed(10'sh19f) : $signed(_GEN_399); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_401 = 9'h183 == logLookUpAddr ? $signed(10'sh1a0) : $signed(_GEN_400); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_402 = 9'h184 == logLookUpAddr ? $signed(10'sh1a1) : $signed(_GEN_401); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_403 = 9'h185 == logLookUpAddr ? $signed(10'sh1a1) : $signed(_GEN_402); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_404 = 9'h186 == logLookUpAddr ? $signed(10'sh1a2) : $signed(_GEN_403); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_405 = 9'h187 == logLookUpAddr ? $signed(10'sh1a3) : $signed(_GEN_404); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_406 = 9'h188 == logLookUpAddr ? $signed(10'sh1a4) : $signed(_GEN_405); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_407 = 9'h189 == logLookUpAddr ? $signed(10'sh1a5) : $signed(_GEN_406); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_408 = 9'h18a == logLookUpAddr ? $signed(10'sh1a6) : $signed(_GEN_407); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_409 = 9'h18b == logLookUpAddr ? $signed(10'sh1a6) : $signed(_GEN_408); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_410 = 9'h18c == logLookUpAddr ? $signed(10'sh1a7) : $signed(_GEN_409); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_411 = 9'h18d == logLookUpAddr ? $signed(10'sh1a8) : $signed(_GEN_410); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_412 = 9'h18e == logLookUpAddr ? $signed(10'sh1a9) : $signed(_GEN_411); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_413 = 9'h18f == logLookUpAddr ? $signed(10'sh1aa) : $signed(_GEN_412); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_414 = 9'h190 == logLookUpAddr ? $signed(10'sh1aa) : $signed(_GEN_413); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_415 = 9'h191 == logLookUpAddr ? $signed(10'sh1ab) : $signed(_GEN_414); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_416 = 9'h192 == logLookUpAddr ? $signed(10'sh1ac) : $signed(_GEN_415); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_417 = 9'h193 == logLookUpAddr ? $signed(10'sh1ad) : $signed(_GEN_416); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_418 = 9'h194 == logLookUpAddr ? $signed(10'sh1ae) : $signed(_GEN_417); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_419 = 9'h195 == logLookUpAddr ? $signed(10'sh1ae) : $signed(_GEN_418); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_420 = 9'h196 == logLookUpAddr ? $signed(10'sh1af) : $signed(_GEN_419); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_421 = 9'h197 == logLookUpAddr ? $signed(10'sh1b0) : $signed(_GEN_420); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_422 = 9'h198 == logLookUpAddr ? $signed(10'sh1b1) : $signed(_GEN_421); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_423 = 9'h199 == logLookUpAddr ? $signed(10'sh1b2) : $signed(_GEN_422); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_424 = 9'h19a == logLookUpAddr ? $signed(10'sh1b2) : $signed(_GEN_423); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_425 = 9'h19b == logLookUpAddr ? $signed(10'sh1b3) : $signed(_GEN_424); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_426 = 9'h19c == logLookUpAddr ? $signed(10'sh1b4) : $signed(_GEN_425); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_427 = 9'h19d == logLookUpAddr ? $signed(10'sh1b5) : $signed(_GEN_426); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_428 = 9'h19e == logLookUpAddr ? $signed(10'sh1b6) : $signed(_GEN_427); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_429 = 9'h19f == logLookUpAddr ? $signed(10'sh1b6) : $signed(_GEN_428); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_430 = 9'h1a0 == logLookUpAddr ? $signed(10'sh1b7) : $signed(_GEN_429); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_431 = 9'h1a1 == logLookUpAddr ? $signed(10'sh1b8) : $signed(_GEN_430); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_432 = 9'h1a2 == logLookUpAddr ? $signed(10'sh1b9) : $signed(_GEN_431); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_433 = 9'h1a3 == logLookUpAddr ? $signed(10'sh1ba) : $signed(_GEN_432); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_434 = 9'h1a4 == logLookUpAddr ? $signed(10'sh1ba) : $signed(_GEN_433); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_435 = 9'h1a5 == logLookUpAddr ? $signed(10'sh1bb) : $signed(_GEN_434); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_436 = 9'h1a6 == logLookUpAddr ? $signed(10'sh1bc) : $signed(_GEN_435); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_437 = 9'h1a7 == logLookUpAddr ? $signed(10'sh1bd) : $signed(_GEN_436); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_438 = 9'h1a8 == logLookUpAddr ? $signed(10'sh1be) : $signed(_GEN_437); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_439 = 9'h1a9 == logLookUpAddr ? $signed(10'sh1be) : $signed(_GEN_438); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_440 = 9'h1aa == logLookUpAddr ? $signed(10'sh1bf) : $signed(_GEN_439); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_441 = 9'h1ab == logLookUpAddr ? $signed(10'sh1c0) : $signed(_GEN_440); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_442 = 9'h1ac == logLookUpAddr ? $signed(10'sh1c1) : $signed(_GEN_441); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_443 = 9'h1ad == logLookUpAddr ? $signed(10'sh1c2) : $signed(_GEN_442); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_444 = 9'h1ae == logLookUpAddr ? $signed(10'sh1c2) : $signed(_GEN_443); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_445 = 9'h1af == logLookUpAddr ? $signed(10'sh1c3) : $signed(_GEN_444); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_446 = 9'h1b0 == logLookUpAddr ? $signed(10'sh1c4) : $signed(_GEN_445); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_447 = 9'h1b1 == logLookUpAddr ? $signed(10'sh1c5) : $signed(_GEN_446); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_448 = 9'h1b2 == logLookUpAddr ? $signed(10'sh1c5) : $signed(_GEN_447); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_449 = 9'h1b3 == logLookUpAddr ? $signed(10'sh1c6) : $signed(_GEN_448); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_450 = 9'h1b4 == logLookUpAddr ? $signed(10'sh1c7) : $signed(_GEN_449); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_451 = 9'h1b5 == logLookUpAddr ? $signed(10'sh1c8) : $signed(_GEN_450); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_452 = 9'h1b6 == logLookUpAddr ? $signed(10'sh1c9) : $signed(_GEN_451); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_453 = 9'h1b7 == logLookUpAddr ? $signed(10'sh1c9) : $signed(_GEN_452); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_454 = 9'h1b8 == logLookUpAddr ? $signed(10'sh1ca) : $signed(_GEN_453); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_455 = 9'h1b9 == logLookUpAddr ? $signed(10'sh1cb) : $signed(_GEN_454); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_456 = 9'h1ba == logLookUpAddr ? $signed(10'sh1cc) : $signed(_GEN_455); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_457 = 9'h1bb == logLookUpAddr ? $signed(10'sh1cc) : $signed(_GEN_456); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_458 = 9'h1bc == logLookUpAddr ? $signed(10'sh1cd) : $signed(_GEN_457); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_459 = 9'h1bd == logLookUpAddr ? $signed(10'sh1ce) : $signed(_GEN_458); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_460 = 9'h1be == logLookUpAddr ? $signed(10'sh1cf) : $signed(_GEN_459); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_461 = 9'h1bf == logLookUpAddr ? $signed(10'sh1d0) : $signed(_GEN_460); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_462 = 9'h1c0 == logLookUpAddr ? $signed(10'sh1d0) : $signed(_GEN_461); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_463 = 9'h1c1 == logLookUpAddr ? $signed(10'sh1d1) : $signed(_GEN_462); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_464 = 9'h1c2 == logLookUpAddr ? $signed(10'sh1d2) : $signed(_GEN_463); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_465 = 9'h1c3 == logLookUpAddr ? $signed(10'sh1d3) : $signed(_GEN_464); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_466 = 9'h1c4 == logLookUpAddr ? $signed(10'sh1d3) : $signed(_GEN_465); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_467 = 9'h1c5 == logLookUpAddr ? $signed(10'sh1d4) : $signed(_GEN_466); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_468 = 9'h1c6 == logLookUpAddr ? $signed(10'sh1d5) : $signed(_GEN_467); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_469 = 9'h1c7 == logLookUpAddr ? $signed(10'sh1d6) : $signed(_GEN_468); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_470 = 9'h1c8 == logLookUpAddr ? $signed(10'sh1d6) : $signed(_GEN_469); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_471 = 9'h1c9 == logLookUpAddr ? $signed(10'sh1d7) : $signed(_GEN_470); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_472 = 9'h1ca == logLookUpAddr ? $signed(10'sh1d8) : $signed(_GEN_471); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_473 = 9'h1cb == logLookUpAddr ? $signed(10'sh1d9) : $signed(_GEN_472); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_474 = 9'h1cc == logLookUpAddr ? $signed(10'sh1da) : $signed(_GEN_473); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_475 = 9'h1cd == logLookUpAddr ? $signed(10'sh1da) : $signed(_GEN_474); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_476 = 9'h1ce == logLookUpAddr ? $signed(10'sh1db) : $signed(_GEN_475); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_477 = 9'h1cf == logLookUpAddr ? $signed(10'sh1dc) : $signed(_GEN_476); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_478 = 9'h1d0 == logLookUpAddr ? $signed(10'sh1dd) : $signed(_GEN_477); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_479 = 9'h1d1 == logLookUpAddr ? $signed(10'sh1dd) : $signed(_GEN_478); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_480 = 9'h1d2 == logLookUpAddr ? $signed(10'sh1de) : $signed(_GEN_479); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_481 = 9'h1d3 == logLookUpAddr ? $signed(10'sh1df) : $signed(_GEN_480); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_482 = 9'h1d4 == logLookUpAddr ? $signed(10'sh1e0) : $signed(_GEN_481); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_483 = 9'h1d5 == logLookUpAddr ? $signed(10'sh1e0) : $signed(_GEN_482); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_484 = 9'h1d6 == logLookUpAddr ? $signed(10'sh1e1) : $signed(_GEN_483); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_485 = 9'h1d7 == logLookUpAddr ? $signed(10'sh1e2) : $signed(_GEN_484); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_486 = 9'h1d8 == logLookUpAddr ? $signed(10'sh1e3) : $signed(_GEN_485); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_487 = 9'h1d9 == logLookUpAddr ? $signed(10'sh1e3) : $signed(_GEN_486); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_488 = 9'h1da == logLookUpAddr ? $signed(10'sh1e4) : $signed(_GEN_487); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_489 = 9'h1db == logLookUpAddr ? $signed(10'sh1e5) : $signed(_GEN_488); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_490 = 9'h1dc == logLookUpAddr ? $signed(10'sh1e6) : $signed(_GEN_489); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_491 = 9'h1dd == logLookUpAddr ? $signed(10'sh1e6) : $signed(_GEN_490); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_492 = 9'h1de == logLookUpAddr ? $signed(10'sh1e7) : $signed(_GEN_491); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_493 = 9'h1df == logLookUpAddr ? $signed(10'sh1e8) : $signed(_GEN_492); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_494 = 9'h1e0 == logLookUpAddr ? $signed(10'sh1e9) : $signed(_GEN_493); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_495 = 9'h1e1 == logLookUpAddr ? $signed(10'sh1e9) : $signed(_GEN_494); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_496 = 9'h1e2 == logLookUpAddr ? $signed(10'sh1ea) : $signed(_GEN_495); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_497 = 9'h1e3 == logLookUpAddr ? $signed(10'sh1eb) : $signed(_GEN_496); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_498 = 9'h1e4 == logLookUpAddr ? $signed(10'sh1ec) : $signed(_GEN_497); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_499 = 9'h1e5 == logLookUpAddr ? $signed(10'sh1ec) : $signed(_GEN_498); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_500 = 9'h1e6 == logLookUpAddr ? $signed(10'sh1ed) : $signed(_GEN_499); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_501 = 9'h1e7 == logLookUpAddr ? $signed(10'sh1ee) : $signed(_GEN_500); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_502 = 9'h1e8 == logLookUpAddr ? $signed(10'sh1ee) : $signed(_GEN_501); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_503 = 9'h1e9 == logLookUpAddr ? $signed(10'sh1ef) : $signed(_GEN_502); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_504 = 9'h1ea == logLookUpAddr ? $signed(10'sh1f0) : $signed(_GEN_503); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_505 = 9'h1eb == logLookUpAddr ? $signed(10'sh1f1) : $signed(_GEN_504); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_506 = 9'h1ec == logLookUpAddr ? $signed(10'sh1f1) : $signed(_GEN_505); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_507 = 9'h1ed == logLookUpAddr ? $signed(10'sh1f2) : $signed(_GEN_506); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_508 = 9'h1ee == logLookUpAddr ? $signed(10'sh1f3) : $signed(_GEN_507); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_509 = 9'h1ef == logLookUpAddr ? $signed(10'sh1f4) : $signed(_GEN_508); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_510 = 9'h1f0 == logLookUpAddr ? $signed(10'sh1f4) : $signed(_GEN_509); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_511 = 9'h1f1 == logLookUpAddr ? $signed(10'sh1f5) : $signed(_GEN_510); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_512 = 9'h1f2 == logLookUpAddr ? $signed(10'sh1f6) : $signed(_GEN_511); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_513 = 9'h1f3 == logLookUpAddr ? $signed(10'sh1f7) : $signed(_GEN_512); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_514 = 9'h1f4 == logLookUpAddr ? $signed(10'sh1f7) : $signed(_GEN_513); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_515 = 9'h1f5 == logLookUpAddr ? $signed(10'sh1f8) : $signed(_GEN_514); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_516 = 9'h1f6 == logLookUpAddr ? $signed(10'sh1f9) : $signed(_GEN_515); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_517 = 9'h1f7 == logLookUpAddr ? $signed(10'sh1f9) : $signed(_GEN_516); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_518 = 9'h1f8 == logLookUpAddr ? $signed(10'sh1fa) : $signed(_GEN_517); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_519 = 9'h1f9 == logLookUpAddr ? $signed(10'sh1fb) : $signed(_GEN_518); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_520 = 9'h1fa == logLookUpAddr ? $signed(10'sh1fc) : $signed(_GEN_519); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_521 = 9'h1fb == logLookUpAddr ? $signed(10'sh1fc) : $signed(_GEN_520); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_522 = 9'h1fc == logLookUpAddr ? $signed(10'sh1fd) : $signed(_GEN_521); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_523 = 9'h1fd == logLookUpAddr ? $signed(10'sh1fe) : $signed(_GEN_522); // @[LogMagMux.scala 136:11]
-  wire [9:0] _GEN_524 = 9'h1fe == logLookUpAddr ? $signed(10'sh1ff) : $signed(_GEN_523); // @[LogMagMux.scala 136:11]
-  wire [9:0] logFrac = 9'h1ff == logLookUpAddr ? $signed(10'sh1ff) : $signed(_GEN_524); // @[LogMagMux.scala 136:11]
+  wire [8:0] logLookUpAddr = _T_599[14:6]; // @[LogMagMux.scala 136:74]
+  wire [9:0] _GEN_15 = 9'h1 == logLookUpAddr ? $signed(10'sh1) : $signed(10'sh0); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_16 = 9'h2 == logLookUpAddr ? $signed(10'sh3) : $signed(_GEN_15); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_17 = 9'h3 == logLookUpAddr ? $signed(10'sh4) : $signed(_GEN_16); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_18 = 9'h4 == logLookUpAddr ? $signed(10'sh6) : $signed(_GEN_17); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_19 = 9'h5 == logLookUpAddr ? $signed(10'sh7) : $signed(_GEN_18); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_20 = 9'h6 == logLookUpAddr ? $signed(10'sh9) : $signed(_GEN_19); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_21 = 9'h7 == logLookUpAddr ? $signed(10'sha) : $signed(_GEN_20); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_22 = 9'h8 == logLookUpAddr ? $signed(10'shb) : $signed(_GEN_21); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_23 = 9'h9 == logLookUpAddr ? $signed(10'shd) : $signed(_GEN_22); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_24 = 9'ha == logLookUpAddr ? $signed(10'she) : $signed(_GEN_23); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_25 = 9'hb == logLookUpAddr ? $signed(10'sh10) : $signed(_GEN_24); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_26 = 9'hc == logLookUpAddr ? $signed(10'sh11) : $signed(_GEN_25); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_27 = 9'hd == logLookUpAddr ? $signed(10'sh13) : $signed(_GEN_26); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_28 = 9'he == logLookUpAddr ? $signed(10'sh14) : $signed(_GEN_27); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_29 = 9'hf == logLookUpAddr ? $signed(10'sh15) : $signed(_GEN_28); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_30 = 9'h10 == logLookUpAddr ? $signed(10'sh17) : $signed(_GEN_29); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_31 = 9'h11 == logLookUpAddr ? $signed(10'sh18) : $signed(_GEN_30); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_32 = 9'h12 == logLookUpAddr ? $signed(10'sh1a) : $signed(_GEN_31); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_33 = 9'h13 == logLookUpAddr ? $signed(10'sh1b) : $signed(_GEN_32); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_34 = 9'h14 == logLookUpAddr ? $signed(10'sh1c) : $signed(_GEN_33); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_35 = 9'h15 == logLookUpAddr ? $signed(10'sh1e) : $signed(_GEN_34); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_36 = 9'h16 == logLookUpAddr ? $signed(10'sh1f) : $signed(_GEN_35); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_37 = 9'h17 == logLookUpAddr ? $signed(10'sh20) : $signed(_GEN_36); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_38 = 9'h18 == logLookUpAddr ? $signed(10'sh22) : $signed(_GEN_37); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_39 = 9'h19 == logLookUpAddr ? $signed(10'sh23) : $signed(_GEN_38); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_40 = 9'h1a == logLookUpAddr ? $signed(10'sh25) : $signed(_GEN_39); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_41 = 9'h1b == logLookUpAddr ? $signed(10'sh26) : $signed(_GEN_40); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_42 = 9'h1c == logLookUpAddr ? $signed(10'sh27) : $signed(_GEN_41); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_43 = 9'h1d == logLookUpAddr ? $signed(10'sh29) : $signed(_GEN_42); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_44 = 9'h1e == logLookUpAddr ? $signed(10'sh2a) : $signed(_GEN_43); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_45 = 9'h1f == logLookUpAddr ? $signed(10'sh2b) : $signed(_GEN_44); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_46 = 9'h20 == logLookUpAddr ? $signed(10'sh2d) : $signed(_GEN_45); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_47 = 9'h21 == logLookUpAddr ? $signed(10'sh2e) : $signed(_GEN_46); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_48 = 9'h22 == logLookUpAddr ? $signed(10'sh2f) : $signed(_GEN_47); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_49 = 9'h23 == logLookUpAddr ? $signed(10'sh31) : $signed(_GEN_48); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_50 = 9'h24 == logLookUpAddr ? $signed(10'sh32) : $signed(_GEN_49); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_51 = 9'h25 == logLookUpAddr ? $signed(10'sh34) : $signed(_GEN_50); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_52 = 9'h26 == logLookUpAddr ? $signed(10'sh35) : $signed(_GEN_51); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_53 = 9'h27 == logLookUpAddr ? $signed(10'sh36) : $signed(_GEN_52); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_54 = 9'h28 == logLookUpAddr ? $signed(10'sh38) : $signed(_GEN_53); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_55 = 9'h29 == logLookUpAddr ? $signed(10'sh39) : $signed(_GEN_54); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_56 = 9'h2a == logLookUpAddr ? $signed(10'sh3a) : $signed(_GEN_55); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_57 = 9'h2b == logLookUpAddr ? $signed(10'sh3c) : $signed(_GEN_56); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_58 = 9'h2c == logLookUpAddr ? $signed(10'sh3d) : $signed(_GEN_57); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_59 = 9'h2d == logLookUpAddr ? $signed(10'sh3e) : $signed(_GEN_58); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_60 = 9'h2e == logLookUpAddr ? $signed(10'sh40) : $signed(_GEN_59); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_61 = 9'h2f == logLookUpAddr ? $signed(10'sh41) : $signed(_GEN_60); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_62 = 9'h30 == logLookUpAddr ? $signed(10'sh42) : $signed(_GEN_61); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_63 = 9'h31 == logLookUpAddr ? $signed(10'sh44) : $signed(_GEN_62); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_64 = 9'h32 == logLookUpAddr ? $signed(10'sh45) : $signed(_GEN_63); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_65 = 9'h33 == logLookUpAddr ? $signed(10'sh46) : $signed(_GEN_64); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_66 = 9'h34 == logLookUpAddr ? $signed(10'sh47) : $signed(_GEN_65); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_67 = 9'h35 == logLookUpAddr ? $signed(10'sh49) : $signed(_GEN_66); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_68 = 9'h36 == logLookUpAddr ? $signed(10'sh4a) : $signed(_GEN_67); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_69 = 9'h37 == logLookUpAddr ? $signed(10'sh4b) : $signed(_GEN_68); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_70 = 9'h38 == logLookUpAddr ? $signed(10'sh4d) : $signed(_GEN_69); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_71 = 9'h39 == logLookUpAddr ? $signed(10'sh4e) : $signed(_GEN_70); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_72 = 9'h3a == logLookUpAddr ? $signed(10'sh4f) : $signed(_GEN_71); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_73 = 9'h3b == logLookUpAddr ? $signed(10'sh51) : $signed(_GEN_72); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_74 = 9'h3c == logLookUpAddr ? $signed(10'sh52) : $signed(_GEN_73); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_75 = 9'h3d == logLookUpAddr ? $signed(10'sh53) : $signed(_GEN_74); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_76 = 9'h3e == logLookUpAddr ? $signed(10'sh54) : $signed(_GEN_75); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_77 = 9'h3f == logLookUpAddr ? $signed(10'sh56) : $signed(_GEN_76); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_78 = 9'h40 == logLookUpAddr ? $signed(10'sh57) : $signed(_GEN_77); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_79 = 9'h41 == logLookUpAddr ? $signed(10'sh58) : $signed(_GEN_78); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_80 = 9'h42 == logLookUpAddr ? $signed(10'sh5a) : $signed(_GEN_79); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_81 = 9'h43 == logLookUpAddr ? $signed(10'sh5b) : $signed(_GEN_80); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_82 = 9'h44 == logLookUpAddr ? $signed(10'sh5c) : $signed(_GEN_81); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_83 = 9'h45 == logLookUpAddr ? $signed(10'sh5d) : $signed(_GEN_82); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_84 = 9'h46 == logLookUpAddr ? $signed(10'sh5f) : $signed(_GEN_83); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_85 = 9'h47 == logLookUpAddr ? $signed(10'sh60) : $signed(_GEN_84); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_86 = 9'h48 == logLookUpAddr ? $signed(10'sh61) : $signed(_GEN_85); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_87 = 9'h49 == logLookUpAddr ? $signed(10'sh62) : $signed(_GEN_86); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_88 = 9'h4a == logLookUpAddr ? $signed(10'sh64) : $signed(_GEN_87); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_89 = 9'h4b == logLookUpAddr ? $signed(10'sh65) : $signed(_GEN_88); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_90 = 9'h4c == logLookUpAddr ? $signed(10'sh66) : $signed(_GEN_89); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_91 = 9'h4d == logLookUpAddr ? $signed(10'sh67) : $signed(_GEN_90); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_92 = 9'h4e == logLookUpAddr ? $signed(10'sh69) : $signed(_GEN_91); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_93 = 9'h4f == logLookUpAddr ? $signed(10'sh6a) : $signed(_GEN_92); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_94 = 9'h50 == logLookUpAddr ? $signed(10'sh6b) : $signed(_GEN_93); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_95 = 9'h51 == logLookUpAddr ? $signed(10'sh6c) : $signed(_GEN_94); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_96 = 9'h52 == logLookUpAddr ? $signed(10'sh6e) : $signed(_GEN_95); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_97 = 9'h53 == logLookUpAddr ? $signed(10'sh6f) : $signed(_GEN_96); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_98 = 9'h54 == logLookUpAddr ? $signed(10'sh70) : $signed(_GEN_97); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_99 = 9'h55 == logLookUpAddr ? $signed(10'sh71) : $signed(_GEN_98); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_100 = 9'h56 == logLookUpAddr ? $signed(10'sh73) : $signed(_GEN_99); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_101 = 9'h57 == logLookUpAddr ? $signed(10'sh74) : $signed(_GEN_100); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_102 = 9'h58 == logLookUpAddr ? $signed(10'sh75) : $signed(_GEN_101); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_103 = 9'h59 == logLookUpAddr ? $signed(10'sh76) : $signed(_GEN_102); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_104 = 9'h5a == logLookUpAddr ? $signed(10'sh78) : $signed(_GEN_103); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_105 = 9'h5b == logLookUpAddr ? $signed(10'sh79) : $signed(_GEN_104); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_106 = 9'h5c == logLookUpAddr ? $signed(10'sh7a) : $signed(_GEN_105); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_107 = 9'h5d == logLookUpAddr ? $signed(10'sh7b) : $signed(_GEN_106); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_108 = 9'h5e == logLookUpAddr ? $signed(10'sh7d) : $signed(_GEN_107); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_109 = 9'h5f == logLookUpAddr ? $signed(10'sh7e) : $signed(_GEN_108); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_110 = 9'h60 == logLookUpAddr ? $signed(10'sh7f) : $signed(_GEN_109); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_111 = 9'h61 == logLookUpAddr ? $signed(10'sh80) : $signed(_GEN_110); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_112 = 9'h62 == logLookUpAddr ? $signed(10'sh81) : $signed(_GEN_111); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_113 = 9'h63 == logLookUpAddr ? $signed(10'sh83) : $signed(_GEN_112); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_114 = 9'h64 == logLookUpAddr ? $signed(10'sh84) : $signed(_GEN_113); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_115 = 9'h65 == logLookUpAddr ? $signed(10'sh85) : $signed(_GEN_114); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_116 = 9'h66 == logLookUpAddr ? $signed(10'sh86) : $signed(_GEN_115); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_117 = 9'h67 == logLookUpAddr ? $signed(10'sh87) : $signed(_GEN_116); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_118 = 9'h68 == logLookUpAddr ? $signed(10'sh89) : $signed(_GEN_117); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_119 = 9'h69 == logLookUpAddr ? $signed(10'sh8a) : $signed(_GEN_118); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_120 = 9'h6a == logLookUpAddr ? $signed(10'sh8b) : $signed(_GEN_119); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_121 = 9'h6b == logLookUpAddr ? $signed(10'sh8c) : $signed(_GEN_120); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_122 = 9'h6c == logLookUpAddr ? $signed(10'sh8d) : $signed(_GEN_121); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_123 = 9'h6d == logLookUpAddr ? $signed(10'sh8f) : $signed(_GEN_122); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_124 = 9'h6e == logLookUpAddr ? $signed(10'sh90) : $signed(_GEN_123); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_125 = 9'h6f == logLookUpAddr ? $signed(10'sh91) : $signed(_GEN_124); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_126 = 9'h70 == logLookUpAddr ? $signed(10'sh92) : $signed(_GEN_125); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_127 = 9'h71 == logLookUpAddr ? $signed(10'sh93) : $signed(_GEN_126); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_128 = 9'h72 == logLookUpAddr ? $signed(10'sh94) : $signed(_GEN_127); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_129 = 9'h73 == logLookUpAddr ? $signed(10'sh96) : $signed(_GEN_128); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_130 = 9'h74 == logLookUpAddr ? $signed(10'sh97) : $signed(_GEN_129); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_131 = 9'h75 == logLookUpAddr ? $signed(10'sh98) : $signed(_GEN_130); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_132 = 9'h76 == logLookUpAddr ? $signed(10'sh99) : $signed(_GEN_131); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_133 = 9'h77 == logLookUpAddr ? $signed(10'sh9a) : $signed(_GEN_132); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_134 = 9'h78 == logLookUpAddr ? $signed(10'sh9c) : $signed(_GEN_133); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_135 = 9'h79 == logLookUpAddr ? $signed(10'sh9d) : $signed(_GEN_134); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_136 = 9'h7a == logLookUpAddr ? $signed(10'sh9e) : $signed(_GEN_135); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_137 = 9'h7b == logLookUpAddr ? $signed(10'sh9f) : $signed(_GEN_136); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_138 = 9'h7c == logLookUpAddr ? $signed(10'sha0) : $signed(_GEN_137); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_139 = 9'h7d == logLookUpAddr ? $signed(10'sha1) : $signed(_GEN_138); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_140 = 9'h7e == logLookUpAddr ? $signed(10'sha3) : $signed(_GEN_139); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_141 = 9'h7f == logLookUpAddr ? $signed(10'sha4) : $signed(_GEN_140); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_142 = 9'h80 == logLookUpAddr ? $signed(10'sha5) : $signed(_GEN_141); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_143 = 9'h81 == logLookUpAddr ? $signed(10'sha6) : $signed(_GEN_142); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_144 = 9'h82 == logLookUpAddr ? $signed(10'sha7) : $signed(_GEN_143); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_145 = 9'h83 == logLookUpAddr ? $signed(10'sha8) : $signed(_GEN_144); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_146 = 9'h84 == logLookUpAddr ? $signed(10'sha9) : $signed(_GEN_145); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_147 = 9'h85 == logLookUpAddr ? $signed(10'shab) : $signed(_GEN_146); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_148 = 9'h86 == logLookUpAddr ? $signed(10'shac) : $signed(_GEN_147); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_149 = 9'h87 == logLookUpAddr ? $signed(10'shad) : $signed(_GEN_148); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_150 = 9'h88 == logLookUpAddr ? $signed(10'shae) : $signed(_GEN_149); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_151 = 9'h89 == logLookUpAddr ? $signed(10'shaf) : $signed(_GEN_150); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_152 = 9'h8a == logLookUpAddr ? $signed(10'shb0) : $signed(_GEN_151); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_153 = 9'h8b == logLookUpAddr ? $signed(10'shb1) : $signed(_GEN_152); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_154 = 9'h8c == logLookUpAddr ? $signed(10'shb3) : $signed(_GEN_153); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_155 = 9'h8d == logLookUpAddr ? $signed(10'shb4) : $signed(_GEN_154); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_156 = 9'h8e == logLookUpAddr ? $signed(10'shb5) : $signed(_GEN_155); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_157 = 9'h8f == logLookUpAddr ? $signed(10'shb6) : $signed(_GEN_156); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_158 = 9'h90 == logLookUpAddr ? $signed(10'shb7) : $signed(_GEN_157); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_159 = 9'h91 == logLookUpAddr ? $signed(10'shb8) : $signed(_GEN_158); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_160 = 9'h92 == logLookUpAddr ? $signed(10'shb9) : $signed(_GEN_159); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_161 = 9'h93 == logLookUpAddr ? $signed(10'shba) : $signed(_GEN_160); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_162 = 9'h94 == logLookUpAddr ? $signed(10'shbc) : $signed(_GEN_161); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_163 = 9'h95 == logLookUpAddr ? $signed(10'shbd) : $signed(_GEN_162); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_164 = 9'h96 == logLookUpAddr ? $signed(10'shbe) : $signed(_GEN_163); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_165 = 9'h97 == logLookUpAddr ? $signed(10'shbf) : $signed(_GEN_164); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_166 = 9'h98 == logLookUpAddr ? $signed(10'shc0) : $signed(_GEN_165); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_167 = 9'h99 == logLookUpAddr ? $signed(10'shc1) : $signed(_GEN_166); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_168 = 9'h9a == logLookUpAddr ? $signed(10'shc2) : $signed(_GEN_167); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_169 = 9'h9b == logLookUpAddr ? $signed(10'shc3) : $signed(_GEN_168); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_170 = 9'h9c == logLookUpAddr ? $signed(10'shc4) : $signed(_GEN_169); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_171 = 9'h9d == logLookUpAddr ? $signed(10'shc6) : $signed(_GEN_170); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_172 = 9'h9e == logLookUpAddr ? $signed(10'shc7) : $signed(_GEN_171); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_173 = 9'h9f == logLookUpAddr ? $signed(10'shc8) : $signed(_GEN_172); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_174 = 9'ha0 == logLookUpAddr ? $signed(10'shc9) : $signed(_GEN_173); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_175 = 9'ha1 == logLookUpAddr ? $signed(10'shca) : $signed(_GEN_174); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_176 = 9'ha2 == logLookUpAddr ? $signed(10'shcb) : $signed(_GEN_175); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_177 = 9'ha3 == logLookUpAddr ? $signed(10'shcc) : $signed(_GEN_176); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_178 = 9'ha4 == logLookUpAddr ? $signed(10'shcd) : $signed(_GEN_177); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_179 = 9'ha5 == logLookUpAddr ? $signed(10'shce) : $signed(_GEN_178); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_180 = 9'ha6 == logLookUpAddr ? $signed(10'shcf) : $signed(_GEN_179); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_181 = 9'ha7 == logLookUpAddr ? $signed(10'shd1) : $signed(_GEN_180); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_182 = 9'ha8 == logLookUpAddr ? $signed(10'shd2) : $signed(_GEN_181); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_183 = 9'ha9 == logLookUpAddr ? $signed(10'shd3) : $signed(_GEN_182); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_184 = 9'haa == logLookUpAddr ? $signed(10'shd4) : $signed(_GEN_183); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_185 = 9'hab == logLookUpAddr ? $signed(10'shd5) : $signed(_GEN_184); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_186 = 9'hac == logLookUpAddr ? $signed(10'shd6) : $signed(_GEN_185); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_187 = 9'had == logLookUpAddr ? $signed(10'shd7) : $signed(_GEN_186); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_188 = 9'hae == logLookUpAddr ? $signed(10'shd8) : $signed(_GEN_187); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_189 = 9'haf == logLookUpAddr ? $signed(10'shd9) : $signed(_GEN_188); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_190 = 9'hb0 == logLookUpAddr ? $signed(10'shda) : $signed(_GEN_189); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_191 = 9'hb1 == logLookUpAddr ? $signed(10'shdb) : $signed(_GEN_190); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_192 = 9'hb2 == logLookUpAddr ? $signed(10'shdc) : $signed(_GEN_191); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_193 = 9'hb3 == logLookUpAddr ? $signed(10'shdd) : $signed(_GEN_192); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_194 = 9'hb4 == logLookUpAddr ? $signed(10'shdf) : $signed(_GEN_193); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_195 = 9'hb5 == logLookUpAddr ? $signed(10'she0) : $signed(_GEN_194); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_196 = 9'hb6 == logLookUpAddr ? $signed(10'she1) : $signed(_GEN_195); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_197 = 9'hb7 == logLookUpAddr ? $signed(10'she2) : $signed(_GEN_196); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_198 = 9'hb8 == logLookUpAddr ? $signed(10'she3) : $signed(_GEN_197); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_199 = 9'hb9 == logLookUpAddr ? $signed(10'she4) : $signed(_GEN_198); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_200 = 9'hba == logLookUpAddr ? $signed(10'she5) : $signed(_GEN_199); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_201 = 9'hbb == logLookUpAddr ? $signed(10'she6) : $signed(_GEN_200); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_202 = 9'hbc == logLookUpAddr ? $signed(10'she7) : $signed(_GEN_201); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_203 = 9'hbd == logLookUpAddr ? $signed(10'she8) : $signed(_GEN_202); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_204 = 9'hbe == logLookUpAddr ? $signed(10'she9) : $signed(_GEN_203); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_205 = 9'hbf == logLookUpAddr ? $signed(10'shea) : $signed(_GEN_204); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_206 = 9'hc0 == logLookUpAddr ? $signed(10'sheb) : $signed(_GEN_205); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_207 = 9'hc1 == logLookUpAddr ? $signed(10'shec) : $signed(_GEN_206); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_208 = 9'hc2 == logLookUpAddr ? $signed(10'shed) : $signed(_GEN_207); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_209 = 9'hc3 == logLookUpAddr ? $signed(10'shee) : $signed(_GEN_208); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_210 = 9'hc4 == logLookUpAddr ? $signed(10'shef) : $signed(_GEN_209); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_211 = 9'hc5 == logLookUpAddr ? $signed(10'shf0) : $signed(_GEN_210); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_212 = 9'hc6 == logLookUpAddr ? $signed(10'shf1) : $signed(_GEN_211); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_213 = 9'hc7 == logLookUpAddr ? $signed(10'shf3) : $signed(_GEN_212); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_214 = 9'hc8 == logLookUpAddr ? $signed(10'shf4) : $signed(_GEN_213); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_215 = 9'hc9 == logLookUpAddr ? $signed(10'shf5) : $signed(_GEN_214); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_216 = 9'hca == logLookUpAddr ? $signed(10'shf6) : $signed(_GEN_215); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_217 = 9'hcb == logLookUpAddr ? $signed(10'shf7) : $signed(_GEN_216); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_218 = 9'hcc == logLookUpAddr ? $signed(10'shf8) : $signed(_GEN_217); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_219 = 9'hcd == logLookUpAddr ? $signed(10'shf9) : $signed(_GEN_218); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_220 = 9'hce == logLookUpAddr ? $signed(10'shfa) : $signed(_GEN_219); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_221 = 9'hcf == logLookUpAddr ? $signed(10'shfb) : $signed(_GEN_220); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_222 = 9'hd0 == logLookUpAddr ? $signed(10'shfc) : $signed(_GEN_221); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_223 = 9'hd1 == logLookUpAddr ? $signed(10'shfd) : $signed(_GEN_222); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_224 = 9'hd2 == logLookUpAddr ? $signed(10'shfe) : $signed(_GEN_223); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_225 = 9'hd3 == logLookUpAddr ? $signed(10'shff) : $signed(_GEN_224); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_226 = 9'hd4 == logLookUpAddr ? $signed(10'sh100) : $signed(_GEN_225); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_227 = 9'hd5 == logLookUpAddr ? $signed(10'sh101) : $signed(_GEN_226); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_228 = 9'hd6 == logLookUpAddr ? $signed(10'sh102) : $signed(_GEN_227); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_229 = 9'hd7 == logLookUpAddr ? $signed(10'sh103) : $signed(_GEN_228); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_230 = 9'hd8 == logLookUpAddr ? $signed(10'sh104) : $signed(_GEN_229); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_231 = 9'hd9 == logLookUpAddr ? $signed(10'sh105) : $signed(_GEN_230); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_232 = 9'hda == logLookUpAddr ? $signed(10'sh106) : $signed(_GEN_231); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_233 = 9'hdb == logLookUpAddr ? $signed(10'sh107) : $signed(_GEN_232); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_234 = 9'hdc == logLookUpAddr ? $signed(10'sh108) : $signed(_GEN_233); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_235 = 9'hdd == logLookUpAddr ? $signed(10'sh109) : $signed(_GEN_234); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_236 = 9'hde == logLookUpAddr ? $signed(10'sh10a) : $signed(_GEN_235); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_237 = 9'hdf == logLookUpAddr ? $signed(10'sh10b) : $signed(_GEN_236); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_238 = 9'he0 == logLookUpAddr ? $signed(10'sh10c) : $signed(_GEN_237); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_239 = 9'he1 == logLookUpAddr ? $signed(10'sh10d) : $signed(_GEN_238); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_240 = 9'he2 == logLookUpAddr ? $signed(10'sh10e) : $signed(_GEN_239); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_241 = 9'he3 == logLookUpAddr ? $signed(10'sh10f) : $signed(_GEN_240); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_242 = 9'he4 == logLookUpAddr ? $signed(10'sh110) : $signed(_GEN_241); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_243 = 9'he5 == logLookUpAddr ? $signed(10'sh111) : $signed(_GEN_242); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_244 = 9'he6 == logLookUpAddr ? $signed(10'sh112) : $signed(_GEN_243); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_245 = 9'he7 == logLookUpAddr ? $signed(10'sh113) : $signed(_GEN_244); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_246 = 9'he8 == logLookUpAddr ? $signed(10'sh114) : $signed(_GEN_245); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_247 = 9'he9 == logLookUpAddr ? $signed(10'sh115) : $signed(_GEN_246); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_248 = 9'hea == logLookUpAddr ? $signed(10'sh116) : $signed(_GEN_247); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_249 = 9'heb == logLookUpAddr ? $signed(10'sh117) : $signed(_GEN_248); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_250 = 9'hec == logLookUpAddr ? $signed(10'sh118) : $signed(_GEN_249); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_251 = 9'hed == logLookUpAddr ? $signed(10'sh119) : $signed(_GEN_250); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_252 = 9'hee == logLookUpAddr ? $signed(10'sh11a) : $signed(_GEN_251); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_253 = 9'hef == logLookUpAddr ? $signed(10'sh11b) : $signed(_GEN_252); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_254 = 9'hf0 == logLookUpAddr ? $signed(10'sh11c) : $signed(_GEN_253); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_255 = 9'hf1 == logLookUpAddr ? $signed(10'sh11d) : $signed(_GEN_254); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_256 = 9'hf2 == logLookUpAddr ? $signed(10'sh11e) : $signed(_GEN_255); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_257 = 9'hf3 == logLookUpAddr ? $signed(10'sh11f) : $signed(_GEN_256); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_258 = 9'hf4 == logLookUpAddr ? $signed(10'sh120) : $signed(_GEN_257); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_259 = 9'hf5 == logLookUpAddr ? $signed(10'sh121) : $signed(_GEN_258); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_260 = 9'hf6 == logLookUpAddr ? $signed(10'sh122) : $signed(_GEN_259); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_261 = 9'hf7 == logLookUpAddr ? $signed(10'sh123) : $signed(_GEN_260); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_262 = 9'hf8 == logLookUpAddr ? $signed(10'sh124) : $signed(_GEN_261); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_263 = 9'hf9 == logLookUpAddr ? $signed(10'sh125) : $signed(_GEN_262); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_264 = 9'hfa == logLookUpAddr ? $signed(10'sh126) : $signed(_GEN_263); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_265 = 9'hfb == logLookUpAddr ? $signed(10'sh127) : $signed(_GEN_264); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_266 = 9'hfc == logLookUpAddr ? $signed(10'sh128) : $signed(_GEN_265); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_267 = 9'hfd == logLookUpAddr ? $signed(10'sh129) : $signed(_GEN_266); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_268 = 9'hfe == logLookUpAddr ? $signed(10'sh12a) : $signed(_GEN_267); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_269 = 9'hff == logLookUpAddr ? $signed(10'sh12b) : $signed(_GEN_268); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_270 = 9'h100 == logLookUpAddr ? $signed(10'sh12c) : $signed(_GEN_269); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_271 = 9'h101 == logLookUpAddr ? $signed(10'sh12c) : $signed(_GEN_270); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_272 = 9'h102 == logLookUpAddr ? $signed(10'sh12d) : $signed(_GEN_271); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_273 = 9'h103 == logLookUpAddr ? $signed(10'sh12e) : $signed(_GEN_272); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_274 = 9'h104 == logLookUpAddr ? $signed(10'sh12f) : $signed(_GEN_273); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_275 = 9'h105 == logLookUpAddr ? $signed(10'sh130) : $signed(_GEN_274); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_276 = 9'h106 == logLookUpAddr ? $signed(10'sh131) : $signed(_GEN_275); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_277 = 9'h107 == logLookUpAddr ? $signed(10'sh132) : $signed(_GEN_276); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_278 = 9'h108 == logLookUpAddr ? $signed(10'sh133) : $signed(_GEN_277); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_279 = 9'h109 == logLookUpAddr ? $signed(10'sh134) : $signed(_GEN_278); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_280 = 9'h10a == logLookUpAddr ? $signed(10'sh135) : $signed(_GEN_279); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_281 = 9'h10b == logLookUpAddr ? $signed(10'sh136) : $signed(_GEN_280); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_282 = 9'h10c == logLookUpAddr ? $signed(10'sh137) : $signed(_GEN_281); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_283 = 9'h10d == logLookUpAddr ? $signed(10'sh138) : $signed(_GEN_282); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_284 = 9'h10e == logLookUpAddr ? $signed(10'sh139) : $signed(_GEN_283); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_285 = 9'h10f == logLookUpAddr ? $signed(10'sh13a) : $signed(_GEN_284); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_286 = 9'h110 == logLookUpAddr ? $signed(10'sh13b) : $signed(_GEN_285); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_287 = 9'h111 == logLookUpAddr ? $signed(10'sh13c) : $signed(_GEN_286); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_288 = 9'h112 == logLookUpAddr ? $signed(10'sh13d) : $signed(_GEN_287); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_289 = 9'h113 == logLookUpAddr ? $signed(10'sh13e) : $signed(_GEN_288); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_290 = 9'h114 == logLookUpAddr ? $signed(10'sh13e) : $signed(_GEN_289); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_291 = 9'h115 == logLookUpAddr ? $signed(10'sh13f) : $signed(_GEN_290); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_292 = 9'h116 == logLookUpAddr ? $signed(10'sh140) : $signed(_GEN_291); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_293 = 9'h117 == logLookUpAddr ? $signed(10'sh141) : $signed(_GEN_292); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_294 = 9'h118 == logLookUpAddr ? $signed(10'sh142) : $signed(_GEN_293); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_295 = 9'h119 == logLookUpAddr ? $signed(10'sh143) : $signed(_GEN_294); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_296 = 9'h11a == logLookUpAddr ? $signed(10'sh144) : $signed(_GEN_295); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_297 = 9'h11b == logLookUpAddr ? $signed(10'sh145) : $signed(_GEN_296); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_298 = 9'h11c == logLookUpAddr ? $signed(10'sh146) : $signed(_GEN_297); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_299 = 9'h11d == logLookUpAddr ? $signed(10'sh147) : $signed(_GEN_298); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_300 = 9'h11e == logLookUpAddr ? $signed(10'sh148) : $signed(_GEN_299); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_301 = 9'h11f == logLookUpAddr ? $signed(10'sh149) : $signed(_GEN_300); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_302 = 9'h120 == logLookUpAddr ? $signed(10'sh14a) : $signed(_GEN_301); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_303 = 9'h121 == logLookUpAddr ? $signed(10'sh14b) : $signed(_GEN_302); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_304 = 9'h122 == logLookUpAddr ? $signed(10'sh14b) : $signed(_GEN_303); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_305 = 9'h123 == logLookUpAddr ? $signed(10'sh14c) : $signed(_GEN_304); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_306 = 9'h124 == logLookUpAddr ? $signed(10'sh14d) : $signed(_GEN_305); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_307 = 9'h125 == logLookUpAddr ? $signed(10'sh14e) : $signed(_GEN_306); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_308 = 9'h126 == logLookUpAddr ? $signed(10'sh14f) : $signed(_GEN_307); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_309 = 9'h127 == logLookUpAddr ? $signed(10'sh150) : $signed(_GEN_308); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_310 = 9'h128 == logLookUpAddr ? $signed(10'sh151) : $signed(_GEN_309); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_311 = 9'h129 == logLookUpAddr ? $signed(10'sh152) : $signed(_GEN_310); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_312 = 9'h12a == logLookUpAddr ? $signed(10'sh153) : $signed(_GEN_311); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_313 = 9'h12b == logLookUpAddr ? $signed(10'sh154) : $signed(_GEN_312); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_314 = 9'h12c == logLookUpAddr ? $signed(10'sh155) : $signed(_GEN_313); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_315 = 9'h12d == logLookUpAddr ? $signed(10'sh156) : $signed(_GEN_314); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_316 = 9'h12e == logLookUpAddr ? $signed(10'sh156) : $signed(_GEN_315); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_317 = 9'h12f == logLookUpAddr ? $signed(10'sh157) : $signed(_GEN_316); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_318 = 9'h130 == logLookUpAddr ? $signed(10'sh158) : $signed(_GEN_317); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_319 = 9'h131 == logLookUpAddr ? $signed(10'sh159) : $signed(_GEN_318); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_320 = 9'h132 == logLookUpAddr ? $signed(10'sh15a) : $signed(_GEN_319); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_321 = 9'h133 == logLookUpAddr ? $signed(10'sh15b) : $signed(_GEN_320); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_322 = 9'h134 == logLookUpAddr ? $signed(10'sh15c) : $signed(_GEN_321); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_323 = 9'h135 == logLookUpAddr ? $signed(10'sh15d) : $signed(_GEN_322); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_324 = 9'h136 == logLookUpAddr ? $signed(10'sh15e) : $signed(_GEN_323); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_325 = 9'h137 == logLookUpAddr ? $signed(10'sh15f) : $signed(_GEN_324); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_326 = 9'h138 == logLookUpAddr ? $signed(10'sh15f) : $signed(_GEN_325); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_327 = 9'h139 == logLookUpAddr ? $signed(10'sh160) : $signed(_GEN_326); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_328 = 9'h13a == logLookUpAddr ? $signed(10'sh161) : $signed(_GEN_327); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_329 = 9'h13b == logLookUpAddr ? $signed(10'sh162) : $signed(_GEN_328); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_330 = 9'h13c == logLookUpAddr ? $signed(10'sh163) : $signed(_GEN_329); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_331 = 9'h13d == logLookUpAddr ? $signed(10'sh164) : $signed(_GEN_330); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_332 = 9'h13e == logLookUpAddr ? $signed(10'sh165) : $signed(_GEN_331); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_333 = 9'h13f == logLookUpAddr ? $signed(10'sh166) : $signed(_GEN_332); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_334 = 9'h140 == logLookUpAddr ? $signed(10'sh167) : $signed(_GEN_333); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_335 = 9'h141 == logLookUpAddr ? $signed(10'sh168) : $signed(_GEN_334); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_336 = 9'h142 == logLookUpAddr ? $signed(10'sh168) : $signed(_GEN_335); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_337 = 9'h143 == logLookUpAddr ? $signed(10'sh169) : $signed(_GEN_336); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_338 = 9'h144 == logLookUpAddr ? $signed(10'sh16a) : $signed(_GEN_337); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_339 = 9'h145 == logLookUpAddr ? $signed(10'sh16b) : $signed(_GEN_338); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_340 = 9'h146 == logLookUpAddr ? $signed(10'sh16c) : $signed(_GEN_339); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_341 = 9'h147 == logLookUpAddr ? $signed(10'sh16d) : $signed(_GEN_340); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_342 = 9'h148 == logLookUpAddr ? $signed(10'sh16e) : $signed(_GEN_341); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_343 = 9'h149 == logLookUpAddr ? $signed(10'sh16f) : $signed(_GEN_342); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_344 = 9'h14a == logLookUpAddr ? $signed(10'sh16f) : $signed(_GEN_343); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_345 = 9'h14b == logLookUpAddr ? $signed(10'sh170) : $signed(_GEN_344); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_346 = 9'h14c == logLookUpAddr ? $signed(10'sh171) : $signed(_GEN_345); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_347 = 9'h14d == logLookUpAddr ? $signed(10'sh172) : $signed(_GEN_346); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_348 = 9'h14e == logLookUpAddr ? $signed(10'sh173) : $signed(_GEN_347); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_349 = 9'h14f == logLookUpAddr ? $signed(10'sh174) : $signed(_GEN_348); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_350 = 9'h150 == logLookUpAddr ? $signed(10'sh175) : $signed(_GEN_349); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_351 = 9'h151 == logLookUpAddr ? $signed(10'sh176) : $signed(_GEN_350); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_352 = 9'h152 == logLookUpAddr ? $signed(10'sh176) : $signed(_GEN_351); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_353 = 9'h153 == logLookUpAddr ? $signed(10'sh177) : $signed(_GEN_352); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_354 = 9'h154 == logLookUpAddr ? $signed(10'sh178) : $signed(_GEN_353); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_355 = 9'h155 == logLookUpAddr ? $signed(10'sh179) : $signed(_GEN_354); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_356 = 9'h156 == logLookUpAddr ? $signed(10'sh17a) : $signed(_GEN_355); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_357 = 9'h157 == logLookUpAddr ? $signed(10'sh17b) : $signed(_GEN_356); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_358 = 9'h158 == logLookUpAddr ? $signed(10'sh17c) : $signed(_GEN_357); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_359 = 9'h159 == logLookUpAddr ? $signed(10'sh17c) : $signed(_GEN_358); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_360 = 9'h15a == logLookUpAddr ? $signed(10'sh17d) : $signed(_GEN_359); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_361 = 9'h15b == logLookUpAddr ? $signed(10'sh17e) : $signed(_GEN_360); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_362 = 9'h15c == logLookUpAddr ? $signed(10'sh17f) : $signed(_GEN_361); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_363 = 9'h15d == logLookUpAddr ? $signed(10'sh180) : $signed(_GEN_362); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_364 = 9'h15e == logLookUpAddr ? $signed(10'sh181) : $signed(_GEN_363); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_365 = 9'h15f == logLookUpAddr ? $signed(10'sh182) : $signed(_GEN_364); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_366 = 9'h160 == logLookUpAddr ? $signed(10'sh183) : $signed(_GEN_365); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_367 = 9'h161 == logLookUpAddr ? $signed(10'sh183) : $signed(_GEN_366); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_368 = 9'h162 == logLookUpAddr ? $signed(10'sh184) : $signed(_GEN_367); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_369 = 9'h163 == logLookUpAddr ? $signed(10'sh185) : $signed(_GEN_368); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_370 = 9'h164 == logLookUpAddr ? $signed(10'sh186) : $signed(_GEN_369); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_371 = 9'h165 == logLookUpAddr ? $signed(10'sh187) : $signed(_GEN_370); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_372 = 9'h166 == logLookUpAddr ? $signed(10'sh188) : $signed(_GEN_371); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_373 = 9'h167 == logLookUpAddr ? $signed(10'sh188) : $signed(_GEN_372); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_374 = 9'h168 == logLookUpAddr ? $signed(10'sh189) : $signed(_GEN_373); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_375 = 9'h169 == logLookUpAddr ? $signed(10'sh18a) : $signed(_GEN_374); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_376 = 9'h16a == logLookUpAddr ? $signed(10'sh18b) : $signed(_GEN_375); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_377 = 9'h16b == logLookUpAddr ? $signed(10'sh18c) : $signed(_GEN_376); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_378 = 9'h16c == logLookUpAddr ? $signed(10'sh18d) : $signed(_GEN_377); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_379 = 9'h16d == logLookUpAddr ? $signed(10'sh18e) : $signed(_GEN_378); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_380 = 9'h16e == logLookUpAddr ? $signed(10'sh18e) : $signed(_GEN_379); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_381 = 9'h16f == logLookUpAddr ? $signed(10'sh18f) : $signed(_GEN_380); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_382 = 9'h170 == logLookUpAddr ? $signed(10'sh190) : $signed(_GEN_381); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_383 = 9'h171 == logLookUpAddr ? $signed(10'sh191) : $signed(_GEN_382); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_384 = 9'h172 == logLookUpAddr ? $signed(10'sh192) : $signed(_GEN_383); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_385 = 9'h173 == logLookUpAddr ? $signed(10'sh193) : $signed(_GEN_384); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_386 = 9'h174 == logLookUpAddr ? $signed(10'sh193) : $signed(_GEN_385); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_387 = 9'h175 == logLookUpAddr ? $signed(10'sh194) : $signed(_GEN_386); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_388 = 9'h176 == logLookUpAddr ? $signed(10'sh195) : $signed(_GEN_387); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_389 = 9'h177 == logLookUpAddr ? $signed(10'sh196) : $signed(_GEN_388); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_390 = 9'h178 == logLookUpAddr ? $signed(10'sh197) : $signed(_GEN_389); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_391 = 9'h179 == logLookUpAddr ? $signed(10'sh198) : $signed(_GEN_390); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_392 = 9'h17a == logLookUpAddr ? $signed(10'sh198) : $signed(_GEN_391); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_393 = 9'h17b == logLookUpAddr ? $signed(10'sh199) : $signed(_GEN_392); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_394 = 9'h17c == logLookUpAddr ? $signed(10'sh19a) : $signed(_GEN_393); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_395 = 9'h17d == logLookUpAddr ? $signed(10'sh19b) : $signed(_GEN_394); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_396 = 9'h17e == logLookUpAddr ? $signed(10'sh19c) : $signed(_GEN_395); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_397 = 9'h17f == logLookUpAddr ? $signed(10'sh19d) : $signed(_GEN_396); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_398 = 9'h180 == logLookUpAddr ? $signed(10'sh19d) : $signed(_GEN_397); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_399 = 9'h181 == logLookUpAddr ? $signed(10'sh19e) : $signed(_GEN_398); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_400 = 9'h182 == logLookUpAddr ? $signed(10'sh19f) : $signed(_GEN_399); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_401 = 9'h183 == logLookUpAddr ? $signed(10'sh1a0) : $signed(_GEN_400); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_402 = 9'h184 == logLookUpAddr ? $signed(10'sh1a1) : $signed(_GEN_401); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_403 = 9'h185 == logLookUpAddr ? $signed(10'sh1a1) : $signed(_GEN_402); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_404 = 9'h186 == logLookUpAddr ? $signed(10'sh1a2) : $signed(_GEN_403); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_405 = 9'h187 == logLookUpAddr ? $signed(10'sh1a3) : $signed(_GEN_404); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_406 = 9'h188 == logLookUpAddr ? $signed(10'sh1a4) : $signed(_GEN_405); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_407 = 9'h189 == logLookUpAddr ? $signed(10'sh1a5) : $signed(_GEN_406); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_408 = 9'h18a == logLookUpAddr ? $signed(10'sh1a6) : $signed(_GEN_407); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_409 = 9'h18b == logLookUpAddr ? $signed(10'sh1a6) : $signed(_GEN_408); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_410 = 9'h18c == logLookUpAddr ? $signed(10'sh1a7) : $signed(_GEN_409); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_411 = 9'h18d == logLookUpAddr ? $signed(10'sh1a8) : $signed(_GEN_410); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_412 = 9'h18e == logLookUpAddr ? $signed(10'sh1a9) : $signed(_GEN_411); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_413 = 9'h18f == logLookUpAddr ? $signed(10'sh1aa) : $signed(_GEN_412); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_414 = 9'h190 == logLookUpAddr ? $signed(10'sh1aa) : $signed(_GEN_413); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_415 = 9'h191 == logLookUpAddr ? $signed(10'sh1ab) : $signed(_GEN_414); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_416 = 9'h192 == logLookUpAddr ? $signed(10'sh1ac) : $signed(_GEN_415); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_417 = 9'h193 == logLookUpAddr ? $signed(10'sh1ad) : $signed(_GEN_416); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_418 = 9'h194 == logLookUpAddr ? $signed(10'sh1ae) : $signed(_GEN_417); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_419 = 9'h195 == logLookUpAddr ? $signed(10'sh1ae) : $signed(_GEN_418); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_420 = 9'h196 == logLookUpAddr ? $signed(10'sh1af) : $signed(_GEN_419); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_421 = 9'h197 == logLookUpAddr ? $signed(10'sh1b0) : $signed(_GEN_420); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_422 = 9'h198 == logLookUpAddr ? $signed(10'sh1b1) : $signed(_GEN_421); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_423 = 9'h199 == logLookUpAddr ? $signed(10'sh1b2) : $signed(_GEN_422); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_424 = 9'h19a == logLookUpAddr ? $signed(10'sh1b2) : $signed(_GEN_423); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_425 = 9'h19b == logLookUpAddr ? $signed(10'sh1b3) : $signed(_GEN_424); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_426 = 9'h19c == logLookUpAddr ? $signed(10'sh1b4) : $signed(_GEN_425); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_427 = 9'h19d == logLookUpAddr ? $signed(10'sh1b5) : $signed(_GEN_426); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_428 = 9'h19e == logLookUpAddr ? $signed(10'sh1b6) : $signed(_GEN_427); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_429 = 9'h19f == logLookUpAddr ? $signed(10'sh1b6) : $signed(_GEN_428); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_430 = 9'h1a0 == logLookUpAddr ? $signed(10'sh1b7) : $signed(_GEN_429); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_431 = 9'h1a1 == logLookUpAddr ? $signed(10'sh1b8) : $signed(_GEN_430); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_432 = 9'h1a2 == logLookUpAddr ? $signed(10'sh1b9) : $signed(_GEN_431); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_433 = 9'h1a3 == logLookUpAddr ? $signed(10'sh1ba) : $signed(_GEN_432); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_434 = 9'h1a4 == logLookUpAddr ? $signed(10'sh1ba) : $signed(_GEN_433); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_435 = 9'h1a5 == logLookUpAddr ? $signed(10'sh1bb) : $signed(_GEN_434); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_436 = 9'h1a6 == logLookUpAddr ? $signed(10'sh1bc) : $signed(_GEN_435); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_437 = 9'h1a7 == logLookUpAddr ? $signed(10'sh1bd) : $signed(_GEN_436); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_438 = 9'h1a8 == logLookUpAddr ? $signed(10'sh1be) : $signed(_GEN_437); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_439 = 9'h1a9 == logLookUpAddr ? $signed(10'sh1be) : $signed(_GEN_438); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_440 = 9'h1aa == logLookUpAddr ? $signed(10'sh1bf) : $signed(_GEN_439); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_441 = 9'h1ab == logLookUpAddr ? $signed(10'sh1c0) : $signed(_GEN_440); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_442 = 9'h1ac == logLookUpAddr ? $signed(10'sh1c1) : $signed(_GEN_441); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_443 = 9'h1ad == logLookUpAddr ? $signed(10'sh1c2) : $signed(_GEN_442); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_444 = 9'h1ae == logLookUpAddr ? $signed(10'sh1c2) : $signed(_GEN_443); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_445 = 9'h1af == logLookUpAddr ? $signed(10'sh1c3) : $signed(_GEN_444); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_446 = 9'h1b0 == logLookUpAddr ? $signed(10'sh1c4) : $signed(_GEN_445); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_447 = 9'h1b1 == logLookUpAddr ? $signed(10'sh1c5) : $signed(_GEN_446); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_448 = 9'h1b2 == logLookUpAddr ? $signed(10'sh1c5) : $signed(_GEN_447); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_449 = 9'h1b3 == logLookUpAddr ? $signed(10'sh1c6) : $signed(_GEN_448); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_450 = 9'h1b4 == logLookUpAddr ? $signed(10'sh1c7) : $signed(_GEN_449); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_451 = 9'h1b5 == logLookUpAddr ? $signed(10'sh1c8) : $signed(_GEN_450); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_452 = 9'h1b6 == logLookUpAddr ? $signed(10'sh1c9) : $signed(_GEN_451); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_453 = 9'h1b7 == logLookUpAddr ? $signed(10'sh1c9) : $signed(_GEN_452); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_454 = 9'h1b8 == logLookUpAddr ? $signed(10'sh1ca) : $signed(_GEN_453); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_455 = 9'h1b9 == logLookUpAddr ? $signed(10'sh1cb) : $signed(_GEN_454); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_456 = 9'h1ba == logLookUpAddr ? $signed(10'sh1cc) : $signed(_GEN_455); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_457 = 9'h1bb == logLookUpAddr ? $signed(10'sh1cc) : $signed(_GEN_456); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_458 = 9'h1bc == logLookUpAddr ? $signed(10'sh1cd) : $signed(_GEN_457); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_459 = 9'h1bd == logLookUpAddr ? $signed(10'sh1ce) : $signed(_GEN_458); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_460 = 9'h1be == logLookUpAddr ? $signed(10'sh1cf) : $signed(_GEN_459); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_461 = 9'h1bf == logLookUpAddr ? $signed(10'sh1d0) : $signed(_GEN_460); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_462 = 9'h1c0 == logLookUpAddr ? $signed(10'sh1d0) : $signed(_GEN_461); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_463 = 9'h1c1 == logLookUpAddr ? $signed(10'sh1d1) : $signed(_GEN_462); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_464 = 9'h1c2 == logLookUpAddr ? $signed(10'sh1d2) : $signed(_GEN_463); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_465 = 9'h1c3 == logLookUpAddr ? $signed(10'sh1d3) : $signed(_GEN_464); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_466 = 9'h1c4 == logLookUpAddr ? $signed(10'sh1d3) : $signed(_GEN_465); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_467 = 9'h1c5 == logLookUpAddr ? $signed(10'sh1d4) : $signed(_GEN_466); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_468 = 9'h1c6 == logLookUpAddr ? $signed(10'sh1d5) : $signed(_GEN_467); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_469 = 9'h1c7 == logLookUpAddr ? $signed(10'sh1d6) : $signed(_GEN_468); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_470 = 9'h1c8 == logLookUpAddr ? $signed(10'sh1d6) : $signed(_GEN_469); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_471 = 9'h1c9 == logLookUpAddr ? $signed(10'sh1d7) : $signed(_GEN_470); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_472 = 9'h1ca == logLookUpAddr ? $signed(10'sh1d8) : $signed(_GEN_471); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_473 = 9'h1cb == logLookUpAddr ? $signed(10'sh1d9) : $signed(_GEN_472); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_474 = 9'h1cc == logLookUpAddr ? $signed(10'sh1da) : $signed(_GEN_473); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_475 = 9'h1cd == logLookUpAddr ? $signed(10'sh1da) : $signed(_GEN_474); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_476 = 9'h1ce == logLookUpAddr ? $signed(10'sh1db) : $signed(_GEN_475); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_477 = 9'h1cf == logLookUpAddr ? $signed(10'sh1dc) : $signed(_GEN_476); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_478 = 9'h1d0 == logLookUpAddr ? $signed(10'sh1dd) : $signed(_GEN_477); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_479 = 9'h1d1 == logLookUpAddr ? $signed(10'sh1dd) : $signed(_GEN_478); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_480 = 9'h1d2 == logLookUpAddr ? $signed(10'sh1de) : $signed(_GEN_479); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_481 = 9'h1d3 == logLookUpAddr ? $signed(10'sh1df) : $signed(_GEN_480); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_482 = 9'h1d4 == logLookUpAddr ? $signed(10'sh1e0) : $signed(_GEN_481); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_483 = 9'h1d5 == logLookUpAddr ? $signed(10'sh1e0) : $signed(_GEN_482); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_484 = 9'h1d6 == logLookUpAddr ? $signed(10'sh1e1) : $signed(_GEN_483); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_485 = 9'h1d7 == logLookUpAddr ? $signed(10'sh1e2) : $signed(_GEN_484); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_486 = 9'h1d8 == logLookUpAddr ? $signed(10'sh1e3) : $signed(_GEN_485); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_487 = 9'h1d9 == logLookUpAddr ? $signed(10'sh1e3) : $signed(_GEN_486); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_488 = 9'h1da == logLookUpAddr ? $signed(10'sh1e4) : $signed(_GEN_487); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_489 = 9'h1db == logLookUpAddr ? $signed(10'sh1e5) : $signed(_GEN_488); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_490 = 9'h1dc == logLookUpAddr ? $signed(10'sh1e6) : $signed(_GEN_489); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_491 = 9'h1dd == logLookUpAddr ? $signed(10'sh1e6) : $signed(_GEN_490); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_492 = 9'h1de == logLookUpAddr ? $signed(10'sh1e7) : $signed(_GEN_491); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_493 = 9'h1df == logLookUpAddr ? $signed(10'sh1e8) : $signed(_GEN_492); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_494 = 9'h1e0 == logLookUpAddr ? $signed(10'sh1e9) : $signed(_GEN_493); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_495 = 9'h1e1 == logLookUpAddr ? $signed(10'sh1e9) : $signed(_GEN_494); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_496 = 9'h1e2 == logLookUpAddr ? $signed(10'sh1ea) : $signed(_GEN_495); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_497 = 9'h1e3 == logLookUpAddr ? $signed(10'sh1eb) : $signed(_GEN_496); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_498 = 9'h1e4 == logLookUpAddr ? $signed(10'sh1ec) : $signed(_GEN_497); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_499 = 9'h1e5 == logLookUpAddr ? $signed(10'sh1ec) : $signed(_GEN_498); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_500 = 9'h1e6 == logLookUpAddr ? $signed(10'sh1ed) : $signed(_GEN_499); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_501 = 9'h1e7 == logLookUpAddr ? $signed(10'sh1ee) : $signed(_GEN_500); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_502 = 9'h1e8 == logLookUpAddr ? $signed(10'sh1ee) : $signed(_GEN_501); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_503 = 9'h1e9 == logLookUpAddr ? $signed(10'sh1ef) : $signed(_GEN_502); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_504 = 9'h1ea == logLookUpAddr ? $signed(10'sh1f0) : $signed(_GEN_503); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_505 = 9'h1eb == logLookUpAddr ? $signed(10'sh1f1) : $signed(_GEN_504); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_506 = 9'h1ec == logLookUpAddr ? $signed(10'sh1f1) : $signed(_GEN_505); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_507 = 9'h1ed == logLookUpAddr ? $signed(10'sh1f2) : $signed(_GEN_506); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_508 = 9'h1ee == logLookUpAddr ? $signed(10'sh1f3) : $signed(_GEN_507); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_509 = 9'h1ef == logLookUpAddr ? $signed(10'sh1f4) : $signed(_GEN_508); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_510 = 9'h1f0 == logLookUpAddr ? $signed(10'sh1f4) : $signed(_GEN_509); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_511 = 9'h1f1 == logLookUpAddr ? $signed(10'sh1f5) : $signed(_GEN_510); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_512 = 9'h1f2 == logLookUpAddr ? $signed(10'sh1f6) : $signed(_GEN_511); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_513 = 9'h1f3 == logLookUpAddr ? $signed(10'sh1f7) : $signed(_GEN_512); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_514 = 9'h1f4 == logLookUpAddr ? $signed(10'sh1f7) : $signed(_GEN_513); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_515 = 9'h1f5 == logLookUpAddr ? $signed(10'sh1f8) : $signed(_GEN_514); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_516 = 9'h1f6 == logLookUpAddr ? $signed(10'sh1f9) : $signed(_GEN_515); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_517 = 9'h1f7 == logLookUpAddr ? $signed(10'sh1f9) : $signed(_GEN_516); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_518 = 9'h1f8 == logLookUpAddr ? $signed(10'sh1fa) : $signed(_GEN_517); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_519 = 9'h1f9 == logLookUpAddr ? $signed(10'sh1fb) : $signed(_GEN_518); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_520 = 9'h1fa == logLookUpAddr ? $signed(10'sh1fc) : $signed(_GEN_519); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_521 = 9'h1fb == logLookUpAddr ? $signed(10'sh1fc) : $signed(_GEN_520); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_522 = 9'h1fc == logLookUpAddr ? $signed(10'sh1fd) : $signed(_GEN_521); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_523 = 9'h1fd == logLookUpAddr ? $signed(10'sh1fe) : $signed(_GEN_522); // @[LogMagMux.scala 138:11]
+  wire [9:0] _GEN_524 = 9'h1fe == logLookUpAddr ? $signed(10'sh1ff) : $signed(_GEN_523); // @[LogMagMux.scala 138:11]
+  wire [9:0] logFrac = 9'h1ff == logLookUpAddr ? $signed(10'sh1ff) : $signed(_GEN_524); // @[LogMagMux.scala 138:11]
   reg [4:0] _T_601; // @[Reg.scala 15:16]
   reg [31:0] _RAND_14;
-  wire [13:0] _GEN_564 = {$signed(_T_601), 9'h0}; // @[LogMagMux.scala 141:91]
-  wire [13:0] _GEN_565 = {{4{logFrac[9]}},logFrac}; // @[LogMagMux.scala 141:91]
-  wire [13:0] _T_604 = $signed(_GEN_564) + $signed(_GEN_565); // @[LogMagMux.scala 141:91]
-  wire [15:0] log2MagOut_imag = {{2{_T_604[13]}},_T_604}; // @[LogMagMux.scala 160:38]
+  wire [13:0] _GEN_564 = {$signed(_T_601), 9'h0}; // @[LogMagMux.scala 143:91]
+  wire [13:0] _GEN_565 = {{4{logFrac[9]}},logFrac}; // @[LogMagMux.scala 143:91]
+  wire [13:0] _T_604 = $signed(_GEN_564) + $signed(_GEN_565); // @[LogMagMux.scala 143:91]
+  wire [15:0] log2MagOut_imag = {{2{_T_604[13]}},_T_604}; // @[LogMagMux.scala 162:38]
   reg [1:0] _T_614; // @[Reg.scala 15:16]
   reg [31:0] _RAND_15;
   reg [1:0] _T_615; // @[Reg.scala 15:16]
@@ -12364,29 +12248,29 @@ module LogMagMux(
   wire [15:0] _T_633_imag = _T_630 ? $signed(log2MagOut_imag) : $signed(io_in_bits_imag); // @[Mux.scala 68:16]
   wire  _T_634 = 2'h2 == _T_617; // @[Mux.scala 68:19]
   wire [15:0] _T_637_real = _T_634 ? $signed(16'sh0) : $signed(_T_633_real); // @[Mux.scala 68:16]
-  wire [15:0] jplMagOut_imag = jplMag[15:0]; // @[LogMagMux.scala 151:23 LogMagMux.scala 154:18]
+  wire [15:0] jplMagOut_imag = jplMag[15:0]; // @[LogMagMux.scala 153:23 LogMagMux.scala 156:18]
   wire [15:0] _T_637_imag = _T_634 ? $signed(jplMagOut_imag) : $signed(_T_633_imag); // @[Mux.scala 68:16]
   wire  _T_638 = 2'h1 == _T_617; // @[Mux.scala 68:19]
   wire [15:0] _T_641_real = _T_638 ? $signed(16'sh0) : $signed(_T_637_real); // @[Mux.scala 68:16]
-  wire [32:0] _GEN_567 = _T_31[33:1]; // @[LogMagMux.scala 95:20 LogMagMux.scala 105:10]
-  wire [15:0] magSqr = _GEN_567[15:0]; // @[LogMagMux.scala 95:20 LogMagMux.scala 105:10]
+  wire [32:0] _GEN_567 = _T_31[33:1]; // @[LogMagMux.scala 97:20 LogMagMux.scala 107:10]
+  wire [15:0] magSqr = _GEN_567[15:0]; // @[LogMagMux.scala 97:20 LogMagMux.scala 107:10]
   wire [15:0] _T_641_imag = _T_638 ? $signed(magSqr) : $signed(_T_637_imag); // @[Mux.scala 68:16]
   wire  _T_642 = 2'h0 == _T_617; // @[Mux.scala 68:19]
   wire [15:0] output_mux_real = _T_642 ? $signed(_T_629_real) : $signed(_T_641_real); // @[Mux.scala 68:16]
   wire [15:0] output_mux_imag = _T_642 ? $signed(_T_629_imag) : $signed(_T_641_imag); // @[Mux.scala 68:16]
   wire  _T_645 = io_in_ready & io_in_valid; // @[Decoupled.scala 40:37]
-  reg  initialInDone; // @[LogMagMux.scala 187:30]
+  reg  initialInDone; // @[LogMagMux.scala 189:30]
   reg [31:0] _RAND_27;
-  reg [2:0] _T_653; // @[LogMagMux.scala 190:24]
+  reg [2:0] _T_653; // @[LogMagMux.scala 192:24]
   reg [31:0] _RAND_28;
-  wire [2:0] _T_656 = _T_653 + 3'h1; // @[LogMagMux.scala 193:22]
-  wire  _T_657 = _T_653 == 3'h3; // @[LogMagMux.scala 196:18]
-  wire  _T_659 = _T_657 & _T_645; // @[LogMagMux.scala 196:39]
-  wire  _GEN_544 = _T_659 | initialInDone; // @[LogMagMux.scala 196:56]
-  wire  _T_667 = ~initialInDone; // @[Skid.scala 29:30]
-  wire  _T_668 = io_out_ready | _T_667; // @[Skid.scala 29:27]
-  wire  skidInData_ready = _T_668; // @[LogMagMux.scala 205:24 Skid.scala 29:14]
-  wire  skidInData_valid = io_in_valid; // @[LogMagMux.scala 205:24 LogMagMux.scala 207:20]
+  wire [2:0] _T_656 = _T_653 + 3'h1; // @[LogMagMux.scala 195:22]
+  wire  _T_657 = _T_653 == 3'h3; // @[LogMagMux.scala 198:18]
+  wire  _T_659 = _T_657 & _T_645; // @[LogMagMux.scala 198:39]
+  wire  _GEN_544 = _T_659 | initialInDone; // @[LogMagMux.scala 198:56]
+  wire  _T_667 = ~initialInDone; // @[Skid.scala 31:30]
+  wire  _T_668 = io_out_ready | _T_667; // @[Skid.scala 31:27]
+  wire  skidInData_ready = _T_668; // @[LogMagMux.scala 207:24 Skid.scala 31:14]
+  wire  skidInData_valid = io_in_valid; // @[LogMagMux.scala 207:24 LogMagMux.scala 209:20]
   wire  _T_662 = skidInData_ready & skidInData_valid; // @[Decoupled.scala 40:37]
   reg  _T_663; // @[Reg.scala 27:20]
   reg [31:0] _RAND_29;
@@ -12413,9 +12297,9 @@ module LogMagMux(
   reg [31:0] _RAND_39;
   reg  _T_681; // @[Reg.scala 27:20]
   reg [31:0] _RAND_40;
-  wire [15:0] skidInData_bits_real = output_mux_real; // @[LogMagMux.scala 205:24 LogMagMux.scala 206:19]
-  wire [15:0] skidInData_bits_imag = output_mux_imag; // @[LogMagMux.scala 205:24 LogMagMux.scala 206:19]
-  Queue_15 Queue ( // @[Skid.scala 21:23]
+  wire [15:0] skidInData_bits_real = output_mux_real; // @[LogMagMux.scala 207:24 LogMagMux.scala 208:19]
+  wire [15:0] skidInData_bits_imag = output_mux_imag; // @[LogMagMux.scala 207:24 LogMagMux.scala 208:19]
+  Queue_14 Queue ( // @[Skid.scala 23:23]
     .clock(Queue_clock),
     .reset(Queue_reset),
     .io_enq_ready(Queue_io_enq_ready),
@@ -12427,7 +12311,7 @@ module LogMagMux(
     .io_deq_bits_real(Queue_io_deq_bits_real),
     .io_deq_bits_imag(Queue_io_deq_bits_imag)
   );
-  Queue_16 Queue_1 ( // @[Skid.scala 21:23]
+  Queue_15 Queue_1 ( // @[Skid.scala 23:23]
     .clock(Queue_1_clock),
     .reset(Queue_1_reset),
     .io_enq_ready(Queue_1_io_enq_ready),
@@ -12437,22 +12321,22 @@ module LogMagMux(
     .io_deq_valid(Queue_1_io_deq_valid),
     .io_deq_bits(Queue_1_io_deq_bits)
   );
-  assign io_in_ready = skidInData_ready; // @[LogMagMux.scala 210:15]
-  assign io_out_valid = Queue_io_deq_valid; // @[Skid.scala 31:15]
-  assign io_out_bits_real = Queue_io_deq_bits_real; // @[Skid.scala 32:14]
-  assign io_out_bits_imag = Queue_io_deq_bits_imag; // @[Skid.scala 32:14]
-  assign io_lastOut = Queue_1_io_deq_bits; // @[LogMagMux.scala 220:20]
+  assign io_in_ready = skidInData_ready; // @[LogMagMux.scala 212:15]
+  assign io_out_valid = Queue_io_deq_valid; // @[Skid.scala 33:15]
+  assign io_out_bits_real = Queue_io_deq_bits_real; // @[Skid.scala 34:14]
+  assign io_out_bits_imag = Queue_io_deq_bits_imag; // @[Skid.scala 34:14]
+  assign io_lastOut = Queue_1_io_deq_bits; // @[LogMagMux.scala 222:20]
   assign Queue_clock = clock;
   assign Queue_reset = reset;
-  assign Queue_io_enq_valid = _T_666; // @[Skid.scala 25:24]
-  assign Queue_io_enq_bits_real = output_mux_real; // @[LogMagMux.scala 211:52]
-  assign Queue_io_enq_bits_imag = output_mux_imag; // @[LogMagMux.scala 211:52]
-  assign Queue_io_deq_ready = io_out_ready; // @[Skid.scala 30:24]
+  assign Queue_io_enq_valid = _T_666; // @[Skid.scala 27:24]
+  assign Queue_io_enq_bits_real = output_mux_real; // @[LogMagMux.scala 213:52]
+  assign Queue_io_enq_bits_imag = output_mux_imag; // @[LogMagMux.scala 213:52]
+  assign Queue_io_deq_ready = io_out_ready; // @[Skid.scala 32:24]
   assign Queue_1_clock = clock;
   assign Queue_1_reset = reset;
-  assign Queue_1_io_enq_valid = _T_681; // @[Skid.scala 25:24]
-  assign Queue_1_io_enq_bits = _T_676; // @[LogMagMux.scala 219:59]
-  assign Queue_1_io_deq_ready = io_out_ready; // @[Skid.scala 30:24]
+  assign Queue_1_io_enq_valid = _T_681; // @[Skid.scala 27:24]
+  assign Queue_1_io_enq_bits = _T_676; // @[LogMagMux.scala 221:59]
+  assign Queue_1_io_deq_ready = io_out_ready; // @[Skid.scala 32:24]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -12775,19 +12659,19 @@ module AXI4LogMagMuxBlock(
   output [31:0] auto_stream_out_bits_data,
   output        auto_stream_out_bits_last
 );
-  wire  logMagMux_clock; // @[LogMagMuxDspBlock.scala 27:27]
-  wire  logMagMux_reset; // @[LogMagMuxDspBlock.scala 27:27]
-  wire  logMagMux_io_in_ready; // @[LogMagMuxDspBlock.scala 27:27]
-  wire  logMagMux_io_in_valid; // @[LogMagMuxDspBlock.scala 27:27]
-  wire [15:0] logMagMux_io_in_bits_real; // @[LogMagMuxDspBlock.scala 27:27]
-  wire [15:0] logMagMux_io_in_bits_imag; // @[LogMagMuxDspBlock.scala 27:27]
-  wire  logMagMux_io_lastIn; // @[LogMagMuxDspBlock.scala 27:27]
-  wire  logMagMux_io_out_ready; // @[LogMagMuxDspBlock.scala 27:27]
-  wire  logMagMux_io_out_valid; // @[LogMagMuxDspBlock.scala 27:27]
-  wire [15:0] logMagMux_io_out_bits_real; // @[LogMagMuxDspBlock.scala 27:27]
-  wire [15:0] logMagMux_io_out_bits_imag; // @[LogMagMuxDspBlock.scala 27:27]
-  wire [1:0] logMagMux_io_sel; // @[LogMagMuxDspBlock.scala 27:27]
-  wire  logMagMux_io_lastOut; // @[LogMagMuxDspBlock.scala 27:27]
+  wire  logMagMux_clock; // @[LogMagMuxDspBlock.scala 29:27]
+  wire  logMagMux_reset; // @[LogMagMuxDspBlock.scala 29:27]
+  wire  logMagMux_io_in_ready; // @[LogMagMuxDspBlock.scala 29:27]
+  wire  logMagMux_io_in_valid; // @[LogMagMuxDspBlock.scala 29:27]
+  wire [15:0] logMagMux_io_in_bits_real; // @[LogMagMuxDspBlock.scala 29:27]
+  wire [15:0] logMagMux_io_in_bits_imag; // @[LogMagMuxDspBlock.scala 29:27]
+  wire  logMagMux_io_lastIn; // @[LogMagMuxDspBlock.scala 29:27]
+  wire  logMagMux_io_out_ready; // @[LogMagMuxDspBlock.scala 29:27]
+  wire  logMagMux_io_out_valid; // @[LogMagMuxDspBlock.scala 29:27]
+  wire [15:0] logMagMux_io_out_bits_real; // @[LogMagMuxDspBlock.scala 29:27]
+  wire [15:0] logMagMux_io_out_bits_imag; // @[LogMagMuxDspBlock.scala 29:27]
+  wire [1:0] logMagMux_io_sel; // @[LogMagMuxDspBlock.scala 29:27]
+  wire  logMagMux_io_lastOut; // @[LogMagMuxDspBlock.scala 29:27]
   wire  Queue_clock; // @[Decoupled.scala 296:21]
   wire  Queue_reset; // @[Decoupled.scala 296:21]
   wire  Queue_io_enq_ready; // @[Decoupled.scala 296:21]
@@ -12800,7 +12684,7 @@ module AXI4LogMagMuxBlock(
   wire  Queue_io_deq_bits_read; // @[Decoupled.scala 296:21]
   wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
   wire  Queue_io_deq_bits_extra; // @[Decoupled.scala 296:21]
-  reg [1:0] selReg; // @[LogMagMuxDspBlock.scala 29:33]
+  reg [1:0] selReg; // @[LogMagMuxDspBlock.scala 31:33]
   reg [31:0] _RAND_0;
   wire  _T_2 = auto_mem_in_aw_valid & auto_mem_in_w_valid; // @[RegisterRouter.scala 40:39]
   wire  _T_3 = auto_mem_in_ar_valid | _T_2; // @[RegisterRouter.scala 40:26]
@@ -12846,7 +12730,7 @@ module AXI4LogMagMuxBlock(
   wire  _T_172_bits_read = Queue_io_deq_bits_read; // @[Decoupled.scala 317:19 Decoupled.scala 318:14]
   wire  _T_172_valid = Queue_io_deq_valid; // @[Decoupled.scala 317:19 Decoupled.scala 319:15]
   wire  _T_175 = ~_T_172_bits_read; // @[RegisterRouter.scala 65:29]
-  LogMagMux logMagMux ( // @[LogMagMuxDspBlock.scala 27:27]
+  LogMagMux logMagMux ( // @[LogMagMuxDspBlock.scala 29:27]
     .clock(logMagMux_clock),
     .reset(logMagMux_reset),
     .io_in_ready(logMagMux_io_in_ready),
@@ -12889,12 +12773,12 @@ module AXI4LogMagMuxBlock(
   assign auto_stream_out_bits_last = logMagMux_io_lastOut; // @[LazyModule.scala 173:49]
   assign logMagMux_clock = clock;
   assign logMagMux_reset = reset;
-  assign logMagMux_io_in_valid = auto_stream_in_valid; // @[LogMagMuxDspBlock.scala 40:30]
-  assign logMagMux_io_in_bits_real = auto_stream_in_bits_data[31:16]; // @[LogMagMuxDspBlock.scala 41:30]
-  assign logMagMux_io_in_bits_imag = auto_stream_in_bits_data[15:0]; // @[LogMagMuxDspBlock.scala 41:30]
-  assign logMagMux_io_lastIn = auto_stream_in_bits_last; // @[LogMagMuxDspBlock.scala 44:31]
-  assign logMagMux_io_out_ready = auto_stream_out_ready; // @[LogMagMuxDspBlock.scala 49:28]
-  assign logMagMux_io_sel = selReg; // @[LogMagMuxDspBlock.scala 35:22]
+  assign logMagMux_io_in_valid = auto_stream_in_valid; // @[LogMagMuxDspBlock.scala 42:30]
+  assign logMagMux_io_in_bits_real = auto_stream_in_bits_data[31:16]; // @[LogMagMuxDspBlock.scala 43:30]
+  assign logMagMux_io_in_bits_imag = auto_stream_in_bits_data[15:0]; // @[LogMagMuxDspBlock.scala 43:30]
+  assign logMagMux_io_lastIn = auto_stream_in_bits_last; // @[LogMagMuxDspBlock.scala 46:31]
+  assign logMagMux_io_out_ready = auto_stream_out_ready; // @[LogMagMuxDspBlock.scala 51:28]
+  assign logMagMux_io_sel = selReg; // @[LogMagMuxDspBlock.scala 37:22]
   assign Queue_clock = clock;
   assign Queue_reset = reset;
   assign Queue_io_enq_valid = auto_mem_in_ar_valid | _T_2; // @[Decoupled.scala 297:22]
@@ -13568,142 +13452,159 @@ module Accumulator(
   output [15:0] io_out_bits,
   output        io_lastOut
 );
-  reg [31:0] mem [0:127]; // @[Accumulator.scala 35:24]
+  reg [31:0] mem [0:127]; // @[Accumulator.scala 37:24]
   reg [31:0] _RAND_0;
-  wire [31:0] mem__T_189_data; // @[Accumulator.scala 35:24]
-  wire [6:0] mem__T_189_addr; // @[Accumulator.scala 35:24]
-  wire [31:0] mem__T_235_data; // @[Accumulator.scala 35:24]
-  wire [6:0] mem__T_235_addr; // @[Accumulator.scala 35:24]
-  wire  mem__T_235_mask; // @[Accumulator.scala 35:24]
-  wire  mem__T_235_en; // @[Accumulator.scala 35:24]
-  reg  mem__T_189_en_pipe_0;
+  wire [31:0] mem__T_195_data; // @[Accumulator.scala 37:24]
+  wire [6:0] mem__T_195_addr; // @[Accumulator.scala 37:24]
+  wire [31:0] mem__T_241_data; // @[Accumulator.scala 37:24]
+  wire [6:0] mem__T_241_addr; // @[Accumulator.scala 37:24]
+  wire  mem__T_241_mask; // @[Accumulator.scala 37:24]
+  wire  mem__T_241_en; // @[Accumulator.scala 37:24]
+  reg  mem__T_195_en_pipe_0;
   reg [31:0] _RAND_1;
-  reg [6:0] mem__T_189_addr_pipe_0;
+  reg [6:0] mem__T_195_addr_pipe_0;
   reg [31:0] _RAND_2;
   wire  readEn = io_in_ready & io_in_valid; // @[Decoupled.scala 40:37]
-  reg  writeEn; // @[Accumulator.scala 38:24]
+  reg  writeEn; // @[Accumulator.scala 40:24]
   reg [31:0] _RAND_3;
-  reg [15:0] inDelayed; // @[Accumulator.scala 39:26]
+  reg [15:0] inDelayed; // @[Accumulator.scala 41:26]
   reg [31:0] _RAND_4;
-  reg [15:0] cntWindows; // @[Accumulator.scala 40:27]
+  reg [15:0] cntWindows; // @[Accumulator.scala 42:27]
   reg [31:0] _RAND_5;
-  reg [6:0] cntLoad; // @[Accumulator.scala 41:24]
+  reg [6:0] cntLoad; // @[Accumulator.scala 43:24]
   reg [31:0] _RAND_6;
-  reg [6:0] cntAcc; // @[Accumulator.scala 42:23]
+  reg [6:0] cntAcc; // @[Accumulator.scala 44:23]
   reg [31:0] _RAND_7;
-  reg [2:0] state; // @[Accumulator.scala 50:22]
+  reg [2:0] state; // @[Accumulator.scala 52:22]
   reg [31:0] _RAND_8;
-  reg [2:0] statePrev; // @[Accumulator.scala 51:26]
+  reg [2:0] statePrev; // @[Accumulator.scala 53:26]
   reg [31:0] _RAND_9;
-  reg  last; // @[Accumulator.scala 53:21]
+  reg  last; // @[Accumulator.scala 55:21]
   reg [31:0] _RAND_10;
   wire  _T_3 = 3'h0 == state; // @[Conditional.scala 37:30]
   wire  _T_7 = 3'h1 == state; // @[Conditional.scala 37:30]
-  wire [7:0] _T_9 = io_accDepthReg - 8'h1; // @[Accumulator.scala 66:40]
-  wire [7:0] _GEN_34 = {{1'd0}, cntAcc}; // @[Accumulator.scala 66:20]
-  wire  _T_10 = _GEN_34 == _T_9; // @[Accumulator.scala 66:20]
-  wire  _T_12 = _T_10 & readEn; // @[Accumulator.scala 66:47]
-  wire  _T_13 = _T_12 & io_lastIn; // @[Accumulator.scala 66:63]
+  wire [7:0] _T_9 = io_accDepthReg - 8'h1; // @[Accumulator.scala 68:40]
+  wire [7:0] _GEN_34 = {{1'd0}, cntAcc}; // @[Accumulator.scala 68:20]
+  wire  _T_10 = _GEN_34 == _T_9; // @[Accumulator.scala 68:20]
+  wire  _T_12 = _T_10 & readEn; // @[Accumulator.scala 68:47]
+  wire  _T_13 = _T_12 & io_lastIn; // @[Accumulator.scala 68:63]
   wire  _T_21 = 3'h2 == state; // @[Conditional.scala 37:30]
-  wire  _T_23 = readEn & io_lastIn; // @[Accumulator.scala 75:26]
-  wire  _T_24 = ~io_out_ready; // @[Accumulator.scala 77:15]
-  wire  _GEN_3 = _T_24 | last; // @[Accumulator.scala 77:30]
-  wire [16:0] _T_26 = io_accWindowsReg - 17'h1; // @[Accumulator.scala 81:51]
-  wire [16:0] _GEN_36 = {{1'd0}, cntWindows}; // @[Accumulator.scala 81:29]
-  wire  _T_27 = _GEN_36 == _T_26; // @[Accumulator.scala 81:29]
-  wire  _T_29 = _T_27 & readEn; // @[Accumulator.scala 81:58]
-  wire  _T_33 = _T_29 & _T_10; // @[Accumulator.scala 81:72]
+  wire  _T_23 = readEn & io_lastIn; // @[Accumulator.scala 77:26]
+  wire  _T_24 = ~io_out_ready; // @[Accumulator.scala 79:15]
+  wire  _GEN_3 = _T_24 | last; // @[Accumulator.scala 79:30]
+  wire [16:0] _T_26 = io_accWindowsReg - 17'h1; // @[Accumulator.scala 83:51]
+  wire [16:0] _GEN_36 = {{1'd0}, cntWindows}; // @[Accumulator.scala 83:29]
+  wire  _T_27 = _GEN_36 == _T_26; // @[Accumulator.scala 83:29]
+  wire  _T_29 = _T_27 & readEn; // @[Accumulator.scala 83:58]
+  wire  _T_33 = _T_29 & _T_10; // @[Accumulator.scala 83:72]
   wire  _T_36 = 3'h3 == state; // @[Conditional.scala 37:30]
-  wire [7:0] _GEN_38 = {{1'd0}, cntLoad}; // @[Accumulator.scala 90:26]
-  wire  _T_41 = _GEN_38 == _T_9; // @[Accumulator.scala 90:26]
+  wire [7:0] _GEN_38 = {{1'd0}, cntLoad}; // @[Accumulator.scala 92:26]
+  wire  _T_41 = _GEN_38 == _T_9; // @[Accumulator.scala 92:26]
   wire  _T_42 = io_out_ready & io_out_valid; // @[Decoupled.scala 40:37]
-  wire  _T_43 = _T_41 & _T_42; // @[Accumulator.scala 90:53]
-  wire  _T_46 = _GEN_34 < _T_9; // @[Accumulator.scala 90:80]
-  wire  _T_47 = _T_43 & _T_46; // @[Accumulator.scala 90:70]
-  wire  _T_54 = _T_43 & readEn; // @[Accumulator.scala 93:70]
-  wire  _T_58 = _T_54 & _T_10; // @[Accumulator.scala 93:86]
+  wire  _T_43 = _T_41 & _T_42; // @[Accumulator.scala 92:53]
+  wire  _T_46 = _GEN_34 < _T_9; // @[Accumulator.scala 92:80]
+  wire  _T_47 = _T_43 & _T_46; // @[Accumulator.scala 92:70]
+  wire  _T_54 = _T_43 & readEn; // @[Accumulator.scala 95:70]
+  wire  _T_58 = _T_54 & _T_10; // @[Accumulator.scala 95:86]
   wire  _T_61 = 3'h4 == state; // @[Conditional.scala 37:30]
-  wire  _T_62 = state == 3'h3; // @[Accumulator.scala 105:30]
-  wire  _T_63 = state == 3'h4; // @[Accumulator.scala 105:65]
-  wire  loadingStates = _T_62 | _T_63; // @[Accumulator.scala 105:55]
-  wire  _T_64 = state == 3'h1; // @[Accumulator.scala 106:34]
-  wire  storingInitStates = _T_64 | _T_62; // @[Accumulator.scala 106:56]
-  wire  _T_66 = state == 3'h2; // @[Accumulator.scala 107:26]
-  wire  _T_67 = statePrev == 3'h1; // @[Accumulator.scala 107:62]
-  wire  _T_68 = _T_66 & _T_67; // @[Accumulator.scala 107:49]
-  wire  _T_69 = statePrev == 3'h3; // @[Accumulator.scala 107:98]
-  wire  _T_71 = _T_69 & _T_64; // @[Accumulator.scala 107:122]
-  wire  _T_72 = _T_68 | _T_71; // @[Accumulator.scala 107:84]
-  wire  _T_75 = _T_69 & _T_66; // @[Accumulator.scala 107:191]
-  wire  isTransit = _T_72 | _T_75; // @[Accumulator.scala 107:153]
-  wire  isOnlyOneFrame = _T_63 & _T_67; // @[Accumulator.scala 108:47]
-  reg  doNotScale; // @[Accumulator.scala 109:27]
+  wire  _T_62 = state == 3'h3; // @[Accumulator.scala 107:30]
+  wire  _T_63 = state == 3'h4; // @[Accumulator.scala 107:65]
+  wire  loadingStates = _T_62 | _T_63; // @[Accumulator.scala 107:55]
+  wire  _T_64 = state == 3'h1; // @[Accumulator.scala 108:34]
+  wire  storingInitStates = _T_64 | _T_62; // @[Accumulator.scala 108:56]
+  wire  _T_66 = state == 3'h2; // @[Accumulator.scala 109:26]
+  wire  _T_67 = statePrev == 3'h1; // @[Accumulator.scala 109:62]
+  wire  _T_68 = _T_66 & _T_67; // @[Accumulator.scala 109:49]
+  wire  _T_69 = statePrev == 3'h3; // @[Accumulator.scala 109:98]
+  wire  _T_71 = _T_69 & _T_64; // @[Accumulator.scala 109:122]
+  wire  _T_72 = _T_68 | _T_71; // @[Accumulator.scala 109:84]
+  wire  _T_75 = _T_69 & _T_66; // @[Accumulator.scala 109:191]
+  wire  isTransit = _T_72 | _T_75; // @[Accumulator.scala 109:153]
+  wire  isOnlyOneFrame = _T_63 & _T_67; // @[Accumulator.scala 110:47]
+  reg  doNotScale; // @[Accumulator.scala 111:27]
   reg [31:0] _RAND_11;
-  wire  _T_78 = statePrev == 3'h2; // @[Accumulator.scala 110:38]
-  wire  isPrevStoreAndAcc = _T_78 & _T_62; // @[Accumulator.scala 110:62]
-  wire  _GEN_19 = isOnlyOneFrame | doNotScale; // @[Accumulator.scala 116:24]
-  wire  _T_88 = state == 3'h0; // @[Accumulator.scala 119:15]
-  wire  _T_89 = storingInitStates | isTransit; // @[Accumulator.scala 123:28]
-  wire  _T_90 = ~isPrevStoreAndAcc; // @[Accumulator.scala 123:45]
-  wire  _T_91 = _T_89 & _T_90; // @[Accumulator.scala 123:42]
-  wire  _T_92 = _T_91 | isOnlyOneFrame; // @[Accumulator.scala 123:64]
-  wire [31:0] readVal = mem__T_189_data; // @[Accumulator.scala 43:21 Accumulator.scala 172:11]
+  wire  _T_78 = statePrev == 3'h2; // @[Accumulator.scala 112:38]
+  wire  isPrevStoreAndAcc = _T_78 & _T_62; // @[Accumulator.scala 112:62]
+  wire  _GEN_19 = isOnlyOneFrame | doNotScale; // @[Accumulator.scala 118:24]
+  wire  _T_88 = state == 3'h0; // @[Accumulator.scala 121:15]
+  wire  _T_89 = storingInitStates | isTransit; // @[Accumulator.scala 125:28]
+  wire  _T_90 = ~isPrevStoreAndAcc; // @[Accumulator.scala 125:45]
+  wire  _T_91 = _T_89 & _T_90; // @[Accumulator.scala 125:42]
+  wire  _T_92 = _T_91 | isOnlyOneFrame; // @[Accumulator.scala 125:64]
+  wire [31:0] readVal = mem__T_195_data; // @[Accumulator.scala 45:21 Accumulator.scala 174:11]
   wire [31:0] _GEN_44 = {{16{inDelayed[15]}},inDelayed}; // @[FixedPointTypeClass.scala 20:58]
   wire [31:0] _T_95 = $signed(_GEN_44) + $signed(readVal); // @[FixedPointTypeClass.scala 20:58]
-  wire [31:0] _GEN_21 = _T_92 ? $signed({{16{inDelayed[15]}},inDelayed}) : $signed(_T_95); // @[Accumulator.scala 123:83]
-  wire [6:0] _T_98 = cntAcc + 7'h1; // @[Accumulator.scala 130:22]
-  wire  _T_99 = loadingStates & io_out_ready; // @[Accumulator.scala 133:23]
-  wire [6:0] _T_101 = cntLoad + 7'h1; // @[Accumulator.scala 134:24]
-  wire [15:0] _T_111 = cntWindows + 16'h1; // @[Accumulator.scala 142:30]
-  wire  _T_115 = _T_27 & _T_12; // @[Accumulator.scala 145:49]
-  wire  _T_116 = last & io_out_ready; // @[Accumulator.scala 160:46]
-  wire [6:0] loadAddress = _T_116 ? _T_101 : cntLoad; // @[Accumulator.scala 160:40]
-  wire [6:0] readAddress = loadingStates ? loadAddress : cntAcc; // @[Accumulator.scala 167:24]
-  wire  _T_195 = io_accWindowsReg[15:8] != 8'h0; // @[CircuitMath.scala 37:22]
-  wire  _T_198 = io_accWindowsReg[15:12] != 4'h0; // @[CircuitMath.scala 37:22]
-  wire [1:0] _T_202 = io_accWindowsReg[14] ? 2'h2 : {{1'd0}, io_accWindowsReg[13]}; // @[CircuitMath.scala 32:10]
-  wire [1:0] _T_203 = io_accWindowsReg[15] ? 2'h3 : _T_202; // @[CircuitMath.scala 32:10]
-  wire [1:0] _T_207 = io_accWindowsReg[10] ? 2'h2 : {{1'd0}, io_accWindowsReg[9]}; // @[CircuitMath.scala 32:10]
-  wire [1:0] _T_208 = io_accWindowsReg[11] ? 2'h3 : _T_207; // @[CircuitMath.scala 32:10]
-  wire [1:0] _T_209 = _T_198 ? _T_203 : _T_208; // @[CircuitMath.scala 38:21]
-  wire [2:0] _T_210 = {_T_198,_T_209}; // @[Cat.scala 29:58]
-  wire  _T_213 = io_accWindowsReg[7:4] != 4'h0; // @[CircuitMath.scala 37:22]
-  wire [1:0] _T_217 = io_accWindowsReg[6] ? 2'h2 : {{1'd0}, io_accWindowsReg[5]}; // @[CircuitMath.scala 32:10]
-  wire [1:0] _T_218 = io_accWindowsReg[7] ? 2'h3 : _T_217; // @[CircuitMath.scala 32:10]
-  wire [1:0] _T_222 = io_accWindowsReg[2] ? 2'h2 : {{1'd0}, io_accWindowsReg[1]}; // @[CircuitMath.scala 32:10]
-  wire [1:0] _T_223 = io_accWindowsReg[3] ? 2'h3 : _T_222; // @[CircuitMath.scala 32:10]
-  wire [1:0] _T_224 = _T_213 ? _T_218 : _T_223; // @[CircuitMath.scala 38:21]
-  wire [2:0] _T_225 = {_T_213,_T_224}; // @[Cat.scala 29:58]
-  wire [2:0] _T_226 = _T_195 ? _T_210 : _T_225; // @[CircuitMath.scala 38:21]
-  wire [3:0] _T_227 = {_T_195,_T_226}; // @[Cat.scala 29:58]
-  wire [3:0] _T_228 = io_accWindowsReg[16] ? 4'h0 : _T_227; // @[CircuitMath.scala 38:21]
-  wire [4:0] _T_229 = {io_accWindowsReg[16],_T_228}; // @[Cat.scala 29:58]
-  wire [31:0] _T_230 = $signed(readVal) >>> _T_229; // @[FixedPointTypeClass.scala 118:51]
-  wire [31:0] _T_231 = doNotScale ? $signed(readVal) : $signed(_T_230); // @[Accumulator.scala 178:17]
-  reg [6:0] _T_232; // @[Accumulator.scala 184:22]
+  wire [31:0] _GEN_21 = _T_92 ? $signed({{16{inDelayed[15]}},inDelayed}) : $signed(_T_95); // @[Accumulator.scala 125:83]
+  wire [6:0] _T_98 = cntAcc + 7'h1; // @[Accumulator.scala 132:22]
+  wire  _T_99 = loadingStates & io_out_ready; // @[Accumulator.scala 135:23]
+  wire [6:0] _T_101 = cntLoad + 7'h1; // @[Accumulator.scala 136:24]
+  wire [15:0] _T_111 = cntWindows + 16'h1; // @[Accumulator.scala 144:30]
+  wire  _T_115 = _T_27 & _T_12; // @[Accumulator.scala 147:49]
+  wire  bools_0 = 8'h2 == io_accDepthReg; // @[Accumulator.scala 161:39]
+  wire  bools_1 = 8'h4 == io_accDepthReg; // @[Accumulator.scala 161:39]
+  wire  bools_2 = 8'h8 == io_accDepthReg; // @[Accumulator.scala 161:39]
+  wire  bools_3 = 8'h10 == io_accDepthReg; // @[Accumulator.scala 161:39]
+  wire  bools_4 = 8'h20 == io_accDepthReg; // @[Accumulator.scala 161:39]
+  wire  bools_5 = 8'h40 == io_accDepthReg; // @[Accumulator.scala 161:39]
+  wire  bools_6 = 8'h80 == io_accDepthReg; // @[Accumulator.scala 161:39]
+  wire  _T_116 = last & io_out_ready; // @[Accumulator.scala 162:46]
+  wire [6:0] loadAddressBeforeBitReverse = _T_116 ? _T_101 : cntLoad; // @[Accumulator.scala 162:40]
+  wire [1:0] _T_123 = {loadAddressBeforeBitReverse[0],loadAddressBeforeBitReverse[1]}; // @[Cat.scala 29:58]
+  wire [2:0] _T_130 = {loadAddressBeforeBitReverse[0],loadAddressBeforeBitReverse[1],loadAddressBeforeBitReverse[2]}; // @[Cat.scala 29:58]
+  wire [3:0] _T_140 = {loadAddressBeforeBitReverse[0],loadAddressBeforeBitReverse[1],loadAddressBeforeBitReverse[2],loadAddressBeforeBitReverse[3]}; // @[Cat.scala 29:58]
+  wire [4:0] _T_153 = {loadAddressBeforeBitReverse[0],loadAddressBeforeBitReverse[1],loadAddressBeforeBitReverse[2],loadAddressBeforeBitReverse[3],loadAddressBeforeBitReverse[4]}; // @[Cat.scala 29:58]
+  wire [5:0] _T_169 = {loadAddressBeforeBitReverse[0],loadAddressBeforeBitReverse[1],loadAddressBeforeBitReverse[2],loadAddressBeforeBitReverse[3],loadAddressBeforeBitReverse[4],loadAddressBeforeBitReverse[5]}; // @[Cat.scala 29:58]
+  wire [6:0] _T_188 = {loadAddressBeforeBitReverse[0],loadAddressBeforeBitReverse[1],loadAddressBeforeBitReverse[2],loadAddressBeforeBitReverse[3],loadAddressBeforeBitReverse[4],loadAddressBeforeBitReverse[5],loadAddressBeforeBitReverse[6]}; // @[Cat.scala 29:58]
+  wire [6:0] _T_189 = bools_6 ? _T_188 : 7'h0; // @[Mux.scala 87:16]
+  wire [6:0] _T_190 = bools_5 ? {{1'd0}, _T_169} : _T_189; // @[Mux.scala 87:16]
+  wire [6:0] _T_191 = bools_4 ? {{2'd0}, _T_153} : _T_190; // @[Mux.scala 87:16]
+  wire [6:0] _T_192 = bools_3 ? {{3'd0}, _T_140} : _T_191; // @[Mux.scala 87:16]
+  wire [6:0] _T_193 = bools_2 ? {{4'd0}, _T_130} : _T_192; // @[Mux.scala 87:16]
+  wire [6:0] _T_194 = bools_1 ? {{5'd0}, _T_123} : _T_193; // @[Mux.scala 87:16]
+  wire [6:0] loadAddress = bools_0 ? {{6'd0}, loadAddressBeforeBitReverse[0]} : _T_194; // @[Mux.scala 87:16]
+  wire [6:0] readAddress = loadingStates ? loadAddress : cntAcc; // @[Accumulator.scala 169:24]
+  wire  _T_201 = io_accWindowsReg[15:8] != 8'h0; // @[CircuitMath.scala 37:22]
+  wire  _T_204 = io_accWindowsReg[15:12] != 4'h0; // @[CircuitMath.scala 37:22]
+  wire [1:0] _T_208 = io_accWindowsReg[14] ? 2'h2 : {{1'd0}, io_accWindowsReg[13]}; // @[CircuitMath.scala 32:10]
+  wire [1:0] _T_209 = io_accWindowsReg[15] ? 2'h3 : _T_208; // @[CircuitMath.scala 32:10]
+  wire [1:0] _T_213 = io_accWindowsReg[10] ? 2'h2 : {{1'd0}, io_accWindowsReg[9]}; // @[CircuitMath.scala 32:10]
+  wire [1:0] _T_214 = io_accWindowsReg[11] ? 2'h3 : _T_213; // @[CircuitMath.scala 32:10]
+  wire [1:0] _T_215 = _T_204 ? _T_209 : _T_214; // @[CircuitMath.scala 38:21]
+  wire [2:0] _T_216 = {_T_204,_T_215}; // @[Cat.scala 29:58]
+  wire  _T_219 = io_accWindowsReg[7:4] != 4'h0; // @[CircuitMath.scala 37:22]
+  wire [1:0] _T_223 = io_accWindowsReg[6] ? 2'h2 : {{1'd0}, io_accWindowsReg[5]}; // @[CircuitMath.scala 32:10]
+  wire [1:0] _T_224 = io_accWindowsReg[7] ? 2'h3 : _T_223; // @[CircuitMath.scala 32:10]
+  wire [1:0] _T_228 = io_accWindowsReg[2] ? 2'h2 : {{1'd0}, io_accWindowsReg[1]}; // @[CircuitMath.scala 32:10]
+  wire [1:0] _T_229 = io_accWindowsReg[3] ? 2'h3 : _T_228; // @[CircuitMath.scala 32:10]
+  wire [1:0] _T_230 = _T_219 ? _T_224 : _T_229; // @[CircuitMath.scala 38:21]
+  wire [2:0] _T_231 = {_T_219,_T_230}; // @[Cat.scala 29:58]
+  wire [2:0] _T_232 = _T_201 ? _T_216 : _T_231; // @[CircuitMath.scala 38:21]
+  wire [3:0] _T_233 = {_T_201,_T_232}; // @[Cat.scala 29:58]
+  wire [3:0] _T_234 = io_accWindowsReg[16] ? 4'h0 : _T_233; // @[CircuitMath.scala 38:21]
+  wire [4:0] _T_235 = {io_accWindowsReg[16],_T_234}; // @[Cat.scala 29:58]
+  wire [31:0] _T_236 = $signed(readVal) >>> _T_235; // @[FixedPointTypeClass.scala 118:51]
+  wire [31:0] _T_237 = doNotScale ? $signed(readVal) : $signed(_T_236); // @[Accumulator.scala 180:17]
+  reg [6:0] _T_238; // @[Accumulator.scala 186:22]
   reg [31:0] _RAND_12;
-  wire [31:0] writeVal = _GEN_21; // @[Accumulator.scala 44:22 Accumulator.scala 124:14 Accumulator.scala 127:14]
-  reg  _T_236; // @[Accumulator.scala 187:26]
+  wire [31:0] writeVal = _GEN_21; // @[Accumulator.scala 46:22 Accumulator.scala 126:14 Accumulator.scala 129:14]
+  reg  _T_242; // @[Accumulator.scala 189:26]
   reg [31:0] _RAND_13;
-  wire  _T_237 = state != 3'h0; // @[Accumulator.scala 187:51]
-  reg [6:0] _T_239; // @[Accumulator.scala 188:27]
+  wire  _T_243 = state != 3'h0; // @[Accumulator.scala 189:51]
+  reg [6:0] _T_245; // @[Accumulator.scala 190:27]
   reg [31:0] _RAND_14;
-  wire [7:0] _GEN_47 = {{1'd0}, _T_239}; // @[Accumulator.scala 188:57]
-  wire  _T_242 = _GEN_47 == _T_9; // @[Accumulator.scala 188:57]
-  wire  _T_244 = _T_242 & _T_42; // @[Accumulator.scala 188:84]
-  wire  _T_247 = ~loadingStates; // @[Accumulator.scala 193:22]
-  wire  _T_248 = state != 3'h4; // @[Accumulator.scala 193:63]
-  wire  _T_249 = io_out_ready & _T_248; // @[Accumulator.scala 193:54]
-  assign mem__T_189_addr = mem__T_189_addr_pipe_0;
-  assign mem__T_189_data = mem[mem__T_189_addr]; // @[Accumulator.scala 35:24]
-  assign mem__T_235_data = writeVal;
-  assign mem__T_235_addr = _T_232;
-  assign mem__T_235_mask = 1'h1;
-  assign mem__T_235_en = writeEn;
-  assign io_in_ready = _T_247 | _T_249; // @[Accumulator.scala 193:18]
-  assign io_out_valid = _T_236 & _T_237; // @[Accumulator.scala 187:16]
-  assign io_out_bits = _T_231[15:0]; // @[Accumulator.scala 190:16]
-  assign io_lastOut = _T_244 & _T_63; // @[Accumulator.scala 188:16]
+  wire [7:0] _GEN_47 = {{1'd0}, _T_245}; // @[Accumulator.scala 190:57]
+  wire  _T_248 = _GEN_47 == _T_9; // @[Accumulator.scala 190:57]
+  wire  _T_250 = _T_248 & _T_42; // @[Accumulator.scala 190:84]
+  assign mem__T_195_addr = mem__T_195_addr_pipe_0;
+  assign mem__T_195_data = mem[mem__T_195_addr]; // @[Accumulator.scala 37:24]
+  assign mem__T_241_data = writeVal;
+  assign mem__T_241_addr = _T_238;
+  assign mem__T_241_mask = 1'h1;
+  assign mem__T_241_en = writeEn;
+  assign io_in_ready = ~loadingStates; // @[Accumulator.scala 198:18]
+  assign io_out_valid = _T_242 & _T_243; // @[Accumulator.scala 189:16]
+  assign io_out_bits = _T_237[15:0]; // @[Accumulator.scala 192:16]
+  assign io_lastOut = _T_250 & _T_63; // @[Accumulator.scala 190:16]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -13742,11 +13643,11 @@ initial begin
   `endif // RANDOMIZE_MEM_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_1 = {1{`RANDOM}};
-  mem__T_189_en_pipe_0 = _RAND_1[0:0];
+  mem__T_195_en_pipe_0 = _RAND_1[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_2 = {1{`RANDOM}};
-  mem__T_189_addr_pipe_0 = _RAND_2[6:0];
+  mem__T_195_addr_pipe_0 = _RAND_2[6:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_3 = {1{`RANDOM}};
@@ -13786,32 +13687,44 @@ initial begin
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_12 = {1{`RANDOM}};
-  _T_232 = _RAND_12[6:0];
+  _T_238 = _RAND_12[6:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_13 = {1{`RANDOM}};
-  _T_236 = _RAND_13[0:0];
+  _T_242 = _RAND_13[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_14 = {1{`RANDOM}};
-  _T_239 = _RAND_14[6:0];
+  _T_245 = _RAND_14[6:0];
   `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
 `endif // SYNTHESIS
   always @(posedge clock) begin
-    if(mem__T_235_en & mem__T_235_mask) begin
-      mem[mem__T_235_addr] <= mem__T_235_data; // @[Accumulator.scala 35:24]
+    if(mem__T_241_en & mem__T_241_mask) begin
+      mem[mem__T_241_addr] <= mem__T_241_data; // @[Accumulator.scala 37:24]
     end
-    mem__T_189_en_pipe_0 <= 1'h1;
+    mem__T_195_en_pipe_0 <= 1'h1;
     if (loadingStates) begin
-      if (_T_116) begin
-        mem__T_189_addr_pipe_0 <= _T_101;
+      if (bools_0) begin
+        mem__T_195_addr_pipe_0 <= {{6'd0}, loadAddressBeforeBitReverse[0]};
+      end else if (bools_1) begin
+        mem__T_195_addr_pipe_0 <= {{5'd0}, _T_123};
+      end else if (bools_2) begin
+        mem__T_195_addr_pipe_0 <= {{4'd0}, _T_130};
+      end else if (bools_3) begin
+        mem__T_195_addr_pipe_0 <= {{3'd0}, _T_140};
+      end else if (bools_4) begin
+        mem__T_195_addr_pipe_0 <= {{2'd0}, _T_153};
+      end else if (bools_5) begin
+        mem__T_195_addr_pipe_0 <= {{1'd0}, _T_169};
+      end else if (bools_6) begin
+        mem__T_195_addr_pipe_0 <= _T_188;
       end else begin
-        mem__T_189_addr_pipe_0 <= cntLoad;
+        mem__T_195_addr_pipe_0 <= 7'h0;
       end
     end else begin
-      mem__T_189_addr_pipe_0 <= cntAcc;
+      mem__T_195_addr_pipe_0 <= cntAcc;
     end
     if (reset) begin
       writeEn <= 1'h0;
@@ -13896,12 +13809,12 @@ end // initial
     end else begin
       doNotScale <= _GEN_19;
     end
-    _T_232 <= cntAcc;
-    _T_236 <= _T_62 | _T_63;
+    _T_238 <= cntAcc;
+    _T_242 <= _T_62 | _T_63;
     if (_T_116) begin
-      _T_239 <= _T_101;
+      _T_245 <= _T_101;
     end else begin
-      _T_239 <= cntLoad;
+      _T_245 <= cntLoad;
     end
   end
 endmodule
@@ -13937,18 +13850,18 @@ module AXI4AccumulatorBlock(
   input  [31:0] auto_slave_in_bits_data,
   input         auto_slave_in_bits_last
 );
-  wire  acc_clock; // @[AccDspBlock.scala 39:21]
-  wire  acc_reset; // @[AccDspBlock.scala 39:21]
-  wire  acc_io_in_ready; // @[AccDspBlock.scala 39:21]
-  wire  acc_io_in_valid; // @[AccDspBlock.scala 39:21]
-  wire [15:0] acc_io_in_bits; // @[AccDspBlock.scala 39:21]
-  wire  acc_io_lastIn; // @[AccDspBlock.scala 39:21]
-  wire [7:0] acc_io_accDepthReg; // @[AccDspBlock.scala 39:21]
-  wire [16:0] acc_io_accWindowsReg; // @[AccDspBlock.scala 39:21]
-  wire  acc_io_out_ready; // @[AccDspBlock.scala 39:21]
-  wire  acc_io_out_valid; // @[AccDspBlock.scala 39:21]
-  wire [15:0] acc_io_out_bits; // @[AccDspBlock.scala 39:21]
-  wire  acc_io_lastOut; // @[AccDspBlock.scala 39:21]
+  wire  acc_clock; // @[AccDspBlock.scala 41:21]
+  wire  acc_reset; // @[AccDspBlock.scala 41:21]
+  wire  acc_io_in_ready; // @[AccDspBlock.scala 41:21]
+  wire  acc_io_in_valid; // @[AccDspBlock.scala 41:21]
+  wire [15:0] acc_io_in_bits; // @[AccDspBlock.scala 41:21]
+  wire  acc_io_lastIn; // @[AccDspBlock.scala 41:21]
+  wire [7:0] acc_io_accDepthReg; // @[AccDspBlock.scala 41:21]
+  wire [16:0] acc_io_accWindowsReg; // @[AccDspBlock.scala 41:21]
+  wire  acc_io_out_ready; // @[AccDspBlock.scala 41:21]
+  wire  acc_io_out_valid; // @[AccDspBlock.scala 41:21]
+  wire [15:0] acc_io_out_bits; // @[AccDspBlock.scala 41:21]
+  wire  acc_io_lastOut; // @[AccDspBlock.scala 41:21]
   wire  Queue_clock; // @[Decoupled.scala 296:21]
   wire  Queue_reset; // @[Decoupled.scala 296:21]
   wire  Queue_io_enq_ready; // @[Decoupled.scala 296:21]
@@ -13961,9 +13874,9 @@ module AXI4AccumulatorBlock(
   wire  Queue_io_deq_bits_read; // @[Decoupled.scala 296:21]
   wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
   wire  Queue_io_deq_bits_extra; // @[Decoupled.scala 296:21]
-  reg [7:0] accDepth; // @[AccDspBlock.scala 42:34]
+  reg [7:0] accDepth; // @[AccDspBlock.scala 44:34]
   reg [31:0] _RAND_0;
-  reg [16:0] numWin; // @[AccDspBlock.scala 43:34]
+  reg [16:0] numWin; // @[AccDspBlock.scala 45:34]
   reg [31:0] _RAND_1;
   wire  _T_2 = auto_mem_in_aw_valid & auto_mem_in_w_valid; // @[RegisterRouter.scala 40:39]
   wire  _T_3 = auto_mem_in_ar_valid | _T_2; // @[RegisterRouter.scala 40:26]
@@ -14019,8 +13932,8 @@ module AXI4AccumulatorBlock(
   wire  _T_221_bits_read = Queue_io_deq_bits_read; // @[Decoupled.scala 317:19 Decoupled.scala 318:14]
   wire  _T_221_valid = Queue_io_deq_valid; // @[Decoupled.scala 317:19 Decoupled.scala 319:15]
   wire  _T_224 = ~_T_221_bits_read; // @[RegisterRouter.scala 65:29]
-  wire [31:0] _T_228 = auto_slave_in_bits_data; // @[AccDspBlock.scala 63:48]
-  Accumulator acc ( // @[AccDspBlock.scala 39:21]
+  wire [31:0] _T_228 = auto_slave_in_bits_data; // @[AccDspBlock.scala 65:48]
+  Accumulator acc ( // @[AccDspBlock.scala 41:21]
     .clock(acc_clock),
     .reset(acc_reset),
     .io_in_ready(acc_io_in_ready),
@@ -14062,12 +13975,12 @@ module AXI4AccumulatorBlock(
   assign auto_slave_in_ready = acc_io_in_ready; // @[LazyModule.scala 173:31]
   assign acc_clock = clock;
   assign acc_reset = reset;
-  assign acc_io_in_valid = auto_slave_in_valid; // @[AccDspBlock.scala 61:24]
-  assign acc_io_in_bits = _T_228[15:0]; // @[AccDspBlock.scala 63:24]
-  assign acc_io_lastIn = auto_slave_in_bits_last; // @[AccDspBlock.scala 66:24]
-  assign acc_io_accDepthReg = accDepth; // @[AccDspBlock.scala 45:26]
-  assign acc_io_accWindowsReg = numWin; // @[AccDspBlock.scala 46:26]
-  assign acc_io_out_ready = auto_master_out_ready; // @[AccDspBlock.scala 70:22]
+  assign acc_io_in_valid = auto_slave_in_valid; // @[AccDspBlock.scala 63:24]
+  assign acc_io_in_bits = _T_228[15:0]; // @[AccDspBlock.scala 65:24]
+  assign acc_io_lastIn = auto_slave_in_bits_last; // @[AccDspBlock.scala 68:24]
+  assign acc_io_accDepthReg = accDepth; // @[AccDspBlock.scala 47:26]
+  assign acc_io_accWindowsReg = numWin; // @[AccDspBlock.scala 48:26]
+  assign acc_io_out_ready = auto_master_out_ready; // @[AccDspBlock.scala 72:22]
   assign Queue_clock = clock;
   assign Queue_reset = reset;
   assign Queue_io_enq_valid = auto_mem_in_ar_valid | _T_2; // @[Decoupled.scala 297:22]
@@ -14130,7 +14043,7 @@ end // initial
     end
   end
 endmodule
-module Queue_22(
+module Queue_21(
   input         clock,
   input         reset,
   output        io_enq_ready,
@@ -14269,7 +14182,7 @@ end // initial
     end
   end
 endmodule
-module Queue_23(
+module Queue_22(
   input         clock,
   input         reset,
   output        io_enq_ready,
@@ -14599,7 +14512,7 @@ module AXI4DspQueueBlock(
   wire  _T_178_bits_read = Queue_1_io_deq_bits_read; // @[Decoupled.scala 317:19 Decoupled.scala 318:14]
   wire  _T_178_valid = Queue_1_io_deq_valid; // @[Decoupled.scala 317:19 Decoupled.scala 319:15]
   wire  _T_181 = ~_T_178_bits_read; // @[RegisterRouter.scala 65:29]
-  Queue_22 queuedStream ( // @[Decoupled.scala 296:21]
+  Queue_21 queuedStream ( // @[Decoupled.scala 296:21]
     .clock(queuedStream_clock),
     .reset(queuedStream_reset),
     .io_enq_ready(queuedStream_io_enq_ready),
@@ -14611,7 +14524,7 @@ module AXI4DspQueueBlock(
     .io_deq_bits_data(queuedStream_io_deq_bits_data),
     .io_deq_bits_last(queuedStream_io_deq_bits_last)
   );
-  Queue_23 Queue ( // @[Decoupled.scala 296:21]
+  Queue_22 Queue ( // @[Decoupled.scala 296:21]
     .clock(Queue_clock),
     .reset(Queue_reset),
     .io_enq_ready(Queue_io_enq_ready),
@@ -14660,7 +14573,7 @@ module AXI4DspQueueBlock(
   assign queuedStream_io_enq_valid = auto_stream_in_valid; // @[Decoupled.scala 297:22]
   assign queuedStream_io_enq_bits_data = auto_stream_in_bits_data; // @[Decoupled.scala 298:21]
   assign queuedStream_io_enq_bits_last = auto_stream_in_bits_last; // @[Decoupled.scala 298:21]
-  assign queuedStream_io_deq_ready = auto_stream_out_ready; // @[DspQueueBlock.scala 25:13]
+  assign queuedStream_io_deq_ready = auto_stream_out_ready; // @[DspQueueBlock.scala 27:13]
   assign Queue_clock = clock;
   assign Queue_reset = reset;
   assign Queue_io_enq_valid = auto_in_ar_valid | _T_8; // @[Decoupled.scala 297:22]
@@ -15447,7 +15360,7 @@ end // initial
     `endif // SYNTHESIS
   end
 endmodule
-module Queue_25(
+module Queue_24(
   input         clock,
   input         reset,
   output        io_enq_ready,
@@ -15611,7 +15524,7 @@ end // initial
     end
   end
 endmodule
-module Queue_26(
+module Queue_25(
   input         clock,
   input         reset,
   output        io_enq_ready,
@@ -15775,7 +15688,7 @@ end // initial
     end
   end
 endmodule
-module Queue_27(
+module Queue_26(
   input        clock,
   input        reset,
   output       io_enq_ready,
@@ -15914,7 +15827,7 @@ end // initial
     end
   end
 endmodule
-module Queue_29(
+module Queue_28(
   input         clock,
   input         reset,
   output        io_enq_ready,
@@ -16216,7 +16129,7 @@ module AXI4Buffer(
   wire [31:0] Queue_4_io_deq_bits_data; // @[Decoupled.scala 296:21]
   wire [1:0] Queue_4_io_deq_bits_resp; // @[Decoupled.scala 296:21]
   wire  Queue_4_io_deq_bits_last; // @[Decoupled.scala 296:21]
-  Queue_25 Queue ( // @[Decoupled.scala 296:21]
+  Queue_24 Queue ( // @[Decoupled.scala 296:21]
     .clock(Queue_clock),
     .reset(Queue_reset),
     .io_enq_ready(Queue_io_enq_ready),
@@ -16230,7 +16143,7 @@ module AXI4Buffer(
     .io_deq_bits_addr(Queue_io_deq_bits_addr),
     .io_deq_bits_size(Queue_io_deq_bits_size)
   );
-  Queue_26 Queue_1 ( // @[Decoupled.scala 296:21]
+  Queue_25 Queue_1 ( // @[Decoupled.scala 296:21]
     .clock(Queue_1_clock),
     .reset(Queue_1_reset),
     .io_enq_ready(Queue_1_io_enq_ready),
@@ -16244,7 +16157,7 @@ module AXI4Buffer(
     .io_deq_bits_strb(Queue_1_io_deq_bits_strb),
     .io_deq_bits_last(Queue_1_io_deq_bits_last)
   );
-  Queue_27 Queue_2 ( // @[Decoupled.scala 296:21]
+  Queue_26 Queue_2 ( // @[Decoupled.scala 296:21]
     .clock(Queue_2_clock),
     .reset(Queue_2_reset),
     .io_enq_ready(Queue_2_io_enq_ready),
@@ -16256,7 +16169,7 @@ module AXI4Buffer(
     .io_deq_bits_id(Queue_2_io_deq_bits_id),
     .io_deq_bits_resp(Queue_2_io_deq_bits_resp)
   );
-  Queue_25 Queue_3 ( // @[Decoupled.scala 296:21]
+  Queue_24 Queue_3 ( // @[Decoupled.scala 296:21]
     .clock(Queue_3_clock),
     .reset(Queue_3_reset),
     .io_enq_ready(Queue_3_io_enq_ready),
@@ -16270,7 +16183,7 @@ module AXI4Buffer(
     .io_deq_bits_addr(Queue_3_io_deq_bits_addr),
     .io_deq_bits_size(Queue_3_io_deq_bits_size)
   );
-  Queue_29 Queue_4 ( // @[Decoupled.scala 296:21]
+  Queue_28 Queue_4 ( // @[Decoupled.scala 296:21]
     .clock(Queue_4_clock),
     .reset(Queue_4_reset),
     .io_enq_ready(Queue_4_io_enq_ready),
@@ -16381,141 +16294,141 @@ module AccumulatorChain(
   input  [31:0] auto_accumulator_slave_in_bits_data,
   input         auto_accumulator_slave_in_bits_last
 );
-  wire  accumulator_clock; // @[AccChain.scala 27:30]
-  wire  accumulator_reset; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_mem_in_aw_ready; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_mem_in_aw_valid; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_mem_in_aw_bits_id; // @[AccChain.scala 27:30]
-  wire [29:0] accumulator_auto_mem_in_aw_bits_addr; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_mem_in_w_ready; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_mem_in_w_valid; // @[AccChain.scala 27:30]
-  wire [31:0] accumulator_auto_mem_in_w_bits_data; // @[AccChain.scala 27:30]
-  wire [3:0] accumulator_auto_mem_in_w_bits_strb; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_mem_in_b_ready; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_mem_in_b_valid; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_mem_in_b_bits_id; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_mem_in_ar_ready; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_mem_in_ar_valid; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_mem_in_ar_bits_id; // @[AccChain.scala 27:30]
-  wire [29:0] accumulator_auto_mem_in_ar_bits_addr; // @[AccChain.scala 27:30]
-  wire [2:0] accumulator_auto_mem_in_ar_bits_size; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_mem_in_r_ready; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_mem_in_r_valid; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_mem_in_r_bits_id; // @[AccChain.scala 27:30]
-  wire [31:0] accumulator_auto_mem_in_r_bits_data; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_master_out_ready; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_master_out_valid; // @[AccChain.scala 27:30]
-  wire [15:0] accumulator_auto_master_out_bits_data; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_master_out_bits_last; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_slave_in_ready; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_slave_in_valid; // @[AccChain.scala 27:30]
-  wire [31:0] accumulator_auto_slave_in_bits_data; // @[AccChain.scala 27:30]
-  wire  accumulator_auto_slave_in_bits_last; // @[AccChain.scala 27:30]
-  wire  dspQueue_clock; // @[AccChain.scala 29:27]
-  wire  dspQueue_reset; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_stream_in_ready; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_stream_in_valid; // @[AccChain.scala 29:27]
-  wire [15:0] dspQueue_auto_stream_in_bits_data; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_stream_in_bits_last; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_stream_out_ready; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_stream_out_valid; // @[AccChain.scala 29:27]
-  wire [15:0] dspQueue_auto_stream_out_bits_data; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_stream_out_bits_last; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_in_aw_ready; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_in_aw_valid; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_in_aw_bits_id; // @[AccChain.scala 29:27]
-  wire [29:0] dspQueue_auto_in_aw_bits_addr; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_in_w_ready; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_in_w_valid; // @[AccChain.scala 29:27]
-  wire [31:0] dspQueue_auto_in_w_bits_data; // @[AccChain.scala 29:27]
-  wire [3:0] dspQueue_auto_in_w_bits_strb; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_in_b_ready; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_in_b_valid; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_in_b_bits_id; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_in_ar_ready; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_in_ar_valid; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_in_ar_bits_id; // @[AccChain.scala 29:27]
-  wire [29:0] dspQueue_auto_in_ar_bits_addr; // @[AccChain.scala 29:27]
-  wire [2:0] dspQueue_auto_in_ar_bits_size; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_in_r_ready; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_in_r_valid; // @[AccChain.scala 29:27]
-  wire  dspQueue_auto_in_r_bits_id; // @[AccChain.scala 29:27]
-  wire [31:0] dspQueue_auto_in_r_bits_data; // @[AccChain.scala 29:27]
-  wire  bus_clock; // @[AccChain.scala 44:23]
-  wire  bus_reset; // @[AccChain.scala 44:23]
-  wire  bus_auto_in_aw_ready; // @[AccChain.scala 44:23]
-  wire  bus_auto_in_aw_valid; // @[AccChain.scala 44:23]
-  wire  bus_auto_in_aw_bits_id; // @[AccChain.scala 44:23]
-  wire [29:0] bus_auto_in_aw_bits_addr; // @[AccChain.scala 44:23]
-  wire [2:0] bus_auto_in_aw_bits_size; // @[AccChain.scala 44:23]
-  wire  bus_auto_in_w_ready; // @[AccChain.scala 44:23]
-  wire  bus_auto_in_w_valid; // @[AccChain.scala 44:23]
-  wire [31:0] bus_auto_in_w_bits_data; // @[AccChain.scala 44:23]
-  wire [3:0] bus_auto_in_w_bits_strb; // @[AccChain.scala 44:23]
-  wire  bus_auto_in_w_bits_last; // @[AccChain.scala 44:23]
-  wire  bus_auto_in_b_ready; // @[AccChain.scala 44:23]
-  wire  bus_auto_in_b_valid; // @[AccChain.scala 44:23]
-  wire [1:0] bus_auto_in_b_bits_resp; // @[AccChain.scala 44:23]
-  wire  bus_auto_in_ar_ready; // @[AccChain.scala 44:23]
-  wire  bus_auto_in_ar_valid; // @[AccChain.scala 44:23]
-  wire  bus_auto_in_ar_bits_id; // @[AccChain.scala 44:23]
-  wire [29:0] bus_auto_in_ar_bits_addr; // @[AccChain.scala 44:23]
-  wire [2:0] bus_auto_in_ar_bits_size; // @[AccChain.scala 44:23]
-  wire  bus_auto_in_r_ready; // @[AccChain.scala 44:23]
-  wire  bus_auto_in_r_valid; // @[AccChain.scala 44:23]
-  wire [31:0] bus_auto_in_r_bits_data; // @[AccChain.scala 44:23]
-  wire [1:0] bus_auto_in_r_bits_resp; // @[AccChain.scala 44:23]
-  wire  bus_auto_in_r_bits_last; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_1_aw_ready; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_1_aw_valid; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_1_aw_bits_id; // @[AccChain.scala 44:23]
-  wire [29:0] bus_auto_out_1_aw_bits_addr; // @[AccChain.scala 44:23]
-  wire [2:0] bus_auto_out_1_aw_bits_size; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_1_w_ready; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_1_w_valid; // @[AccChain.scala 44:23]
-  wire [31:0] bus_auto_out_1_w_bits_data; // @[AccChain.scala 44:23]
-  wire [3:0] bus_auto_out_1_w_bits_strb; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_1_w_bits_last; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_1_b_ready; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_1_b_valid; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_1_b_bits_id; // @[AccChain.scala 44:23]
-  wire [1:0] bus_auto_out_1_b_bits_resp; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_1_ar_ready; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_1_ar_valid; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_1_ar_bits_id; // @[AccChain.scala 44:23]
-  wire [29:0] bus_auto_out_1_ar_bits_addr; // @[AccChain.scala 44:23]
-  wire [2:0] bus_auto_out_1_ar_bits_size; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_1_r_ready; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_1_r_valid; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_1_r_bits_id; // @[AccChain.scala 44:23]
-  wire [31:0] bus_auto_out_1_r_bits_data; // @[AccChain.scala 44:23]
-  wire [1:0] bus_auto_out_1_r_bits_resp; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_1_r_bits_last; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_0_aw_ready; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_0_aw_valid; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_0_aw_bits_id; // @[AccChain.scala 44:23]
-  wire [29:0] bus_auto_out_0_aw_bits_addr; // @[AccChain.scala 44:23]
-  wire [2:0] bus_auto_out_0_aw_bits_size; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_0_w_ready; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_0_w_valid; // @[AccChain.scala 44:23]
-  wire [31:0] bus_auto_out_0_w_bits_data; // @[AccChain.scala 44:23]
-  wire [3:0] bus_auto_out_0_w_bits_strb; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_0_w_bits_last; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_0_b_ready; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_0_b_valid; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_0_b_bits_id; // @[AccChain.scala 44:23]
-  wire [1:0] bus_auto_out_0_b_bits_resp; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_0_ar_ready; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_0_ar_valid; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_0_ar_bits_id; // @[AccChain.scala 44:23]
-  wire [29:0] bus_auto_out_0_ar_bits_addr; // @[AccChain.scala 44:23]
-  wire [2:0] bus_auto_out_0_ar_bits_size; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_0_r_ready; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_0_r_valid; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_0_r_bits_id; // @[AccChain.scala 44:23]
-  wire [31:0] bus_auto_out_0_r_bits_data; // @[AccChain.scala 44:23]
-  wire [1:0] bus_auto_out_0_r_bits_resp; // @[AccChain.scala 44:23]
-  wire  bus_auto_out_0_r_bits_last; // @[AccChain.scala 44:23]
+  wire  accumulator_clock; // @[AccChain.scala 29:30]
+  wire  accumulator_reset; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_mem_in_aw_ready; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_mem_in_aw_valid; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_mem_in_aw_bits_id; // @[AccChain.scala 29:30]
+  wire [29:0] accumulator_auto_mem_in_aw_bits_addr; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_mem_in_w_ready; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_mem_in_w_valid; // @[AccChain.scala 29:30]
+  wire [31:0] accumulator_auto_mem_in_w_bits_data; // @[AccChain.scala 29:30]
+  wire [3:0] accumulator_auto_mem_in_w_bits_strb; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_mem_in_b_ready; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_mem_in_b_valid; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_mem_in_b_bits_id; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_mem_in_ar_ready; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_mem_in_ar_valid; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_mem_in_ar_bits_id; // @[AccChain.scala 29:30]
+  wire [29:0] accumulator_auto_mem_in_ar_bits_addr; // @[AccChain.scala 29:30]
+  wire [2:0] accumulator_auto_mem_in_ar_bits_size; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_mem_in_r_ready; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_mem_in_r_valid; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_mem_in_r_bits_id; // @[AccChain.scala 29:30]
+  wire [31:0] accumulator_auto_mem_in_r_bits_data; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_master_out_ready; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_master_out_valid; // @[AccChain.scala 29:30]
+  wire [15:0] accumulator_auto_master_out_bits_data; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_master_out_bits_last; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_slave_in_ready; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_slave_in_valid; // @[AccChain.scala 29:30]
+  wire [31:0] accumulator_auto_slave_in_bits_data; // @[AccChain.scala 29:30]
+  wire  accumulator_auto_slave_in_bits_last; // @[AccChain.scala 29:30]
+  wire  dspQueue_clock; // @[AccChain.scala 31:27]
+  wire  dspQueue_reset; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_stream_in_ready; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_stream_in_valid; // @[AccChain.scala 31:27]
+  wire [15:0] dspQueue_auto_stream_in_bits_data; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_stream_in_bits_last; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_stream_out_ready; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_stream_out_valid; // @[AccChain.scala 31:27]
+  wire [15:0] dspQueue_auto_stream_out_bits_data; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_stream_out_bits_last; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_in_aw_ready; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_in_aw_valid; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_in_aw_bits_id; // @[AccChain.scala 31:27]
+  wire [29:0] dspQueue_auto_in_aw_bits_addr; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_in_w_ready; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_in_w_valid; // @[AccChain.scala 31:27]
+  wire [31:0] dspQueue_auto_in_w_bits_data; // @[AccChain.scala 31:27]
+  wire [3:0] dspQueue_auto_in_w_bits_strb; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_in_b_ready; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_in_b_valid; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_in_b_bits_id; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_in_ar_ready; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_in_ar_valid; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_in_ar_bits_id; // @[AccChain.scala 31:27]
+  wire [29:0] dspQueue_auto_in_ar_bits_addr; // @[AccChain.scala 31:27]
+  wire [2:0] dspQueue_auto_in_ar_bits_size; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_in_r_ready; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_in_r_valid; // @[AccChain.scala 31:27]
+  wire  dspQueue_auto_in_r_bits_id; // @[AccChain.scala 31:27]
+  wire [31:0] dspQueue_auto_in_r_bits_data; // @[AccChain.scala 31:27]
+  wire  bus_clock; // @[AccChain.scala 46:23]
+  wire  bus_reset; // @[AccChain.scala 46:23]
+  wire  bus_auto_in_aw_ready; // @[AccChain.scala 46:23]
+  wire  bus_auto_in_aw_valid; // @[AccChain.scala 46:23]
+  wire  bus_auto_in_aw_bits_id; // @[AccChain.scala 46:23]
+  wire [29:0] bus_auto_in_aw_bits_addr; // @[AccChain.scala 46:23]
+  wire [2:0] bus_auto_in_aw_bits_size; // @[AccChain.scala 46:23]
+  wire  bus_auto_in_w_ready; // @[AccChain.scala 46:23]
+  wire  bus_auto_in_w_valid; // @[AccChain.scala 46:23]
+  wire [31:0] bus_auto_in_w_bits_data; // @[AccChain.scala 46:23]
+  wire [3:0] bus_auto_in_w_bits_strb; // @[AccChain.scala 46:23]
+  wire  bus_auto_in_w_bits_last; // @[AccChain.scala 46:23]
+  wire  bus_auto_in_b_ready; // @[AccChain.scala 46:23]
+  wire  bus_auto_in_b_valid; // @[AccChain.scala 46:23]
+  wire [1:0] bus_auto_in_b_bits_resp; // @[AccChain.scala 46:23]
+  wire  bus_auto_in_ar_ready; // @[AccChain.scala 46:23]
+  wire  bus_auto_in_ar_valid; // @[AccChain.scala 46:23]
+  wire  bus_auto_in_ar_bits_id; // @[AccChain.scala 46:23]
+  wire [29:0] bus_auto_in_ar_bits_addr; // @[AccChain.scala 46:23]
+  wire [2:0] bus_auto_in_ar_bits_size; // @[AccChain.scala 46:23]
+  wire  bus_auto_in_r_ready; // @[AccChain.scala 46:23]
+  wire  bus_auto_in_r_valid; // @[AccChain.scala 46:23]
+  wire [31:0] bus_auto_in_r_bits_data; // @[AccChain.scala 46:23]
+  wire [1:0] bus_auto_in_r_bits_resp; // @[AccChain.scala 46:23]
+  wire  bus_auto_in_r_bits_last; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_1_aw_ready; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_1_aw_valid; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_1_aw_bits_id; // @[AccChain.scala 46:23]
+  wire [29:0] bus_auto_out_1_aw_bits_addr; // @[AccChain.scala 46:23]
+  wire [2:0] bus_auto_out_1_aw_bits_size; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_1_w_ready; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_1_w_valid; // @[AccChain.scala 46:23]
+  wire [31:0] bus_auto_out_1_w_bits_data; // @[AccChain.scala 46:23]
+  wire [3:0] bus_auto_out_1_w_bits_strb; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_1_w_bits_last; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_1_b_ready; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_1_b_valid; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_1_b_bits_id; // @[AccChain.scala 46:23]
+  wire [1:0] bus_auto_out_1_b_bits_resp; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_1_ar_ready; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_1_ar_valid; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_1_ar_bits_id; // @[AccChain.scala 46:23]
+  wire [29:0] bus_auto_out_1_ar_bits_addr; // @[AccChain.scala 46:23]
+  wire [2:0] bus_auto_out_1_ar_bits_size; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_1_r_ready; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_1_r_valid; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_1_r_bits_id; // @[AccChain.scala 46:23]
+  wire [31:0] bus_auto_out_1_r_bits_data; // @[AccChain.scala 46:23]
+  wire [1:0] bus_auto_out_1_r_bits_resp; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_1_r_bits_last; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_0_aw_ready; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_0_aw_valid; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_0_aw_bits_id; // @[AccChain.scala 46:23]
+  wire [29:0] bus_auto_out_0_aw_bits_addr; // @[AccChain.scala 46:23]
+  wire [2:0] bus_auto_out_0_aw_bits_size; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_0_w_ready; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_0_w_valid; // @[AccChain.scala 46:23]
+  wire [31:0] bus_auto_out_0_w_bits_data; // @[AccChain.scala 46:23]
+  wire [3:0] bus_auto_out_0_w_bits_strb; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_0_w_bits_last; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_0_b_ready; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_0_b_valid; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_0_b_bits_id; // @[AccChain.scala 46:23]
+  wire [1:0] bus_auto_out_0_b_bits_resp; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_0_ar_ready; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_0_ar_valid; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_0_ar_bits_id; // @[AccChain.scala 46:23]
+  wire [29:0] bus_auto_out_0_ar_bits_addr; // @[AccChain.scala 46:23]
+  wire [2:0] bus_auto_out_0_ar_bits_size; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_0_r_ready; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_0_r_valid; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_0_r_bits_id; // @[AccChain.scala 46:23]
+  wire [31:0] bus_auto_out_0_r_bits_data; // @[AccChain.scala 46:23]
+  wire [1:0] bus_auto_out_0_r_bits_resp; // @[AccChain.scala 46:23]
+  wire  bus_auto_out_0_r_bits_last; // @[AccChain.scala 46:23]
   wire  axi4buf_clock; // @[Buffer.scala 58:29]
   wire  axi4buf_reset; // @[Buffer.scala 58:29]
   wire  axi4buf_auto_in_aw_ready; // @[Buffer.scala 58:29]
@@ -16618,7 +16531,7 @@ module AccumulatorChain(
   wire [31:0] axi4buf_1_auto_out_r_bits_data; // @[Buffer.scala 58:29]
   wire [1:0] axi4buf_1_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
   wire  axi4buf_1_auto_out_r_bits_last; // @[Buffer.scala 58:29]
-  AXI4AccumulatorBlock accumulator ( // @[AccChain.scala 27:30]
+  AXI4AccumulatorBlock accumulator ( // @[AccChain.scala 29:30]
     .clock(accumulator_clock),
     .reset(accumulator_reset),
     .auto_mem_in_aw_ready(accumulator_auto_mem_in_aw_ready),
@@ -16650,7 +16563,7 @@ module AccumulatorChain(
     .auto_slave_in_bits_data(accumulator_auto_slave_in_bits_data),
     .auto_slave_in_bits_last(accumulator_auto_slave_in_bits_last)
   );
-  AXI4DspQueueBlock dspQueue ( // @[AccChain.scala 29:27]
+  AXI4DspQueueBlock dspQueue ( // @[AccChain.scala 31:27]
     .clock(dspQueue_clock),
     .reset(dspQueue_reset),
     .auto_stream_in_ready(dspQueue_auto_stream_in_ready),
@@ -16682,7 +16595,7 @@ module AccumulatorChain(
     .auto_in_r_bits_id(dspQueue_auto_in_r_bits_id),
     .auto_in_r_bits_data(dspQueue_auto_in_r_bits_data)
   );
-  AXI4Xbar_1 bus ( // @[AccChain.scala 44:23]
+  AXI4Xbar_1 bus ( // @[AccChain.scala 46:23]
     .clock(bus_clock),
     .reset(bus_reset),
     .auto_in_aw_ready(bus_auto_in_aw_ready),
@@ -17259,7 +17172,7 @@ end // initial
     `endif // SYNTHESIS
   end
 endmodule
-module Queue_35(
+module Queue_34(
   input         clock,
   input         reset,
   output        io_enq_ready,
@@ -17405,7 +17318,7 @@ module StreamBuffer_1(
   wire  Queue_io_deq_valid; // @[Decoupled.scala 296:21]
   wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
   wire  Queue_io_deq_bits_last; // @[Decoupled.scala 296:21]
-  Queue_35 Queue ( // @[Decoupled.scala 296:21]
+  Queue_34 Queue ( // @[Decoupled.scala 296:21]
     .clock(Queue_clock),
     .reset(Queue_reset),
     .io_enq_ready(Queue_io_enq_ready),
@@ -17937,7 +17850,7 @@ end // initial
     end
   end
 endmodule
-module Queue_38(
+module Queue_37(
   input         clock,
   input         reset,
   output        io_enq_ready,
@@ -18083,7 +17996,7 @@ module StreamBuffer_2(
   wire  Queue_io_deq_valid; // @[Decoupled.scala 296:21]
   wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
   wire  Queue_io_deq_bits_last; // @[Decoupled.scala 296:21]
-  Queue_38 Queue ( // @[Decoupled.scala 296:21]
+  Queue_37 Queue ( // @[Decoupled.scala 296:21]
     .clock(Queue_clock),
     .reset(Queue_reset),
     .io_enq_ready(Queue_io_enq_ready),
@@ -18342,7 +18255,7 @@ end // initial
     `endif // SYNTHESIS
   end
 endmodule
-module Queue_39(
+module Queue_38(
   input         clock,
   input         reset,
   output        io_enq_ready,
@@ -18503,7 +18416,7 @@ module StreamBuffer_3(
   wire  Queue_io_deq_valid; // @[Decoupled.scala 296:21]
   wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
   wire  Queue_io_deq_bits_last; // @[Decoupled.scala 296:21]
-  Queue_39 Queue ( // @[Decoupled.scala 296:21]
+  Queue_38 Queue ( // @[Decoupled.scala 296:21]
     .clock(Queue_clock),
     .reset(Queue_reset),
     .io_enq_ready(Queue_io_enq_ready),
@@ -19911,16 +19824,16 @@ module QueueCompatibility_8(
   input         reset,
   output        io_enq_ready,
   input         io_enq_valid,
-  input  [21:0] io_enq_bits,
+  input  [20:0] io_enq_bits,
   input         io_deq_ready,
   output        io_deq_valid,
-  output [21:0] io_deq_bits
+  output [20:0] io_deq_bits
 );
-  reg [21:0] _T [0:1]; // @[Decoupled.scala 218:24]
+  reg [20:0] _T [0:1]; // @[Decoupled.scala 218:24]
   reg [31:0] _RAND_0;
-  wire [21:0] _T__T_18_data; // @[Decoupled.scala 218:24]
+  wire [20:0] _T__T_18_data; // @[Decoupled.scala 218:24]
   wire  _T__T_18_addr; // @[Decoupled.scala 218:24]
-  wire [21:0] _T__T_10_data; // @[Decoupled.scala 218:24]
+  wire [20:0] _T__T_10_data; // @[Decoupled.scala 218:24]
   wire  _T__T_10_addr; // @[Decoupled.scala 218:24]
   wire  _T__T_10_mask; // @[Decoupled.scala 218:24]
   wire  _T__T_10_en; // @[Decoupled.scala 218:24]
@@ -19986,7 +19899,7 @@ initial begin
   _RAND_0 = {1{`RANDOM}};
   `ifdef RANDOMIZE_MEM_INIT
   for (initvar = 0; initvar < 2; initvar = initvar+1)
-    _T[initvar] = _RAND_0[21:0];
+    _T[initvar] = _RAND_0[20:0];
   `endif // RANDOMIZE_MEM_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_1 = {1{`RANDOM}};
@@ -20058,29 +19971,6 @@ module AXI4Xbar_2(
   output [31:0] auto_in_r_bits_data,
   output [1:0]  auto_in_r_bits_resp,
   output        auto_in_r_bits_last,
-  input         auto_out_21_aw_ready,
-  output        auto_out_21_aw_valid,
-  output        auto_out_21_aw_bits_id,
-  output [29:0] auto_out_21_aw_bits_addr,
-  output [2:0]  auto_out_21_aw_bits_size,
-  input         auto_out_21_w_ready,
-  output        auto_out_21_w_valid,
-  output [31:0] auto_out_21_w_bits_data,
-  output [3:0]  auto_out_21_w_bits_strb,
-  output        auto_out_21_w_bits_last,
-  output        auto_out_21_b_ready,
-  input         auto_out_21_b_valid,
-  input  [1:0]  auto_out_21_b_bits_resp,
-  input         auto_out_21_ar_ready,
-  output        auto_out_21_ar_valid,
-  output        auto_out_21_ar_bits_id,
-  output [29:0] auto_out_21_ar_bits_addr,
-  output [2:0]  auto_out_21_ar_bits_size,
-  output        auto_out_21_r_ready,
-  input         auto_out_21_r_valid,
-  input  [31:0] auto_out_21_r_bits_data,
-  input  [1:0]  auto_out_21_r_bits_resp,
-  input         auto_out_21_r_bits_last,
   input         auto_out_20_aw_ready,
   output        auto_out_20_aw_valid,
   output        auto_out_20_aw_bits_id,
@@ -20093,7 +19983,6 @@ module AXI4Xbar_2(
   output        auto_out_20_w_bits_last,
   output        auto_out_20_b_ready,
   input         auto_out_20_b_valid,
-  input         auto_out_20_b_bits_id,
   input  [1:0]  auto_out_20_b_bits_resp,
   input         auto_out_20_ar_ready,
   output        auto_out_20_ar_valid,
@@ -20102,7 +19991,6 @@ module AXI4Xbar_2(
   output [2:0]  auto_out_20_ar_bits_size,
   output        auto_out_20_r_ready,
   input         auto_out_20_r_valid,
-  input         auto_out_20_r_bits_id,
   input  [31:0] auto_out_20_r_bits_data,
   input  [1:0]  auto_out_20_r_bits_resp,
   input         auto_out_20_r_bits_last,
@@ -20611,10 +20499,10 @@ module AXI4Xbar_2(
   wire  awIn_0_reset; // @[Xbar.scala 55:47]
   wire  awIn_0_io_enq_ready; // @[Xbar.scala 55:47]
   wire  awIn_0_io_enq_valid; // @[Xbar.scala 55:47]
-  wire [21:0] awIn_0_io_enq_bits; // @[Xbar.scala 55:47]
+  wire [20:0] awIn_0_io_enq_bits; // @[Xbar.scala 55:47]
   wire  awIn_0_io_deq_ready; // @[Xbar.scala 55:47]
   wire  awIn_0_io_deq_valid; // @[Xbar.scala 55:47]
-  wire [21:0] awIn_0_io_deq_bits; // @[Xbar.scala 55:47]
+  wire [20:0] awIn_0_io_deq_bits; // @[Xbar.scala 55:47]
   wire [30:0] _T_1 = {1'b0,$signed(auto_in_ar_bits_addr)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_3 = $signed(_T_1) & 31'shf130; // @[Parameters.scala 137:52]
   wire  requestARIO_0_0 = $signed(_T_3) == 31'sh0; // @[Parameters.scala 137:67]
@@ -20639,176 +20527,168 @@ module AXI4Xbar_2(
   wire [30:0] _T_27 = {1'b0,$signed(_T_26)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_29 = $signed(_T_27) & 31'shf130; // @[Parameters.scala 137:52]
   wire  requestARIO_0_4 = $signed(_T_29) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_31 = auto_in_ar_bits_addr ^ 30'h3000; // @[Parameters.scala 137:31]
+  wire [29:0] _T_31 = auto_in_ar_bits_addr ^ 30'h3100; // @[Parameters.scala 137:31]
   wire [30:0] _T_32 = {1'b0,$signed(_T_31)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_34 = $signed(_T_32) & 31'shf130; // @[Parameters.scala 137:52]
   wire  requestARIO_0_5 = $signed(_T_34) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_36 = auto_in_ar_bits_addr ^ 30'h3100; // @[Parameters.scala 137:31]
+  wire [29:0] _T_36 = auto_in_ar_bits_addr ^ 30'h3110; // @[Parameters.scala 137:31]
   wire [30:0] _T_37 = {1'b0,$signed(_T_36)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_39 = $signed(_T_37) & 31'shf130; // @[Parameters.scala 137:52]
   wire  requestARIO_0_6 = $signed(_T_39) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_41 = auto_in_ar_bits_addr ^ 30'h3110; // @[Parameters.scala 137:31]
+  wire [29:0] _T_41 = auto_in_ar_bits_addr ^ 30'h3120; // @[Parameters.scala 137:31]
   wire [30:0] _T_42 = {1'b0,$signed(_T_41)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_44 = $signed(_T_42) & 31'shf130; // @[Parameters.scala 137:52]
   wire  requestARIO_0_7 = $signed(_T_44) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_46 = auto_in_ar_bits_addr ^ 30'h3120; // @[Parameters.scala 137:31]
+  wire [29:0] _T_46 = auto_in_ar_bits_addr ^ 30'h4000; // @[Parameters.scala 137:31]
   wire [30:0] _T_47 = {1'b0,$signed(_T_46)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_49 = $signed(_T_47) & 31'shf130; // @[Parameters.scala 137:52]
+  wire [30:0] _T_49 = $signed(_T_47) & 31'shf100; // @[Parameters.scala 137:52]
   wire  requestARIO_0_8 = $signed(_T_49) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_51 = auto_in_ar_bits_addr ^ 30'h4000; // @[Parameters.scala 137:31]
+  wire [29:0] _T_51 = auto_in_ar_bits_addr ^ 30'h4100; // @[Parameters.scala 137:31]
   wire [30:0] _T_52 = {1'b0,$signed(_T_51)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_54 = $signed(_T_52) & 31'shf100; // @[Parameters.scala 137:52]
+  wire [30:0] _T_54 = $signed(_T_52) & 31'shf130; // @[Parameters.scala 137:52]
   wire  requestARIO_0_9 = $signed(_T_54) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_56 = auto_in_ar_bits_addr ^ 30'h4100; // @[Parameters.scala 137:31]
+  wire [29:0] _T_56 = auto_in_ar_bits_addr ^ 30'h4110; // @[Parameters.scala 137:31]
   wire [30:0] _T_57 = {1'b0,$signed(_T_56)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_59 = $signed(_T_57) & 31'shf130; // @[Parameters.scala 137:52]
   wire  requestARIO_0_10 = $signed(_T_59) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_61 = auto_in_ar_bits_addr ^ 30'h4110; // @[Parameters.scala 137:31]
+  wire [29:0] _T_61 = auto_in_ar_bits_addr ^ 30'h4120; // @[Parameters.scala 137:31]
   wire [30:0] _T_62 = {1'b0,$signed(_T_61)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_64 = $signed(_T_62) & 31'shf130; // @[Parameters.scala 137:52]
   wire  requestARIO_0_11 = $signed(_T_64) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_66 = auto_in_ar_bits_addr ^ 30'h4120; // @[Parameters.scala 137:31]
+  wire [29:0] _T_66 = auto_in_ar_bits_addr ^ 30'h5000; // @[Parameters.scala 137:31]
   wire [30:0] _T_67 = {1'b0,$signed(_T_66)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_69 = $signed(_T_67) & 31'shf130; // @[Parameters.scala 137:52]
+  wire [30:0] _T_69 = $signed(_T_67) & 31'shf100; // @[Parameters.scala 137:52]
   wire  requestARIO_0_12 = $signed(_T_69) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_71 = auto_in_ar_bits_addr ^ 30'h5000; // @[Parameters.scala 137:31]
+  wire [29:0] _T_71 = auto_in_ar_bits_addr ^ 30'h5100; // @[Parameters.scala 137:31]
   wire [30:0] _T_72 = {1'b0,$signed(_T_71)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_74 = $signed(_T_72) & 31'shf100; // @[Parameters.scala 137:52]
+  wire [30:0] _T_74 = $signed(_T_72) & 31'shf130; // @[Parameters.scala 137:52]
   wire  requestARIO_0_13 = $signed(_T_74) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_76 = auto_in_ar_bits_addr ^ 30'h5100; // @[Parameters.scala 137:31]
+  wire [29:0] _T_76 = auto_in_ar_bits_addr ^ 30'h5110; // @[Parameters.scala 137:31]
   wire [30:0] _T_77 = {1'b0,$signed(_T_76)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_79 = $signed(_T_77) & 31'shf130; // @[Parameters.scala 137:52]
   wire  requestARIO_0_14 = $signed(_T_79) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_81 = auto_in_ar_bits_addr ^ 30'h5110; // @[Parameters.scala 137:31]
+  wire [29:0] _T_81 = auto_in_ar_bits_addr ^ 30'h5120; // @[Parameters.scala 137:31]
   wire [30:0] _T_82 = {1'b0,$signed(_T_81)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_84 = $signed(_T_82) & 31'shf130; // @[Parameters.scala 137:52]
   wire  requestARIO_0_15 = $signed(_T_84) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_86 = auto_in_ar_bits_addr ^ 30'h5120; // @[Parameters.scala 137:31]
+  wire [29:0] _T_86 = auto_in_ar_bits_addr ^ 30'h8000; // @[Parameters.scala 137:31]
   wire [30:0] _T_87 = {1'b0,$signed(_T_86)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_89 = $signed(_T_87) & 31'shf130; // @[Parameters.scala 137:52]
   wire  requestARIO_0_16 = $signed(_T_89) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_91 = auto_in_ar_bits_addr ^ 30'h8000; // @[Parameters.scala 137:31]
+  wire [29:0] _T_91 = auto_in_ar_bits_addr ^ 30'h8010; // @[Parameters.scala 137:31]
   wire [30:0] _T_92 = {1'b0,$signed(_T_91)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_94 = $signed(_T_92) & 31'shf130; // @[Parameters.scala 137:52]
   wire  requestARIO_0_17 = $signed(_T_94) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_96 = auto_in_ar_bits_addr ^ 30'h8010; // @[Parameters.scala 137:31]
+  wire [29:0] _T_96 = auto_in_ar_bits_addr ^ 30'h9000; // @[Parameters.scala 137:31]
   wire [30:0] _T_97 = {1'b0,$signed(_T_96)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_99 = $signed(_T_97) & 31'shf130; // @[Parameters.scala 137:52]
+  wire [30:0] _T_99 = $signed(_T_97) & 31'shf100; // @[Parameters.scala 137:52]
   wire  requestARIO_0_18 = $signed(_T_99) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_101 = auto_in_ar_bits_addr ^ 30'h9000; // @[Parameters.scala 137:31]
+  wire [29:0] _T_101 = auto_in_ar_bits_addr ^ 30'h9100; // @[Parameters.scala 137:31]
   wire [30:0] _T_102 = {1'b0,$signed(_T_101)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_104 = $signed(_T_102) & 31'shf100; // @[Parameters.scala 137:52]
+  wire [30:0] _T_104 = $signed(_T_102) & 31'shf130; // @[Parameters.scala 137:52]
   wire  requestARIO_0_19 = $signed(_T_104) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_106 = auto_in_ar_bits_addr ^ 30'h9100; // @[Parameters.scala 137:31]
+  wire [29:0] _T_106 = auto_in_ar_bits_addr ^ 30'h6000; // @[Parameters.scala 137:31]
   wire [30:0] _T_107 = {1'b0,$signed(_T_106)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_109 = $signed(_T_107) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  requestARIO_0_20 = $signed(_T_109) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_111 = auto_in_ar_bits_addr ^ 30'h6000; // @[Parameters.scala 137:31]
+  wire [30:0] _T_109 = $signed(_T_107) & 31'shf000; // @[Parameters.scala 137:52]
+  wire  _T_110 = $signed(_T_109) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_111 = auto_in_ar_bits_addr ^ 30'h7000; // @[Parameters.scala 137:31]
   wire [30:0] _T_112 = {1'b0,$signed(_T_111)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_114 = $signed(_T_112) & 31'shf000; // @[Parameters.scala 137:52]
+  wire [30:0] _T_114 = $signed(_T_112) & 31'shf130; // @[Parameters.scala 137:52]
   wire  _T_115 = $signed(_T_114) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_116 = auto_in_ar_bits_addr ^ 30'h7000; // @[Parameters.scala 137:31]
-  wire [30:0] _T_117 = {1'b0,$signed(_T_116)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_119 = $signed(_T_117) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  _T_120 = $signed(_T_119) == 31'sh0; // @[Parameters.scala 137:67]
-  wire  requestARIO_0_21 = _T_115 | _T_120; // @[Xbar.scala 52:97]
-  wire [30:0] _T_123 = {1'b0,$signed(auto_in_aw_bits_addr)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_125 = $signed(_T_123) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_0 = $signed(_T_125) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_127 = auto_in_aw_bits_addr ^ 30'h1000; // @[Parameters.scala 137:31]
+  wire  requestARIO_0_20 = _T_110 | _T_115; // @[Xbar.scala 52:97]
+  wire [30:0] _T_118 = {1'b0,$signed(auto_in_aw_bits_addr)}; // @[Parameters.scala 137:49]
+  wire [30:0] _T_120 = $signed(_T_118) & 31'shf130; // @[Parameters.scala 137:52]
+  wire  requestAWIO_0_0 = $signed(_T_120) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_122 = auto_in_aw_bits_addr ^ 30'h1000; // @[Parameters.scala 137:31]
+  wire [30:0] _T_123 = {1'b0,$signed(_T_122)}; // @[Parameters.scala 137:49]
+  wire [30:0] _T_125 = $signed(_T_123) & 31'shf000; // @[Parameters.scala 137:52]
+  wire  _T_126 = $signed(_T_125) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_127 = auto_in_aw_bits_addr ^ 30'h2100; // @[Parameters.scala 137:31]
   wire [30:0] _T_128 = {1'b0,$signed(_T_127)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_130 = $signed(_T_128) & 31'shf000; // @[Parameters.scala 137:52]
+  wire [30:0] _T_130 = $signed(_T_128) & 31'shf100; // @[Parameters.scala 137:52]
   wire  _T_131 = $signed(_T_130) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_132 = auto_in_aw_bits_addr ^ 30'h2100; // @[Parameters.scala 137:31]
-  wire [30:0] _T_133 = {1'b0,$signed(_T_132)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_135 = $signed(_T_133) & 31'shf100; // @[Parameters.scala 137:52]
-  wire  _T_136 = $signed(_T_135) == 31'sh0; // @[Parameters.scala 137:67]
-  wire  requestAWIO_0_1 = _T_131 | _T_136; // @[Xbar.scala 52:97]
-  wire [29:0] _T_138 = auto_in_aw_bits_addr ^ 30'h2000; // @[Parameters.scala 137:31]
+  wire  requestAWIO_0_1 = _T_126 | _T_131; // @[Xbar.scala 52:97]
+  wire [29:0] _T_133 = auto_in_aw_bits_addr ^ 30'h2000; // @[Parameters.scala 137:31]
+  wire [30:0] _T_134 = {1'b0,$signed(_T_133)}; // @[Parameters.scala 137:49]
+  wire [30:0] _T_136 = $signed(_T_134) & 31'shf130; // @[Parameters.scala 137:52]
+  wire  requestAWIO_0_2 = $signed(_T_136) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_138 = auto_in_aw_bits_addr ^ 30'h2010; // @[Parameters.scala 137:31]
   wire [30:0] _T_139 = {1'b0,$signed(_T_138)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_141 = $signed(_T_139) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_2 = $signed(_T_141) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_143 = auto_in_aw_bits_addr ^ 30'h2010; // @[Parameters.scala 137:31]
+  wire  requestAWIO_0_3 = $signed(_T_141) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_143 = auto_in_aw_bits_addr ^ 30'h2020; // @[Parameters.scala 137:31]
   wire [30:0] _T_144 = {1'b0,$signed(_T_143)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_146 = $signed(_T_144) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_3 = $signed(_T_146) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_148 = auto_in_aw_bits_addr ^ 30'h2020; // @[Parameters.scala 137:31]
+  wire  requestAWIO_0_4 = $signed(_T_146) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_148 = auto_in_aw_bits_addr ^ 30'h3100; // @[Parameters.scala 137:31]
   wire [30:0] _T_149 = {1'b0,$signed(_T_148)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_151 = $signed(_T_149) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_4 = $signed(_T_151) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_153 = auto_in_aw_bits_addr ^ 30'h3000; // @[Parameters.scala 137:31]
+  wire  requestAWIO_0_5 = $signed(_T_151) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_153 = auto_in_aw_bits_addr ^ 30'h3110; // @[Parameters.scala 137:31]
   wire [30:0] _T_154 = {1'b0,$signed(_T_153)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_156 = $signed(_T_154) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_5 = $signed(_T_156) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_158 = auto_in_aw_bits_addr ^ 30'h3100; // @[Parameters.scala 137:31]
+  wire  requestAWIO_0_6 = $signed(_T_156) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_158 = auto_in_aw_bits_addr ^ 30'h3120; // @[Parameters.scala 137:31]
   wire [30:0] _T_159 = {1'b0,$signed(_T_158)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_161 = $signed(_T_159) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_6 = $signed(_T_161) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_163 = auto_in_aw_bits_addr ^ 30'h3110; // @[Parameters.scala 137:31]
+  wire  requestAWIO_0_7 = $signed(_T_161) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_163 = auto_in_aw_bits_addr ^ 30'h4000; // @[Parameters.scala 137:31]
   wire [30:0] _T_164 = {1'b0,$signed(_T_163)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_166 = $signed(_T_164) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_7 = $signed(_T_166) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_168 = auto_in_aw_bits_addr ^ 30'h3120; // @[Parameters.scala 137:31]
+  wire [30:0] _T_166 = $signed(_T_164) & 31'shf100; // @[Parameters.scala 137:52]
+  wire  requestAWIO_0_8 = $signed(_T_166) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_168 = auto_in_aw_bits_addr ^ 30'h4100; // @[Parameters.scala 137:31]
   wire [30:0] _T_169 = {1'b0,$signed(_T_168)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_171 = $signed(_T_169) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_8 = $signed(_T_171) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_173 = auto_in_aw_bits_addr ^ 30'h4000; // @[Parameters.scala 137:31]
+  wire  requestAWIO_0_9 = $signed(_T_171) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_173 = auto_in_aw_bits_addr ^ 30'h4110; // @[Parameters.scala 137:31]
   wire [30:0] _T_174 = {1'b0,$signed(_T_173)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_176 = $signed(_T_174) & 31'shf100; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_9 = $signed(_T_176) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_178 = auto_in_aw_bits_addr ^ 30'h4100; // @[Parameters.scala 137:31]
+  wire [30:0] _T_176 = $signed(_T_174) & 31'shf130; // @[Parameters.scala 137:52]
+  wire  requestAWIO_0_10 = $signed(_T_176) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_178 = auto_in_aw_bits_addr ^ 30'h4120; // @[Parameters.scala 137:31]
   wire [30:0] _T_179 = {1'b0,$signed(_T_178)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_181 = $signed(_T_179) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_10 = $signed(_T_181) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_183 = auto_in_aw_bits_addr ^ 30'h4110; // @[Parameters.scala 137:31]
+  wire  requestAWIO_0_11 = $signed(_T_181) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_183 = auto_in_aw_bits_addr ^ 30'h5000; // @[Parameters.scala 137:31]
   wire [30:0] _T_184 = {1'b0,$signed(_T_183)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_186 = $signed(_T_184) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_11 = $signed(_T_186) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_188 = auto_in_aw_bits_addr ^ 30'h4120; // @[Parameters.scala 137:31]
+  wire [30:0] _T_186 = $signed(_T_184) & 31'shf100; // @[Parameters.scala 137:52]
+  wire  requestAWIO_0_12 = $signed(_T_186) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_188 = auto_in_aw_bits_addr ^ 30'h5100; // @[Parameters.scala 137:31]
   wire [30:0] _T_189 = {1'b0,$signed(_T_188)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_191 = $signed(_T_189) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_12 = $signed(_T_191) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_193 = auto_in_aw_bits_addr ^ 30'h5000; // @[Parameters.scala 137:31]
+  wire  requestAWIO_0_13 = $signed(_T_191) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_193 = auto_in_aw_bits_addr ^ 30'h5110; // @[Parameters.scala 137:31]
   wire [30:0] _T_194 = {1'b0,$signed(_T_193)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_196 = $signed(_T_194) & 31'shf100; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_13 = $signed(_T_196) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_198 = auto_in_aw_bits_addr ^ 30'h5100; // @[Parameters.scala 137:31]
+  wire [30:0] _T_196 = $signed(_T_194) & 31'shf130; // @[Parameters.scala 137:52]
+  wire  requestAWIO_0_14 = $signed(_T_196) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_198 = auto_in_aw_bits_addr ^ 30'h5120; // @[Parameters.scala 137:31]
   wire [30:0] _T_199 = {1'b0,$signed(_T_198)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_201 = $signed(_T_199) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_14 = $signed(_T_201) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_203 = auto_in_aw_bits_addr ^ 30'h5110; // @[Parameters.scala 137:31]
+  wire  requestAWIO_0_15 = $signed(_T_201) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_203 = auto_in_aw_bits_addr ^ 30'h8000; // @[Parameters.scala 137:31]
   wire [30:0] _T_204 = {1'b0,$signed(_T_203)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_206 = $signed(_T_204) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_15 = $signed(_T_206) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_208 = auto_in_aw_bits_addr ^ 30'h5120; // @[Parameters.scala 137:31]
+  wire  requestAWIO_0_16 = $signed(_T_206) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_208 = auto_in_aw_bits_addr ^ 30'h8010; // @[Parameters.scala 137:31]
   wire [30:0] _T_209 = {1'b0,$signed(_T_208)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_211 = $signed(_T_209) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_16 = $signed(_T_211) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_213 = auto_in_aw_bits_addr ^ 30'h8000; // @[Parameters.scala 137:31]
+  wire  requestAWIO_0_17 = $signed(_T_211) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_213 = auto_in_aw_bits_addr ^ 30'h9000; // @[Parameters.scala 137:31]
   wire [30:0] _T_214 = {1'b0,$signed(_T_213)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_216 = $signed(_T_214) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_17 = $signed(_T_216) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_218 = auto_in_aw_bits_addr ^ 30'h8010; // @[Parameters.scala 137:31]
+  wire [30:0] _T_216 = $signed(_T_214) & 31'shf100; // @[Parameters.scala 137:52]
+  wire  requestAWIO_0_18 = $signed(_T_216) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_218 = auto_in_aw_bits_addr ^ 30'h9100; // @[Parameters.scala 137:31]
   wire [30:0] _T_219 = {1'b0,$signed(_T_218)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_221 = $signed(_T_219) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_18 = $signed(_T_221) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_223 = auto_in_aw_bits_addr ^ 30'h9000; // @[Parameters.scala 137:31]
+  wire  requestAWIO_0_19 = $signed(_T_221) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_223 = auto_in_aw_bits_addr ^ 30'h6000; // @[Parameters.scala 137:31]
   wire [30:0] _T_224 = {1'b0,$signed(_T_223)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_226 = $signed(_T_224) & 31'shf100; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_19 = $signed(_T_226) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_228 = auto_in_aw_bits_addr ^ 30'h9100; // @[Parameters.scala 137:31]
+  wire [30:0] _T_226 = $signed(_T_224) & 31'shf000; // @[Parameters.scala 137:52]
+  wire  _T_227 = $signed(_T_226) == 31'sh0; // @[Parameters.scala 137:67]
+  wire [29:0] _T_228 = auto_in_aw_bits_addr ^ 30'h7000; // @[Parameters.scala 137:31]
   wire [30:0] _T_229 = {1'b0,$signed(_T_228)}; // @[Parameters.scala 137:49]
   wire [30:0] _T_231 = $signed(_T_229) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  requestAWIO_0_20 = $signed(_T_231) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_233 = auto_in_aw_bits_addr ^ 30'h6000; // @[Parameters.scala 137:31]
-  wire [30:0] _T_234 = {1'b0,$signed(_T_233)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_236 = $signed(_T_234) & 31'shf000; // @[Parameters.scala 137:52]
-  wire  _T_237 = $signed(_T_236) == 31'sh0; // @[Parameters.scala 137:67]
-  wire [29:0] _T_238 = auto_in_aw_bits_addr ^ 30'h7000; // @[Parameters.scala 137:31]
-  wire [30:0] _T_239 = {1'b0,$signed(_T_238)}; // @[Parameters.scala 137:49]
-  wire [30:0] _T_241 = $signed(_T_239) & 31'shf130; // @[Parameters.scala 137:52]
-  wire  _T_242 = $signed(_T_241) == 31'sh0; // @[Parameters.scala 137:67]
-  wire  requestAWIO_0_21 = _T_237 | _T_242; // @[Xbar.scala 52:97]
+  wire  _T_232 = $signed(_T_231) == 31'sh0; // @[Parameters.scala 137:67]
+  wire  requestAWIO_0_20 = _T_227 | _T_232; // @[Xbar.scala 52:97]
   wire  requestROI_0_0 = ~auto_out_0_r_bits_id; // @[Parameters.scala 47:9]
   wire  requestROI_1_0 = ~auto_out_1_r_bits_id; // @[Parameters.scala 47:9]
   wire  requestROI_2_0 = ~auto_out_2_r_bits_id; // @[Parameters.scala 47:9]
@@ -20829,7 +20709,6 @@ module AXI4Xbar_2(
   wire  requestROI_17_0 = ~auto_out_17_r_bits_id; // @[Parameters.scala 47:9]
   wire  requestROI_18_0 = ~auto_out_18_r_bits_id; // @[Parameters.scala 47:9]
   wire  requestROI_19_0 = ~auto_out_19_r_bits_id; // @[Parameters.scala 47:9]
-  wire  requestROI_20_0 = ~auto_out_20_r_bits_id; // @[Parameters.scala 47:9]
   wire  requestBOI_0_0 = ~auto_out_0_b_bits_id; // @[Parameters.scala 47:9]
   wire  requestBOI_1_0 = ~auto_out_1_b_bits_id; // @[Parameters.scala 47:9]
   wire  requestBOI_2_0 = ~auto_out_2_b_bits_id; // @[Parameters.scala 47:9]
@@ -20850,12 +20729,10 @@ module AXI4Xbar_2(
   wire  requestBOI_17_0 = ~auto_out_17_b_bits_id; // @[Parameters.scala 47:9]
   wire  requestBOI_18_0 = ~auto_out_18_b_bits_id; // @[Parameters.scala 47:9]
   wire  requestBOI_19_0 = ~auto_out_19_b_bits_id; // @[Parameters.scala 47:9]
-  wire  requestBOI_20_0 = ~auto_out_20_b_bits_id; // @[Parameters.scala 47:9]
-  wire [4:0] _T_247 = {requestAWIO_0_4,requestAWIO_0_3,requestAWIO_0_2,requestAWIO_0_1,requestAWIO_0_0}; // @[Xbar.scala 64:75]
-  wire [10:0] _T_253 = {requestAWIO_0_10,requestAWIO_0_9,requestAWIO_0_8,requestAWIO_0_7,requestAWIO_0_6,requestAWIO_0_5,_T_247}; // @[Xbar.scala 64:75]
-  wire [4:0] _T_257 = {requestAWIO_0_15,requestAWIO_0_14,requestAWIO_0_13,requestAWIO_0_12,requestAWIO_0_11}; // @[Xbar.scala 64:75]
-  wire [10:0] _T_263 = {requestAWIO_0_21,requestAWIO_0_20,requestAWIO_0_19,requestAWIO_0_18,requestAWIO_0_17,requestAWIO_0_16,_T_257}; // @[Xbar.scala 64:75]
-  wire [21:0] _T_264 = {requestAWIO_0_21,requestAWIO_0_20,requestAWIO_0_19,requestAWIO_0_18,requestAWIO_0_17,requestAWIO_0_16,_T_257,_T_253}; // @[Xbar.scala 64:75]
+  wire [9:0] _T_242 = {requestAWIO_0_9,requestAWIO_0_8,requestAWIO_0_7,requestAWIO_0_6,requestAWIO_0_5,requestAWIO_0_4,requestAWIO_0_3,requestAWIO_0_2,requestAWIO_0_1,requestAWIO_0_0}; // @[Xbar.scala 64:75]
+  wire [4:0] _T_246 = {requestAWIO_0_14,requestAWIO_0_13,requestAWIO_0_12,requestAWIO_0_11,requestAWIO_0_10}; // @[Xbar.scala 64:75]
+  wire [10:0] _T_252 = {requestAWIO_0_20,requestAWIO_0_19,requestAWIO_0_18,requestAWIO_0_17,requestAWIO_0_16,requestAWIO_0_15,_T_246}; // @[Xbar.scala 64:75]
+  wire [20:0] _T_253 = {requestAWIO_0_20,requestAWIO_0_19,requestAWIO_0_18,requestAWIO_0_17,requestAWIO_0_16,requestAWIO_0_15,_T_246,_T_242}; // @[Xbar.scala 64:75]
   wire  requestWIO_0_0 = awIn_0_io_deq_bits[0]; // @[Xbar.scala 65:73]
   wire  requestWIO_0_1 = awIn_0_io_deq_bits[1]; // @[Xbar.scala 65:73]
   wire  requestWIO_0_2 = awIn_0_io_deq_bits[2]; // @[Xbar.scala 65:73]
@@ -20877,622 +20754,596 @@ module AXI4Xbar_2(
   wire  requestWIO_0_18 = awIn_0_io_deq_bits[18]; // @[Xbar.scala 65:73]
   wire  requestWIO_0_19 = awIn_0_io_deq_bits[19]; // @[Xbar.scala 65:73]
   wire  requestWIO_0_20 = awIn_0_io_deq_bits[20]; // @[Xbar.scala 65:73]
-  wire  requestWIO_0_21 = awIn_0_io_deq_bits[21]; // @[Xbar.scala 65:73]
-  wire [4:0] _T_274 = {requestARIO_0_4,requestARIO_0_3,requestARIO_0_2,requestARIO_0_1,requestARIO_0_0}; // @[Xbar.scala 93:45]
-  wire [10:0] _T_280 = {requestARIO_0_10,requestARIO_0_9,requestARIO_0_8,requestARIO_0_7,requestARIO_0_6,requestARIO_0_5,_T_274}; // @[Xbar.scala 93:45]
-  wire [4:0] _T_284 = {requestARIO_0_15,requestARIO_0_14,requestARIO_0_13,requestARIO_0_12,requestARIO_0_11}; // @[Xbar.scala 93:45]
-  wire [21:0] _T_291 = {requestARIO_0_21,requestARIO_0_20,requestARIO_0_19,requestARIO_0_18,requestARIO_0_17,requestARIO_0_16,_T_284,_T_280}; // @[Xbar.scala 93:45]
-  wire  _T_294 = _T_291[21:16] != 6'h0; // @[OneHot.scala 32:14]
-  wire [15:0] _GEN_98 = {{10'd0}, _T_291[21:16]}; // @[OneHot.scala 32:28]
-  wire [15:0] _T_295 = _GEN_98 | _T_291[15:0]; // @[OneHot.scala 32:28]
-  wire  _T_298 = _T_295[15:8] != 8'h0; // @[OneHot.scala 32:14]
-  wire [7:0] _T_299 = _T_295[15:8] | _T_295[7:0]; // @[OneHot.scala 32:28]
-  wire  _T_302 = _T_299[7:4] != 4'h0; // @[OneHot.scala 32:14]
-  wire [3:0] _T_303 = _T_299[7:4] | _T_299[3:0]; // @[OneHot.scala 32:28]
-  wire  _T_306 = _T_303[3:2] != 2'h0; // @[OneHot.scala 32:14]
-  wire [1:0] _T_307 = _T_303[3:2] | _T_303[1:0]; // @[OneHot.scala 32:28]
-  wire [4:0] _T_312 = {_T_294,_T_298,_T_302,_T_306,_T_307[1]}; // @[Cat.scala 29:58]
-  wire  _T_336 = _T_264[21:16] != 6'h0; // @[OneHot.scala 32:14]
-  wire [15:0] _GEN_99 = {{10'd0}, _T_264[21:16]}; // @[OneHot.scala 32:28]
-  wire [15:0] _T_337 = _GEN_99 | _T_264[15:0]; // @[OneHot.scala 32:28]
-  wire  _T_340 = _T_337[15:8] != 8'h0; // @[OneHot.scala 32:14]
-  wire [7:0] _T_341 = _T_337[15:8] | _T_337[7:0]; // @[OneHot.scala 32:28]
-  wire  _T_344 = _T_341[7:4] != 4'h0; // @[OneHot.scala 32:14]
-  wire [3:0] _T_345 = _T_341[7:4] | _T_341[3:0]; // @[OneHot.scala 32:28]
-  wire  _T_348 = _T_345[3:2] != 2'h0; // @[OneHot.scala 32:14]
-  wire [1:0] _T_349 = _T_345[3:2] | _T_345[1:0]; // @[OneHot.scala 32:28]
-  wire [4:0] _T_354 = {_T_336,_T_340,_T_344,_T_348,_T_349[1]}; // @[Cat.scala 29:58]
-  wire  _T_452 = requestARIO_0_0 & auto_out_0_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_453 = requestARIO_0_1 & auto_out_1_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_474 = _T_452 | _T_453; // @[Mux.scala 27:72]
-  wire  _T_454 = requestARIO_0_2 & auto_out_2_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_475 = _T_474 | _T_454; // @[Mux.scala 27:72]
-  wire  _T_455 = requestARIO_0_3 & auto_out_3_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_476 = _T_475 | _T_455; // @[Mux.scala 27:72]
-  wire  _T_456 = requestARIO_0_4 & auto_out_4_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_477 = _T_476 | _T_456; // @[Mux.scala 27:72]
-  wire  _T_457 = requestARIO_0_5 & auto_out_5_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_478 = _T_477 | _T_457; // @[Mux.scala 27:72]
-  wire  _T_458 = requestARIO_0_6 & auto_out_6_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_479 = _T_478 | _T_458; // @[Mux.scala 27:72]
-  wire  _T_459 = requestARIO_0_7 & auto_out_7_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_480 = _T_479 | _T_459; // @[Mux.scala 27:72]
-  wire  _T_460 = requestARIO_0_8 & auto_out_8_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_481 = _T_480 | _T_460; // @[Mux.scala 27:72]
-  wire  _T_461 = requestARIO_0_9 & auto_out_9_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_482 = _T_481 | _T_461; // @[Mux.scala 27:72]
-  wire  _T_462 = requestARIO_0_10 & auto_out_10_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_483 = _T_482 | _T_462; // @[Mux.scala 27:72]
-  wire  _T_463 = requestARIO_0_11 & auto_out_11_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_484 = _T_483 | _T_463; // @[Mux.scala 27:72]
-  wire  _T_464 = requestARIO_0_12 & auto_out_12_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_485 = _T_484 | _T_464; // @[Mux.scala 27:72]
-  wire  _T_465 = requestARIO_0_13 & auto_out_13_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_486 = _T_485 | _T_465; // @[Mux.scala 27:72]
-  wire  _T_466 = requestARIO_0_14 & auto_out_14_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_487 = _T_486 | _T_466; // @[Mux.scala 27:72]
-  wire  _T_467 = requestARIO_0_15 & auto_out_15_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_488 = _T_487 | _T_467; // @[Mux.scala 27:72]
-  wire  _T_468 = requestARIO_0_16 & auto_out_16_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_489 = _T_488 | _T_468; // @[Mux.scala 27:72]
-  wire  _T_469 = requestARIO_0_17 & auto_out_17_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_490 = _T_489 | _T_469; // @[Mux.scala 27:72]
-  wire  _T_470 = requestARIO_0_18 & auto_out_18_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_491 = _T_490 | _T_470; // @[Mux.scala 27:72]
-  wire  _T_471 = requestARIO_0_19 & auto_out_19_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_492 = _T_491 | _T_471; // @[Mux.scala 27:72]
-  wire  _T_472 = requestARIO_0_20 & auto_out_20_ar_ready; // @[Mux.scala 27:72]
-  wire  _T_493 = _T_492 | _T_472; // @[Mux.scala 27:72]
-  wire  _T_473 = requestARIO_0_21 & auto_out_21_ar_ready; // @[Mux.scala 27:72]
-  wire  in_0_ar_ready = _T_493 | _T_473; // @[Mux.scala 27:72]
-  reg [2:0] _T_360; // @[Xbar.scala 104:34]
+  wire [9:0] _T_268 = {requestARIO_0_9,requestARIO_0_8,requestARIO_0_7,requestARIO_0_6,requestARIO_0_5,requestARIO_0_4,requestARIO_0_3,requestARIO_0_2,requestARIO_0_1,requestARIO_0_0}; // @[Xbar.scala 93:45]
+  wire [4:0] _T_272 = {requestARIO_0_14,requestARIO_0_13,requestARIO_0_12,requestARIO_0_11,requestARIO_0_10}; // @[Xbar.scala 93:45]
+  wire [20:0] _T_279 = {requestARIO_0_20,requestARIO_0_19,requestARIO_0_18,requestARIO_0_17,requestARIO_0_16,requestARIO_0_15,_T_272,_T_268}; // @[Xbar.scala 93:45]
+  wire  _T_282 = _T_279[20:16] != 5'h0; // @[OneHot.scala 32:14]
+  wire [15:0] _GEN_94 = {{11'd0}, _T_279[20:16]}; // @[OneHot.scala 32:28]
+  wire [15:0] _T_283 = _GEN_94 | _T_279[15:0]; // @[OneHot.scala 32:28]
+  wire  _T_286 = _T_283[15:8] != 8'h0; // @[OneHot.scala 32:14]
+  wire [7:0] _T_287 = _T_283[15:8] | _T_283[7:0]; // @[OneHot.scala 32:28]
+  wire  _T_290 = _T_287[7:4] != 4'h0; // @[OneHot.scala 32:14]
+  wire [3:0] _T_291 = _T_287[7:4] | _T_287[3:0]; // @[OneHot.scala 32:28]
+  wire  _T_294 = _T_291[3:2] != 2'h0; // @[OneHot.scala 32:14]
+  wire [1:0] _T_295 = _T_291[3:2] | _T_291[1:0]; // @[OneHot.scala 32:28]
+  wire [4:0] _T_300 = {_T_282,_T_286,_T_290,_T_294,_T_295[1]}; // @[Cat.scala 29:58]
+  wire  _T_323 = _T_253[20:16] != 5'h0; // @[OneHot.scala 32:14]
+  wire [15:0] _GEN_95 = {{11'd0}, _T_253[20:16]}; // @[OneHot.scala 32:28]
+  wire [15:0] _T_324 = _GEN_95 | _T_253[15:0]; // @[OneHot.scala 32:28]
+  wire  _T_327 = _T_324[15:8] != 8'h0; // @[OneHot.scala 32:14]
+  wire [7:0] _T_328 = _T_324[15:8] | _T_324[7:0]; // @[OneHot.scala 32:28]
+  wire  _T_331 = _T_328[7:4] != 4'h0; // @[OneHot.scala 32:14]
+  wire [3:0] _T_332 = _T_328[7:4] | _T_328[3:0]; // @[OneHot.scala 32:28]
+  wire  _T_335 = _T_332[3:2] != 2'h0; // @[OneHot.scala 32:14]
+  wire [1:0] _T_336 = _T_332[3:2] | _T_332[1:0]; // @[OneHot.scala 32:28]
+  wire [4:0] _T_341 = {_T_323,_T_327,_T_331,_T_335,_T_336[1]}; // @[Cat.scala 29:58]
+  wire  _T_438 = requestARIO_0_0 & auto_out_0_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_439 = requestARIO_0_1 & auto_out_1_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_459 = _T_438 | _T_439; // @[Mux.scala 27:72]
+  wire  _T_440 = requestARIO_0_2 & auto_out_2_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_460 = _T_459 | _T_440; // @[Mux.scala 27:72]
+  wire  _T_441 = requestARIO_0_3 & auto_out_3_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_461 = _T_460 | _T_441; // @[Mux.scala 27:72]
+  wire  _T_442 = requestARIO_0_4 & auto_out_4_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_462 = _T_461 | _T_442; // @[Mux.scala 27:72]
+  wire  _T_443 = requestARIO_0_5 & auto_out_5_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_463 = _T_462 | _T_443; // @[Mux.scala 27:72]
+  wire  _T_444 = requestARIO_0_6 & auto_out_6_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_464 = _T_463 | _T_444; // @[Mux.scala 27:72]
+  wire  _T_445 = requestARIO_0_7 & auto_out_7_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_465 = _T_464 | _T_445; // @[Mux.scala 27:72]
+  wire  _T_446 = requestARIO_0_8 & auto_out_8_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_466 = _T_465 | _T_446; // @[Mux.scala 27:72]
+  wire  _T_447 = requestARIO_0_9 & auto_out_9_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_467 = _T_466 | _T_447; // @[Mux.scala 27:72]
+  wire  _T_448 = requestARIO_0_10 & auto_out_10_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_468 = _T_467 | _T_448; // @[Mux.scala 27:72]
+  wire  _T_449 = requestARIO_0_11 & auto_out_11_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_469 = _T_468 | _T_449; // @[Mux.scala 27:72]
+  wire  _T_450 = requestARIO_0_12 & auto_out_12_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_470 = _T_469 | _T_450; // @[Mux.scala 27:72]
+  wire  _T_451 = requestARIO_0_13 & auto_out_13_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_471 = _T_470 | _T_451; // @[Mux.scala 27:72]
+  wire  _T_452 = requestARIO_0_14 & auto_out_14_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_472 = _T_471 | _T_452; // @[Mux.scala 27:72]
+  wire  _T_453 = requestARIO_0_15 & auto_out_15_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_473 = _T_472 | _T_453; // @[Mux.scala 27:72]
+  wire  _T_454 = requestARIO_0_16 & auto_out_16_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_474 = _T_473 | _T_454; // @[Mux.scala 27:72]
+  wire  _T_455 = requestARIO_0_17 & auto_out_17_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_475 = _T_474 | _T_455; // @[Mux.scala 27:72]
+  wire  _T_456 = requestARIO_0_18 & auto_out_18_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_476 = _T_475 | _T_456; // @[Mux.scala 27:72]
+  wire  _T_457 = requestARIO_0_19 & auto_out_19_ar_ready; // @[Mux.scala 27:72]
+  wire  _T_477 = _T_476 | _T_457; // @[Mux.scala 27:72]
+  wire  _T_458 = requestARIO_0_20 & auto_out_20_ar_ready; // @[Mux.scala 27:72]
+  wire  in_0_ar_ready = _T_477 | _T_458; // @[Mux.scala 27:72]
+  reg [2:0] _T_347; // @[Xbar.scala 104:34]
   reg [31:0] _RAND_0;
-  wire  _T_379 = _T_360 == 3'h0; // @[Xbar.scala 112:22]
-  reg [4:0] _T_361; // @[Xbar.scala 105:29]
+  wire  _T_366 = _T_347 == 3'h0; // @[Xbar.scala 112:22]
+  reg [4:0] _T_348; // @[Xbar.scala 105:29]
   reg [31:0] _RAND_1;
-  wire  _T_378 = _T_361 == _T_312; // @[Xbar.scala 111:75]
-  wire  _T_380 = _T_379 | _T_378; // @[Xbar.scala 112:34]
-  wire  _T_381 = _T_360 != 3'h7; // @[Xbar.scala 112:80]
-  wire  _T_383 = _T_380 & _T_381; // @[Xbar.scala 112:48]
-  wire  io_in_0_ar_ready = in_0_ar_ready & _T_383; // @[Xbar.scala 130:45]
-  wire  _T_355 = io_in_0_ar_ready & auto_in_ar_valid; // @[Decoupled.scala 40:37]
-  reg  _T_1686; // @[Xbar.scala 242:23]
+  wire  _T_365 = _T_348 == _T_300; // @[Xbar.scala 111:75]
+  wire  _T_367 = _T_366 | _T_365; // @[Xbar.scala 112:34]
+  wire  _T_368 = _T_347 != 3'h7; // @[Xbar.scala 112:80]
+  wire  _T_370 = _T_367 & _T_368; // @[Xbar.scala 112:48]
+  wire  io_in_0_ar_ready = in_0_ar_ready & _T_370; // @[Xbar.scala 130:45]
+  wire  _T_342 = io_in_0_ar_ready & auto_in_ar_valid; // @[Decoupled.scala 40:37]
+  reg  _T_1616; // @[Xbar.scala 242:23]
   reg [31:0] _RAND_2;
-  wire  _T_631 = auto_out_0_r_valid & requestROI_0_0; // @[Xbar.scala 222:40]
-  wire  _T_633 = auto_out_1_r_valid & requestROI_1_0; // @[Xbar.scala 222:40]
-  wire  _T_1687 = _T_631 | _T_633; // @[Xbar.scala 246:36]
-  wire  _T_635 = auto_out_2_r_valid & requestROI_2_0; // @[Xbar.scala 222:40]
-  wire  _T_1688 = _T_1687 | _T_635; // @[Xbar.scala 246:36]
-  wire  _T_637 = auto_out_3_r_valid & requestROI_3_0; // @[Xbar.scala 222:40]
-  wire  _T_1689 = _T_1688 | _T_637; // @[Xbar.scala 246:36]
-  wire  _T_639 = auto_out_4_r_valid & requestROI_4_0; // @[Xbar.scala 222:40]
-  wire  _T_1690 = _T_1689 | _T_639; // @[Xbar.scala 246:36]
-  wire  _T_641 = auto_out_5_r_valid & requestROI_5_0; // @[Xbar.scala 222:40]
-  wire  _T_1691 = _T_1690 | _T_641; // @[Xbar.scala 246:36]
-  wire  _T_643 = auto_out_6_r_valid & requestROI_6_0; // @[Xbar.scala 222:40]
-  wire  _T_1692 = _T_1691 | _T_643; // @[Xbar.scala 246:36]
-  wire  _T_645 = auto_out_7_r_valid & requestROI_7_0; // @[Xbar.scala 222:40]
-  wire  _T_1693 = _T_1692 | _T_645; // @[Xbar.scala 246:36]
-  wire  _T_647 = auto_out_8_r_valid & requestROI_8_0; // @[Xbar.scala 222:40]
-  wire  _T_1694 = _T_1693 | _T_647; // @[Xbar.scala 246:36]
-  wire  _T_649 = auto_out_9_r_valid & requestROI_9_0; // @[Xbar.scala 222:40]
-  wire  _T_1695 = _T_1694 | _T_649; // @[Xbar.scala 246:36]
-  wire  _T_651 = auto_out_10_r_valid & requestROI_10_0; // @[Xbar.scala 222:40]
-  wire  _T_1696 = _T_1695 | _T_651; // @[Xbar.scala 246:36]
-  wire  _T_653 = auto_out_11_r_valid & requestROI_11_0; // @[Xbar.scala 222:40]
-  wire  _T_1697 = _T_1696 | _T_653; // @[Xbar.scala 246:36]
-  wire  _T_655 = auto_out_12_r_valid & requestROI_12_0; // @[Xbar.scala 222:40]
-  wire  _T_1698 = _T_1697 | _T_655; // @[Xbar.scala 246:36]
-  wire  _T_657 = auto_out_13_r_valid & requestROI_13_0; // @[Xbar.scala 222:40]
-  wire  _T_1699 = _T_1698 | _T_657; // @[Xbar.scala 246:36]
-  wire  _T_659 = auto_out_14_r_valid & requestROI_14_0; // @[Xbar.scala 222:40]
-  wire  _T_1700 = _T_1699 | _T_659; // @[Xbar.scala 246:36]
-  wire  _T_661 = auto_out_15_r_valid & requestROI_15_0; // @[Xbar.scala 222:40]
-  wire  _T_1701 = _T_1700 | _T_661; // @[Xbar.scala 246:36]
-  wire  _T_663 = auto_out_16_r_valid & requestROI_16_0; // @[Xbar.scala 222:40]
-  wire  _T_1702 = _T_1701 | _T_663; // @[Xbar.scala 246:36]
-  wire  _T_665 = auto_out_17_r_valid & requestROI_17_0; // @[Xbar.scala 222:40]
-  wire  _T_1703 = _T_1702 | _T_665; // @[Xbar.scala 246:36]
-  wire  _T_667 = auto_out_18_r_valid & requestROI_18_0; // @[Xbar.scala 222:40]
-  wire  _T_1704 = _T_1703 | _T_667; // @[Xbar.scala 246:36]
-  wire  _T_669 = auto_out_19_r_valid & requestROI_19_0; // @[Xbar.scala 222:40]
-  wire  _T_1705 = _T_1704 | _T_669; // @[Xbar.scala 246:36]
-  wire  _T_671 = auto_out_20_r_valid & requestROI_20_0; // @[Xbar.scala 222:40]
-  wire  _T_1706 = _T_1705 | _T_671; // @[Xbar.scala 246:36]
-  wire  _T_1707 = _T_1706 | auto_out_21_r_valid; // @[Xbar.scala 246:36]
-  reg  _T_1962_0; // @[Xbar.scala 261:24]
+  wire  _T_609 = auto_out_0_r_valid & requestROI_0_0; // @[Xbar.scala 222:40]
+  wire  _T_611 = auto_out_1_r_valid & requestROI_1_0; // @[Xbar.scala 222:40]
+  wire  _T_1617 = _T_609 | _T_611; // @[Xbar.scala 246:36]
+  wire  _T_613 = auto_out_2_r_valid & requestROI_2_0; // @[Xbar.scala 222:40]
+  wire  _T_1618 = _T_1617 | _T_613; // @[Xbar.scala 246:36]
+  wire  _T_615 = auto_out_3_r_valid & requestROI_3_0; // @[Xbar.scala 222:40]
+  wire  _T_1619 = _T_1618 | _T_615; // @[Xbar.scala 246:36]
+  wire  _T_617 = auto_out_4_r_valid & requestROI_4_0; // @[Xbar.scala 222:40]
+  wire  _T_1620 = _T_1619 | _T_617; // @[Xbar.scala 246:36]
+  wire  _T_619 = auto_out_5_r_valid & requestROI_5_0; // @[Xbar.scala 222:40]
+  wire  _T_1621 = _T_1620 | _T_619; // @[Xbar.scala 246:36]
+  wire  _T_621 = auto_out_6_r_valid & requestROI_6_0; // @[Xbar.scala 222:40]
+  wire  _T_1622 = _T_1621 | _T_621; // @[Xbar.scala 246:36]
+  wire  _T_623 = auto_out_7_r_valid & requestROI_7_0; // @[Xbar.scala 222:40]
+  wire  _T_1623 = _T_1622 | _T_623; // @[Xbar.scala 246:36]
+  wire  _T_625 = auto_out_8_r_valid & requestROI_8_0; // @[Xbar.scala 222:40]
+  wire  _T_1624 = _T_1623 | _T_625; // @[Xbar.scala 246:36]
+  wire  _T_627 = auto_out_9_r_valid & requestROI_9_0; // @[Xbar.scala 222:40]
+  wire  _T_1625 = _T_1624 | _T_627; // @[Xbar.scala 246:36]
+  wire  _T_629 = auto_out_10_r_valid & requestROI_10_0; // @[Xbar.scala 222:40]
+  wire  _T_1626 = _T_1625 | _T_629; // @[Xbar.scala 246:36]
+  wire  _T_631 = auto_out_11_r_valid & requestROI_11_0; // @[Xbar.scala 222:40]
+  wire  _T_1627 = _T_1626 | _T_631; // @[Xbar.scala 246:36]
+  wire  _T_633 = auto_out_12_r_valid & requestROI_12_0; // @[Xbar.scala 222:40]
+  wire  _T_1628 = _T_1627 | _T_633; // @[Xbar.scala 246:36]
+  wire  _T_635 = auto_out_13_r_valid & requestROI_13_0; // @[Xbar.scala 222:40]
+  wire  _T_1629 = _T_1628 | _T_635; // @[Xbar.scala 246:36]
+  wire  _T_637 = auto_out_14_r_valid & requestROI_14_0; // @[Xbar.scala 222:40]
+  wire  _T_1630 = _T_1629 | _T_637; // @[Xbar.scala 246:36]
+  wire  _T_639 = auto_out_15_r_valid & requestROI_15_0; // @[Xbar.scala 222:40]
+  wire  _T_1631 = _T_1630 | _T_639; // @[Xbar.scala 246:36]
+  wire  _T_641 = auto_out_16_r_valid & requestROI_16_0; // @[Xbar.scala 222:40]
+  wire  _T_1632 = _T_1631 | _T_641; // @[Xbar.scala 246:36]
+  wire  _T_643 = auto_out_17_r_valid & requestROI_17_0; // @[Xbar.scala 222:40]
+  wire  _T_1633 = _T_1632 | _T_643; // @[Xbar.scala 246:36]
+  wire  _T_645 = auto_out_18_r_valid & requestROI_18_0; // @[Xbar.scala 222:40]
+  wire  _T_1634 = _T_1633 | _T_645; // @[Xbar.scala 246:36]
+  wire  _T_647 = auto_out_19_r_valid & requestROI_19_0; // @[Xbar.scala 222:40]
+  wire  _T_1635 = _T_1634 | _T_647; // @[Xbar.scala 246:36]
+  wire  _T_1636 = _T_1635 | auto_out_20_r_valid; // @[Xbar.scala 246:36]
+  reg  _T_1882_0; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_3;
-  wire  _T_1988 = _T_1962_0 & _T_631; // @[Mux.scala 27:72]
-  reg  _T_1962_1; // @[Xbar.scala 261:24]
+  wire  _T_1907 = _T_1882_0 & _T_609; // @[Mux.scala 27:72]
+  reg  _T_1882_1; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_4;
-  wire  _T_1989 = _T_1962_1 & _T_633; // @[Mux.scala 27:72]
-  wire  _T_2010 = _T_1988 | _T_1989; // @[Mux.scala 27:72]
-  reg  _T_1962_2; // @[Xbar.scala 261:24]
+  wire  _T_1908 = _T_1882_1 & _T_611; // @[Mux.scala 27:72]
+  wire  _T_1928 = _T_1907 | _T_1908; // @[Mux.scala 27:72]
+  reg  _T_1882_2; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_5;
-  wire  _T_1990 = _T_1962_2 & _T_635; // @[Mux.scala 27:72]
-  wire  _T_2011 = _T_2010 | _T_1990; // @[Mux.scala 27:72]
-  reg  _T_1962_3; // @[Xbar.scala 261:24]
+  wire  _T_1909 = _T_1882_2 & _T_613; // @[Mux.scala 27:72]
+  wire  _T_1929 = _T_1928 | _T_1909; // @[Mux.scala 27:72]
+  reg  _T_1882_3; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_6;
-  wire  _T_1991 = _T_1962_3 & _T_637; // @[Mux.scala 27:72]
-  wire  _T_2012 = _T_2011 | _T_1991; // @[Mux.scala 27:72]
-  reg  _T_1962_4; // @[Xbar.scala 261:24]
+  wire  _T_1910 = _T_1882_3 & _T_615; // @[Mux.scala 27:72]
+  wire  _T_1930 = _T_1929 | _T_1910; // @[Mux.scala 27:72]
+  reg  _T_1882_4; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_7;
-  wire  _T_1992 = _T_1962_4 & _T_639; // @[Mux.scala 27:72]
-  wire  _T_2013 = _T_2012 | _T_1992; // @[Mux.scala 27:72]
-  reg  _T_1962_5; // @[Xbar.scala 261:24]
+  wire  _T_1911 = _T_1882_4 & _T_617; // @[Mux.scala 27:72]
+  wire  _T_1931 = _T_1930 | _T_1911; // @[Mux.scala 27:72]
+  reg  _T_1882_5; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_8;
-  wire  _T_1993 = _T_1962_5 & _T_641; // @[Mux.scala 27:72]
-  wire  _T_2014 = _T_2013 | _T_1993; // @[Mux.scala 27:72]
-  reg  _T_1962_6; // @[Xbar.scala 261:24]
+  wire  _T_1912 = _T_1882_5 & _T_619; // @[Mux.scala 27:72]
+  wire  _T_1932 = _T_1931 | _T_1912; // @[Mux.scala 27:72]
+  reg  _T_1882_6; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_9;
-  wire  _T_1994 = _T_1962_6 & _T_643; // @[Mux.scala 27:72]
-  wire  _T_2015 = _T_2014 | _T_1994; // @[Mux.scala 27:72]
-  reg  _T_1962_7; // @[Xbar.scala 261:24]
+  wire  _T_1913 = _T_1882_6 & _T_621; // @[Mux.scala 27:72]
+  wire  _T_1933 = _T_1932 | _T_1913; // @[Mux.scala 27:72]
+  reg  _T_1882_7; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_10;
-  wire  _T_1995 = _T_1962_7 & _T_645; // @[Mux.scala 27:72]
-  wire  _T_2016 = _T_2015 | _T_1995; // @[Mux.scala 27:72]
-  reg  _T_1962_8; // @[Xbar.scala 261:24]
+  wire  _T_1914 = _T_1882_7 & _T_623; // @[Mux.scala 27:72]
+  wire  _T_1934 = _T_1933 | _T_1914; // @[Mux.scala 27:72]
+  reg  _T_1882_8; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_11;
-  wire  _T_1996 = _T_1962_8 & _T_647; // @[Mux.scala 27:72]
-  wire  _T_2017 = _T_2016 | _T_1996; // @[Mux.scala 27:72]
-  reg  _T_1962_9; // @[Xbar.scala 261:24]
+  wire  _T_1915 = _T_1882_8 & _T_625; // @[Mux.scala 27:72]
+  wire  _T_1935 = _T_1934 | _T_1915; // @[Mux.scala 27:72]
+  reg  _T_1882_9; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_12;
-  wire  _T_1997 = _T_1962_9 & _T_649; // @[Mux.scala 27:72]
-  wire  _T_2018 = _T_2017 | _T_1997; // @[Mux.scala 27:72]
-  reg  _T_1962_10; // @[Xbar.scala 261:24]
+  wire  _T_1916 = _T_1882_9 & _T_627; // @[Mux.scala 27:72]
+  wire  _T_1936 = _T_1935 | _T_1916; // @[Mux.scala 27:72]
+  reg  _T_1882_10; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_13;
-  wire  _T_1998 = _T_1962_10 & _T_651; // @[Mux.scala 27:72]
-  wire  _T_2019 = _T_2018 | _T_1998; // @[Mux.scala 27:72]
-  reg  _T_1962_11; // @[Xbar.scala 261:24]
+  wire  _T_1917 = _T_1882_10 & _T_629; // @[Mux.scala 27:72]
+  wire  _T_1937 = _T_1936 | _T_1917; // @[Mux.scala 27:72]
+  reg  _T_1882_11; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_14;
-  wire  _T_1999 = _T_1962_11 & _T_653; // @[Mux.scala 27:72]
-  wire  _T_2020 = _T_2019 | _T_1999; // @[Mux.scala 27:72]
-  reg  _T_1962_12; // @[Xbar.scala 261:24]
+  wire  _T_1918 = _T_1882_11 & _T_631; // @[Mux.scala 27:72]
+  wire  _T_1938 = _T_1937 | _T_1918; // @[Mux.scala 27:72]
+  reg  _T_1882_12; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_15;
-  wire  _T_2000 = _T_1962_12 & _T_655; // @[Mux.scala 27:72]
-  wire  _T_2021 = _T_2020 | _T_2000; // @[Mux.scala 27:72]
-  reg  _T_1962_13; // @[Xbar.scala 261:24]
+  wire  _T_1919 = _T_1882_12 & _T_633; // @[Mux.scala 27:72]
+  wire  _T_1939 = _T_1938 | _T_1919; // @[Mux.scala 27:72]
+  reg  _T_1882_13; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_16;
-  wire  _T_2001 = _T_1962_13 & _T_657; // @[Mux.scala 27:72]
-  wire  _T_2022 = _T_2021 | _T_2001; // @[Mux.scala 27:72]
-  reg  _T_1962_14; // @[Xbar.scala 261:24]
+  wire  _T_1920 = _T_1882_13 & _T_635; // @[Mux.scala 27:72]
+  wire  _T_1940 = _T_1939 | _T_1920; // @[Mux.scala 27:72]
+  reg  _T_1882_14; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_17;
-  wire  _T_2002 = _T_1962_14 & _T_659; // @[Mux.scala 27:72]
-  wire  _T_2023 = _T_2022 | _T_2002; // @[Mux.scala 27:72]
-  reg  _T_1962_15; // @[Xbar.scala 261:24]
+  wire  _T_1921 = _T_1882_14 & _T_637; // @[Mux.scala 27:72]
+  wire  _T_1941 = _T_1940 | _T_1921; // @[Mux.scala 27:72]
+  reg  _T_1882_15; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_18;
-  wire  _T_2003 = _T_1962_15 & _T_661; // @[Mux.scala 27:72]
-  wire  _T_2024 = _T_2023 | _T_2003; // @[Mux.scala 27:72]
-  reg  _T_1962_16; // @[Xbar.scala 261:24]
+  wire  _T_1922 = _T_1882_15 & _T_639; // @[Mux.scala 27:72]
+  wire  _T_1942 = _T_1941 | _T_1922; // @[Mux.scala 27:72]
+  reg  _T_1882_16; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_19;
-  wire  _T_2004 = _T_1962_16 & _T_663; // @[Mux.scala 27:72]
-  wire  _T_2025 = _T_2024 | _T_2004; // @[Mux.scala 27:72]
-  reg  _T_1962_17; // @[Xbar.scala 261:24]
+  wire  _T_1923 = _T_1882_16 & _T_641; // @[Mux.scala 27:72]
+  wire  _T_1943 = _T_1942 | _T_1923; // @[Mux.scala 27:72]
+  reg  _T_1882_17; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_20;
-  wire  _T_2005 = _T_1962_17 & _T_665; // @[Mux.scala 27:72]
-  wire  _T_2026 = _T_2025 | _T_2005; // @[Mux.scala 27:72]
-  reg  _T_1962_18; // @[Xbar.scala 261:24]
+  wire  _T_1924 = _T_1882_17 & _T_643; // @[Mux.scala 27:72]
+  wire  _T_1944 = _T_1943 | _T_1924; // @[Mux.scala 27:72]
+  reg  _T_1882_18; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_21;
-  wire  _T_2006 = _T_1962_18 & _T_667; // @[Mux.scala 27:72]
-  wire  _T_2027 = _T_2026 | _T_2006; // @[Mux.scala 27:72]
-  reg  _T_1962_19; // @[Xbar.scala 261:24]
+  wire  _T_1925 = _T_1882_18 & _T_645; // @[Mux.scala 27:72]
+  wire  _T_1945 = _T_1944 | _T_1925; // @[Mux.scala 27:72]
+  reg  _T_1882_19; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_22;
-  wire  _T_2007 = _T_1962_19 & _T_669; // @[Mux.scala 27:72]
-  wire  _T_2028 = _T_2027 | _T_2007; // @[Mux.scala 27:72]
-  reg  _T_1962_20; // @[Xbar.scala 261:24]
+  wire  _T_1926 = _T_1882_19 & _T_647; // @[Mux.scala 27:72]
+  wire  _T_1946 = _T_1945 | _T_1926; // @[Mux.scala 27:72]
+  reg  _T_1882_20; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_23;
-  wire  _T_2008 = _T_1962_20 & _T_671; // @[Mux.scala 27:72]
-  wire  _T_2029 = _T_2028 | _T_2008; // @[Mux.scala 27:72]
-  reg  _T_1962_21; // @[Xbar.scala 261:24]
+  wire  _T_1927 = _T_1882_20 & auto_out_20_r_valid; // @[Mux.scala 27:72]
+  wire  _T_1947 = _T_1946 | _T_1927; // @[Mux.scala 27:72]
+  wire  in_0_r_valid = _T_1616 ? _T_1636 : _T_1947; // @[Xbar.scala 278:22]
+  wire  _T_344 = auto_in_r_ready & in_0_r_valid; // @[Decoupled.scala 40:37]
+  wire [4:0] _T_1649 = {_T_637,_T_635,_T_633,_T_631,_T_629}; // @[Cat.scala 29:58]
+  wire [9:0] _T_1645 = {_T_627,_T_625,_T_623,_T_621,_T_619,_T_617,_T_615,_T_613,_T_611,_T_609}; // @[Cat.scala 29:58]
+  wire [20:0] _T_1656 = {auto_out_20_r_valid,_T_647,_T_645,_T_643,_T_641,_T_639,_T_1649,_T_1645}; // @[Cat.scala 29:58]
+  reg [20:0] _T_1663; // @[Arbiter.scala 20:23]
   reg [31:0] _RAND_24;
-  wire  _T_2009 = _T_1962_21 & auto_out_21_r_valid; // @[Mux.scala 27:72]
-  wire  _T_2030 = _T_2029 | _T_2009; // @[Mux.scala 27:72]
-  wire  in_0_r_valid = _T_1686 ? _T_1707 : _T_2030; // @[Xbar.scala 278:22]
-  wire  _T_357 = auto_in_r_ready & in_0_r_valid; // @[Decoupled.scala 40:37]
-  wire [4:0] _T_1721 = {_T_661,_T_659,_T_657,_T_655,_T_653}; // @[Cat.scala 29:58]
-  wire [4:0] _T_1711 = {_T_639,_T_637,_T_635,_T_633,_T_631}; // @[Cat.scala 29:58]
-  wire [10:0] _T_1717 = {_T_651,_T_649,_T_647,_T_645,_T_643,_T_641,_T_1711}; // @[Cat.scala 29:58]
-  wire [21:0] _T_1728 = {auto_out_21_r_valid,_T_671,_T_669,_T_667,_T_665,_T_663,_T_1721,_T_1717}; // @[Cat.scala 29:58]
-  reg [21:0] _T_1735; // @[Arbiter.scala 20:23]
+  wire [20:0] _T_1664 = ~_T_1663; // @[Arbiter.scala 21:30]
+  wire [20:0] _T_1665 = _T_1656 & _T_1664; // @[Arbiter.scala 21:28]
+  wire [41:0] _T_1666 = {_T_1665,auto_out_20_r_valid,_T_647,_T_645,_T_643,_T_641,_T_639,_T_1649,_T_1645}; // @[Cat.scala 29:58]
+  wire [41:0] _GEN_96 = {{1'd0}, _T_1666[41:1]}; // @[package.scala 208:43]
+  wire [41:0] _T_1668 = _T_1666 | _GEN_96; // @[package.scala 208:43]
+  wire [41:0] _GEN_97 = {{2'd0}, _T_1668[41:2]}; // @[package.scala 208:43]
+  wire [41:0] _T_1670 = _T_1668 | _GEN_97; // @[package.scala 208:43]
+  wire [41:0] _GEN_98 = {{4'd0}, _T_1670[41:4]}; // @[package.scala 208:43]
+  wire [41:0] _T_1672 = _T_1670 | _GEN_98; // @[package.scala 208:43]
+  wire [41:0] _GEN_99 = {{8'd0}, _T_1672[41:8]}; // @[package.scala 208:43]
+  wire [41:0] _T_1674 = _T_1672 | _GEN_99; // @[package.scala 208:43]
+  wire [41:0] _GEN_100 = {{16'd0}, _T_1674[41:16]}; // @[package.scala 208:43]
+  wire [41:0] _T_1676 = _T_1674 | _GEN_100; // @[package.scala 208:43]
+  wire [41:0] _T_1679 = {_T_1663, 21'h0}; // @[Arbiter.scala 22:66]
+  wire [41:0] _GEN_101 = {{1'd0}, _T_1676[41:1]}; // @[Arbiter.scala 22:58]
+  wire [41:0] _T_1680 = _GEN_101 | _T_1679; // @[Arbiter.scala 22:58]
+  wire [20:0] _T_1683 = _T_1680[41:21] & _T_1680[20:0]; // @[Arbiter.scala 23:39]
+  wire [20:0] _T_1684 = ~_T_1683; // @[Arbiter.scala 23:18]
+  wire  _T_1727 = _T_1684[0] & _T_609; // @[Xbar.scala 250:63]
+  wire  _T_1883_0 = _T_1616 ? _T_1727 : _T_1882_0; // @[Xbar.scala 262:23]
+  wire [35:0] _T_1952 = {auto_out_0_r_bits_id,auto_out_0_r_bits_data,auto_out_0_r_bits_resp,auto_out_0_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_1953 = _T_1883_0 ? _T_1952 : 36'h0; // @[Mux.scala 27:72]
+  wire  _T_1728 = _T_1684[1] & _T_611; // @[Xbar.scala 250:63]
+  wire  _T_1883_1 = _T_1616 ? _T_1728 : _T_1882_1; // @[Xbar.scala 262:23]
+  wire [35:0] _T_1956 = {auto_out_1_r_bits_id,auto_out_1_r_bits_data,auto_out_1_r_bits_resp,auto_out_1_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_1957 = _T_1883_1 ? _T_1956 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2034 = _T_1953 | _T_1957; // @[Mux.scala 27:72]
+  wire  _T_1729 = _T_1684[2] & _T_613; // @[Xbar.scala 250:63]
+  wire  _T_1883_2 = _T_1616 ? _T_1729 : _T_1882_2; // @[Xbar.scala 262:23]
+  wire [35:0] _T_1960 = {auto_out_2_r_bits_id,auto_out_2_r_bits_data,auto_out_2_r_bits_resp,auto_out_2_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_1961 = _T_1883_2 ? _T_1960 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2035 = _T_2034 | _T_1961; // @[Mux.scala 27:72]
+  wire  _T_1730 = _T_1684[3] & _T_615; // @[Xbar.scala 250:63]
+  wire  _T_1883_3 = _T_1616 ? _T_1730 : _T_1882_3; // @[Xbar.scala 262:23]
+  wire [35:0] _T_1964 = {auto_out_3_r_bits_id,auto_out_3_r_bits_data,auto_out_3_r_bits_resp,auto_out_3_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_1965 = _T_1883_3 ? _T_1964 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2036 = _T_2035 | _T_1965; // @[Mux.scala 27:72]
+  wire  _T_1731 = _T_1684[4] & _T_617; // @[Xbar.scala 250:63]
+  wire  _T_1883_4 = _T_1616 ? _T_1731 : _T_1882_4; // @[Xbar.scala 262:23]
+  wire [35:0] _T_1968 = {auto_out_4_r_bits_id,auto_out_4_r_bits_data,auto_out_4_r_bits_resp,auto_out_4_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_1969 = _T_1883_4 ? _T_1968 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2037 = _T_2036 | _T_1969; // @[Mux.scala 27:72]
+  wire  _T_1732 = _T_1684[5] & _T_619; // @[Xbar.scala 250:63]
+  wire  _T_1883_5 = _T_1616 ? _T_1732 : _T_1882_5; // @[Xbar.scala 262:23]
+  wire [35:0] _T_1972 = {auto_out_5_r_bits_id,auto_out_5_r_bits_data,auto_out_5_r_bits_resp,auto_out_5_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_1973 = _T_1883_5 ? _T_1972 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2038 = _T_2037 | _T_1973; // @[Mux.scala 27:72]
+  wire  _T_1733 = _T_1684[6] & _T_621; // @[Xbar.scala 250:63]
+  wire  _T_1883_6 = _T_1616 ? _T_1733 : _T_1882_6; // @[Xbar.scala 262:23]
+  wire [35:0] _T_1976 = {auto_out_6_r_bits_id,auto_out_6_r_bits_data,auto_out_6_r_bits_resp,auto_out_6_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_1977 = _T_1883_6 ? _T_1976 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2039 = _T_2038 | _T_1977; // @[Mux.scala 27:72]
+  wire  _T_1734 = _T_1684[7] & _T_623; // @[Xbar.scala 250:63]
+  wire  _T_1883_7 = _T_1616 ? _T_1734 : _T_1882_7; // @[Xbar.scala 262:23]
+  wire [35:0] _T_1980 = {auto_out_7_r_bits_id,auto_out_7_r_bits_data,auto_out_7_r_bits_resp,auto_out_7_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_1981 = _T_1883_7 ? _T_1980 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2040 = _T_2039 | _T_1981; // @[Mux.scala 27:72]
+  wire  _T_1735 = _T_1684[8] & _T_625; // @[Xbar.scala 250:63]
+  wire  _T_1883_8 = _T_1616 ? _T_1735 : _T_1882_8; // @[Xbar.scala 262:23]
+  wire [35:0] _T_1984 = {auto_out_8_r_bits_id,auto_out_8_r_bits_data,auto_out_8_r_bits_resp,auto_out_8_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_1985 = _T_1883_8 ? _T_1984 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2041 = _T_2040 | _T_1985; // @[Mux.scala 27:72]
+  wire  _T_1736 = _T_1684[9] & _T_627; // @[Xbar.scala 250:63]
+  wire  _T_1883_9 = _T_1616 ? _T_1736 : _T_1882_9; // @[Xbar.scala 262:23]
+  wire [35:0] _T_1988 = {auto_out_9_r_bits_id,auto_out_9_r_bits_data,auto_out_9_r_bits_resp,auto_out_9_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_1989 = _T_1883_9 ? _T_1988 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2042 = _T_2041 | _T_1989; // @[Mux.scala 27:72]
+  wire  _T_1737 = _T_1684[10] & _T_629; // @[Xbar.scala 250:63]
+  wire  _T_1883_10 = _T_1616 ? _T_1737 : _T_1882_10; // @[Xbar.scala 262:23]
+  wire [35:0] _T_1992 = {auto_out_10_r_bits_id,auto_out_10_r_bits_data,auto_out_10_r_bits_resp,auto_out_10_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_1993 = _T_1883_10 ? _T_1992 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2043 = _T_2042 | _T_1993; // @[Mux.scala 27:72]
+  wire  _T_1738 = _T_1684[11] & _T_631; // @[Xbar.scala 250:63]
+  wire  _T_1883_11 = _T_1616 ? _T_1738 : _T_1882_11; // @[Xbar.scala 262:23]
+  wire [35:0] _T_1996 = {auto_out_11_r_bits_id,auto_out_11_r_bits_data,auto_out_11_r_bits_resp,auto_out_11_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_1997 = _T_1883_11 ? _T_1996 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2044 = _T_2043 | _T_1997; // @[Mux.scala 27:72]
+  wire  _T_1739 = _T_1684[12] & _T_633; // @[Xbar.scala 250:63]
+  wire  _T_1883_12 = _T_1616 ? _T_1739 : _T_1882_12; // @[Xbar.scala 262:23]
+  wire [35:0] _T_2000 = {auto_out_12_r_bits_id,auto_out_12_r_bits_data,auto_out_12_r_bits_resp,auto_out_12_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2001 = _T_1883_12 ? _T_2000 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2045 = _T_2044 | _T_2001; // @[Mux.scala 27:72]
+  wire  _T_1740 = _T_1684[13] & _T_635; // @[Xbar.scala 250:63]
+  wire  _T_1883_13 = _T_1616 ? _T_1740 : _T_1882_13; // @[Xbar.scala 262:23]
+  wire [35:0] _T_2004 = {auto_out_13_r_bits_id,auto_out_13_r_bits_data,auto_out_13_r_bits_resp,auto_out_13_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2005 = _T_1883_13 ? _T_2004 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2046 = _T_2045 | _T_2005; // @[Mux.scala 27:72]
+  wire  _T_1741 = _T_1684[14] & _T_637; // @[Xbar.scala 250:63]
+  wire  _T_1883_14 = _T_1616 ? _T_1741 : _T_1882_14; // @[Xbar.scala 262:23]
+  wire [35:0] _T_2008 = {auto_out_14_r_bits_id,auto_out_14_r_bits_data,auto_out_14_r_bits_resp,auto_out_14_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2009 = _T_1883_14 ? _T_2008 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2047 = _T_2046 | _T_2009; // @[Mux.scala 27:72]
+  wire  _T_1742 = _T_1684[15] & _T_639; // @[Xbar.scala 250:63]
+  wire  _T_1883_15 = _T_1616 ? _T_1742 : _T_1882_15; // @[Xbar.scala 262:23]
+  wire [35:0] _T_2012 = {auto_out_15_r_bits_id,auto_out_15_r_bits_data,auto_out_15_r_bits_resp,auto_out_15_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2013 = _T_1883_15 ? _T_2012 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2048 = _T_2047 | _T_2013; // @[Mux.scala 27:72]
+  wire  _T_1743 = _T_1684[16] & _T_641; // @[Xbar.scala 250:63]
+  wire  _T_1883_16 = _T_1616 ? _T_1743 : _T_1882_16; // @[Xbar.scala 262:23]
+  wire [35:0] _T_2016 = {auto_out_16_r_bits_id,auto_out_16_r_bits_data,auto_out_16_r_bits_resp,auto_out_16_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2017 = _T_1883_16 ? _T_2016 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2049 = _T_2048 | _T_2017; // @[Mux.scala 27:72]
+  wire  _T_1744 = _T_1684[17] & _T_643; // @[Xbar.scala 250:63]
+  wire  _T_1883_17 = _T_1616 ? _T_1744 : _T_1882_17; // @[Xbar.scala 262:23]
+  wire [35:0] _T_2020 = {auto_out_17_r_bits_id,auto_out_17_r_bits_data,auto_out_17_r_bits_resp,auto_out_17_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2021 = _T_1883_17 ? _T_2020 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2050 = _T_2049 | _T_2021; // @[Mux.scala 27:72]
+  wire  _T_1745 = _T_1684[18] & _T_645; // @[Xbar.scala 250:63]
+  wire  _T_1883_18 = _T_1616 ? _T_1745 : _T_1882_18; // @[Xbar.scala 262:23]
+  wire [35:0] _T_2024 = {auto_out_18_r_bits_id,auto_out_18_r_bits_data,auto_out_18_r_bits_resp,auto_out_18_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2025 = _T_1883_18 ? _T_2024 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2051 = _T_2050 | _T_2025; // @[Mux.scala 27:72]
+  wire  _T_1746 = _T_1684[19] & _T_647; // @[Xbar.scala 250:63]
+  wire  _T_1883_19 = _T_1616 ? _T_1746 : _T_1882_19; // @[Xbar.scala 262:23]
+  wire [35:0] _T_2028 = {auto_out_19_r_bits_id,auto_out_19_r_bits_data,auto_out_19_r_bits_resp,auto_out_19_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2029 = _T_1883_19 ? _T_2028 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2052 = _T_2051 | _T_2029; // @[Mux.scala 27:72]
+  wire  _T_1747 = _T_1684[20] & auto_out_20_r_valid; // @[Xbar.scala 250:63]
+  wire  _T_1883_20 = _T_1616 ? _T_1747 : _T_1882_20; // @[Xbar.scala 262:23]
+  wire [35:0] _T_2032 = {1'h0,auto_out_20_r_bits_data,auto_out_20_r_bits_resp,auto_out_20_r_bits_last}; // @[Mux.scala 27:72]
+  wire [35:0] _T_2033 = _T_1883_20 ? _T_2032 : 36'h0; // @[Mux.scala 27:72]
+  wire [35:0] _T_2053 = _T_2052 | _T_2033; // @[Mux.scala 27:72]
+  wire  in_0_r_bits_last = _T_2053[0]; // @[Mux.scala 27:72]
+  wire  _T_346 = _T_344 & in_0_r_bits_last; // @[Xbar.scala 120:45]
+  wire [2:0] _GEN_102 = {{2'd0}, _T_342}; // @[Xbar.scala 106:30]
+  wire [2:0] _T_350 = _T_347 + _GEN_102; // @[Xbar.scala 106:30]
+  wire [2:0] _GEN_103 = {{2'd0}, _T_346}; // @[Xbar.scala 106:48]
+  wire [2:0] _T_352 = _T_350 - _GEN_103; // @[Xbar.scala 106:48]
+  wire  _T_353 = ~_T_346; // @[Xbar.scala 107:23]
+  wire  _T_354 = _T_347 != 3'h0; // @[Xbar.scala 107:43]
+  wire  _T_355 = _T_353 | _T_354; // @[Xbar.scala 107:34]
+  wire  _T_357 = _T_355 | reset; // @[Xbar.scala 107:22]
+  wire  _T_358 = ~_T_357; // @[Xbar.scala 107:22]
+  wire  _T_359 = ~_T_342; // @[Xbar.scala 108:23]
+  wire  _T_361 = _T_359 | _T_368; // @[Xbar.scala 108:34]
+  wire  _T_363 = _T_361 | reset; // @[Xbar.scala 108:22]
+  wire  _T_364 = ~_T_363; // @[Xbar.scala 108:22]
+  wire  _T_502 = requestAWIO_0_0 & auto_out_0_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_503 = requestAWIO_0_1 & auto_out_1_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_523 = _T_502 | _T_503; // @[Mux.scala 27:72]
+  wire  _T_504 = requestAWIO_0_2 & auto_out_2_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_524 = _T_523 | _T_504; // @[Mux.scala 27:72]
+  wire  _T_505 = requestAWIO_0_3 & auto_out_3_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_525 = _T_524 | _T_505; // @[Mux.scala 27:72]
+  wire  _T_506 = requestAWIO_0_4 & auto_out_4_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_526 = _T_525 | _T_506; // @[Mux.scala 27:72]
+  wire  _T_507 = requestAWIO_0_5 & auto_out_5_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_527 = _T_526 | _T_507; // @[Mux.scala 27:72]
+  wire  _T_508 = requestAWIO_0_6 & auto_out_6_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_528 = _T_527 | _T_508; // @[Mux.scala 27:72]
+  wire  _T_509 = requestAWIO_0_7 & auto_out_7_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_529 = _T_528 | _T_509; // @[Mux.scala 27:72]
+  wire  _T_510 = requestAWIO_0_8 & auto_out_8_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_530 = _T_529 | _T_510; // @[Mux.scala 27:72]
+  wire  _T_511 = requestAWIO_0_9 & auto_out_9_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_531 = _T_530 | _T_511; // @[Mux.scala 27:72]
+  wire  _T_512 = requestAWIO_0_10 & auto_out_10_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_532 = _T_531 | _T_512; // @[Mux.scala 27:72]
+  wire  _T_513 = requestAWIO_0_11 & auto_out_11_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_533 = _T_532 | _T_513; // @[Mux.scala 27:72]
+  wire  _T_514 = requestAWIO_0_12 & auto_out_12_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_534 = _T_533 | _T_514; // @[Mux.scala 27:72]
+  wire  _T_515 = requestAWIO_0_13 & auto_out_13_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_535 = _T_534 | _T_515; // @[Mux.scala 27:72]
+  wire  _T_516 = requestAWIO_0_14 & auto_out_14_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_536 = _T_535 | _T_516; // @[Mux.scala 27:72]
+  wire  _T_517 = requestAWIO_0_15 & auto_out_15_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_537 = _T_536 | _T_517; // @[Mux.scala 27:72]
+  wire  _T_518 = requestAWIO_0_16 & auto_out_16_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_538 = _T_537 | _T_518; // @[Mux.scala 27:72]
+  wire  _T_519 = requestAWIO_0_17 & auto_out_17_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_539 = _T_538 | _T_519; // @[Mux.scala 27:72]
+  wire  _T_520 = requestAWIO_0_18 & auto_out_18_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_540 = _T_539 | _T_520; // @[Mux.scala 27:72]
+  wire  _T_521 = requestAWIO_0_19 & auto_out_19_aw_ready; // @[Mux.scala 27:72]
+  wire  _T_541 = _T_540 | _T_521; // @[Mux.scala 27:72]
+  wire  _T_522 = requestAWIO_0_20 & auto_out_20_aw_ready; // @[Mux.scala 27:72]
+  wire  in_0_aw_ready = _T_541 | _T_522; // @[Mux.scala 27:72]
+  reg  _T_401; // @[Xbar.scala 137:30]
   reg [31:0] _RAND_25;
-  wire [21:0] _T_1736 = ~_T_1735; // @[Arbiter.scala 21:30]
-  wire [21:0] _T_1737 = _T_1728 & _T_1736; // @[Arbiter.scala 21:28]
-  wire [43:0] _T_1738 = {_T_1737,auto_out_21_r_valid,_T_671,_T_669,_T_667,_T_665,_T_663,_T_1721,_T_1717}; // @[Cat.scala 29:58]
-  wire [43:0] _GEN_100 = {{1'd0}, _T_1738[43:1]}; // @[package.scala 208:43]
-  wire [43:0] _T_1740 = _T_1738 | _GEN_100; // @[package.scala 208:43]
-  wire [43:0] _GEN_101 = {{2'd0}, _T_1740[43:2]}; // @[package.scala 208:43]
-  wire [43:0] _T_1742 = _T_1740 | _GEN_101; // @[package.scala 208:43]
-  wire [43:0] _GEN_102 = {{4'd0}, _T_1742[43:4]}; // @[package.scala 208:43]
-  wire [43:0] _T_1744 = _T_1742 | _GEN_102; // @[package.scala 208:43]
-  wire [43:0] _GEN_103 = {{8'd0}, _T_1744[43:8]}; // @[package.scala 208:43]
-  wire [43:0] _T_1746 = _T_1744 | _GEN_103; // @[package.scala 208:43]
-  wire [43:0] _GEN_104 = {{16'd0}, _T_1746[43:16]}; // @[package.scala 208:43]
-  wire [43:0] _T_1748 = _T_1746 | _GEN_104; // @[package.scala 208:43]
-  wire [43:0] _T_1751 = {_T_1735, 22'h0}; // @[Arbiter.scala 22:66]
-  wire [43:0] _GEN_105 = {{1'd0}, _T_1748[43:1]}; // @[Arbiter.scala 22:58]
-  wire [43:0] _T_1752 = _GEN_105 | _T_1751; // @[Arbiter.scala 22:58]
-  wire [21:0] _T_1755 = _T_1752[43:22] & _T_1752[21:0]; // @[Arbiter.scala 23:39]
-  wire [21:0] _T_1756 = ~_T_1755; // @[Arbiter.scala 23:18]
-  wire  _T_1800 = _T_1756[0] & _T_631; // @[Xbar.scala 250:63]
-  wire  _T_1963_0 = _T_1686 ? _T_1800 : _T_1962_0; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2035 = {auto_out_0_r_bits_id,auto_out_0_r_bits_data,auto_out_0_r_bits_resp,auto_out_0_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2036 = _T_1963_0 ? _T_2035 : 36'h0; // @[Mux.scala 27:72]
-  wire  _T_1801 = _T_1756[1] & _T_633; // @[Xbar.scala 250:63]
-  wire  _T_1963_1 = _T_1686 ? _T_1801 : _T_1962_1; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2039 = {auto_out_1_r_bits_id,auto_out_1_r_bits_data,auto_out_1_r_bits_resp,auto_out_1_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2040 = _T_1963_1 ? _T_2039 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2121 = _T_2036 | _T_2040; // @[Mux.scala 27:72]
-  wire  _T_1802 = _T_1756[2] & _T_635; // @[Xbar.scala 250:63]
-  wire  _T_1963_2 = _T_1686 ? _T_1802 : _T_1962_2; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2043 = {auto_out_2_r_bits_id,auto_out_2_r_bits_data,auto_out_2_r_bits_resp,auto_out_2_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2044 = _T_1963_2 ? _T_2043 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2122 = _T_2121 | _T_2044; // @[Mux.scala 27:72]
-  wire  _T_1803 = _T_1756[3] & _T_637; // @[Xbar.scala 250:63]
-  wire  _T_1963_3 = _T_1686 ? _T_1803 : _T_1962_3; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2047 = {auto_out_3_r_bits_id,auto_out_3_r_bits_data,auto_out_3_r_bits_resp,auto_out_3_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2048 = _T_1963_3 ? _T_2047 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2123 = _T_2122 | _T_2048; // @[Mux.scala 27:72]
-  wire  _T_1804 = _T_1756[4] & _T_639; // @[Xbar.scala 250:63]
-  wire  _T_1963_4 = _T_1686 ? _T_1804 : _T_1962_4; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2051 = {auto_out_4_r_bits_id,auto_out_4_r_bits_data,auto_out_4_r_bits_resp,auto_out_4_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2052 = _T_1963_4 ? _T_2051 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2124 = _T_2123 | _T_2052; // @[Mux.scala 27:72]
-  wire  _T_1805 = _T_1756[5] & _T_641; // @[Xbar.scala 250:63]
-  wire  _T_1963_5 = _T_1686 ? _T_1805 : _T_1962_5; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2055 = {auto_out_5_r_bits_id,auto_out_5_r_bits_data,auto_out_5_r_bits_resp,auto_out_5_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2056 = _T_1963_5 ? _T_2055 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2125 = _T_2124 | _T_2056; // @[Mux.scala 27:72]
-  wire  _T_1806 = _T_1756[6] & _T_643; // @[Xbar.scala 250:63]
-  wire  _T_1963_6 = _T_1686 ? _T_1806 : _T_1962_6; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2059 = {auto_out_6_r_bits_id,auto_out_6_r_bits_data,auto_out_6_r_bits_resp,auto_out_6_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2060 = _T_1963_6 ? _T_2059 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2126 = _T_2125 | _T_2060; // @[Mux.scala 27:72]
-  wire  _T_1807 = _T_1756[7] & _T_645; // @[Xbar.scala 250:63]
-  wire  _T_1963_7 = _T_1686 ? _T_1807 : _T_1962_7; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2063 = {auto_out_7_r_bits_id,auto_out_7_r_bits_data,auto_out_7_r_bits_resp,auto_out_7_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2064 = _T_1963_7 ? _T_2063 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2127 = _T_2126 | _T_2064; // @[Mux.scala 27:72]
-  wire  _T_1808 = _T_1756[8] & _T_647; // @[Xbar.scala 250:63]
-  wire  _T_1963_8 = _T_1686 ? _T_1808 : _T_1962_8; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2067 = {auto_out_8_r_bits_id,auto_out_8_r_bits_data,auto_out_8_r_bits_resp,auto_out_8_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2068 = _T_1963_8 ? _T_2067 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2128 = _T_2127 | _T_2068; // @[Mux.scala 27:72]
-  wire  _T_1809 = _T_1756[9] & _T_649; // @[Xbar.scala 250:63]
-  wire  _T_1963_9 = _T_1686 ? _T_1809 : _T_1962_9; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2071 = {auto_out_9_r_bits_id,auto_out_9_r_bits_data,auto_out_9_r_bits_resp,auto_out_9_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2072 = _T_1963_9 ? _T_2071 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2129 = _T_2128 | _T_2072; // @[Mux.scala 27:72]
-  wire  _T_1810 = _T_1756[10] & _T_651; // @[Xbar.scala 250:63]
-  wire  _T_1963_10 = _T_1686 ? _T_1810 : _T_1962_10; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2075 = {auto_out_10_r_bits_id,auto_out_10_r_bits_data,auto_out_10_r_bits_resp,auto_out_10_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2076 = _T_1963_10 ? _T_2075 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2130 = _T_2129 | _T_2076; // @[Mux.scala 27:72]
-  wire  _T_1811 = _T_1756[11] & _T_653; // @[Xbar.scala 250:63]
-  wire  _T_1963_11 = _T_1686 ? _T_1811 : _T_1962_11; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2079 = {auto_out_11_r_bits_id,auto_out_11_r_bits_data,auto_out_11_r_bits_resp,auto_out_11_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2080 = _T_1963_11 ? _T_2079 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2131 = _T_2130 | _T_2080; // @[Mux.scala 27:72]
-  wire  _T_1812 = _T_1756[12] & _T_655; // @[Xbar.scala 250:63]
-  wire  _T_1963_12 = _T_1686 ? _T_1812 : _T_1962_12; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2083 = {auto_out_12_r_bits_id,auto_out_12_r_bits_data,auto_out_12_r_bits_resp,auto_out_12_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2084 = _T_1963_12 ? _T_2083 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2132 = _T_2131 | _T_2084; // @[Mux.scala 27:72]
-  wire  _T_1813 = _T_1756[13] & _T_657; // @[Xbar.scala 250:63]
-  wire  _T_1963_13 = _T_1686 ? _T_1813 : _T_1962_13; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2087 = {auto_out_13_r_bits_id,auto_out_13_r_bits_data,auto_out_13_r_bits_resp,auto_out_13_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2088 = _T_1963_13 ? _T_2087 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2133 = _T_2132 | _T_2088; // @[Mux.scala 27:72]
-  wire  _T_1814 = _T_1756[14] & _T_659; // @[Xbar.scala 250:63]
-  wire  _T_1963_14 = _T_1686 ? _T_1814 : _T_1962_14; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2091 = {auto_out_14_r_bits_id,auto_out_14_r_bits_data,auto_out_14_r_bits_resp,auto_out_14_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2092 = _T_1963_14 ? _T_2091 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2134 = _T_2133 | _T_2092; // @[Mux.scala 27:72]
-  wire  _T_1815 = _T_1756[15] & _T_661; // @[Xbar.scala 250:63]
-  wire  _T_1963_15 = _T_1686 ? _T_1815 : _T_1962_15; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2095 = {auto_out_15_r_bits_id,auto_out_15_r_bits_data,auto_out_15_r_bits_resp,auto_out_15_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2096 = _T_1963_15 ? _T_2095 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2135 = _T_2134 | _T_2096; // @[Mux.scala 27:72]
-  wire  _T_1816 = _T_1756[16] & _T_663; // @[Xbar.scala 250:63]
-  wire  _T_1963_16 = _T_1686 ? _T_1816 : _T_1962_16; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2099 = {auto_out_16_r_bits_id,auto_out_16_r_bits_data,auto_out_16_r_bits_resp,auto_out_16_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2100 = _T_1963_16 ? _T_2099 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2136 = _T_2135 | _T_2100; // @[Mux.scala 27:72]
-  wire  _T_1817 = _T_1756[17] & _T_665; // @[Xbar.scala 250:63]
-  wire  _T_1963_17 = _T_1686 ? _T_1817 : _T_1962_17; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2103 = {auto_out_17_r_bits_id,auto_out_17_r_bits_data,auto_out_17_r_bits_resp,auto_out_17_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2104 = _T_1963_17 ? _T_2103 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2137 = _T_2136 | _T_2104; // @[Mux.scala 27:72]
-  wire  _T_1818 = _T_1756[18] & _T_667; // @[Xbar.scala 250:63]
-  wire  _T_1963_18 = _T_1686 ? _T_1818 : _T_1962_18; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2107 = {auto_out_18_r_bits_id,auto_out_18_r_bits_data,auto_out_18_r_bits_resp,auto_out_18_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2108 = _T_1963_18 ? _T_2107 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2138 = _T_2137 | _T_2108; // @[Mux.scala 27:72]
-  wire  _T_1819 = _T_1756[19] & _T_669; // @[Xbar.scala 250:63]
-  wire  _T_1963_19 = _T_1686 ? _T_1819 : _T_1962_19; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2111 = {auto_out_19_r_bits_id,auto_out_19_r_bits_data,auto_out_19_r_bits_resp,auto_out_19_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2112 = _T_1963_19 ? _T_2111 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2139 = _T_2138 | _T_2112; // @[Mux.scala 27:72]
-  wire  _T_1820 = _T_1756[20] & _T_671; // @[Xbar.scala 250:63]
-  wire  _T_1963_20 = _T_1686 ? _T_1820 : _T_1962_20; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2115 = {auto_out_20_r_bits_id,auto_out_20_r_bits_data,auto_out_20_r_bits_resp,auto_out_20_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2116 = _T_1963_20 ? _T_2115 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2140 = _T_2139 | _T_2116; // @[Mux.scala 27:72]
-  wire  _T_1821 = _T_1756[21] & auto_out_21_r_valid; // @[Xbar.scala 250:63]
-  wire  _T_1963_21 = _T_1686 ? _T_1821 : _T_1962_21; // @[Xbar.scala 262:23]
-  wire [35:0] _T_2119 = {1'h0,auto_out_21_r_bits_data,auto_out_21_r_bits_resp,auto_out_21_r_bits_last}; // @[Mux.scala 27:72]
-  wire [35:0] _T_2120 = _T_1963_21 ? _T_2119 : 36'h0; // @[Mux.scala 27:72]
-  wire [35:0] _T_2141 = _T_2140 | _T_2120; // @[Mux.scala 27:72]
-  wire  in_0_r_bits_last = _T_2141[0]; // @[Mux.scala 27:72]
-  wire  _T_359 = _T_357 & in_0_r_bits_last; // @[Xbar.scala 120:45]
-  wire [2:0] _GEN_106 = {{2'd0}, _T_355}; // @[Xbar.scala 106:30]
-  wire [2:0] _T_363 = _T_360 + _GEN_106; // @[Xbar.scala 106:30]
-  wire [2:0] _GEN_107 = {{2'd0}, _T_359}; // @[Xbar.scala 106:48]
-  wire [2:0] _T_365 = _T_363 - _GEN_107; // @[Xbar.scala 106:48]
-  wire  _T_366 = ~_T_359; // @[Xbar.scala 107:23]
-  wire  _T_367 = _T_360 != 3'h0; // @[Xbar.scala 107:43]
-  wire  _T_368 = _T_366 | _T_367; // @[Xbar.scala 107:34]
-  wire  _T_370 = _T_368 | reset; // @[Xbar.scala 107:22]
-  wire  _T_371 = ~_T_370; // @[Xbar.scala 107:22]
-  wire  _T_372 = ~_T_355; // @[Xbar.scala 108:23]
-  wire  _T_374 = _T_372 | _T_381; // @[Xbar.scala 108:34]
-  wire  _T_376 = _T_374 | reset; // @[Xbar.scala 108:22]
-  wire  _T_377 = ~_T_376; // @[Xbar.scala 108:22]
-  wire  _T_519 = requestAWIO_0_0 & auto_out_0_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_520 = requestAWIO_0_1 & auto_out_1_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_541 = _T_519 | _T_520; // @[Mux.scala 27:72]
-  wire  _T_521 = requestAWIO_0_2 & auto_out_2_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_542 = _T_541 | _T_521; // @[Mux.scala 27:72]
-  wire  _T_522 = requestAWIO_0_3 & auto_out_3_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_543 = _T_542 | _T_522; // @[Mux.scala 27:72]
-  wire  _T_523 = requestAWIO_0_4 & auto_out_4_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_544 = _T_543 | _T_523; // @[Mux.scala 27:72]
-  wire  _T_524 = requestAWIO_0_5 & auto_out_5_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_545 = _T_544 | _T_524; // @[Mux.scala 27:72]
-  wire  _T_525 = requestAWIO_0_6 & auto_out_6_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_546 = _T_545 | _T_525; // @[Mux.scala 27:72]
-  wire  _T_526 = requestAWIO_0_7 & auto_out_7_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_547 = _T_546 | _T_526; // @[Mux.scala 27:72]
-  wire  _T_527 = requestAWIO_0_8 & auto_out_8_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_548 = _T_547 | _T_527; // @[Mux.scala 27:72]
-  wire  _T_528 = requestAWIO_0_9 & auto_out_9_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_549 = _T_548 | _T_528; // @[Mux.scala 27:72]
-  wire  _T_529 = requestAWIO_0_10 & auto_out_10_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_550 = _T_549 | _T_529; // @[Mux.scala 27:72]
-  wire  _T_530 = requestAWIO_0_11 & auto_out_11_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_551 = _T_550 | _T_530; // @[Mux.scala 27:72]
-  wire  _T_531 = requestAWIO_0_12 & auto_out_12_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_552 = _T_551 | _T_531; // @[Mux.scala 27:72]
-  wire  _T_532 = requestAWIO_0_13 & auto_out_13_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_553 = _T_552 | _T_532; // @[Mux.scala 27:72]
-  wire  _T_533 = requestAWIO_0_14 & auto_out_14_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_554 = _T_553 | _T_533; // @[Mux.scala 27:72]
-  wire  _T_534 = requestAWIO_0_15 & auto_out_15_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_555 = _T_554 | _T_534; // @[Mux.scala 27:72]
-  wire  _T_535 = requestAWIO_0_16 & auto_out_16_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_556 = _T_555 | _T_535; // @[Mux.scala 27:72]
-  wire  _T_536 = requestAWIO_0_17 & auto_out_17_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_557 = _T_556 | _T_536; // @[Mux.scala 27:72]
-  wire  _T_537 = requestAWIO_0_18 & auto_out_18_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_558 = _T_557 | _T_537; // @[Mux.scala 27:72]
-  wire  _T_538 = requestAWIO_0_19 & auto_out_19_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_559 = _T_558 | _T_538; // @[Mux.scala 27:72]
-  wire  _T_539 = requestAWIO_0_20 & auto_out_20_aw_ready; // @[Mux.scala 27:72]
-  wire  _T_560 = _T_559 | _T_539; // @[Mux.scala 27:72]
-  wire  _T_540 = requestAWIO_0_21 & auto_out_21_aw_ready; // @[Mux.scala 27:72]
-  wire  in_0_aw_ready = _T_560 | _T_540; // @[Mux.scala 27:72]
-  reg  _T_414; // @[Xbar.scala 137:30]
+  wire  _T_405 = _T_401 | awIn_0_io_enq_ready; // @[Xbar.scala 139:57]
+  wire  _T_406 = in_0_aw_ready & _T_405; // @[Xbar.scala 139:45]
+  reg [2:0] _T_375; // @[Xbar.scala 104:34]
   reg [31:0] _RAND_26;
-  wire  _T_418 = _T_414 | awIn_0_io_enq_ready; // @[Xbar.scala 139:57]
-  wire  _T_419 = in_0_aw_ready & _T_418; // @[Xbar.scala 139:45]
-  reg [2:0] _T_388; // @[Xbar.scala 104:34]
+  wire  _T_394 = _T_375 == 3'h0; // @[Xbar.scala 112:22]
+  reg [4:0] _T_376; // @[Xbar.scala 105:29]
   reg [31:0] _RAND_27;
-  wire  _T_407 = _T_388 == 3'h0; // @[Xbar.scala 112:22]
-  reg [4:0] _T_389; // @[Xbar.scala 105:29]
+  wire  _T_393 = _T_376 == _T_341; // @[Xbar.scala 111:75]
+  wire  _T_395 = _T_394 | _T_393; // @[Xbar.scala 112:34]
+  wire  _T_396 = _T_375 != 3'h7; // @[Xbar.scala 112:80]
+  wire  _T_398 = _T_395 & _T_396; // @[Xbar.scala 112:48]
+  wire  io_in_0_aw_ready = _T_406 & _T_398; // @[Xbar.scala 139:82]
+  wire  _T_371 = io_in_0_aw_ready & auto_in_aw_valid; // @[Decoupled.scala 40:37]
+  reg  _T_2060; // @[Xbar.scala 242:23]
   reg [31:0] _RAND_28;
-  wire  _T_406 = _T_389 == _T_354; // @[Xbar.scala 111:75]
-  wire  _T_408 = _T_407 | _T_406; // @[Xbar.scala 112:34]
-  wire  _T_409 = _T_388 != 3'h7; // @[Xbar.scala 112:80]
-  wire  _T_411 = _T_408 & _T_409; // @[Xbar.scala 112:48]
-  wire  io_in_0_aw_ready = _T_419 & _T_411; // @[Xbar.scala 139:82]
-  wire  _T_384 = io_in_0_aw_ready & auto_in_aw_valid; // @[Decoupled.scala 40:37]
-  reg  _T_2148; // @[Xbar.scala 242:23]
+  wire  _T_651 = auto_out_0_b_valid & requestBOI_0_0; // @[Xbar.scala 222:40]
+  wire  _T_653 = auto_out_1_b_valid & requestBOI_1_0; // @[Xbar.scala 222:40]
+  wire  _T_2061 = _T_651 | _T_653; // @[Xbar.scala 246:36]
+  wire  _T_655 = auto_out_2_b_valid & requestBOI_2_0; // @[Xbar.scala 222:40]
+  wire  _T_2062 = _T_2061 | _T_655; // @[Xbar.scala 246:36]
+  wire  _T_657 = auto_out_3_b_valid & requestBOI_3_0; // @[Xbar.scala 222:40]
+  wire  _T_2063 = _T_2062 | _T_657; // @[Xbar.scala 246:36]
+  wire  _T_659 = auto_out_4_b_valid & requestBOI_4_0; // @[Xbar.scala 222:40]
+  wire  _T_2064 = _T_2063 | _T_659; // @[Xbar.scala 246:36]
+  wire  _T_661 = auto_out_5_b_valid & requestBOI_5_0; // @[Xbar.scala 222:40]
+  wire  _T_2065 = _T_2064 | _T_661; // @[Xbar.scala 246:36]
+  wire  _T_663 = auto_out_6_b_valid & requestBOI_6_0; // @[Xbar.scala 222:40]
+  wire  _T_2066 = _T_2065 | _T_663; // @[Xbar.scala 246:36]
+  wire  _T_665 = auto_out_7_b_valid & requestBOI_7_0; // @[Xbar.scala 222:40]
+  wire  _T_2067 = _T_2066 | _T_665; // @[Xbar.scala 246:36]
+  wire  _T_667 = auto_out_8_b_valid & requestBOI_8_0; // @[Xbar.scala 222:40]
+  wire  _T_2068 = _T_2067 | _T_667; // @[Xbar.scala 246:36]
+  wire  _T_669 = auto_out_9_b_valid & requestBOI_9_0; // @[Xbar.scala 222:40]
+  wire  _T_2069 = _T_2068 | _T_669; // @[Xbar.scala 246:36]
+  wire  _T_671 = auto_out_10_b_valid & requestBOI_10_0; // @[Xbar.scala 222:40]
+  wire  _T_2070 = _T_2069 | _T_671; // @[Xbar.scala 246:36]
+  wire  _T_673 = auto_out_11_b_valid & requestBOI_11_0; // @[Xbar.scala 222:40]
+  wire  _T_2071 = _T_2070 | _T_673; // @[Xbar.scala 246:36]
+  wire  _T_675 = auto_out_12_b_valid & requestBOI_12_0; // @[Xbar.scala 222:40]
+  wire  _T_2072 = _T_2071 | _T_675; // @[Xbar.scala 246:36]
+  wire  _T_677 = auto_out_13_b_valid & requestBOI_13_0; // @[Xbar.scala 222:40]
+  wire  _T_2073 = _T_2072 | _T_677; // @[Xbar.scala 246:36]
+  wire  _T_679 = auto_out_14_b_valid & requestBOI_14_0; // @[Xbar.scala 222:40]
+  wire  _T_2074 = _T_2073 | _T_679; // @[Xbar.scala 246:36]
+  wire  _T_681 = auto_out_15_b_valid & requestBOI_15_0; // @[Xbar.scala 222:40]
+  wire  _T_2075 = _T_2074 | _T_681; // @[Xbar.scala 246:36]
+  wire  _T_683 = auto_out_16_b_valid & requestBOI_16_0; // @[Xbar.scala 222:40]
+  wire  _T_2076 = _T_2075 | _T_683; // @[Xbar.scala 246:36]
+  wire  _T_685 = auto_out_17_b_valid & requestBOI_17_0; // @[Xbar.scala 222:40]
+  wire  _T_2077 = _T_2076 | _T_685; // @[Xbar.scala 246:36]
+  wire  _T_687 = auto_out_18_b_valid & requestBOI_18_0; // @[Xbar.scala 222:40]
+  wire  _T_2078 = _T_2077 | _T_687; // @[Xbar.scala 246:36]
+  wire  _T_689 = auto_out_19_b_valid & requestBOI_19_0; // @[Xbar.scala 222:40]
+  wire  _T_2079 = _T_2078 | _T_689; // @[Xbar.scala 246:36]
+  wire  _T_2080 = _T_2079 | auto_out_20_b_valid; // @[Xbar.scala 246:36]
+  reg  _T_2326_0; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_29;
-  wire  _T_675 = auto_out_0_b_valid & requestBOI_0_0; // @[Xbar.scala 222:40]
-  wire  _T_677 = auto_out_1_b_valid & requestBOI_1_0; // @[Xbar.scala 222:40]
-  wire  _T_2149 = _T_675 | _T_677; // @[Xbar.scala 246:36]
-  wire  _T_679 = auto_out_2_b_valid & requestBOI_2_0; // @[Xbar.scala 222:40]
-  wire  _T_2150 = _T_2149 | _T_679; // @[Xbar.scala 246:36]
-  wire  _T_681 = auto_out_3_b_valid & requestBOI_3_0; // @[Xbar.scala 222:40]
-  wire  _T_2151 = _T_2150 | _T_681; // @[Xbar.scala 246:36]
-  wire  _T_683 = auto_out_4_b_valid & requestBOI_4_0; // @[Xbar.scala 222:40]
-  wire  _T_2152 = _T_2151 | _T_683; // @[Xbar.scala 246:36]
-  wire  _T_685 = auto_out_5_b_valid & requestBOI_5_0; // @[Xbar.scala 222:40]
-  wire  _T_2153 = _T_2152 | _T_685; // @[Xbar.scala 246:36]
-  wire  _T_687 = auto_out_6_b_valid & requestBOI_6_0; // @[Xbar.scala 222:40]
-  wire  _T_2154 = _T_2153 | _T_687; // @[Xbar.scala 246:36]
-  wire  _T_689 = auto_out_7_b_valid & requestBOI_7_0; // @[Xbar.scala 222:40]
-  wire  _T_2155 = _T_2154 | _T_689; // @[Xbar.scala 246:36]
-  wire  _T_691 = auto_out_8_b_valid & requestBOI_8_0; // @[Xbar.scala 222:40]
-  wire  _T_2156 = _T_2155 | _T_691; // @[Xbar.scala 246:36]
-  wire  _T_693 = auto_out_9_b_valid & requestBOI_9_0; // @[Xbar.scala 222:40]
-  wire  _T_2157 = _T_2156 | _T_693; // @[Xbar.scala 246:36]
-  wire  _T_695 = auto_out_10_b_valid & requestBOI_10_0; // @[Xbar.scala 222:40]
-  wire  _T_2158 = _T_2157 | _T_695; // @[Xbar.scala 246:36]
-  wire  _T_697 = auto_out_11_b_valid & requestBOI_11_0; // @[Xbar.scala 222:40]
-  wire  _T_2159 = _T_2158 | _T_697; // @[Xbar.scala 246:36]
-  wire  _T_699 = auto_out_12_b_valid & requestBOI_12_0; // @[Xbar.scala 222:40]
-  wire  _T_2160 = _T_2159 | _T_699; // @[Xbar.scala 246:36]
-  wire  _T_701 = auto_out_13_b_valid & requestBOI_13_0; // @[Xbar.scala 222:40]
-  wire  _T_2161 = _T_2160 | _T_701; // @[Xbar.scala 246:36]
-  wire  _T_703 = auto_out_14_b_valid & requestBOI_14_0; // @[Xbar.scala 222:40]
-  wire  _T_2162 = _T_2161 | _T_703; // @[Xbar.scala 246:36]
-  wire  _T_705 = auto_out_15_b_valid & requestBOI_15_0; // @[Xbar.scala 222:40]
-  wire  _T_2163 = _T_2162 | _T_705; // @[Xbar.scala 246:36]
-  wire  _T_707 = auto_out_16_b_valid & requestBOI_16_0; // @[Xbar.scala 222:40]
-  wire  _T_2164 = _T_2163 | _T_707; // @[Xbar.scala 246:36]
-  wire  _T_709 = auto_out_17_b_valid & requestBOI_17_0; // @[Xbar.scala 222:40]
-  wire  _T_2165 = _T_2164 | _T_709; // @[Xbar.scala 246:36]
-  wire  _T_711 = auto_out_18_b_valid & requestBOI_18_0; // @[Xbar.scala 222:40]
-  wire  _T_2166 = _T_2165 | _T_711; // @[Xbar.scala 246:36]
-  wire  _T_713 = auto_out_19_b_valid & requestBOI_19_0; // @[Xbar.scala 222:40]
-  wire  _T_2167 = _T_2166 | _T_713; // @[Xbar.scala 246:36]
-  wire  _T_715 = auto_out_20_b_valid & requestBOI_20_0; // @[Xbar.scala 222:40]
-  wire  _T_2168 = _T_2167 | _T_715; // @[Xbar.scala 246:36]
-  wire  _T_2169 = _T_2168 | auto_out_21_b_valid; // @[Xbar.scala 246:36]
-  reg  _T_2424_0; // @[Xbar.scala 261:24]
+  wire  _T_2351 = _T_2326_0 & _T_651; // @[Mux.scala 27:72]
+  reg  _T_2326_1; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_30;
-  wire  _T_2450 = _T_2424_0 & _T_675; // @[Mux.scala 27:72]
-  reg  _T_2424_1; // @[Xbar.scala 261:24]
+  wire  _T_2352 = _T_2326_1 & _T_653; // @[Mux.scala 27:72]
+  wire  _T_2372 = _T_2351 | _T_2352; // @[Mux.scala 27:72]
+  reg  _T_2326_2; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_31;
-  wire  _T_2451 = _T_2424_1 & _T_677; // @[Mux.scala 27:72]
-  wire  _T_2472 = _T_2450 | _T_2451; // @[Mux.scala 27:72]
-  reg  _T_2424_2; // @[Xbar.scala 261:24]
+  wire  _T_2353 = _T_2326_2 & _T_655; // @[Mux.scala 27:72]
+  wire  _T_2373 = _T_2372 | _T_2353; // @[Mux.scala 27:72]
+  reg  _T_2326_3; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_32;
-  wire  _T_2452 = _T_2424_2 & _T_679; // @[Mux.scala 27:72]
-  wire  _T_2473 = _T_2472 | _T_2452; // @[Mux.scala 27:72]
-  reg  _T_2424_3; // @[Xbar.scala 261:24]
+  wire  _T_2354 = _T_2326_3 & _T_657; // @[Mux.scala 27:72]
+  wire  _T_2374 = _T_2373 | _T_2354; // @[Mux.scala 27:72]
+  reg  _T_2326_4; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_33;
-  wire  _T_2453 = _T_2424_3 & _T_681; // @[Mux.scala 27:72]
-  wire  _T_2474 = _T_2473 | _T_2453; // @[Mux.scala 27:72]
-  reg  _T_2424_4; // @[Xbar.scala 261:24]
+  wire  _T_2355 = _T_2326_4 & _T_659; // @[Mux.scala 27:72]
+  wire  _T_2375 = _T_2374 | _T_2355; // @[Mux.scala 27:72]
+  reg  _T_2326_5; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_34;
-  wire  _T_2454 = _T_2424_4 & _T_683; // @[Mux.scala 27:72]
-  wire  _T_2475 = _T_2474 | _T_2454; // @[Mux.scala 27:72]
-  reg  _T_2424_5; // @[Xbar.scala 261:24]
+  wire  _T_2356 = _T_2326_5 & _T_661; // @[Mux.scala 27:72]
+  wire  _T_2376 = _T_2375 | _T_2356; // @[Mux.scala 27:72]
+  reg  _T_2326_6; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_35;
-  wire  _T_2455 = _T_2424_5 & _T_685; // @[Mux.scala 27:72]
-  wire  _T_2476 = _T_2475 | _T_2455; // @[Mux.scala 27:72]
-  reg  _T_2424_6; // @[Xbar.scala 261:24]
+  wire  _T_2357 = _T_2326_6 & _T_663; // @[Mux.scala 27:72]
+  wire  _T_2377 = _T_2376 | _T_2357; // @[Mux.scala 27:72]
+  reg  _T_2326_7; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_36;
-  wire  _T_2456 = _T_2424_6 & _T_687; // @[Mux.scala 27:72]
-  wire  _T_2477 = _T_2476 | _T_2456; // @[Mux.scala 27:72]
-  reg  _T_2424_7; // @[Xbar.scala 261:24]
+  wire  _T_2358 = _T_2326_7 & _T_665; // @[Mux.scala 27:72]
+  wire  _T_2378 = _T_2377 | _T_2358; // @[Mux.scala 27:72]
+  reg  _T_2326_8; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_37;
-  wire  _T_2457 = _T_2424_7 & _T_689; // @[Mux.scala 27:72]
-  wire  _T_2478 = _T_2477 | _T_2457; // @[Mux.scala 27:72]
-  reg  _T_2424_8; // @[Xbar.scala 261:24]
+  wire  _T_2359 = _T_2326_8 & _T_667; // @[Mux.scala 27:72]
+  wire  _T_2379 = _T_2378 | _T_2359; // @[Mux.scala 27:72]
+  reg  _T_2326_9; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_38;
-  wire  _T_2458 = _T_2424_8 & _T_691; // @[Mux.scala 27:72]
-  wire  _T_2479 = _T_2478 | _T_2458; // @[Mux.scala 27:72]
-  reg  _T_2424_9; // @[Xbar.scala 261:24]
+  wire  _T_2360 = _T_2326_9 & _T_669; // @[Mux.scala 27:72]
+  wire  _T_2380 = _T_2379 | _T_2360; // @[Mux.scala 27:72]
+  reg  _T_2326_10; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_39;
-  wire  _T_2459 = _T_2424_9 & _T_693; // @[Mux.scala 27:72]
-  wire  _T_2480 = _T_2479 | _T_2459; // @[Mux.scala 27:72]
-  reg  _T_2424_10; // @[Xbar.scala 261:24]
+  wire  _T_2361 = _T_2326_10 & _T_671; // @[Mux.scala 27:72]
+  wire  _T_2381 = _T_2380 | _T_2361; // @[Mux.scala 27:72]
+  reg  _T_2326_11; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_40;
-  wire  _T_2460 = _T_2424_10 & _T_695; // @[Mux.scala 27:72]
-  wire  _T_2481 = _T_2480 | _T_2460; // @[Mux.scala 27:72]
-  reg  _T_2424_11; // @[Xbar.scala 261:24]
+  wire  _T_2362 = _T_2326_11 & _T_673; // @[Mux.scala 27:72]
+  wire  _T_2382 = _T_2381 | _T_2362; // @[Mux.scala 27:72]
+  reg  _T_2326_12; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_41;
-  wire  _T_2461 = _T_2424_11 & _T_697; // @[Mux.scala 27:72]
-  wire  _T_2482 = _T_2481 | _T_2461; // @[Mux.scala 27:72]
-  reg  _T_2424_12; // @[Xbar.scala 261:24]
+  wire  _T_2363 = _T_2326_12 & _T_675; // @[Mux.scala 27:72]
+  wire  _T_2383 = _T_2382 | _T_2363; // @[Mux.scala 27:72]
+  reg  _T_2326_13; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_42;
-  wire  _T_2462 = _T_2424_12 & _T_699; // @[Mux.scala 27:72]
-  wire  _T_2483 = _T_2482 | _T_2462; // @[Mux.scala 27:72]
-  reg  _T_2424_13; // @[Xbar.scala 261:24]
+  wire  _T_2364 = _T_2326_13 & _T_677; // @[Mux.scala 27:72]
+  wire  _T_2384 = _T_2383 | _T_2364; // @[Mux.scala 27:72]
+  reg  _T_2326_14; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_43;
-  wire  _T_2463 = _T_2424_13 & _T_701; // @[Mux.scala 27:72]
-  wire  _T_2484 = _T_2483 | _T_2463; // @[Mux.scala 27:72]
-  reg  _T_2424_14; // @[Xbar.scala 261:24]
+  wire  _T_2365 = _T_2326_14 & _T_679; // @[Mux.scala 27:72]
+  wire  _T_2385 = _T_2384 | _T_2365; // @[Mux.scala 27:72]
+  reg  _T_2326_15; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_44;
-  wire  _T_2464 = _T_2424_14 & _T_703; // @[Mux.scala 27:72]
-  wire  _T_2485 = _T_2484 | _T_2464; // @[Mux.scala 27:72]
-  reg  _T_2424_15; // @[Xbar.scala 261:24]
+  wire  _T_2366 = _T_2326_15 & _T_681; // @[Mux.scala 27:72]
+  wire  _T_2386 = _T_2385 | _T_2366; // @[Mux.scala 27:72]
+  reg  _T_2326_16; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_45;
-  wire  _T_2465 = _T_2424_15 & _T_705; // @[Mux.scala 27:72]
-  wire  _T_2486 = _T_2485 | _T_2465; // @[Mux.scala 27:72]
-  reg  _T_2424_16; // @[Xbar.scala 261:24]
+  wire  _T_2367 = _T_2326_16 & _T_683; // @[Mux.scala 27:72]
+  wire  _T_2387 = _T_2386 | _T_2367; // @[Mux.scala 27:72]
+  reg  _T_2326_17; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_46;
-  wire  _T_2466 = _T_2424_16 & _T_707; // @[Mux.scala 27:72]
-  wire  _T_2487 = _T_2486 | _T_2466; // @[Mux.scala 27:72]
-  reg  _T_2424_17; // @[Xbar.scala 261:24]
+  wire  _T_2368 = _T_2326_17 & _T_685; // @[Mux.scala 27:72]
+  wire  _T_2388 = _T_2387 | _T_2368; // @[Mux.scala 27:72]
+  reg  _T_2326_18; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_47;
-  wire  _T_2467 = _T_2424_17 & _T_709; // @[Mux.scala 27:72]
-  wire  _T_2488 = _T_2487 | _T_2467; // @[Mux.scala 27:72]
-  reg  _T_2424_18; // @[Xbar.scala 261:24]
+  wire  _T_2369 = _T_2326_18 & _T_687; // @[Mux.scala 27:72]
+  wire  _T_2389 = _T_2388 | _T_2369; // @[Mux.scala 27:72]
+  reg  _T_2326_19; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_48;
-  wire  _T_2468 = _T_2424_18 & _T_711; // @[Mux.scala 27:72]
-  wire  _T_2489 = _T_2488 | _T_2468; // @[Mux.scala 27:72]
-  reg  _T_2424_19; // @[Xbar.scala 261:24]
+  wire  _T_2370 = _T_2326_19 & _T_689; // @[Mux.scala 27:72]
+  wire  _T_2390 = _T_2389 | _T_2370; // @[Mux.scala 27:72]
+  reg  _T_2326_20; // @[Xbar.scala 261:24]
   reg [31:0] _RAND_49;
-  wire  _T_2469 = _T_2424_19 & _T_713; // @[Mux.scala 27:72]
-  wire  _T_2490 = _T_2489 | _T_2469; // @[Mux.scala 27:72]
-  reg  _T_2424_20; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_50;
-  wire  _T_2470 = _T_2424_20 & _T_715; // @[Mux.scala 27:72]
-  wire  _T_2491 = _T_2490 | _T_2470; // @[Mux.scala 27:72]
-  reg  _T_2424_21; // @[Xbar.scala 261:24]
-  reg [31:0] _RAND_51;
-  wire  _T_2471 = _T_2424_21 & auto_out_21_b_valid; // @[Mux.scala 27:72]
-  wire  _T_2492 = _T_2491 | _T_2471; // @[Mux.scala 27:72]
-  wire  in_0_b_valid = _T_2148 ? _T_2169 : _T_2492; // @[Xbar.scala 278:22]
-  wire  _T_386 = auto_in_b_ready & in_0_b_valid; // @[Decoupled.scala 40:37]
-  wire [2:0] _GEN_108 = {{2'd0}, _T_384}; // @[Xbar.scala 106:30]
-  wire [2:0] _T_391 = _T_388 + _GEN_108; // @[Xbar.scala 106:30]
-  wire [2:0] _GEN_109 = {{2'd0}, _T_386}; // @[Xbar.scala 106:48]
-  wire [2:0] _T_393 = _T_391 - _GEN_109; // @[Xbar.scala 106:48]
-  wire  _T_394 = ~_T_386; // @[Xbar.scala 107:23]
-  wire  _T_395 = _T_388 != 3'h0; // @[Xbar.scala 107:43]
-  wire  _T_396 = _T_394 | _T_395; // @[Xbar.scala 107:34]
-  wire  _T_398 = _T_396 | reset; // @[Xbar.scala 107:22]
-  wire  _T_399 = ~_T_398; // @[Xbar.scala 107:22]
-  wire  _T_400 = ~_T_384; // @[Xbar.scala 108:23]
-  wire  _T_402 = _T_400 | _T_409; // @[Xbar.scala 108:34]
-  wire  _T_404 = _T_402 | reset; // @[Xbar.scala 108:22]
-  wire  _T_405 = ~_T_404; // @[Xbar.scala 108:22]
-  wire  in_0_ar_valid = auto_in_ar_valid & _T_383; // @[Xbar.scala 129:45]
-  wire  _T_416 = auto_in_aw_valid & _T_418; // @[Xbar.scala 138:45]
-  wire  in_0_aw_valid = _T_416 & _T_411; // @[Xbar.scala 138:82]
-  wire  _T_421 = ~_T_414; // @[Xbar.scala 140:54]
-  wire  _T_423 = awIn_0_io_enq_ready & awIn_0_io_enq_valid; // @[Decoupled.scala 40:37]
-  wire  _GEN_2 = _T_423 | _T_414; // @[Xbar.scala 141:38]
-  wire  _T_424 = in_0_aw_ready & in_0_aw_valid; // @[Decoupled.scala 40:37]
+  wire  _T_2371 = _T_2326_20 & auto_out_20_b_valid; // @[Mux.scala 27:72]
+  wire  _T_2391 = _T_2390 | _T_2371; // @[Mux.scala 27:72]
+  wire  in_0_b_valid = _T_2060 ? _T_2080 : _T_2391; // @[Xbar.scala 278:22]
+  wire  _T_373 = auto_in_b_ready & in_0_b_valid; // @[Decoupled.scala 40:37]
+  wire [2:0] _GEN_104 = {{2'd0}, _T_371}; // @[Xbar.scala 106:30]
+  wire [2:0] _T_378 = _T_375 + _GEN_104; // @[Xbar.scala 106:30]
+  wire [2:0] _GEN_105 = {{2'd0}, _T_373}; // @[Xbar.scala 106:48]
+  wire [2:0] _T_380 = _T_378 - _GEN_105; // @[Xbar.scala 106:48]
+  wire  _T_381 = ~_T_373; // @[Xbar.scala 107:23]
+  wire  _T_382 = _T_375 != 3'h0; // @[Xbar.scala 107:43]
+  wire  _T_383 = _T_381 | _T_382; // @[Xbar.scala 107:34]
+  wire  _T_385 = _T_383 | reset; // @[Xbar.scala 107:22]
+  wire  _T_386 = ~_T_385; // @[Xbar.scala 107:22]
+  wire  _T_387 = ~_T_371; // @[Xbar.scala 108:23]
+  wire  _T_389 = _T_387 | _T_396; // @[Xbar.scala 108:34]
+  wire  _T_391 = _T_389 | reset; // @[Xbar.scala 108:22]
+  wire  _T_392 = ~_T_391; // @[Xbar.scala 108:22]
+  wire  in_0_ar_valid = auto_in_ar_valid & _T_370; // @[Xbar.scala 129:45]
+  wire  _T_403 = auto_in_aw_valid & _T_405; // @[Xbar.scala 138:45]
+  wire  in_0_aw_valid = _T_403 & _T_398; // @[Xbar.scala 138:82]
+  wire  _T_408 = ~_T_401; // @[Xbar.scala 140:54]
+  wire  _T_410 = awIn_0_io_enq_ready & awIn_0_io_enq_valid; // @[Decoupled.scala 40:37]
+  wire  _GEN_2 = _T_410 | _T_401; // @[Xbar.scala 141:38]
+  wire  _T_411 = in_0_aw_ready & in_0_aw_valid; // @[Decoupled.scala 40:37]
   wire  in_0_w_valid = auto_in_w_valid & awIn_0_io_deq_valid; // @[Xbar.scala 145:43]
-  wire  _T_586 = requestWIO_0_0 & auto_out_0_w_ready; // @[Mux.scala 27:72]
-  wire  _T_587 = requestWIO_0_1 & auto_out_1_w_ready; // @[Mux.scala 27:72]
-  wire  _T_608 = _T_586 | _T_587; // @[Mux.scala 27:72]
-  wire  _T_588 = requestWIO_0_2 & auto_out_2_w_ready; // @[Mux.scala 27:72]
-  wire  _T_609 = _T_608 | _T_588; // @[Mux.scala 27:72]
-  wire  _T_589 = requestWIO_0_3 & auto_out_3_w_ready; // @[Mux.scala 27:72]
-  wire  _T_610 = _T_609 | _T_589; // @[Mux.scala 27:72]
-  wire  _T_590 = requestWIO_0_4 & auto_out_4_w_ready; // @[Mux.scala 27:72]
-  wire  _T_611 = _T_610 | _T_590; // @[Mux.scala 27:72]
-  wire  _T_591 = requestWIO_0_5 & auto_out_5_w_ready; // @[Mux.scala 27:72]
-  wire  _T_612 = _T_611 | _T_591; // @[Mux.scala 27:72]
-  wire  _T_592 = requestWIO_0_6 & auto_out_6_w_ready; // @[Mux.scala 27:72]
-  wire  _T_613 = _T_612 | _T_592; // @[Mux.scala 27:72]
-  wire  _T_593 = requestWIO_0_7 & auto_out_7_w_ready; // @[Mux.scala 27:72]
-  wire  _T_614 = _T_613 | _T_593; // @[Mux.scala 27:72]
-  wire  _T_594 = requestWIO_0_8 & auto_out_8_w_ready; // @[Mux.scala 27:72]
-  wire  _T_615 = _T_614 | _T_594; // @[Mux.scala 27:72]
-  wire  _T_595 = requestWIO_0_9 & auto_out_9_w_ready; // @[Mux.scala 27:72]
-  wire  _T_616 = _T_615 | _T_595; // @[Mux.scala 27:72]
-  wire  _T_596 = requestWIO_0_10 & auto_out_10_w_ready; // @[Mux.scala 27:72]
-  wire  _T_617 = _T_616 | _T_596; // @[Mux.scala 27:72]
-  wire  _T_597 = requestWIO_0_11 & auto_out_11_w_ready; // @[Mux.scala 27:72]
-  wire  _T_618 = _T_617 | _T_597; // @[Mux.scala 27:72]
-  wire  _T_598 = requestWIO_0_12 & auto_out_12_w_ready; // @[Mux.scala 27:72]
-  wire  _T_619 = _T_618 | _T_598; // @[Mux.scala 27:72]
-  wire  _T_599 = requestWIO_0_13 & auto_out_13_w_ready; // @[Mux.scala 27:72]
-  wire  _T_620 = _T_619 | _T_599; // @[Mux.scala 27:72]
-  wire  _T_600 = requestWIO_0_14 & auto_out_14_w_ready; // @[Mux.scala 27:72]
-  wire  _T_621 = _T_620 | _T_600; // @[Mux.scala 27:72]
-  wire  _T_601 = requestWIO_0_15 & auto_out_15_w_ready; // @[Mux.scala 27:72]
-  wire  _T_622 = _T_621 | _T_601; // @[Mux.scala 27:72]
-  wire  _T_602 = requestWIO_0_16 & auto_out_16_w_ready; // @[Mux.scala 27:72]
-  wire  _T_623 = _T_622 | _T_602; // @[Mux.scala 27:72]
-  wire  _T_603 = requestWIO_0_17 & auto_out_17_w_ready; // @[Mux.scala 27:72]
-  wire  _T_624 = _T_623 | _T_603; // @[Mux.scala 27:72]
-  wire  _T_604 = requestWIO_0_18 & auto_out_18_w_ready; // @[Mux.scala 27:72]
-  wire  _T_625 = _T_624 | _T_604; // @[Mux.scala 27:72]
-  wire  _T_605 = requestWIO_0_19 & auto_out_19_w_ready; // @[Mux.scala 27:72]
-  wire  _T_626 = _T_625 | _T_605; // @[Mux.scala 27:72]
-  wire  _T_606 = requestWIO_0_20 & auto_out_20_w_ready; // @[Mux.scala 27:72]
-  wire  _T_627 = _T_626 | _T_606; // @[Mux.scala 27:72]
-  wire  _T_607 = requestWIO_0_21 & auto_out_21_w_ready; // @[Mux.scala 27:72]
-  wire  in_0_w_ready = _T_627 | _T_607; // @[Mux.scala 27:72]
-  wire  _T_427 = auto_in_w_valid & auto_in_w_bits_last; // @[Xbar.scala 147:50]
+  wire  _T_566 = requestWIO_0_0 & auto_out_0_w_ready; // @[Mux.scala 27:72]
+  wire  _T_567 = requestWIO_0_1 & auto_out_1_w_ready; // @[Mux.scala 27:72]
+  wire  _T_587 = _T_566 | _T_567; // @[Mux.scala 27:72]
+  wire  _T_568 = requestWIO_0_2 & auto_out_2_w_ready; // @[Mux.scala 27:72]
+  wire  _T_588 = _T_587 | _T_568; // @[Mux.scala 27:72]
+  wire  _T_569 = requestWIO_0_3 & auto_out_3_w_ready; // @[Mux.scala 27:72]
+  wire  _T_589 = _T_588 | _T_569; // @[Mux.scala 27:72]
+  wire  _T_570 = requestWIO_0_4 & auto_out_4_w_ready; // @[Mux.scala 27:72]
+  wire  _T_590 = _T_589 | _T_570; // @[Mux.scala 27:72]
+  wire  _T_571 = requestWIO_0_5 & auto_out_5_w_ready; // @[Mux.scala 27:72]
+  wire  _T_591 = _T_590 | _T_571; // @[Mux.scala 27:72]
+  wire  _T_572 = requestWIO_0_6 & auto_out_6_w_ready; // @[Mux.scala 27:72]
+  wire  _T_592 = _T_591 | _T_572; // @[Mux.scala 27:72]
+  wire  _T_573 = requestWIO_0_7 & auto_out_7_w_ready; // @[Mux.scala 27:72]
+  wire  _T_593 = _T_592 | _T_573; // @[Mux.scala 27:72]
+  wire  _T_574 = requestWIO_0_8 & auto_out_8_w_ready; // @[Mux.scala 27:72]
+  wire  _T_594 = _T_593 | _T_574; // @[Mux.scala 27:72]
+  wire  _T_575 = requestWIO_0_9 & auto_out_9_w_ready; // @[Mux.scala 27:72]
+  wire  _T_595 = _T_594 | _T_575; // @[Mux.scala 27:72]
+  wire  _T_576 = requestWIO_0_10 & auto_out_10_w_ready; // @[Mux.scala 27:72]
+  wire  _T_596 = _T_595 | _T_576; // @[Mux.scala 27:72]
+  wire  _T_577 = requestWIO_0_11 & auto_out_11_w_ready; // @[Mux.scala 27:72]
+  wire  _T_597 = _T_596 | _T_577; // @[Mux.scala 27:72]
+  wire  _T_578 = requestWIO_0_12 & auto_out_12_w_ready; // @[Mux.scala 27:72]
+  wire  _T_598 = _T_597 | _T_578; // @[Mux.scala 27:72]
+  wire  _T_579 = requestWIO_0_13 & auto_out_13_w_ready; // @[Mux.scala 27:72]
+  wire  _T_599 = _T_598 | _T_579; // @[Mux.scala 27:72]
+  wire  _T_580 = requestWIO_0_14 & auto_out_14_w_ready; // @[Mux.scala 27:72]
+  wire  _T_600 = _T_599 | _T_580; // @[Mux.scala 27:72]
+  wire  _T_581 = requestWIO_0_15 & auto_out_15_w_ready; // @[Mux.scala 27:72]
+  wire  _T_601 = _T_600 | _T_581; // @[Mux.scala 27:72]
+  wire  _T_582 = requestWIO_0_16 & auto_out_16_w_ready; // @[Mux.scala 27:72]
+  wire  _T_602 = _T_601 | _T_582; // @[Mux.scala 27:72]
+  wire  _T_583 = requestWIO_0_17 & auto_out_17_w_ready; // @[Mux.scala 27:72]
+  wire  _T_603 = _T_602 | _T_583; // @[Mux.scala 27:72]
+  wire  _T_584 = requestWIO_0_18 & auto_out_18_w_ready; // @[Mux.scala 27:72]
+  wire  _T_604 = _T_603 | _T_584; // @[Mux.scala 27:72]
+  wire  _T_585 = requestWIO_0_19 & auto_out_19_w_ready; // @[Mux.scala 27:72]
+  wire  _T_605 = _T_604 | _T_585; // @[Mux.scala 27:72]
+  wire  _T_586 = requestWIO_0_20 & auto_out_20_w_ready; // @[Mux.scala 27:72]
+  wire  in_0_w_ready = _T_605 | _T_586; // @[Mux.scala 27:72]
+  wire  _T_414 = auto_in_w_valid & auto_in_w_bits_last; // @[Xbar.scala 147:50]
   wire  out_0_ar_valid = in_0_ar_valid & requestARIO_0_0; // @[Xbar.scala 222:40]
   wire  out_1_ar_valid = in_0_ar_valid & requestARIO_0_1; // @[Xbar.scala 222:40]
   wire  out_2_ar_valid = in_0_ar_valid & requestARIO_0_2; // @[Xbar.scala 222:40]
@@ -21514,7 +21365,6 @@ module AXI4Xbar_2(
   wire  out_18_ar_valid = in_0_ar_valid & requestARIO_0_18; // @[Xbar.scala 222:40]
   wire  out_19_ar_valid = in_0_ar_valid & requestARIO_0_19; // @[Xbar.scala 222:40]
   wire  out_20_ar_valid = in_0_ar_valid & requestARIO_0_20; // @[Xbar.scala 222:40]
-  wire  out_21_ar_valid = in_0_ar_valid & requestARIO_0_21; // @[Xbar.scala 222:40]
   wire  out_0_aw_valid = in_0_aw_valid & requestAWIO_0_0; // @[Xbar.scala 222:40]
   wire  out_1_aw_valid = in_0_aw_valid & requestAWIO_0_1; // @[Xbar.scala 222:40]
   wire  out_2_aw_valid = in_0_aw_valid & requestAWIO_0_2; // @[Xbar.scala 222:40]
@@ -21536,610 +21386,583 @@ module AXI4Xbar_2(
   wire  out_18_aw_valid = in_0_aw_valid & requestAWIO_0_18; // @[Xbar.scala 222:40]
   wire  out_19_aw_valid = in_0_aw_valid & requestAWIO_0_19; // @[Xbar.scala 222:40]
   wire  out_20_aw_valid = in_0_aw_valid & requestAWIO_0_20; // @[Xbar.scala 222:40]
-  wire  out_21_aw_valid = in_0_aw_valid & requestAWIO_0_21; // @[Xbar.scala 222:40]
-  wire  _T_724 = ~out_0_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_730 = _T_724 | out_0_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_732 = _T_730 | reset; // @[Xbar.scala 258:12]
-  wire  _T_733 = ~_T_732; // @[Xbar.scala 258:12]
-  wire  _T_745 = ~out_0_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_751 = _T_745 | out_0_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_753 = _T_751 | reset; // @[Xbar.scala 258:12]
-  wire  _T_754 = ~_T_753; // @[Xbar.scala 258:12]
-  wire  _T_768 = ~out_1_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_774 = _T_768 | out_1_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_776 = _T_774 | reset; // @[Xbar.scala 258:12]
-  wire  _T_777 = ~_T_776; // @[Xbar.scala 258:12]
-  wire  _T_789 = ~out_1_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_795 = _T_789 | out_1_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_797 = _T_795 | reset; // @[Xbar.scala 258:12]
-  wire  _T_798 = ~_T_797; // @[Xbar.scala 258:12]
-  wire  _T_812 = ~out_2_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_818 = _T_812 | out_2_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_820 = _T_818 | reset; // @[Xbar.scala 258:12]
-  wire  _T_821 = ~_T_820; // @[Xbar.scala 258:12]
-  wire  _T_833 = ~out_2_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_839 = _T_833 | out_2_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_841 = _T_839 | reset; // @[Xbar.scala 258:12]
-  wire  _T_842 = ~_T_841; // @[Xbar.scala 258:12]
-  wire  _T_856 = ~out_3_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_862 = _T_856 | out_3_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_864 = _T_862 | reset; // @[Xbar.scala 258:12]
-  wire  _T_865 = ~_T_864; // @[Xbar.scala 258:12]
-  wire  _T_877 = ~out_3_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_883 = _T_877 | out_3_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_885 = _T_883 | reset; // @[Xbar.scala 258:12]
-  wire  _T_886 = ~_T_885; // @[Xbar.scala 258:12]
-  wire  _T_900 = ~out_4_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_906 = _T_900 | out_4_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_908 = _T_906 | reset; // @[Xbar.scala 258:12]
-  wire  _T_909 = ~_T_908; // @[Xbar.scala 258:12]
-  wire  _T_921 = ~out_4_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_927 = _T_921 | out_4_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_929 = _T_927 | reset; // @[Xbar.scala 258:12]
-  wire  _T_930 = ~_T_929; // @[Xbar.scala 258:12]
-  wire  _T_944 = ~out_5_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_950 = _T_944 | out_5_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_952 = _T_950 | reset; // @[Xbar.scala 258:12]
-  wire  _T_953 = ~_T_952; // @[Xbar.scala 258:12]
-  wire  _T_965 = ~out_5_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_971 = _T_965 | out_5_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_973 = _T_971 | reset; // @[Xbar.scala 258:12]
-  wire  _T_974 = ~_T_973; // @[Xbar.scala 258:12]
-  wire  _T_988 = ~out_6_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_994 = _T_988 | out_6_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_996 = _T_994 | reset; // @[Xbar.scala 258:12]
-  wire  _T_997 = ~_T_996; // @[Xbar.scala 258:12]
-  wire  _T_1009 = ~out_6_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_1015 = _T_1009 | out_6_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_1017 = _T_1015 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1018 = ~_T_1017; // @[Xbar.scala 258:12]
-  wire  _T_1032 = ~out_7_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_1038 = _T_1032 | out_7_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_1040 = _T_1038 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1041 = ~_T_1040; // @[Xbar.scala 258:12]
-  wire  _T_1053 = ~out_7_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_1059 = _T_1053 | out_7_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_1061 = _T_1059 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1062 = ~_T_1061; // @[Xbar.scala 258:12]
-  wire  _T_1076 = ~out_8_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_1082 = _T_1076 | out_8_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_1084 = _T_1082 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1085 = ~_T_1084; // @[Xbar.scala 258:12]
-  wire  _T_1097 = ~out_8_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_1103 = _T_1097 | out_8_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_1105 = _T_1103 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1106 = ~_T_1105; // @[Xbar.scala 258:12]
-  wire  _T_1120 = ~out_9_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_1126 = _T_1120 | out_9_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_1128 = _T_1126 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1129 = ~_T_1128; // @[Xbar.scala 258:12]
-  wire  _T_1141 = ~out_9_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_1147 = _T_1141 | out_9_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_1149 = _T_1147 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1150 = ~_T_1149; // @[Xbar.scala 258:12]
-  wire  _T_1164 = ~out_10_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_1170 = _T_1164 | out_10_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_1172 = _T_1170 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1173 = ~_T_1172; // @[Xbar.scala 258:12]
-  wire  _T_1185 = ~out_10_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_1191 = _T_1185 | out_10_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_1193 = _T_1191 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1194 = ~_T_1193; // @[Xbar.scala 258:12]
-  wire  _T_1208 = ~out_11_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_1214 = _T_1208 | out_11_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_1216 = _T_1214 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1217 = ~_T_1216; // @[Xbar.scala 258:12]
-  wire  _T_1229 = ~out_11_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_1235 = _T_1229 | out_11_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_1237 = _T_1235 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1238 = ~_T_1237; // @[Xbar.scala 258:12]
-  wire  _T_1252 = ~out_12_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_1258 = _T_1252 | out_12_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_1260 = _T_1258 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1261 = ~_T_1260; // @[Xbar.scala 258:12]
-  wire  _T_1273 = ~out_12_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_1279 = _T_1273 | out_12_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_1281 = _T_1279 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1282 = ~_T_1281; // @[Xbar.scala 258:12]
-  wire  _T_1296 = ~out_13_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_1302 = _T_1296 | out_13_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_1304 = _T_1302 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1305 = ~_T_1304; // @[Xbar.scala 258:12]
-  wire  _T_1317 = ~out_13_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_1323 = _T_1317 | out_13_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_1325 = _T_1323 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1326 = ~_T_1325; // @[Xbar.scala 258:12]
-  wire  _T_1340 = ~out_14_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_1346 = _T_1340 | out_14_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_1348 = _T_1346 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1349 = ~_T_1348; // @[Xbar.scala 258:12]
-  wire  _T_1361 = ~out_14_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_1367 = _T_1361 | out_14_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_1369 = _T_1367 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1370 = ~_T_1369; // @[Xbar.scala 258:12]
-  wire  _T_1384 = ~out_15_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_1390 = _T_1384 | out_15_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_1392 = _T_1390 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1393 = ~_T_1392; // @[Xbar.scala 258:12]
-  wire  _T_1405 = ~out_15_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_1411 = _T_1405 | out_15_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_1413 = _T_1411 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1414 = ~_T_1413; // @[Xbar.scala 258:12]
-  wire  _T_1428 = ~out_16_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_1434 = _T_1428 | out_16_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_1436 = _T_1434 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1437 = ~_T_1436; // @[Xbar.scala 258:12]
-  wire  _T_1449 = ~out_16_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_1455 = _T_1449 | out_16_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_1457 = _T_1455 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1458 = ~_T_1457; // @[Xbar.scala 258:12]
-  wire  _T_1472 = ~out_17_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_1478 = _T_1472 | out_17_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_1480 = _T_1478 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1481 = ~_T_1480; // @[Xbar.scala 258:12]
-  wire  _T_1493 = ~out_17_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_1499 = _T_1493 | out_17_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_1501 = _T_1499 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1502 = ~_T_1501; // @[Xbar.scala 258:12]
-  wire  _T_1516 = ~out_18_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_1522 = _T_1516 | out_18_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_1524 = _T_1522 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1525 = ~_T_1524; // @[Xbar.scala 258:12]
-  wire  _T_1537 = ~out_18_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_1543 = _T_1537 | out_18_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_1545 = _T_1543 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1546 = ~_T_1545; // @[Xbar.scala 258:12]
-  wire  _T_1560 = ~out_19_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_1566 = _T_1560 | out_19_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_1568 = _T_1566 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1569 = ~_T_1568; // @[Xbar.scala 258:12]
-  wire  _T_1581 = ~out_19_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_1587 = _T_1581 | out_19_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_1589 = _T_1587 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1590 = ~_T_1589; // @[Xbar.scala 258:12]
-  wire  _T_1604 = ~out_20_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_1610 = _T_1604 | out_20_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_1612 = _T_1610 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1613 = ~_T_1612; // @[Xbar.scala 258:12]
-  wire  _T_1625 = ~out_20_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_1631 = _T_1625 | out_20_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_1633 = _T_1631 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1634 = ~_T_1633; // @[Xbar.scala 258:12]
-  wire  _T_1648 = ~out_21_aw_valid; // @[Xbar.scala 256:60]
-  wire  _T_1654 = _T_1648 | out_21_aw_valid; // @[Xbar.scala 258:23]
-  wire  _T_1656 = _T_1654 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1657 = ~_T_1656; // @[Xbar.scala 258:12]
-  wire  _T_1669 = ~out_21_ar_valid; // @[Xbar.scala 256:60]
-  wire  _T_1675 = _T_1669 | out_21_ar_valid; // @[Xbar.scala 258:23]
-  wire  _T_1677 = _T_1675 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1678 = ~_T_1677; // @[Xbar.scala 258:12]
-  wire  _T_1757 = _T_1728 != 22'h0; // @[Arbiter.scala 24:27]
-  wire  _T_1758 = _T_1686 & _T_1757; // @[Arbiter.scala 24:18]
-  wire [21:0] _T_1759 = _T_1756 & _T_1728; // @[Arbiter.scala 25:29]
-  wire [22:0] _T_1760 = {_T_1759, 1'h0}; // @[package.scala 199:48]
-  wire [21:0] _T_1762 = _T_1759 | _T_1760[21:0]; // @[package.scala 199:43]
-  wire [23:0] _T_1763 = {_T_1762, 2'h0}; // @[package.scala 199:48]
-  wire [21:0] _T_1765 = _T_1762 | _T_1763[21:0]; // @[package.scala 199:43]
-  wire [25:0] _T_1766 = {_T_1765, 4'h0}; // @[package.scala 199:48]
-  wire [21:0] _T_1768 = _T_1765 | _T_1766[21:0]; // @[package.scala 199:43]
-  wire [29:0] _T_1769 = {_T_1768, 8'h0}; // @[package.scala 199:48]
-  wire [21:0] _T_1771 = _T_1768 | _T_1769[21:0]; // @[package.scala 199:43]
-  wire [37:0] _T_1772 = {_T_1771, 16'h0}; // @[package.scala 199:48]
-  wire [21:0] _T_1774 = _T_1771 | _T_1772[21:0]; // @[package.scala 199:43]
-  wire  _T_1824 = _T_1800 | _T_1801; // @[Xbar.scala 255:50]
-  wire  _T_1825 = _T_1824 | _T_1802; // @[Xbar.scala 255:50]
-  wire  _T_1826 = _T_1825 | _T_1803; // @[Xbar.scala 255:50]
-  wire  _T_1827 = _T_1826 | _T_1804; // @[Xbar.scala 255:50]
-  wire  _T_1828 = _T_1827 | _T_1805; // @[Xbar.scala 255:50]
-  wire  _T_1829 = _T_1828 | _T_1806; // @[Xbar.scala 255:50]
-  wire  _T_1830 = _T_1829 | _T_1807; // @[Xbar.scala 255:50]
-  wire  _T_1831 = _T_1830 | _T_1808; // @[Xbar.scala 255:50]
-  wire  _T_1832 = _T_1831 | _T_1809; // @[Xbar.scala 255:50]
-  wire  _T_1833 = _T_1832 | _T_1810; // @[Xbar.scala 255:50]
-  wire  _T_1834 = _T_1833 | _T_1811; // @[Xbar.scala 255:50]
-  wire  _T_1835 = _T_1834 | _T_1812; // @[Xbar.scala 255:50]
-  wire  _T_1836 = _T_1835 | _T_1813; // @[Xbar.scala 255:50]
-  wire  _T_1837 = _T_1836 | _T_1814; // @[Xbar.scala 255:50]
-  wire  _T_1838 = _T_1837 | _T_1815; // @[Xbar.scala 255:50]
-  wire  _T_1839 = _T_1838 | _T_1816; // @[Xbar.scala 255:50]
-  wire  _T_1840 = _T_1839 | _T_1817; // @[Xbar.scala 255:50]
-  wire  _T_1841 = _T_1840 | _T_1818; // @[Xbar.scala 255:50]
-  wire  _T_1842 = _T_1841 | _T_1819; // @[Xbar.scala 255:50]
-  wire  _T_1843 = _T_1842 | _T_1820; // @[Xbar.scala 255:50]
-  wire  _T_1844 = _T_1843 | _T_1821; // @[Xbar.scala 255:50]
-  wire  _T_1846 = ~_T_1800; // @[Xbar.scala 256:60]
-  wire  _T_1849 = ~_T_1801; // @[Xbar.scala 256:60]
-  wire  _T_1850 = _T_1846 | _T_1849; // @[Xbar.scala 256:57]
-  wire  _T_1851 = ~_T_1824; // @[Xbar.scala 256:54]
-  wire  _T_1852 = ~_T_1802; // @[Xbar.scala 256:60]
-  wire  _T_1853 = _T_1851 | _T_1852; // @[Xbar.scala 256:57]
-  wire  _T_1854 = ~_T_1825; // @[Xbar.scala 256:54]
-  wire  _T_1855 = ~_T_1803; // @[Xbar.scala 256:60]
-  wire  _T_1856 = _T_1854 | _T_1855; // @[Xbar.scala 256:57]
-  wire  _T_1857 = ~_T_1826; // @[Xbar.scala 256:54]
-  wire  _T_1858 = ~_T_1804; // @[Xbar.scala 256:60]
-  wire  _T_1859 = _T_1857 | _T_1858; // @[Xbar.scala 256:57]
-  wire  _T_1860 = ~_T_1827; // @[Xbar.scala 256:54]
-  wire  _T_1861 = ~_T_1805; // @[Xbar.scala 256:60]
-  wire  _T_1862 = _T_1860 | _T_1861; // @[Xbar.scala 256:57]
-  wire  _T_1863 = ~_T_1828; // @[Xbar.scala 256:54]
-  wire  _T_1864 = ~_T_1806; // @[Xbar.scala 256:60]
-  wire  _T_1865 = _T_1863 | _T_1864; // @[Xbar.scala 256:57]
-  wire  _T_1866 = ~_T_1829; // @[Xbar.scala 256:54]
-  wire  _T_1867 = ~_T_1807; // @[Xbar.scala 256:60]
-  wire  _T_1868 = _T_1866 | _T_1867; // @[Xbar.scala 256:57]
-  wire  _T_1869 = ~_T_1830; // @[Xbar.scala 256:54]
-  wire  _T_1870 = ~_T_1808; // @[Xbar.scala 256:60]
-  wire  _T_1871 = _T_1869 | _T_1870; // @[Xbar.scala 256:57]
-  wire  _T_1872 = ~_T_1831; // @[Xbar.scala 256:54]
-  wire  _T_1873 = ~_T_1809; // @[Xbar.scala 256:60]
-  wire  _T_1874 = _T_1872 | _T_1873; // @[Xbar.scala 256:57]
-  wire  _T_1875 = ~_T_1832; // @[Xbar.scala 256:54]
-  wire  _T_1876 = ~_T_1810; // @[Xbar.scala 256:60]
-  wire  _T_1877 = _T_1875 | _T_1876; // @[Xbar.scala 256:57]
-  wire  _T_1878 = ~_T_1833; // @[Xbar.scala 256:54]
-  wire  _T_1879 = ~_T_1811; // @[Xbar.scala 256:60]
-  wire  _T_1880 = _T_1878 | _T_1879; // @[Xbar.scala 256:57]
-  wire  _T_1881 = ~_T_1834; // @[Xbar.scala 256:54]
-  wire  _T_1882 = ~_T_1812; // @[Xbar.scala 256:60]
-  wire  _T_1883 = _T_1881 | _T_1882; // @[Xbar.scala 256:57]
-  wire  _T_1884 = ~_T_1835; // @[Xbar.scala 256:54]
-  wire  _T_1885 = ~_T_1813; // @[Xbar.scala 256:60]
-  wire  _T_1886 = _T_1884 | _T_1885; // @[Xbar.scala 256:57]
-  wire  _T_1887 = ~_T_1836; // @[Xbar.scala 256:54]
-  wire  _T_1888 = ~_T_1814; // @[Xbar.scala 256:60]
-  wire  _T_1889 = _T_1887 | _T_1888; // @[Xbar.scala 256:57]
-  wire  _T_1890 = ~_T_1837; // @[Xbar.scala 256:54]
-  wire  _T_1891 = ~_T_1815; // @[Xbar.scala 256:60]
-  wire  _T_1892 = _T_1890 | _T_1891; // @[Xbar.scala 256:57]
-  wire  _T_1893 = ~_T_1838; // @[Xbar.scala 256:54]
-  wire  _T_1894 = ~_T_1816; // @[Xbar.scala 256:60]
-  wire  _T_1895 = _T_1893 | _T_1894; // @[Xbar.scala 256:57]
-  wire  _T_1896 = ~_T_1839; // @[Xbar.scala 256:54]
-  wire  _T_1897 = ~_T_1817; // @[Xbar.scala 256:60]
-  wire  _T_1898 = _T_1896 | _T_1897; // @[Xbar.scala 256:57]
-  wire  _T_1899 = ~_T_1840; // @[Xbar.scala 256:54]
-  wire  _T_1900 = ~_T_1818; // @[Xbar.scala 256:60]
-  wire  _T_1901 = _T_1899 | _T_1900; // @[Xbar.scala 256:57]
-  wire  _T_1902 = ~_T_1841; // @[Xbar.scala 256:54]
-  wire  _T_1903 = ~_T_1819; // @[Xbar.scala 256:60]
-  wire  _T_1904 = _T_1902 | _T_1903; // @[Xbar.scala 256:57]
-  wire  _T_1905 = ~_T_1842; // @[Xbar.scala 256:54]
-  wire  _T_1906 = ~_T_1820; // @[Xbar.scala 256:60]
-  wire  _T_1907 = _T_1905 | _T_1906; // @[Xbar.scala 256:57]
-  wire  _T_1908 = ~_T_1843; // @[Xbar.scala 256:54]
-  wire  _T_1909 = ~_T_1821; // @[Xbar.scala 256:60]
-  wire  _T_1910 = _T_1908 | _T_1909; // @[Xbar.scala 256:57]
-  wire  _T_1912 = _T_1850 & _T_1853; // @[Xbar.scala 256:75]
-  wire  _T_1913 = _T_1912 & _T_1856; // @[Xbar.scala 256:75]
-  wire  _T_1914 = _T_1913 & _T_1859; // @[Xbar.scala 256:75]
-  wire  _T_1915 = _T_1914 & _T_1862; // @[Xbar.scala 256:75]
-  wire  _T_1916 = _T_1915 & _T_1865; // @[Xbar.scala 256:75]
-  wire  _T_1917 = _T_1916 & _T_1868; // @[Xbar.scala 256:75]
-  wire  _T_1918 = _T_1917 & _T_1871; // @[Xbar.scala 256:75]
-  wire  _T_1919 = _T_1918 & _T_1874; // @[Xbar.scala 256:75]
-  wire  _T_1920 = _T_1919 & _T_1877; // @[Xbar.scala 256:75]
-  wire  _T_1921 = _T_1920 & _T_1880; // @[Xbar.scala 256:75]
-  wire  _T_1922 = _T_1921 & _T_1883; // @[Xbar.scala 256:75]
-  wire  _T_1923 = _T_1922 & _T_1886; // @[Xbar.scala 256:75]
-  wire  _T_1924 = _T_1923 & _T_1889; // @[Xbar.scala 256:75]
-  wire  _T_1925 = _T_1924 & _T_1892; // @[Xbar.scala 256:75]
-  wire  _T_1926 = _T_1925 & _T_1895; // @[Xbar.scala 256:75]
-  wire  _T_1927 = _T_1926 & _T_1898; // @[Xbar.scala 256:75]
-  wire  _T_1928 = _T_1927 & _T_1901; // @[Xbar.scala 256:75]
-  wire  _T_1929 = _T_1928 & _T_1904; // @[Xbar.scala 256:75]
-  wire  _T_1930 = _T_1929 & _T_1907; // @[Xbar.scala 256:75]
-  wire  _T_1931 = _T_1930 & _T_1910; // @[Xbar.scala 256:75]
-  wire  _T_1933 = _T_1931 | reset; // @[Xbar.scala 256:11]
-  wire  _T_1934 = ~_T_1933; // @[Xbar.scala 256:11]
-  wire  _T_1935 = ~_T_1707; // @[Xbar.scala 258:13]
-  wire  _T_1957 = _T_1935 | _T_1844; // @[Xbar.scala 258:23]
-  wire  _T_1959 = _T_1957 | reset; // @[Xbar.scala 258:12]
-  wire  _T_1960 = ~_T_1959; // @[Xbar.scala 258:12]
-  wire  _GEN_93 = _T_1707 ? 1'h0 : _T_1686; // @[Xbar.scala 266:21]
-  wire  _GEN_94 = _T_357 | _GEN_93; // @[Xbar.scala 267:24]
-  wire  _T_1965_0 = _T_1686 ? _T_1756[0] : _T_1962_0; // @[Xbar.scala 270:24]
-  wire  _T_1965_1 = _T_1686 ? _T_1756[1] : _T_1962_1; // @[Xbar.scala 270:24]
-  wire  _T_1965_2 = _T_1686 ? _T_1756[2] : _T_1962_2; // @[Xbar.scala 270:24]
-  wire  _T_1965_3 = _T_1686 ? _T_1756[3] : _T_1962_3; // @[Xbar.scala 270:24]
-  wire  _T_1965_4 = _T_1686 ? _T_1756[4] : _T_1962_4; // @[Xbar.scala 270:24]
-  wire  _T_1965_5 = _T_1686 ? _T_1756[5] : _T_1962_5; // @[Xbar.scala 270:24]
-  wire  _T_1965_6 = _T_1686 ? _T_1756[6] : _T_1962_6; // @[Xbar.scala 270:24]
-  wire  _T_1965_7 = _T_1686 ? _T_1756[7] : _T_1962_7; // @[Xbar.scala 270:24]
-  wire  _T_1965_8 = _T_1686 ? _T_1756[8] : _T_1962_8; // @[Xbar.scala 270:24]
-  wire  _T_1965_9 = _T_1686 ? _T_1756[9] : _T_1962_9; // @[Xbar.scala 270:24]
-  wire  _T_1965_10 = _T_1686 ? _T_1756[10] : _T_1962_10; // @[Xbar.scala 270:24]
-  wire  _T_1965_11 = _T_1686 ? _T_1756[11] : _T_1962_11; // @[Xbar.scala 270:24]
-  wire  _T_1965_12 = _T_1686 ? _T_1756[12] : _T_1962_12; // @[Xbar.scala 270:24]
-  wire  _T_1965_13 = _T_1686 ? _T_1756[13] : _T_1962_13; // @[Xbar.scala 270:24]
-  wire  _T_1965_14 = _T_1686 ? _T_1756[14] : _T_1962_14; // @[Xbar.scala 270:24]
-  wire  _T_1965_15 = _T_1686 ? _T_1756[15] : _T_1962_15; // @[Xbar.scala 270:24]
-  wire  _T_1965_16 = _T_1686 ? _T_1756[16] : _T_1962_16; // @[Xbar.scala 270:24]
-  wire  _T_1965_17 = _T_1686 ? _T_1756[17] : _T_1962_17; // @[Xbar.scala 270:24]
-  wire  _T_1965_18 = _T_1686 ? _T_1756[18] : _T_1962_18; // @[Xbar.scala 270:24]
-  wire  _T_1965_19 = _T_1686 ? _T_1756[19] : _T_1962_19; // @[Xbar.scala 270:24]
-  wire  _T_1965_20 = _T_1686 ? _T_1756[20] : _T_1962_20; // @[Xbar.scala 270:24]
-  wire  _T_1965_21 = _T_1686 ? _T_1756[21] : _T_1962_21; // @[Xbar.scala 270:24]
-  wire [4:0] _T_2173 = {_T_683,_T_681,_T_679,_T_677,_T_675}; // @[Cat.scala 29:58]
-  wire [10:0] _T_2179 = {_T_695,_T_693,_T_691,_T_689,_T_687,_T_685,_T_2173}; // @[Cat.scala 29:58]
-  wire [4:0] _T_2183 = {_T_705,_T_703,_T_701,_T_699,_T_697}; // @[Cat.scala 29:58]
-  wire [21:0] _T_2190 = {auto_out_21_b_valid,_T_715,_T_713,_T_711,_T_709,_T_707,_T_2183,_T_2179}; // @[Cat.scala 29:58]
-  reg [21:0] _T_2197; // @[Arbiter.scala 20:23]
-  reg [31:0] _RAND_52;
-  wire [21:0] _T_2198 = ~_T_2197; // @[Arbiter.scala 21:30]
-  wire [21:0] _T_2199 = _T_2190 & _T_2198; // @[Arbiter.scala 21:28]
-  wire [43:0] _T_2200 = {_T_2199,auto_out_21_b_valid,_T_715,_T_713,_T_711,_T_709,_T_707,_T_2183,_T_2179}; // @[Cat.scala 29:58]
-  wire [43:0] _GEN_110 = {{1'd0}, _T_2200[43:1]}; // @[package.scala 208:43]
-  wire [43:0] _T_2202 = _T_2200 | _GEN_110; // @[package.scala 208:43]
-  wire [43:0] _GEN_111 = {{2'd0}, _T_2202[43:2]}; // @[package.scala 208:43]
-  wire [43:0] _T_2204 = _T_2202 | _GEN_111; // @[package.scala 208:43]
-  wire [43:0] _GEN_112 = {{4'd0}, _T_2204[43:4]}; // @[package.scala 208:43]
-  wire [43:0] _T_2206 = _T_2204 | _GEN_112; // @[package.scala 208:43]
-  wire [43:0] _GEN_113 = {{8'd0}, _T_2206[43:8]}; // @[package.scala 208:43]
-  wire [43:0] _T_2208 = _T_2206 | _GEN_113; // @[package.scala 208:43]
-  wire [43:0] _GEN_114 = {{16'd0}, _T_2208[43:16]}; // @[package.scala 208:43]
-  wire [43:0] _T_2210 = _T_2208 | _GEN_114; // @[package.scala 208:43]
-  wire [43:0] _T_2213 = {_T_2197, 22'h0}; // @[Arbiter.scala 22:66]
-  wire [43:0] _GEN_115 = {{1'd0}, _T_2210[43:1]}; // @[Arbiter.scala 22:58]
-  wire [43:0] _T_2214 = _GEN_115 | _T_2213; // @[Arbiter.scala 22:58]
-  wire [21:0] _T_2217 = _T_2214[43:22] & _T_2214[21:0]; // @[Arbiter.scala 23:39]
-  wire [21:0] _T_2218 = ~_T_2217; // @[Arbiter.scala 23:18]
-  wire  _T_2219 = _T_2190 != 22'h0; // @[Arbiter.scala 24:27]
-  wire  _T_2220 = _T_2148 & _T_2219; // @[Arbiter.scala 24:18]
-  wire [21:0] _T_2221 = _T_2218 & _T_2190; // @[Arbiter.scala 25:29]
-  wire [22:0] _T_2222 = {_T_2221, 1'h0}; // @[package.scala 199:48]
-  wire [21:0] _T_2224 = _T_2221 | _T_2222[21:0]; // @[package.scala 199:43]
-  wire [23:0] _T_2225 = {_T_2224, 2'h0}; // @[package.scala 199:48]
-  wire [21:0] _T_2227 = _T_2224 | _T_2225[21:0]; // @[package.scala 199:43]
-  wire [25:0] _T_2228 = {_T_2227, 4'h0}; // @[package.scala 199:48]
-  wire [21:0] _T_2230 = _T_2227 | _T_2228[21:0]; // @[package.scala 199:43]
-  wire [29:0] _T_2231 = {_T_2230, 8'h0}; // @[package.scala 199:48]
-  wire [21:0] _T_2233 = _T_2230 | _T_2231[21:0]; // @[package.scala 199:43]
-  wire [37:0] _T_2234 = {_T_2233, 16'h0}; // @[package.scala 199:48]
-  wire [21:0] _T_2236 = _T_2233 | _T_2234[21:0]; // @[package.scala 199:43]
-  wire  _T_2262 = _T_2218[0] & _T_675; // @[Xbar.scala 250:63]
-  wire  _T_2263 = _T_2218[1] & _T_677; // @[Xbar.scala 250:63]
-  wire  _T_2264 = _T_2218[2] & _T_679; // @[Xbar.scala 250:63]
-  wire  _T_2265 = _T_2218[3] & _T_681; // @[Xbar.scala 250:63]
-  wire  _T_2266 = _T_2218[4] & _T_683; // @[Xbar.scala 250:63]
-  wire  _T_2267 = _T_2218[5] & _T_685; // @[Xbar.scala 250:63]
-  wire  _T_2268 = _T_2218[6] & _T_687; // @[Xbar.scala 250:63]
-  wire  _T_2269 = _T_2218[7] & _T_689; // @[Xbar.scala 250:63]
-  wire  _T_2270 = _T_2218[8] & _T_691; // @[Xbar.scala 250:63]
-  wire  _T_2271 = _T_2218[9] & _T_693; // @[Xbar.scala 250:63]
-  wire  _T_2272 = _T_2218[10] & _T_695; // @[Xbar.scala 250:63]
-  wire  _T_2273 = _T_2218[11] & _T_697; // @[Xbar.scala 250:63]
-  wire  _T_2274 = _T_2218[12] & _T_699; // @[Xbar.scala 250:63]
-  wire  _T_2275 = _T_2218[13] & _T_701; // @[Xbar.scala 250:63]
-  wire  _T_2276 = _T_2218[14] & _T_703; // @[Xbar.scala 250:63]
-  wire  _T_2277 = _T_2218[15] & _T_705; // @[Xbar.scala 250:63]
-  wire  _T_2278 = _T_2218[16] & _T_707; // @[Xbar.scala 250:63]
-  wire  _T_2279 = _T_2218[17] & _T_709; // @[Xbar.scala 250:63]
-  wire  _T_2280 = _T_2218[18] & _T_711; // @[Xbar.scala 250:63]
-  wire  _T_2281 = _T_2218[19] & _T_713; // @[Xbar.scala 250:63]
-  wire  _T_2282 = _T_2218[20] & _T_715; // @[Xbar.scala 250:63]
-  wire  _T_2283 = _T_2218[21] & auto_out_21_b_valid; // @[Xbar.scala 250:63]
-  wire  _T_2286 = _T_2262 | _T_2263; // @[Xbar.scala 255:50]
-  wire  _T_2287 = _T_2286 | _T_2264; // @[Xbar.scala 255:50]
-  wire  _T_2288 = _T_2287 | _T_2265; // @[Xbar.scala 255:50]
-  wire  _T_2289 = _T_2288 | _T_2266; // @[Xbar.scala 255:50]
-  wire  _T_2290 = _T_2289 | _T_2267; // @[Xbar.scala 255:50]
-  wire  _T_2291 = _T_2290 | _T_2268; // @[Xbar.scala 255:50]
-  wire  _T_2292 = _T_2291 | _T_2269; // @[Xbar.scala 255:50]
-  wire  _T_2293 = _T_2292 | _T_2270; // @[Xbar.scala 255:50]
-  wire  _T_2294 = _T_2293 | _T_2271; // @[Xbar.scala 255:50]
-  wire  _T_2295 = _T_2294 | _T_2272; // @[Xbar.scala 255:50]
-  wire  _T_2296 = _T_2295 | _T_2273; // @[Xbar.scala 255:50]
-  wire  _T_2297 = _T_2296 | _T_2274; // @[Xbar.scala 255:50]
-  wire  _T_2298 = _T_2297 | _T_2275; // @[Xbar.scala 255:50]
-  wire  _T_2299 = _T_2298 | _T_2276; // @[Xbar.scala 255:50]
-  wire  _T_2300 = _T_2299 | _T_2277; // @[Xbar.scala 255:50]
-  wire  _T_2301 = _T_2300 | _T_2278; // @[Xbar.scala 255:50]
-  wire  _T_2302 = _T_2301 | _T_2279; // @[Xbar.scala 255:50]
-  wire  _T_2303 = _T_2302 | _T_2280; // @[Xbar.scala 255:50]
-  wire  _T_2304 = _T_2303 | _T_2281; // @[Xbar.scala 255:50]
-  wire  _T_2305 = _T_2304 | _T_2282; // @[Xbar.scala 255:50]
-  wire  _T_2306 = _T_2305 | _T_2283; // @[Xbar.scala 255:50]
-  wire  _T_2308 = ~_T_2262; // @[Xbar.scala 256:60]
-  wire  _T_2311 = ~_T_2263; // @[Xbar.scala 256:60]
-  wire  _T_2312 = _T_2308 | _T_2311; // @[Xbar.scala 256:57]
-  wire  _T_2313 = ~_T_2286; // @[Xbar.scala 256:54]
-  wire  _T_2314 = ~_T_2264; // @[Xbar.scala 256:60]
-  wire  _T_2315 = _T_2313 | _T_2314; // @[Xbar.scala 256:57]
-  wire  _T_2316 = ~_T_2287; // @[Xbar.scala 256:54]
-  wire  _T_2317 = ~_T_2265; // @[Xbar.scala 256:60]
-  wire  _T_2318 = _T_2316 | _T_2317; // @[Xbar.scala 256:57]
-  wire  _T_2319 = ~_T_2288; // @[Xbar.scala 256:54]
-  wire  _T_2320 = ~_T_2266; // @[Xbar.scala 256:60]
-  wire  _T_2321 = _T_2319 | _T_2320; // @[Xbar.scala 256:57]
-  wire  _T_2322 = ~_T_2289; // @[Xbar.scala 256:54]
-  wire  _T_2323 = ~_T_2267; // @[Xbar.scala 256:60]
-  wire  _T_2324 = _T_2322 | _T_2323; // @[Xbar.scala 256:57]
-  wire  _T_2325 = ~_T_2290; // @[Xbar.scala 256:54]
-  wire  _T_2326 = ~_T_2268; // @[Xbar.scala 256:60]
-  wire  _T_2327 = _T_2325 | _T_2326; // @[Xbar.scala 256:57]
-  wire  _T_2328 = ~_T_2291; // @[Xbar.scala 256:54]
-  wire  _T_2329 = ~_T_2269; // @[Xbar.scala 256:60]
-  wire  _T_2330 = _T_2328 | _T_2329; // @[Xbar.scala 256:57]
-  wire  _T_2331 = ~_T_2292; // @[Xbar.scala 256:54]
-  wire  _T_2332 = ~_T_2270; // @[Xbar.scala 256:60]
-  wire  _T_2333 = _T_2331 | _T_2332; // @[Xbar.scala 256:57]
-  wire  _T_2334 = ~_T_2293; // @[Xbar.scala 256:54]
-  wire  _T_2335 = ~_T_2271; // @[Xbar.scala 256:60]
-  wire  _T_2336 = _T_2334 | _T_2335; // @[Xbar.scala 256:57]
-  wire  _T_2337 = ~_T_2294; // @[Xbar.scala 256:54]
-  wire  _T_2338 = ~_T_2272; // @[Xbar.scala 256:60]
-  wire  _T_2339 = _T_2337 | _T_2338; // @[Xbar.scala 256:57]
-  wire  _T_2340 = ~_T_2295; // @[Xbar.scala 256:54]
-  wire  _T_2341 = ~_T_2273; // @[Xbar.scala 256:60]
-  wire  _T_2342 = _T_2340 | _T_2341; // @[Xbar.scala 256:57]
-  wire  _T_2343 = ~_T_2296; // @[Xbar.scala 256:54]
-  wire  _T_2344 = ~_T_2274; // @[Xbar.scala 256:60]
-  wire  _T_2345 = _T_2343 | _T_2344; // @[Xbar.scala 256:57]
-  wire  _T_2346 = ~_T_2297; // @[Xbar.scala 256:54]
-  wire  _T_2347 = ~_T_2275; // @[Xbar.scala 256:60]
-  wire  _T_2348 = _T_2346 | _T_2347; // @[Xbar.scala 256:57]
-  wire  _T_2349 = ~_T_2298; // @[Xbar.scala 256:54]
-  wire  _T_2350 = ~_T_2276; // @[Xbar.scala 256:60]
-  wire  _T_2351 = _T_2349 | _T_2350; // @[Xbar.scala 256:57]
-  wire  _T_2352 = ~_T_2299; // @[Xbar.scala 256:54]
-  wire  _T_2353 = ~_T_2277; // @[Xbar.scala 256:60]
-  wire  _T_2354 = _T_2352 | _T_2353; // @[Xbar.scala 256:57]
-  wire  _T_2355 = ~_T_2300; // @[Xbar.scala 256:54]
-  wire  _T_2356 = ~_T_2278; // @[Xbar.scala 256:60]
-  wire  _T_2357 = _T_2355 | _T_2356; // @[Xbar.scala 256:57]
-  wire  _T_2358 = ~_T_2301; // @[Xbar.scala 256:54]
-  wire  _T_2359 = ~_T_2279; // @[Xbar.scala 256:60]
-  wire  _T_2360 = _T_2358 | _T_2359; // @[Xbar.scala 256:57]
-  wire  _T_2361 = ~_T_2302; // @[Xbar.scala 256:54]
-  wire  _T_2362 = ~_T_2280; // @[Xbar.scala 256:60]
-  wire  _T_2363 = _T_2361 | _T_2362; // @[Xbar.scala 256:57]
-  wire  _T_2364 = ~_T_2303; // @[Xbar.scala 256:54]
-  wire  _T_2365 = ~_T_2281; // @[Xbar.scala 256:60]
-  wire  _T_2366 = _T_2364 | _T_2365; // @[Xbar.scala 256:57]
-  wire  _T_2367 = ~_T_2304; // @[Xbar.scala 256:54]
-  wire  _T_2368 = ~_T_2282; // @[Xbar.scala 256:60]
-  wire  _T_2369 = _T_2367 | _T_2368; // @[Xbar.scala 256:57]
-  wire  _T_2370 = ~_T_2305; // @[Xbar.scala 256:54]
-  wire  _T_2371 = ~_T_2283; // @[Xbar.scala 256:60]
-  wire  _T_2372 = _T_2370 | _T_2371; // @[Xbar.scala 256:57]
-  wire  _T_2374 = _T_2312 & _T_2315; // @[Xbar.scala 256:75]
-  wire  _T_2375 = _T_2374 & _T_2318; // @[Xbar.scala 256:75]
-  wire  _T_2376 = _T_2375 & _T_2321; // @[Xbar.scala 256:75]
-  wire  _T_2377 = _T_2376 & _T_2324; // @[Xbar.scala 256:75]
-  wire  _T_2378 = _T_2377 & _T_2327; // @[Xbar.scala 256:75]
-  wire  _T_2379 = _T_2378 & _T_2330; // @[Xbar.scala 256:75]
-  wire  _T_2380 = _T_2379 & _T_2333; // @[Xbar.scala 256:75]
-  wire  _T_2381 = _T_2380 & _T_2336; // @[Xbar.scala 256:75]
-  wire  _T_2382 = _T_2381 & _T_2339; // @[Xbar.scala 256:75]
-  wire  _T_2383 = _T_2382 & _T_2342; // @[Xbar.scala 256:75]
-  wire  _T_2384 = _T_2383 & _T_2345; // @[Xbar.scala 256:75]
-  wire  _T_2385 = _T_2384 & _T_2348; // @[Xbar.scala 256:75]
-  wire  _T_2386 = _T_2385 & _T_2351; // @[Xbar.scala 256:75]
-  wire  _T_2387 = _T_2386 & _T_2354; // @[Xbar.scala 256:75]
-  wire  _T_2388 = _T_2387 & _T_2357; // @[Xbar.scala 256:75]
-  wire  _T_2389 = _T_2388 & _T_2360; // @[Xbar.scala 256:75]
-  wire  _T_2390 = _T_2389 & _T_2363; // @[Xbar.scala 256:75]
-  wire  _T_2391 = _T_2390 & _T_2366; // @[Xbar.scala 256:75]
-  wire  _T_2392 = _T_2391 & _T_2369; // @[Xbar.scala 256:75]
-  wire  _T_2393 = _T_2392 & _T_2372; // @[Xbar.scala 256:75]
-  wire  _T_2395 = _T_2393 | reset; // @[Xbar.scala 256:11]
-  wire  _T_2396 = ~_T_2395; // @[Xbar.scala 256:11]
-  wire  _T_2397 = ~_T_2169; // @[Xbar.scala 258:13]
-  wire  _T_2419 = _T_2397 | _T_2306; // @[Xbar.scala 258:23]
-  wire  _T_2421 = _T_2419 | reset; // @[Xbar.scala 258:12]
-  wire  _T_2422 = ~_T_2421; // @[Xbar.scala 258:12]
-  wire  _T_2425_0 = _T_2148 ? _T_2262 : _T_2424_0; // @[Xbar.scala 262:23]
-  wire  _T_2425_1 = _T_2148 ? _T_2263 : _T_2424_1; // @[Xbar.scala 262:23]
-  wire  _T_2425_2 = _T_2148 ? _T_2264 : _T_2424_2; // @[Xbar.scala 262:23]
-  wire  _T_2425_3 = _T_2148 ? _T_2265 : _T_2424_3; // @[Xbar.scala 262:23]
-  wire  _T_2425_4 = _T_2148 ? _T_2266 : _T_2424_4; // @[Xbar.scala 262:23]
-  wire  _T_2425_5 = _T_2148 ? _T_2267 : _T_2424_5; // @[Xbar.scala 262:23]
-  wire  _T_2425_6 = _T_2148 ? _T_2268 : _T_2424_6; // @[Xbar.scala 262:23]
-  wire  _T_2425_7 = _T_2148 ? _T_2269 : _T_2424_7; // @[Xbar.scala 262:23]
-  wire  _T_2425_8 = _T_2148 ? _T_2270 : _T_2424_8; // @[Xbar.scala 262:23]
-  wire  _T_2425_9 = _T_2148 ? _T_2271 : _T_2424_9; // @[Xbar.scala 262:23]
-  wire  _T_2425_10 = _T_2148 ? _T_2272 : _T_2424_10; // @[Xbar.scala 262:23]
-  wire  _T_2425_11 = _T_2148 ? _T_2273 : _T_2424_11; // @[Xbar.scala 262:23]
-  wire  _T_2425_12 = _T_2148 ? _T_2274 : _T_2424_12; // @[Xbar.scala 262:23]
-  wire  _T_2425_13 = _T_2148 ? _T_2275 : _T_2424_13; // @[Xbar.scala 262:23]
-  wire  _T_2425_14 = _T_2148 ? _T_2276 : _T_2424_14; // @[Xbar.scala 262:23]
-  wire  _T_2425_15 = _T_2148 ? _T_2277 : _T_2424_15; // @[Xbar.scala 262:23]
-  wire  _T_2425_16 = _T_2148 ? _T_2278 : _T_2424_16; // @[Xbar.scala 262:23]
-  wire  _T_2425_17 = _T_2148 ? _T_2279 : _T_2424_17; // @[Xbar.scala 262:23]
-  wire  _T_2425_18 = _T_2148 ? _T_2280 : _T_2424_18; // @[Xbar.scala 262:23]
-  wire  _T_2425_19 = _T_2148 ? _T_2281 : _T_2424_19; // @[Xbar.scala 262:23]
-  wire  _T_2425_20 = _T_2148 ? _T_2282 : _T_2424_20; // @[Xbar.scala 262:23]
-  wire  _T_2425_21 = _T_2148 ? _T_2283 : _T_2424_21; // @[Xbar.scala 262:23]
-  wire  _GEN_96 = _T_2169 ? 1'h0 : _T_2148; // @[Xbar.scala 266:21]
-  wire  _GEN_97 = _T_386 | _GEN_96; // @[Xbar.scala 267:24]
-  wire  _T_2427_0 = _T_2148 ? _T_2218[0] : _T_2424_0; // @[Xbar.scala 270:24]
-  wire  _T_2427_1 = _T_2148 ? _T_2218[1] : _T_2424_1; // @[Xbar.scala 270:24]
-  wire  _T_2427_2 = _T_2148 ? _T_2218[2] : _T_2424_2; // @[Xbar.scala 270:24]
-  wire  _T_2427_3 = _T_2148 ? _T_2218[3] : _T_2424_3; // @[Xbar.scala 270:24]
-  wire  _T_2427_4 = _T_2148 ? _T_2218[4] : _T_2424_4; // @[Xbar.scala 270:24]
-  wire  _T_2427_5 = _T_2148 ? _T_2218[5] : _T_2424_5; // @[Xbar.scala 270:24]
-  wire  _T_2427_6 = _T_2148 ? _T_2218[6] : _T_2424_6; // @[Xbar.scala 270:24]
-  wire  _T_2427_7 = _T_2148 ? _T_2218[7] : _T_2424_7; // @[Xbar.scala 270:24]
-  wire  _T_2427_8 = _T_2148 ? _T_2218[8] : _T_2424_8; // @[Xbar.scala 270:24]
-  wire  _T_2427_9 = _T_2148 ? _T_2218[9] : _T_2424_9; // @[Xbar.scala 270:24]
-  wire  _T_2427_10 = _T_2148 ? _T_2218[10] : _T_2424_10; // @[Xbar.scala 270:24]
-  wire  _T_2427_11 = _T_2148 ? _T_2218[11] : _T_2424_11; // @[Xbar.scala 270:24]
-  wire  _T_2427_12 = _T_2148 ? _T_2218[12] : _T_2424_12; // @[Xbar.scala 270:24]
-  wire  _T_2427_13 = _T_2148 ? _T_2218[13] : _T_2424_13; // @[Xbar.scala 270:24]
-  wire  _T_2427_14 = _T_2148 ? _T_2218[14] : _T_2424_14; // @[Xbar.scala 270:24]
-  wire  _T_2427_15 = _T_2148 ? _T_2218[15] : _T_2424_15; // @[Xbar.scala 270:24]
-  wire  _T_2427_16 = _T_2148 ? _T_2218[16] : _T_2424_16; // @[Xbar.scala 270:24]
-  wire  _T_2427_17 = _T_2148 ? _T_2218[17] : _T_2424_17; // @[Xbar.scala 270:24]
-  wire  _T_2427_18 = _T_2148 ? _T_2218[18] : _T_2424_18; // @[Xbar.scala 270:24]
-  wire  _T_2427_19 = _T_2148 ? _T_2218[19] : _T_2424_19; // @[Xbar.scala 270:24]
-  wire  _T_2427_20 = _T_2148 ? _T_2218[20] : _T_2424_20; // @[Xbar.scala 270:24]
-  wire  _T_2427_21 = _T_2148 ? _T_2218[21] : _T_2424_21; // @[Xbar.scala 270:24]
-  wire [2:0] _T_2495 = {auto_out_0_b_bits_id,auto_out_0_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2496 = _T_2425_0 ? _T_2495 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2497 = {auto_out_1_b_bits_id,auto_out_1_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2498 = _T_2425_1 ? _T_2497 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2499 = {auto_out_2_b_bits_id,auto_out_2_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2500 = _T_2425_2 ? _T_2499 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2501 = {auto_out_3_b_bits_id,auto_out_3_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2502 = _T_2425_3 ? _T_2501 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2503 = {auto_out_4_b_bits_id,auto_out_4_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2504 = _T_2425_4 ? _T_2503 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2505 = {auto_out_5_b_bits_id,auto_out_5_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2506 = _T_2425_5 ? _T_2505 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2507 = {auto_out_6_b_bits_id,auto_out_6_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2508 = _T_2425_6 ? _T_2507 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2509 = {auto_out_7_b_bits_id,auto_out_7_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2510 = _T_2425_7 ? _T_2509 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2511 = {auto_out_8_b_bits_id,auto_out_8_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2512 = _T_2425_8 ? _T_2511 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2513 = {auto_out_9_b_bits_id,auto_out_9_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2514 = _T_2425_9 ? _T_2513 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2515 = {auto_out_10_b_bits_id,auto_out_10_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2516 = _T_2425_10 ? _T_2515 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2517 = {auto_out_11_b_bits_id,auto_out_11_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2518 = _T_2425_11 ? _T_2517 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2519 = {auto_out_12_b_bits_id,auto_out_12_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2520 = _T_2425_12 ? _T_2519 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2521 = {auto_out_13_b_bits_id,auto_out_13_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2522 = _T_2425_13 ? _T_2521 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2523 = {auto_out_14_b_bits_id,auto_out_14_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2524 = _T_2425_14 ? _T_2523 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2525 = {auto_out_15_b_bits_id,auto_out_15_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2526 = _T_2425_15 ? _T_2525 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2527 = {auto_out_16_b_bits_id,auto_out_16_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2528 = _T_2425_16 ? _T_2527 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2529 = {auto_out_17_b_bits_id,auto_out_17_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2530 = _T_2425_17 ? _T_2529 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2531 = {auto_out_18_b_bits_id,auto_out_18_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2532 = _T_2425_18 ? _T_2531 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2533 = {auto_out_19_b_bits_id,auto_out_19_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2534 = _T_2425_19 ? _T_2533 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2535 = {auto_out_20_b_bits_id,auto_out_20_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2536 = _T_2425_20 ? _T_2535 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2537 = {1'h0,auto_out_21_b_bits_resp}; // @[Mux.scala 27:72]
-  wire [2:0] _T_2538 = _T_2425_21 ? _T_2537 : 3'h0; // @[Mux.scala 27:72]
-  wire [2:0] _T_2539 = _T_2496 | _T_2498; // @[Mux.scala 27:72]
-  wire [2:0] _T_2540 = _T_2539 | _T_2500; // @[Mux.scala 27:72]
-  wire [2:0] _T_2541 = _T_2540 | _T_2502; // @[Mux.scala 27:72]
-  wire [2:0] _T_2542 = _T_2541 | _T_2504; // @[Mux.scala 27:72]
-  wire [2:0] _T_2543 = _T_2542 | _T_2506; // @[Mux.scala 27:72]
-  wire [2:0] _T_2544 = _T_2543 | _T_2508; // @[Mux.scala 27:72]
-  wire [2:0] _T_2545 = _T_2544 | _T_2510; // @[Mux.scala 27:72]
-  wire [2:0] _T_2546 = _T_2545 | _T_2512; // @[Mux.scala 27:72]
-  wire [2:0] _T_2547 = _T_2546 | _T_2514; // @[Mux.scala 27:72]
-  wire [2:0] _T_2548 = _T_2547 | _T_2516; // @[Mux.scala 27:72]
-  wire [2:0] _T_2549 = _T_2548 | _T_2518; // @[Mux.scala 27:72]
-  wire [2:0] _T_2550 = _T_2549 | _T_2520; // @[Mux.scala 27:72]
-  wire [2:0] _T_2551 = _T_2550 | _T_2522; // @[Mux.scala 27:72]
-  wire [2:0] _T_2552 = _T_2551 | _T_2524; // @[Mux.scala 27:72]
-  wire [2:0] _T_2553 = _T_2552 | _T_2526; // @[Mux.scala 27:72]
-  wire [2:0] _T_2554 = _T_2553 | _T_2528; // @[Mux.scala 27:72]
-  wire [2:0] _T_2555 = _T_2554 | _T_2530; // @[Mux.scala 27:72]
-  wire [2:0] _T_2556 = _T_2555 | _T_2532; // @[Mux.scala 27:72]
-  wire [2:0] _T_2557 = _T_2556 | _T_2534; // @[Mux.scala 27:72]
-  wire [2:0] _T_2558 = _T_2557 | _T_2536; // @[Mux.scala 27:72]
-  wire [2:0] _T_2559 = _T_2558 | _T_2538; // @[Mux.scala 27:72]
+  wire  _T_698 = ~out_0_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_704 = _T_698 | out_0_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_706 = _T_704 | reset; // @[Xbar.scala 258:12]
+  wire  _T_707 = ~_T_706; // @[Xbar.scala 258:12]
+  wire  _T_719 = ~out_0_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_725 = _T_719 | out_0_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_727 = _T_725 | reset; // @[Xbar.scala 258:12]
+  wire  _T_728 = ~_T_727; // @[Xbar.scala 258:12]
+  wire  _T_742 = ~out_1_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_748 = _T_742 | out_1_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_750 = _T_748 | reset; // @[Xbar.scala 258:12]
+  wire  _T_751 = ~_T_750; // @[Xbar.scala 258:12]
+  wire  _T_763 = ~out_1_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_769 = _T_763 | out_1_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_771 = _T_769 | reset; // @[Xbar.scala 258:12]
+  wire  _T_772 = ~_T_771; // @[Xbar.scala 258:12]
+  wire  _T_786 = ~out_2_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_792 = _T_786 | out_2_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_794 = _T_792 | reset; // @[Xbar.scala 258:12]
+  wire  _T_795 = ~_T_794; // @[Xbar.scala 258:12]
+  wire  _T_807 = ~out_2_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_813 = _T_807 | out_2_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_815 = _T_813 | reset; // @[Xbar.scala 258:12]
+  wire  _T_816 = ~_T_815; // @[Xbar.scala 258:12]
+  wire  _T_830 = ~out_3_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_836 = _T_830 | out_3_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_838 = _T_836 | reset; // @[Xbar.scala 258:12]
+  wire  _T_839 = ~_T_838; // @[Xbar.scala 258:12]
+  wire  _T_851 = ~out_3_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_857 = _T_851 | out_3_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_859 = _T_857 | reset; // @[Xbar.scala 258:12]
+  wire  _T_860 = ~_T_859; // @[Xbar.scala 258:12]
+  wire  _T_874 = ~out_4_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_880 = _T_874 | out_4_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_882 = _T_880 | reset; // @[Xbar.scala 258:12]
+  wire  _T_883 = ~_T_882; // @[Xbar.scala 258:12]
+  wire  _T_895 = ~out_4_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_901 = _T_895 | out_4_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_903 = _T_901 | reset; // @[Xbar.scala 258:12]
+  wire  _T_904 = ~_T_903; // @[Xbar.scala 258:12]
+  wire  _T_918 = ~out_5_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_924 = _T_918 | out_5_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_926 = _T_924 | reset; // @[Xbar.scala 258:12]
+  wire  _T_927 = ~_T_926; // @[Xbar.scala 258:12]
+  wire  _T_939 = ~out_5_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_945 = _T_939 | out_5_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_947 = _T_945 | reset; // @[Xbar.scala 258:12]
+  wire  _T_948 = ~_T_947; // @[Xbar.scala 258:12]
+  wire  _T_962 = ~out_6_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_968 = _T_962 | out_6_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_970 = _T_968 | reset; // @[Xbar.scala 258:12]
+  wire  _T_971 = ~_T_970; // @[Xbar.scala 258:12]
+  wire  _T_983 = ~out_6_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_989 = _T_983 | out_6_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_991 = _T_989 | reset; // @[Xbar.scala 258:12]
+  wire  _T_992 = ~_T_991; // @[Xbar.scala 258:12]
+  wire  _T_1006 = ~out_7_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_1012 = _T_1006 | out_7_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_1014 = _T_1012 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1015 = ~_T_1014; // @[Xbar.scala 258:12]
+  wire  _T_1027 = ~out_7_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_1033 = _T_1027 | out_7_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_1035 = _T_1033 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1036 = ~_T_1035; // @[Xbar.scala 258:12]
+  wire  _T_1050 = ~out_8_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_1056 = _T_1050 | out_8_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_1058 = _T_1056 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1059 = ~_T_1058; // @[Xbar.scala 258:12]
+  wire  _T_1071 = ~out_8_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_1077 = _T_1071 | out_8_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_1079 = _T_1077 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1080 = ~_T_1079; // @[Xbar.scala 258:12]
+  wire  _T_1094 = ~out_9_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_1100 = _T_1094 | out_9_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_1102 = _T_1100 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1103 = ~_T_1102; // @[Xbar.scala 258:12]
+  wire  _T_1115 = ~out_9_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_1121 = _T_1115 | out_9_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_1123 = _T_1121 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1124 = ~_T_1123; // @[Xbar.scala 258:12]
+  wire  _T_1138 = ~out_10_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_1144 = _T_1138 | out_10_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_1146 = _T_1144 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1147 = ~_T_1146; // @[Xbar.scala 258:12]
+  wire  _T_1159 = ~out_10_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_1165 = _T_1159 | out_10_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_1167 = _T_1165 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1168 = ~_T_1167; // @[Xbar.scala 258:12]
+  wire  _T_1182 = ~out_11_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_1188 = _T_1182 | out_11_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_1190 = _T_1188 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1191 = ~_T_1190; // @[Xbar.scala 258:12]
+  wire  _T_1203 = ~out_11_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_1209 = _T_1203 | out_11_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_1211 = _T_1209 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1212 = ~_T_1211; // @[Xbar.scala 258:12]
+  wire  _T_1226 = ~out_12_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_1232 = _T_1226 | out_12_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_1234 = _T_1232 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1235 = ~_T_1234; // @[Xbar.scala 258:12]
+  wire  _T_1247 = ~out_12_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_1253 = _T_1247 | out_12_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_1255 = _T_1253 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1256 = ~_T_1255; // @[Xbar.scala 258:12]
+  wire  _T_1270 = ~out_13_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_1276 = _T_1270 | out_13_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_1278 = _T_1276 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1279 = ~_T_1278; // @[Xbar.scala 258:12]
+  wire  _T_1291 = ~out_13_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_1297 = _T_1291 | out_13_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_1299 = _T_1297 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1300 = ~_T_1299; // @[Xbar.scala 258:12]
+  wire  _T_1314 = ~out_14_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_1320 = _T_1314 | out_14_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_1322 = _T_1320 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1323 = ~_T_1322; // @[Xbar.scala 258:12]
+  wire  _T_1335 = ~out_14_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_1341 = _T_1335 | out_14_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_1343 = _T_1341 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1344 = ~_T_1343; // @[Xbar.scala 258:12]
+  wire  _T_1358 = ~out_15_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_1364 = _T_1358 | out_15_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_1366 = _T_1364 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1367 = ~_T_1366; // @[Xbar.scala 258:12]
+  wire  _T_1379 = ~out_15_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_1385 = _T_1379 | out_15_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_1387 = _T_1385 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1388 = ~_T_1387; // @[Xbar.scala 258:12]
+  wire  _T_1402 = ~out_16_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_1408 = _T_1402 | out_16_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_1410 = _T_1408 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1411 = ~_T_1410; // @[Xbar.scala 258:12]
+  wire  _T_1423 = ~out_16_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_1429 = _T_1423 | out_16_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_1431 = _T_1429 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1432 = ~_T_1431; // @[Xbar.scala 258:12]
+  wire  _T_1446 = ~out_17_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_1452 = _T_1446 | out_17_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_1454 = _T_1452 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1455 = ~_T_1454; // @[Xbar.scala 258:12]
+  wire  _T_1467 = ~out_17_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_1473 = _T_1467 | out_17_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_1475 = _T_1473 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1476 = ~_T_1475; // @[Xbar.scala 258:12]
+  wire  _T_1490 = ~out_18_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_1496 = _T_1490 | out_18_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_1498 = _T_1496 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1499 = ~_T_1498; // @[Xbar.scala 258:12]
+  wire  _T_1511 = ~out_18_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_1517 = _T_1511 | out_18_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_1519 = _T_1517 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1520 = ~_T_1519; // @[Xbar.scala 258:12]
+  wire  _T_1534 = ~out_19_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_1540 = _T_1534 | out_19_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_1542 = _T_1540 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1543 = ~_T_1542; // @[Xbar.scala 258:12]
+  wire  _T_1555 = ~out_19_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_1561 = _T_1555 | out_19_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_1563 = _T_1561 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1564 = ~_T_1563; // @[Xbar.scala 258:12]
+  wire  _T_1578 = ~out_20_aw_valid; // @[Xbar.scala 256:60]
+  wire  _T_1584 = _T_1578 | out_20_aw_valid; // @[Xbar.scala 258:23]
+  wire  _T_1586 = _T_1584 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1587 = ~_T_1586; // @[Xbar.scala 258:12]
+  wire  _T_1599 = ~out_20_ar_valid; // @[Xbar.scala 256:60]
+  wire  _T_1605 = _T_1599 | out_20_ar_valid; // @[Xbar.scala 258:23]
+  wire  _T_1607 = _T_1605 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1608 = ~_T_1607; // @[Xbar.scala 258:12]
+  wire  _T_1685 = _T_1656 != 21'h0; // @[Arbiter.scala 24:27]
+  wire  _T_1686 = _T_1616 & _T_1685; // @[Arbiter.scala 24:18]
+  wire [20:0] _T_1687 = _T_1684 & _T_1656; // @[Arbiter.scala 25:29]
+  wire [21:0] _T_1688 = {_T_1687, 1'h0}; // @[package.scala 199:48]
+  wire [20:0] _T_1690 = _T_1687 | _T_1688[20:0]; // @[package.scala 199:43]
+  wire [22:0] _T_1691 = {_T_1690, 2'h0}; // @[package.scala 199:48]
+  wire [20:0] _T_1693 = _T_1690 | _T_1691[20:0]; // @[package.scala 199:43]
+  wire [24:0] _T_1694 = {_T_1693, 4'h0}; // @[package.scala 199:48]
+  wire [20:0] _T_1696 = _T_1693 | _T_1694[20:0]; // @[package.scala 199:43]
+  wire [28:0] _T_1697 = {_T_1696, 8'h0}; // @[package.scala 199:48]
+  wire [20:0] _T_1699 = _T_1696 | _T_1697[20:0]; // @[package.scala 199:43]
+  wire [36:0] _T_1700 = {_T_1699, 16'h0}; // @[package.scala 199:48]
+  wire [20:0] _T_1702 = _T_1699 | _T_1700[20:0]; // @[package.scala 199:43]
+  wire  _T_1750 = _T_1727 | _T_1728; // @[Xbar.scala 255:50]
+  wire  _T_1751 = _T_1750 | _T_1729; // @[Xbar.scala 255:50]
+  wire  _T_1752 = _T_1751 | _T_1730; // @[Xbar.scala 255:50]
+  wire  _T_1753 = _T_1752 | _T_1731; // @[Xbar.scala 255:50]
+  wire  _T_1754 = _T_1753 | _T_1732; // @[Xbar.scala 255:50]
+  wire  _T_1755 = _T_1754 | _T_1733; // @[Xbar.scala 255:50]
+  wire  _T_1756 = _T_1755 | _T_1734; // @[Xbar.scala 255:50]
+  wire  _T_1757 = _T_1756 | _T_1735; // @[Xbar.scala 255:50]
+  wire  _T_1758 = _T_1757 | _T_1736; // @[Xbar.scala 255:50]
+  wire  _T_1759 = _T_1758 | _T_1737; // @[Xbar.scala 255:50]
+  wire  _T_1760 = _T_1759 | _T_1738; // @[Xbar.scala 255:50]
+  wire  _T_1761 = _T_1760 | _T_1739; // @[Xbar.scala 255:50]
+  wire  _T_1762 = _T_1761 | _T_1740; // @[Xbar.scala 255:50]
+  wire  _T_1763 = _T_1762 | _T_1741; // @[Xbar.scala 255:50]
+  wire  _T_1764 = _T_1763 | _T_1742; // @[Xbar.scala 255:50]
+  wire  _T_1765 = _T_1764 | _T_1743; // @[Xbar.scala 255:50]
+  wire  _T_1766 = _T_1765 | _T_1744; // @[Xbar.scala 255:50]
+  wire  _T_1767 = _T_1766 | _T_1745; // @[Xbar.scala 255:50]
+  wire  _T_1768 = _T_1767 | _T_1746; // @[Xbar.scala 255:50]
+  wire  _T_1769 = _T_1768 | _T_1747; // @[Xbar.scala 255:50]
+  wire  _T_1771 = ~_T_1727; // @[Xbar.scala 256:60]
+  wire  _T_1774 = ~_T_1728; // @[Xbar.scala 256:60]
+  wire  _T_1775 = _T_1771 | _T_1774; // @[Xbar.scala 256:57]
+  wire  _T_1776 = ~_T_1750; // @[Xbar.scala 256:54]
+  wire  _T_1777 = ~_T_1729; // @[Xbar.scala 256:60]
+  wire  _T_1778 = _T_1776 | _T_1777; // @[Xbar.scala 256:57]
+  wire  _T_1779 = ~_T_1751; // @[Xbar.scala 256:54]
+  wire  _T_1780 = ~_T_1730; // @[Xbar.scala 256:60]
+  wire  _T_1781 = _T_1779 | _T_1780; // @[Xbar.scala 256:57]
+  wire  _T_1782 = ~_T_1752; // @[Xbar.scala 256:54]
+  wire  _T_1783 = ~_T_1731; // @[Xbar.scala 256:60]
+  wire  _T_1784 = _T_1782 | _T_1783; // @[Xbar.scala 256:57]
+  wire  _T_1785 = ~_T_1753; // @[Xbar.scala 256:54]
+  wire  _T_1786 = ~_T_1732; // @[Xbar.scala 256:60]
+  wire  _T_1787 = _T_1785 | _T_1786; // @[Xbar.scala 256:57]
+  wire  _T_1788 = ~_T_1754; // @[Xbar.scala 256:54]
+  wire  _T_1789 = ~_T_1733; // @[Xbar.scala 256:60]
+  wire  _T_1790 = _T_1788 | _T_1789; // @[Xbar.scala 256:57]
+  wire  _T_1791 = ~_T_1755; // @[Xbar.scala 256:54]
+  wire  _T_1792 = ~_T_1734; // @[Xbar.scala 256:60]
+  wire  _T_1793 = _T_1791 | _T_1792; // @[Xbar.scala 256:57]
+  wire  _T_1794 = ~_T_1756; // @[Xbar.scala 256:54]
+  wire  _T_1795 = ~_T_1735; // @[Xbar.scala 256:60]
+  wire  _T_1796 = _T_1794 | _T_1795; // @[Xbar.scala 256:57]
+  wire  _T_1797 = ~_T_1757; // @[Xbar.scala 256:54]
+  wire  _T_1798 = ~_T_1736; // @[Xbar.scala 256:60]
+  wire  _T_1799 = _T_1797 | _T_1798; // @[Xbar.scala 256:57]
+  wire  _T_1800 = ~_T_1758; // @[Xbar.scala 256:54]
+  wire  _T_1801 = ~_T_1737; // @[Xbar.scala 256:60]
+  wire  _T_1802 = _T_1800 | _T_1801; // @[Xbar.scala 256:57]
+  wire  _T_1803 = ~_T_1759; // @[Xbar.scala 256:54]
+  wire  _T_1804 = ~_T_1738; // @[Xbar.scala 256:60]
+  wire  _T_1805 = _T_1803 | _T_1804; // @[Xbar.scala 256:57]
+  wire  _T_1806 = ~_T_1760; // @[Xbar.scala 256:54]
+  wire  _T_1807 = ~_T_1739; // @[Xbar.scala 256:60]
+  wire  _T_1808 = _T_1806 | _T_1807; // @[Xbar.scala 256:57]
+  wire  _T_1809 = ~_T_1761; // @[Xbar.scala 256:54]
+  wire  _T_1810 = ~_T_1740; // @[Xbar.scala 256:60]
+  wire  _T_1811 = _T_1809 | _T_1810; // @[Xbar.scala 256:57]
+  wire  _T_1812 = ~_T_1762; // @[Xbar.scala 256:54]
+  wire  _T_1813 = ~_T_1741; // @[Xbar.scala 256:60]
+  wire  _T_1814 = _T_1812 | _T_1813; // @[Xbar.scala 256:57]
+  wire  _T_1815 = ~_T_1763; // @[Xbar.scala 256:54]
+  wire  _T_1816 = ~_T_1742; // @[Xbar.scala 256:60]
+  wire  _T_1817 = _T_1815 | _T_1816; // @[Xbar.scala 256:57]
+  wire  _T_1818 = ~_T_1764; // @[Xbar.scala 256:54]
+  wire  _T_1819 = ~_T_1743; // @[Xbar.scala 256:60]
+  wire  _T_1820 = _T_1818 | _T_1819; // @[Xbar.scala 256:57]
+  wire  _T_1821 = ~_T_1765; // @[Xbar.scala 256:54]
+  wire  _T_1822 = ~_T_1744; // @[Xbar.scala 256:60]
+  wire  _T_1823 = _T_1821 | _T_1822; // @[Xbar.scala 256:57]
+  wire  _T_1824 = ~_T_1766; // @[Xbar.scala 256:54]
+  wire  _T_1825 = ~_T_1745; // @[Xbar.scala 256:60]
+  wire  _T_1826 = _T_1824 | _T_1825; // @[Xbar.scala 256:57]
+  wire  _T_1827 = ~_T_1767; // @[Xbar.scala 256:54]
+  wire  _T_1828 = ~_T_1746; // @[Xbar.scala 256:60]
+  wire  _T_1829 = _T_1827 | _T_1828; // @[Xbar.scala 256:57]
+  wire  _T_1830 = ~_T_1768; // @[Xbar.scala 256:54]
+  wire  _T_1831 = ~_T_1747; // @[Xbar.scala 256:60]
+  wire  _T_1832 = _T_1830 | _T_1831; // @[Xbar.scala 256:57]
+  wire  _T_1834 = _T_1775 & _T_1778; // @[Xbar.scala 256:75]
+  wire  _T_1835 = _T_1834 & _T_1781; // @[Xbar.scala 256:75]
+  wire  _T_1836 = _T_1835 & _T_1784; // @[Xbar.scala 256:75]
+  wire  _T_1837 = _T_1836 & _T_1787; // @[Xbar.scala 256:75]
+  wire  _T_1838 = _T_1837 & _T_1790; // @[Xbar.scala 256:75]
+  wire  _T_1839 = _T_1838 & _T_1793; // @[Xbar.scala 256:75]
+  wire  _T_1840 = _T_1839 & _T_1796; // @[Xbar.scala 256:75]
+  wire  _T_1841 = _T_1840 & _T_1799; // @[Xbar.scala 256:75]
+  wire  _T_1842 = _T_1841 & _T_1802; // @[Xbar.scala 256:75]
+  wire  _T_1843 = _T_1842 & _T_1805; // @[Xbar.scala 256:75]
+  wire  _T_1844 = _T_1843 & _T_1808; // @[Xbar.scala 256:75]
+  wire  _T_1845 = _T_1844 & _T_1811; // @[Xbar.scala 256:75]
+  wire  _T_1846 = _T_1845 & _T_1814; // @[Xbar.scala 256:75]
+  wire  _T_1847 = _T_1846 & _T_1817; // @[Xbar.scala 256:75]
+  wire  _T_1848 = _T_1847 & _T_1820; // @[Xbar.scala 256:75]
+  wire  _T_1849 = _T_1848 & _T_1823; // @[Xbar.scala 256:75]
+  wire  _T_1850 = _T_1849 & _T_1826; // @[Xbar.scala 256:75]
+  wire  _T_1851 = _T_1850 & _T_1829; // @[Xbar.scala 256:75]
+  wire  _T_1852 = _T_1851 & _T_1832; // @[Xbar.scala 256:75]
+  wire  _T_1854 = _T_1852 | reset; // @[Xbar.scala 256:11]
+  wire  _T_1855 = ~_T_1854; // @[Xbar.scala 256:11]
+  wire  _T_1856 = ~_T_1636; // @[Xbar.scala 258:13]
+  wire  _T_1877 = _T_1856 | _T_1769; // @[Xbar.scala 258:23]
+  wire  _T_1879 = _T_1877 | reset; // @[Xbar.scala 258:12]
+  wire  _T_1880 = ~_T_1879; // @[Xbar.scala 258:12]
+  wire  _GEN_89 = _T_1636 ? 1'h0 : _T_1616; // @[Xbar.scala 266:21]
+  wire  _GEN_90 = _T_344 | _GEN_89; // @[Xbar.scala 267:24]
+  wire  _T_1885_0 = _T_1616 ? _T_1684[0] : _T_1882_0; // @[Xbar.scala 270:24]
+  wire  _T_1885_1 = _T_1616 ? _T_1684[1] : _T_1882_1; // @[Xbar.scala 270:24]
+  wire  _T_1885_2 = _T_1616 ? _T_1684[2] : _T_1882_2; // @[Xbar.scala 270:24]
+  wire  _T_1885_3 = _T_1616 ? _T_1684[3] : _T_1882_3; // @[Xbar.scala 270:24]
+  wire  _T_1885_4 = _T_1616 ? _T_1684[4] : _T_1882_4; // @[Xbar.scala 270:24]
+  wire  _T_1885_5 = _T_1616 ? _T_1684[5] : _T_1882_5; // @[Xbar.scala 270:24]
+  wire  _T_1885_6 = _T_1616 ? _T_1684[6] : _T_1882_6; // @[Xbar.scala 270:24]
+  wire  _T_1885_7 = _T_1616 ? _T_1684[7] : _T_1882_7; // @[Xbar.scala 270:24]
+  wire  _T_1885_8 = _T_1616 ? _T_1684[8] : _T_1882_8; // @[Xbar.scala 270:24]
+  wire  _T_1885_9 = _T_1616 ? _T_1684[9] : _T_1882_9; // @[Xbar.scala 270:24]
+  wire  _T_1885_10 = _T_1616 ? _T_1684[10] : _T_1882_10; // @[Xbar.scala 270:24]
+  wire  _T_1885_11 = _T_1616 ? _T_1684[11] : _T_1882_11; // @[Xbar.scala 270:24]
+  wire  _T_1885_12 = _T_1616 ? _T_1684[12] : _T_1882_12; // @[Xbar.scala 270:24]
+  wire  _T_1885_13 = _T_1616 ? _T_1684[13] : _T_1882_13; // @[Xbar.scala 270:24]
+  wire  _T_1885_14 = _T_1616 ? _T_1684[14] : _T_1882_14; // @[Xbar.scala 270:24]
+  wire  _T_1885_15 = _T_1616 ? _T_1684[15] : _T_1882_15; // @[Xbar.scala 270:24]
+  wire  _T_1885_16 = _T_1616 ? _T_1684[16] : _T_1882_16; // @[Xbar.scala 270:24]
+  wire  _T_1885_17 = _T_1616 ? _T_1684[17] : _T_1882_17; // @[Xbar.scala 270:24]
+  wire  _T_1885_18 = _T_1616 ? _T_1684[18] : _T_1882_18; // @[Xbar.scala 270:24]
+  wire  _T_1885_19 = _T_1616 ? _T_1684[19] : _T_1882_19; // @[Xbar.scala 270:24]
+  wire  _T_1885_20 = _T_1616 ? _T_1684[20] : _T_1882_20; // @[Xbar.scala 270:24]
+  wire [9:0] _T_2089 = {_T_669,_T_667,_T_665,_T_663,_T_661,_T_659,_T_657,_T_655,_T_653,_T_651}; // @[Cat.scala 29:58]
+  wire [4:0] _T_2093 = {_T_679,_T_677,_T_675,_T_673,_T_671}; // @[Cat.scala 29:58]
+  wire [20:0] _T_2100 = {auto_out_20_b_valid,_T_689,_T_687,_T_685,_T_683,_T_681,_T_2093,_T_2089}; // @[Cat.scala 29:58]
+  reg [20:0] _T_2107; // @[Arbiter.scala 20:23]
+  reg [31:0] _RAND_50;
+  wire [20:0] _T_2108 = ~_T_2107; // @[Arbiter.scala 21:30]
+  wire [20:0] _T_2109 = _T_2100 & _T_2108; // @[Arbiter.scala 21:28]
+  wire [41:0] _T_2110 = {_T_2109,auto_out_20_b_valid,_T_689,_T_687,_T_685,_T_683,_T_681,_T_2093,_T_2089}; // @[Cat.scala 29:58]
+  wire [41:0] _GEN_106 = {{1'd0}, _T_2110[41:1]}; // @[package.scala 208:43]
+  wire [41:0] _T_2112 = _T_2110 | _GEN_106; // @[package.scala 208:43]
+  wire [41:0] _GEN_107 = {{2'd0}, _T_2112[41:2]}; // @[package.scala 208:43]
+  wire [41:0] _T_2114 = _T_2112 | _GEN_107; // @[package.scala 208:43]
+  wire [41:0] _GEN_108 = {{4'd0}, _T_2114[41:4]}; // @[package.scala 208:43]
+  wire [41:0] _T_2116 = _T_2114 | _GEN_108; // @[package.scala 208:43]
+  wire [41:0] _GEN_109 = {{8'd0}, _T_2116[41:8]}; // @[package.scala 208:43]
+  wire [41:0] _T_2118 = _T_2116 | _GEN_109; // @[package.scala 208:43]
+  wire [41:0] _GEN_110 = {{16'd0}, _T_2118[41:16]}; // @[package.scala 208:43]
+  wire [41:0] _T_2120 = _T_2118 | _GEN_110; // @[package.scala 208:43]
+  wire [41:0] _T_2123 = {_T_2107, 21'h0}; // @[Arbiter.scala 22:66]
+  wire [41:0] _GEN_111 = {{1'd0}, _T_2120[41:1]}; // @[Arbiter.scala 22:58]
+  wire [41:0] _T_2124 = _GEN_111 | _T_2123; // @[Arbiter.scala 22:58]
+  wire [20:0] _T_2127 = _T_2124[41:21] & _T_2124[20:0]; // @[Arbiter.scala 23:39]
+  wire [20:0] _T_2128 = ~_T_2127; // @[Arbiter.scala 23:18]
+  wire  _T_2129 = _T_2100 != 21'h0; // @[Arbiter.scala 24:27]
+  wire  _T_2130 = _T_2060 & _T_2129; // @[Arbiter.scala 24:18]
+  wire [20:0] _T_2131 = _T_2128 & _T_2100; // @[Arbiter.scala 25:29]
+  wire [21:0] _T_2132 = {_T_2131, 1'h0}; // @[package.scala 199:48]
+  wire [20:0] _T_2134 = _T_2131 | _T_2132[20:0]; // @[package.scala 199:43]
+  wire [22:0] _T_2135 = {_T_2134, 2'h0}; // @[package.scala 199:48]
+  wire [20:0] _T_2137 = _T_2134 | _T_2135[20:0]; // @[package.scala 199:43]
+  wire [24:0] _T_2138 = {_T_2137, 4'h0}; // @[package.scala 199:48]
+  wire [20:0] _T_2140 = _T_2137 | _T_2138[20:0]; // @[package.scala 199:43]
+  wire [28:0] _T_2141 = {_T_2140, 8'h0}; // @[package.scala 199:48]
+  wire [20:0] _T_2143 = _T_2140 | _T_2141[20:0]; // @[package.scala 199:43]
+  wire [36:0] _T_2144 = {_T_2143, 16'h0}; // @[package.scala 199:48]
+  wire [20:0] _T_2146 = _T_2143 | _T_2144[20:0]; // @[package.scala 199:43]
+  wire  _T_2171 = _T_2128[0] & _T_651; // @[Xbar.scala 250:63]
+  wire  _T_2172 = _T_2128[1] & _T_653; // @[Xbar.scala 250:63]
+  wire  _T_2173 = _T_2128[2] & _T_655; // @[Xbar.scala 250:63]
+  wire  _T_2174 = _T_2128[3] & _T_657; // @[Xbar.scala 250:63]
+  wire  _T_2175 = _T_2128[4] & _T_659; // @[Xbar.scala 250:63]
+  wire  _T_2176 = _T_2128[5] & _T_661; // @[Xbar.scala 250:63]
+  wire  _T_2177 = _T_2128[6] & _T_663; // @[Xbar.scala 250:63]
+  wire  _T_2178 = _T_2128[7] & _T_665; // @[Xbar.scala 250:63]
+  wire  _T_2179 = _T_2128[8] & _T_667; // @[Xbar.scala 250:63]
+  wire  _T_2180 = _T_2128[9] & _T_669; // @[Xbar.scala 250:63]
+  wire  _T_2181 = _T_2128[10] & _T_671; // @[Xbar.scala 250:63]
+  wire  _T_2182 = _T_2128[11] & _T_673; // @[Xbar.scala 250:63]
+  wire  _T_2183 = _T_2128[12] & _T_675; // @[Xbar.scala 250:63]
+  wire  _T_2184 = _T_2128[13] & _T_677; // @[Xbar.scala 250:63]
+  wire  _T_2185 = _T_2128[14] & _T_679; // @[Xbar.scala 250:63]
+  wire  _T_2186 = _T_2128[15] & _T_681; // @[Xbar.scala 250:63]
+  wire  _T_2187 = _T_2128[16] & _T_683; // @[Xbar.scala 250:63]
+  wire  _T_2188 = _T_2128[17] & _T_685; // @[Xbar.scala 250:63]
+  wire  _T_2189 = _T_2128[18] & _T_687; // @[Xbar.scala 250:63]
+  wire  _T_2190 = _T_2128[19] & _T_689; // @[Xbar.scala 250:63]
+  wire  _T_2191 = _T_2128[20] & auto_out_20_b_valid; // @[Xbar.scala 250:63]
+  wire  _T_2194 = _T_2171 | _T_2172; // @[Xbar.scala 255:50]
+  wire  _T_2195 = _T_2194 | _T_2173; // @[Xbar.scala 255:50]
+  wire  _T_2196 = _T_2195 | _T_2174; // @[Xbar.scala 255:50]
+  wire  _T_2197 = _T_2196 | _T_2175; // @[Xbar.scala 255:50]
+  wire  _T_2198 = _T_2197 | _T_2176; // @[Xbar.scala 255:50]
+  wire  _T_2199 = _T_2198 | _T_2177; // @[Xbar.scala 255:50]
+  wire  _T_2200 = _T_2199 | _T_2178; // @[Xbar.scala 255:50]
+  wire  _T_2201 = _T_2200 | _T_2179; // @[Xbar.scala 255:50]
+  wire  _T_2202 = _T_2201 | _T_2180; // @[Xbar.scala 255:50]
+  wire  _T_2203 = _T_2202 | _T_2181; // @[Xbar.scala 255:50]
+  wire  _T_2204 = _T_2203 | _T_2182; // @[Xbar.scala 255:50]
+  wire  _T_2205 = _T_2204 | _T_2183; // @[Xbar.scala 255:50]
+  wire  _T_2206 = _T_2205 | _T_2184; // @[Xbar.scala 255:50]
+  wire  _T_2207 = _T_2206 | _T_2185; // @[Xbar.scala 255:50]
+  wire  _T_2208 = _T_2207 | _T_2186; // @[Xbar.scala 255:50]
+  wire  _T_2209 = _T_2208 | _T_2187; // @[Xbar.scala 255:50]
+  wire  _T_2210 = _T_2209 | _T_2188; // @[Xbar.scala 255:50]
+  wire  _T_2211 = _T_2210 | _T_2189; // @[Xbar.scala 255:50]
+  wire  _T_2212 = _T_2211 | _T_2190; // @[Xbar.scala 255:50]
+  wire  _T_2213 = _T_2212 | _T_2191; // @[Xbar.scala 255:50]
+  wire  _T_2215 = ~_T_2171; // @[Xbar.scala 256:60]
+  wire  _T_2218 = ~_T_2172; // @[Xbar.scala 256:60]
+  wire  _T_2219 = _T_2215 | _T_2218; // @[Xbar.scala 256:57]
+  wire  _T_2220 = ~_T_2194; // @[Xbar.scala 256:54]
+  wire  _T_2221 = ~_T_2173; // @[Xbar.scala 256:60]
+  wire  _T_2222 = _T_2220 | _T_2221; // @[Xbar.scala 256:57]
+  wire  _T_2223 = ~_T_2195; // @[Xbar.scala 256:54]
+  wire  _T_2224 = ~_T_2174; // @[Xbar.scala 256:60]
+  wire  _T_2225 = _T_2223 | _T_2224; // @[Xbar.scala 256:57]
+  wire  _T_2226 = ~_T_2196; // @[Xbar.scala 256:54]
+  wire  _T_2227 = ~_T_2175; // @[Xbar.scala 256:60]
+  wire  _T_2228 = _T_2226 | _T_2227; // @[Xbar.scala 256:57]
+  wire  _T_2229 = ~_T_2197; // @[Xbar.scala 256:54]
+  wire  _T_2230 = ~_T_2176; // @[Xbar.scala 256:60]
+  wire  _T_2231 = _T_2229 | _T_2230; // @[Xbar.scala 256:57]
+  wire  _T_2232 = ~_T_2198; // @[Xbar.scala 256:54]
+  wire  _T_2233 = ~_T_2177; // @[Xbar.scala 256:60]
+  wire  _T_2234 = _T_2232 | _T_2233; // @[Xbar.scala 256:57]
+  wire  _T_2235 = ~_T_2199; // @[Xbar.scala 256:54]
+  wire  _T_2236 = ~_T_2178; // @[Xbar.scala 256:60]
+  wire  _T_2237 = _T_2235 | _T_2236; // @[Xbar.scala 256:57]
+  wire  _T_2238 = ~_T_2200; // @[Xbar.scala 256:54]
+  wire  _T_2239 = ~_T_2179; // @[Xbar.scala 256:60]
+  wire  _T_2240 = _T_2238 | _T_2239; // @[Xbar.scala 256:57]
+  wire  _T_2241 = ~_T_2201; // @[Xbar.scala 256:54]
+  wire  _T_2242 = ~_T_2180; // @[Xbar.scala 256:60]
+  wire  _T_2243 = _T_2241 | _T_2242; // @[Xbar.scala 256:57]
+  wire  _T_2244 = ~_T_2202; // @[Xbar.scala 256:54]
+  wire  _T_2245 = ~_T_2181; // @[Xbar.scala 256:60]
+  wire  _T_2246 = _T_2244 | _T_2245; // @[Xbar.scala 256:57]
+  wire  _T_2247 = ~_T_2203; // @[Xbar.scala 256:54]
+  wire  _T_2248 = ~_T_2182; // @[Xbar.scala 256:60]
+  wire  _T_2249 = _T_2247 | _T_2248; // @[Xbar.scala 256:57]
+  wire  _T_2250 = ~_T_2204; // @[Xbar.scala 256:54]
+  wire  _T_2251 = ~_T_2183; // @[Xbar.scala 256:60]
+  wire  _T_2252 = _T_2250 | _T_2251; // @[Xbar.scala 256:57]
+  wire  _T_2253 = ~_T_2205; // @[Xbar.scala 256:54]
+  wire  _T_2254 = ~_T_2184; // @[Xbar.scala 256:60]
+  wire  _T_2255 = _T_2253 | _T_2254; // @[Xbar.scala 256:57]
+  wire  _T_2256 = ~_T_2206; // @[Xbar.scala 256:54]
+  wire  _T_2257 = ~_T_2185; // @[Xbar.scala 256:60]
+  wire  _T_2258 = _T_2256 | _T_2257; // @[Xbar.scala 256:57]
+  wire  _T_2259 = ~_T_2207; // @[Xbar.scala 256:54]
+  wire  _T_2260 = ~_T_2186; // @[Xbar.scala 256:60]
+  wire  _T_2261 = _T_2259 | _T_2260; // @[Xbar.scala 256:57]
+  wire  _T_2262 = ~_T_2208; // @[Xbar.scala 256:54]
+  wire  _T_2263 = ~_T_2187; // @[Xbar.scala 256:60]
+  wire  _T_2264 = _T_2262 | _T_2263; // @[Xbar.scala 256:57]
+  wire  _T_2265 = ~_T_2209; // @[Xbar.scala 256:54]
+  wire  _T_2266 = ~_T_2188; // @[Xbar.scala 256:60]
+  wire  _T_2267 = _T_2265 | _T_2266; // @[Xbar.scala 256:57]
+  wire  _T_2268 = ~_T_2210; // @[Xbar.scala 256:54]
+  wire  _T_2269 = ~_T_2189; // @[Xbar.scala 256:60]
+  wire  _T_2270 = _T_2268 | _T_2269; // @[Xbar.scala 256:57]
+  wire  _T_2271 = ~_T_2211; // @[Xbar.scala 256:54]
+  wire  _T_2272 = ~_T_2190; // @[Xbar.scala 256:60]
+  wire  _T_2273 = _T_2271 | _T_2272; // @[Xbar.scala 256:57]
+  wire  _T_2274 = ~_T_2212; // @[Xbar.scala 256:54]
+  wire  _T_2275 = ~_T_2191; // @[Xbar.scala 256:60]
+  wire  _T_2276 = _T_2274 | _T_2275; // @[Xbar.scala 256:57]
+  wire  _T_2278 = _T_2219 & _T_2222; // @[Xbar.scala 256:75]
+  wire  _T_2279 = _T_2278 & _T_2225; // @[Xbar.scala 256:75]
+  wire  _T_2280 = _T_2279 & _T_2228; // @[Xbar.scala 256:75]
+  wire  _T_2281 = _T_2280 & _T_2231; // @[Xbar.scala 256:75]
+  wire  _T_2282 = _T_2281 & _T_2234; // @[Xbar.scala 256:75]
+  wire  _T_2283 = _T_2282 & _T_2237; // @[Xbar.scala 256:75]
+  wire  _T_2284 = _T_2283 & _T_2240; // @[Xbar.scala 256:75]
+  wire  _T_2285 = _T_2284 & _T_2243; // @[Xbar.scala 256:75]
+  wire  _T_2286 = _T_2285 & _T_2246; // @[Xbar.scala 256:75]
+  wire  _T_2287 = _T_2286 & _T_2249; // @[Xbar.scala 256:75]
+  wire  _T_2288 = _T_2287 & _T_2252; // @[Xbar.scala 256:75]
+  wire  _T_2289 = _T_2288 & _T_2255; // @[Xbar.scala 256:75]
+  wire  _T_2290 = _T_2289 & _T_2258; // @[Xbar.scala 256:75]
+  wire  _T_2291 = _T_2290 & _T_2261; // @[Xbar.scala 256:75]
+  wire  _T_2292 = _T_2291 & _T_2264; // @[Xbar.scala 256:75]
+  wire  _T_2293 = _T_2292 & _T_2267; // @[Xbar.scala 256:75]
+  wire  _T_2294 = _T_2293 & _T_2270; // @[Xbar.scala 256:75]
+  wire  _T_2295 = _T_2294 & _T_2273; // @[Xbar.scala 256:75]
+  wire  _T_2296 = _T_2295 & _T_2276; // @[Xbar.scala 256:75]
+  wire  _T_2298 = _T_2296 | reset; // @[Xbar.scala 256:11]
+  wire  _T_2299 = ~_T_2298; // @[Xbar.scala 256:11]
+  wire  _T_2300 = ~_T_2080; // @[Xbar.scala 258:13]
+  wire  _T_2321 = _T_2300 | _T_2213; // @[Xbar.scala 258:23]
+  wire  _T_2323 = _T_2321 | reset; // @[Xbar.scala 258:12]
+  wire  _T_2324 = ~_T_2323; // @[Xbar.scala 258:12]
+  wire  _T_2327_0 = _T_2060 ? _T_2171 : _T_2326_0; // @[Xbar.scala 262:23]
+  wire  _T_2327_1 = _T_2060 ? _T_2172 : _T_2326_1; // @[Xbar.scala 262:23]
+  wire  _T_2327_2 = _T_2060 ? _T_2173 : _T_2326_2; // @[Xbar.scala 262:23]
+  wire  _T_2327_3 = _T_2060 ? _T_2174 : _T_2326_3; // @[Xbar.scala 262:23]
+  wire  _T_2327_4 = _T_2060 ? _T_2175 : _T_2326_4; // @[Xbar.scala 262:23]
+  wire  _T_2327_5 = _T_2060 ? _T_2176 : _T_2326_5; // @[Xbar.scala 262:23]
+  wire  _T_2327_6 = _T_2060 ? _T_2177 : _T_2326_6; // @[Xbar.scala 262:23]
+  wire  _T_2327_7 = _T_2060 ? _T_2178 : _T_2326_7; // @[Xbar.scala 262:23]
+  wire  _T_2327_8 = _T_2060 ? _T_2179 : _T_2326_8; // @[Xbar.scala 262:23]
+  wire  _T_2327_9 = _T_2060 ? _T_2180 : _T_2326_9; // @[Xbar.scala 262:23]
+  wire  _T_2327_10 = _T_2060 ? _T_2181 : _T_2326_10; // @[Xbar.scala 262:23]
+  wire  _T_2327_11 = _T_2060 ? _T_2182 : _T_2326_11; // @[Xbar.scala 262:23]
+  wire  _T_2327_12 = _T_2060 ? _T_2183 : _T_2326_12; // @[Xbar.scala 262:23]
+  wire  _T_2327_13 = _T_2060 ? _T_2184 : _T_2326_13; // @[Xbar.scala 262:23]
+  wire  _T_2327_14 = _T_2060 ? _T_2185 : _T_2326_14; // @[Xbar.scala 262:23]
+  wire  _T_2327_15 = _T_2060 ? _T_2186 : _T_2326_15; // @[Xbar.scala 262:23]
+  wire  _T_2327_16 = _T_2060 ? _T_2187 : _T_2326_16; // @[Xbar.scala 262:23]
+  wire  _T_2327_17 = _T_2060 ? _T_2188 : _T_2326_17; // @[Xbar.scala 262:23]
+  wire  _T_2327_18 = _T_2060 ? _T_2189 : _T_2326_18; // @[Xbar.scala 262:23]
+  wire  _T_2327_19 = _T_2060 ? _T_2190 : _T_2326_19; // @[Xbar.scala 262:23]
+  wire  _T_2327_20 = _T_2060 ? _T_2191 : _T_2326_20; // @[Xbar.scala 262:23]
+  wire  _GEN_92 = _T_2080 ? 1'h0 : _T_2060; // @[Xbar.scala 266:21]
+  wire  _GEN_93 = _T_373 | _GEN_92; // @[Xbar.scala 267:24]
+  wire  _T_2329_0 = _T_2060 ? _T_2128[0] : _T_2326_0; // @[Xbar.scala 270:24]
+  wire  _T_2329_1 = _T_2060 ? _T_2128[1] : _T_2326_1; // @[Xbar.scala 270:24]
+  wire  _T_2329_2 = _T_2060 ? _T_2128[2] : _T_2326_2; // @[Xbar.scala 270:24]
+  wire  _T_2329_3 = _T_2060 ? _T_2128[3] : _T_2326_3; // @[Xbar.scala 270:24]
+  wire  _T_2329_4 = _T_2060 ? _T_2128[4] : _T_2326_4; // @[Xbar.scala 270:24]
+  wire  _T_2329_5 = _T_2060 ? _T_2128[5] : _T_2326_5; // @[Xbar.scala 270:24]
+  wire  _T_2329_6 = _T_2060 ? _T_2128[6] : _T_2326_6; // @[Xbar.scala 270:24]
+  wire  _T_2329_7 = _T_2060 ? _T_2128[7] : _T_2326_7; // @[Xbar.scala 270:24]
+  wire  _T_2329_8 = _T_2060 ? _T_2128[8] : _T_2326_8; // @[Xbar.scala 270:24]
+  wire  _T_2329_9 = _T_2060 ? _T_2128[9] : _T_2326_9; // @[Xbar.scala 270:24]
+  wire  _T_2329_10 = _T_2060 ? _T_2128[10] : _T_2326_10; // @[Xbar.scala 270:24]
+  wire  _T_2329_11 = _T_2060 ? _T_2128[11] : _T_2326_11; // @[Xbar.scala 270:24]
+  wire  _T_2329_12 = _T_2060 ? _T_2128[12] : _T_2326_12; // @[Xbar.scala 270:24]
+  wire  _T_2329_13 = _T_2060 ? _T_2128[13] : _T_2326_13; // @[Xbar.scala 270:24]
+  wire  _T_2329_14 = _T_2060 ? _T_2128[14] : _T_2326_14; // @[Xbar.scala 270:24]
+  wire  _T_2329_15 = _T_2060 ? _T_2128[15] : _T_2326_15; // @[Xbar.scala 270:24]
+  wire  _T_2329_16 = _T_2060 ? _T_2128[16] : _T_2326_16; // @[Xbar.scala 270:24]
+  wire  _T_2329_17 = _T_2060 ? _T_2128[17] : _T_2326_17; // @[Xbar.scala 270:24]
+  wire  _T_2329_18 = _T_2060 ? _T_2128[18] : _T_2326_18; // @[Xbar.scala 270:24]
+  wire  _T_2329_19 = _T_2060 ? _T_2128[19] : _T_2326_19; // @[Xbar.scala 270:24]
+  wire  _T_2329_20 = _T_2060 ? _T_2128[20] : _T_2326_20; // @[Xbar.scala 270:24]
+  wire [2:0] _T_2394 = {auto_out_0_b_bits_id,auto_out_0_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2395 = _T_2327_0 ? _T_2394 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2396 = {auto_out_1_b_bits_id,auto_out_1_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2397 = _T_2327_1 ? _T_2396 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2398 = {auto_out_2_b_bits_id,auto_out_2_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2399 = _T_2327_2 ? _T_2398 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2400 = {auto_out_3_b_bits_id,auto_out_3_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2401 = _T_2327_3 ? _T_2400 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2402 = {auto_out_4_b_bits_id,auto_out_4_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2403 = _T_2327_4 ? _T_2402 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2404 = {auto_out_5_b_bits_id,auto_out_5_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2405 = _T_2327_5 ? _T_2404 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2406 = {auto_out_6_b_bits_id,auto_out_6_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2407 = _T_2327_6 ? _T_2406 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2408 = {auto_out_7_b_bits_id,auto_out_7_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2409 = _T_2327_7 ? _T_2408 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2410 = {auto_out_8_b_bits_id,auto_out_8_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2411 = _T_2327_8 ? _T_2410 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2412 = {auto_out_9_b_bits_id,auto_out_9_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2413 = _T_2327_9 ? _T_2412 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2414 = {auto_out_10_b_bits_id,auto_out_10_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2415 = _T_2327_10 ? _T_2414 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2416 = {auto_out_11_b_bits_id,auto_out_11_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2417 = _T_2327_11 ? _T_2416 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2418 = {auto_out_12_b_bits_id,auto_out_12_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2419 = _T_2327_12 ? _T_2418 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2420 = {auto_out_13_b_bits_id,auto_out_13_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2421 = _T_2327_13 ? _T_2420 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2422 = {auto_out_14_b_bits_id,auto_out_14_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2423 = _T_2327_14 ? _T_2422 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2424 = {auto_out_15_b_bits_id,auto_out_15_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2425 = _T_2327_15 ? _T_2424 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2426 = {auto_out_16_b_bits_id,auto_out_16_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2427 = _T_2327_16 ? _T_2426 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2428 = {auto_out_17_b_bits_id,auto_out_17_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2429 = _T_2327_17 ? _T_2428 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2430 = {auto_out_18_b_bits_id,auto_out_18_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2431 = _T_2327_18 ? _T_2430 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2432 = {auto_out_19_b_bits_id,auto_out_19_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2433 = _T_2327_19 ? _T_2432 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2434 = {1'h0,auto_out_20_b_bits_resp}; // @[Mux.scala 27:72]
+  wire [2:0] _T_2435 = _T_2327_20 ? _T_2434 : 3'h0; // @[Mux.scala 27:72]
+  wire [2:0] _T_2436 = _T_2395 | _T_2397; // @[Mux.scala 27:72]
+  wire [2:0] _T_2437 = _T_2436 | _T_2399; // @[Mux.scala 27:72]
+  wire [2:0] _T_2438 = _T_2437 | _T_2401; // @[Mux.scala 27:72]
+  wire [2:0] _T_2439 = _T_2438 | _T_2403; // @[Mux.scala 27:72]
+  wire [2:0] _T_2440 = _T_2439 | _T_2405; // @[Mux.scala 27:72]
+  wire [2:0] _T_2441 = _T_2440 | _T_2407; // @[Mux.scala 27:72]
+  wire [2:0] _T_2442 = _T_2441 | _T_2409; // @[Mux.scala 27:72]
+  wire [2:0] _T_2443 = _T_2442 | _T_2411; // @[Mux.scala 27:72]
+  wire [2:0] _T_2444 = _T_2443 | _T_2413; // @[Mux.scala 27:72]
+  wire [2:0] _T_2445 = _T_2444 | _T_2415; // @[Mux.scala 27:72]
+  wire [2:0] _T_2446 = _T_2445 | _T_2417; // @[Mux.scala 27:72]
+  wire [2:0] _T_2447 = _T_2446 | _T_2419; // @[Mux.scala 27:72]
+  wire [2:0] _T_2448 = _T_2447 | _T_2421; // @[Mux.scala 27:72]
+  wire [2:0] _T_2449 = _T_2448 | _T_2423; // @[Mux.scala 27:72]
+  wire [2:0] _T_2450 = _T_2449 | _T_2425; // @[Mux.scala 27:72]
+  wire [2:0] _T_2451 = _T_2450 | _T_2427; // @[Mux.scala 27:72]
+  wire [2:0] _T_2452 = _T_2451 | _T_2429; // @[Mux.scala 27:72]
+  wire [2:0] _T_2453 = _T_2452 | _T_2431; // @[Mux.scala 27:72]
+  wire [2:0] _T_2454 = _T_2453 | _T_2433; // @[Mux.scala 27:72]
+  wire [2:0] _T_2455 = _T_2454 | _T_2435; // @[Mux.scala 27:72]
   QueueCompatibility_8 awIn_0 ( // @[Xbar.scala 55:47]
     .clock(awIn_0_clock),
     .reset(awIn_0_reset),
@@ -22150,29 +21973,15 @@ module AXI4Xbar_2(
     .io_deq_valid(awIn_0_io_deq_valid),
     .io_deq_bits(awIn_0_io_deq_bits)
   );
-  assign auto_in_aw_ready = _T_419 & _T_411; // @[LazyModule.scala 173:31]
+  assign auto_in_aw_ready = _T_406 & _T_398; // @[LazyModule.scala 173:31]
   assign auto_in_w_ready = in_0_w_ready & awIn_0_io_deq_valid; // @[LazyModule.scala 173:31]
-  assign auto_in_b_valid = _T_2148 ? _T_2169 : _T_2492; // @[LazyModule.scala 173:31]
-  assign auto_in_b_bits_resp = _T_2559[1:0]; // @[LazyModule.scala 173:31]
-  assign auto_in_ar_ready = in_0_ar_ready & _T_383; // @[LazyModule.scala 173:31]
-  assign auto_in_r_valid = _T_1686 ? _T_1707 : _T_2030; // @[LazyModule.scala 173:31]
-  assign auto_in_r_bits_data = _T_2141[34:3]; // @[LazyModule.scala 173:31]
-  assign auto_in_r_bits_resp = _T_2141[2:1]; // @[LazyModule.scala 173:31]
-  assign auto_in_r_bits_last = _T_2141[0]; // @[LazyModule.scala 173:31]
-  assign auto_out_21_aw_valid = in_0_aw_valid & requestAWIO_0_21; // @[LazyModule.scala 173:49]
-  assign auto_out_21_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
-  assign auto_out_21_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
-  assign auto_out_21_aw_bits_size = auto_in_aw_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_21_w_valid = in_0_w_valid & requestWIO_0_21; // @[LazyModule.scala 173:49]
-  assign auto_out_21_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
-  assign auto_out_21_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
-  assign auto_out_21_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_21_b_ready = auto_in_b_ready & _T_2427_21; // @[LazyModule.scala 173:49]
-  assign auto_out_21_ar_valid = in_0_ar_valid & requestARIO_0_21; // @[LazyModule.scala 173:49]
-  assign auto_out_21_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
-  assign auto_out_21_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
-  assign auto_out_21_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_21_r_ready = auto_in_r_ready & _T_1965_21; // @[LazyModule.scala 173:49]
+  assign auto_in_b_valid = _T_2060 ? _T_2080 : _T_2391; // @[LazyModule.scala 173:31]
+  assign auto_in_b_bits_resp = _T_2455[1:0]; // @[LazyModule.scala 173:31]
+  assign auto_in_ar_ready = in_0_ar_ready & _T_370; // @[LazyModule.scala 173:31]
+  assign auto_in_r_valid = _T_1616 ? _T_1636 : _T_1947; // @[LazyModule.scala 173:31]
+  assign auto_in_r_bits_data = _T_2053[34:3]; // @[LazyModule.scala 173:31]
+  assign auto_in_r_bits_resp = _T_2053[2:1]; // @[LazyModule.scala 173:31]
+  assign auto_in_r_bits_last = _T_2053[0]; // @[LazyModule.scala 173:31]
   assign auto_out_20_aw_valid = in_0_aw_valid & requestAWIO_0_20; // @[LazyModule.scala 173:49]
   assign auto_out_20_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_20_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22181,12 +21990,12 @@ module AXI4Xbar_2(
   assign auto_out_20_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_20_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_20_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_20_b_ready = auto_in_b_ready & _T_2427_20; // @[LazyModule.scala 173:49]
+  assign auto_out_20_b_ready = auto_in_b_ready & _T_2329_20; // @[LazyModule.scala 173:49]
   assign auto_out_20_ar_valid = in_0_ar_valid & requestARIO_0_20; // @[LazyModule.scala 173:49]
   assign auto_out_20_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_20_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_20_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_20_r_ready = auto_in_r_ready & _T_1965_20; // @[LazyModule.scala 173:49]
+  assign auto_out_20_r_ready = auto_in_r_ready & _T_1885_20; // @[LazyModule.scala 173:49]
   assign auto_out_19_aw_valid = in_0_aw_valid & requestAWIO_0_19; // @[LazyModule.scala 173:49]
   assign auto_out_19_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_19_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22195,12 +22004,12 @@ module AXI4Xbar_2(
   assign auto_out_19_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_19_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_19_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_19_b_ready = auto_in_b_ready & _T_2427_19; // @[LazyModule.scala 173:49]
+  assign auto_out_19_b_ready = auto_in_b_ready & _T_2329_19; // @[LazyModule.scala 173:49]
   assign auto_out_19_ar_valid = in_0_ar_valid & requestARIO_0_19; // @[LazyModule.scala 173:49]
   assign auto_out_19_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_19_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_19_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_19_r_ready = auto_in_r_ready & _T_1965_19; // @[LazyModule.scala 173:49]
+  assign auto_out_19_r_ready = auto_in_r_ready & _T_1885_19; // @[LazyModule.scala 173:49]
   assign auto_out_18_aw_valid = in_0_aw_valid & requestAWIO_0_18; // @[LazyModule.scala 173:49]
   assign auto_out_18_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_18_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22209,12 +22018,12 @@ module AXI4Xbar_2(
   assign auto_out_18_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_18_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_18_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_18_b_ready = auto_in_b_ready & _T_2427_18; // @[LazyModule.scala 173:49]
+  assign auto_out_18_b_ready = auto_in_b_ready & _T_2329_18; // @[LazyModule.scala 173:49]
   assign auto_out_18_ar_valid = in_0_ar_valid & requestARIO_0_18; // @[LazyModule.scala 173:49]
   assign auto_out_18_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_18_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_18_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_18_r_ready = auto_in_r_ready & _T_1965_18; // @[LazyModule.scala 173:49]
+  assign auto_out_18_r_ready = auto_in_r_ready & _T_1885_18; // @[LazyModule.scala 173:49]
   assign auto_out_17_aw_valid = in_0_aw_valid & requestAWIO_0_17; // @[LazyModule.scala 173:49]
   assign auto_out_17_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_17_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22223,12 +22032,12 @@ module AXI4Xbar_2(
   assign auto_out_17_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_17_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_17_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_17_b_ready = auto_in_b_ready & _T_2427_17; // @[LazyModule.scala 173:49]
+  assign auto_out_17_b_ready = auto_in_b_ready & _T_2329_17; // @[LazyModule.scala 173:49]
   assign auto_out_17_ar_valid = in_0_ar_valid & requestARIO_0_17; // @[LazyModule.scala 173:49]
   assign auto_out_17_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_17_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_17_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_17_r_ready = auto_in_r_ready & _T_1965_17; // @[LazyModule.scala 173:49]
+  assign auto_out_17_r_ready = auto_in_r_ready & _T_1885_17; // @[LazyModule.scala 173:49]
   assign auto_out_16_aw_valid = in_0_aw_valid & requestAWIO_0_16; // @[LazyModule.scala 173:49]
   assign auto_out_16_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_16_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22237,12 +22046,12 @@ module AXI4Xbar_2(
   assign auto_out_16_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_16_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_16_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_16_b_ready = auto_in_b_ready & _T_2427_16; // @[LazyModule.scala 173:49]
+  assign auto_out_16_b_ready = auto_in_b_ready & _T_2329_16; // @[LazyModule.scala 173:49]
   assign auto_out_16_ar_valid = in_0_ar_valid & requestARIO_0_16; // @[LazyModule.scala 173:49]
   assign auto_out_16_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_16_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_16_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_16_r_ready = auto_in_r_ready & _T_1965_16; // @[LazyModule.scala 173:49]
+  assign auto_out_16_r_ready = auto_in_r_ready & _T_1885_16; // @[LazyModule.scala 173:49]
   assign auto_out_15_aw_valid = in_0_aw_valid & requestAWIO_0_15; // @[LazyModule.scala 173:49]
   assign auto_out_15_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_15_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22251,12 +22060,12 @@ module AXI4Xbar_2(
   assign auto_out_15_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_15_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_15_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_15_b_ready = auto_in_b_ready & _T_2427_15; // @[LazyModule.scala 173:49]
+  assign auto_out_15_b_ready = auto_in_b_ready & _T_2329_15; // @[LazyModule.scala 173:49]
   assign auto_out_15_ar_valid = in_0_ar_valid & requestARIO_0_15; // @[LazyModule.scala 173:49]
   assign auto_out_15_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_15_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_15_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_15_r_ready = auto_in_r_ready & _T_1965_15; // @[LazyModule.scala 173:49]
+  assign auto_out_15_r_ready = auto_in_r_ready & _T_1885_15; // @[LazyModule.scala 173:49]
   assign auto_out_14_aw_valid = in_0_aw_valid & requestAWIO_0_14; // @[LazyModule.scala 173:49]
   assign auto_out_14_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_14_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22265,12 +22074,12 @@ module AXI4Xbar_2(
   assign auto_out_14_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_14_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_14_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_14_b_ready = auto_in_b_ready & _T_2427_14; // @[LazyModule.scala 173:49]
+  assign auto_out_14_b_ready = auto_in_b_ready & _T_2329_14; // @[LazyModule.scala 173:49]
   assign auto_out_14_ar_valid = in_0_ar_valid & requestARIO_0_14; // @[LazyModule.scala 173:49]
   assign auto_out_14_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_14_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_14_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_14_r_ready = auto_in_r_ready & _T_1965_14; // @[LazyModule.scala 173:49]
+  assign auto_out_14_r_ready = auto_in_r_ready & _T_1885_14; // @[LazyModule.scala 173:49]
   assign auto_out_13_aw_valid = in_0_aw_valid & requestAWIO_0_13; // @[LazyModule.scala 173:49]
   assign auto_out_13_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_13_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22279,12 +22088,12 @@ module AXI4Xbar_2(
   assign auto_out_13_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_13_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_13_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_13_b_ready = auto_in_b_ready & _T_2427_13; // @[LazyModule.scala 173:49]
+  assign auto_out_13_b_ready = auto_in_b_ready & _T_2329_13; // @[LazyModule.scala 173:49]
   assign auto_out_13_ar_valid = in_0_ar_valid & requestARIO_0_13; // @[LazyModule.scala 173:49]
   assign auto_out_13_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_13_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_13_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_13_r_ready = auto_in_r_ready & _T_1965_13; // @[LazyModule.scala 173:49]
+  assign auto_out_13_r_ready = auto_in_r_ready & _T_1885_13; // @[LazyModule.scala 173:49]
   assign auto_out_12_aw_valid = in_0_aw_valid & requestAWIO_0_12; // @[LazyModule.scala 173:49]
   assign auto_out_12_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_12_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22293,12 +22102,12 @@ module AXI4Xbar_2(
   assign auto_out_12_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_12_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_12_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_12_b_ready = auto_in_b_ready & _T_2427_12; // @[LazyModule.scala 173:49]
+  assign auto_out_12_b_ready = auto_in_b_ready & _T_2329_12; // @[LazyModule.scala 173:49]
   assign auto_out_12_ar_valid = in_0_ar_valid & requestARIO_0_12; // @[LazyModule.scala 173:49]
   assign auto_out_12_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_12_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_12_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_12_r_ready = auto_in_r_ready & _T_1965_12; // @[LazyModule.scala 173:49]
+  assign auto_out_12_r_ready = auto_in_r_ready & _T_1885_12; // @[LazyModule.scala 173:49]
   assign auto_out_11_aw_valid = in_0_aw_valid & requestAWIO_0_11; // @[LazyModule.scala 173:49]
   assign auto_out_11_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_11_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22307,12 +22116,12 @@ module AXI4Xbar_2(
   assign auto_out_11_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_11_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_11_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_11_b_ready = auto_in_b_ready & _T_2427_11; // @[LazyModule.scala 173:49]
+  assign auto_out_11_b_ready = auto_in_b_ready & _T_2329_11; // @[LazyModule.scala 173:49]
   assign auto_out_11_ar_valid = in_0_ar_valid & requestARIO_0_11; // @[LazyModule.scala 173:49]
   assign auto_out_11_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_11_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_11_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_11_r_ready = auto_in_r_ready & _T_1965_11; // @[LazyModule.scala 173:49]
+  assign auto_out_11_r_ready = auto_in_r_ready & _T_1885_11; // @[LazyModule.scala 173:49]
   assign auto_out_10_aw_valid = in_0_aw_valid & requestAWIO_0_10; // @[LazyModule.scala 173:49]
   assign auto_out_10_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_10_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22321,12 +22130,12 @@ module AXI4Xbar_2(
   assign auto_out_10_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_10_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_10_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_10_b_ready = auto_in_b_ready & _T_2427_10; // @[LazyModule.scala 173:49]
+  assign auto_out_10_b_ready = auto_in_b_ready & _T_2329_10; // @[LazyModule.scala 173:49]
   assign auto_out_10_ar_valid = in_0_ar_valid & requestARIO_0_10; // @[LazyModule.scala 173:49]
   assign auto_out_10_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_10_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_10_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_10_r_ready = auto_in_r_ready & _T_1965_10; // @[LazyModule.scala 173:49]
+  assign auto_out_10_r_ready = auto_in_r_ready & _T_1885_10; // @[LazyModule.scala 173:49]
   assign auto_out_9_aw_valid = in_0_aw_valid & requestAWIO_0_9; // @[LazyModule.scala 173:49]
   assign auto_out_9_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_9_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22335,12 +22144,12 @@ module AXI4Xbar_2(
   assign auto_out_9_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_9_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_9_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_9_b_ready = auto_in_b_ready & _T_2427_9; // @[LazyModule.scala 173:49]
+  assign auto_out_9_b_ready = auto_in_b_ready & _T_2329_9; // @[LazyModule.scala 173:49]
   assign auto_out_9_ar_valid = in_0_ar_valid & requestARIO_0_9; // @[LazyModule.scala 173:49]
   assign auto_out_9_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_9_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_9_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_9_r_ready = auto_in_r_ready & _T_1965_9; // @[LazyModule.scala 173:49]
+  assign auto_out_9_r_ready = auto_in_r_ready & _T_1885_9; // @[LazyModule.scala 173:49]
   assign auto_out_8_aw_valid = in_0_aw_valid & requestAWIO_0_8; // @[LazyModule.scala 173:49]
   assign auto_out_8_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_8_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22349,12 +22158,12 @@ module AXI4Xbar_2(
   assign auto_out_8_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_8_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_8_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_8_b_ready = auto_in_b_ready & _T_2427_8; // @[LazyModule.scala 173:49]
+  assign auto_out_8_b_ready = auto_in_b_ready & _T_2329_8; // @[LazyModule.scala 173:49]
   assign auto_out_8_ar_valid = in_0_ar_valid & requestARIO_0_8; // @[LazyModule.scala 173:49]
   assign auto_out_8_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_8_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_8_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_8_r_ready = auto_in_r_ready & _T_1965_8; // @[LazyModule.scala 173:49]
+  assign auto_out_8_r_ready = auto_in_r_ready & _T_1885_8; // @[LazyModule.scala 173:49]
   assign auto_out_7_aw_valid = in_0_aw_valid & requestAWIO_0_7; // @[LazyModule.scala 173:49]
   assign auto_out_7_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_7_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22363,12 +22172,12 @@ module AXI4Xbar_2(
   assign auto_out_7_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_7_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_7_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_7_b_ready = auto_in_b_ready & _T_2427_7; // @[LazyModule.scala 173:49]
+  assign auto_out_7_b_ready = auto_in_b_ready & _T_2329_7; // @[LazyModule.scala 173:49]
   assign auto_out_7_ar_valid = in_0_ar_valid & requestARIO_0_7; // @[LazyModule.scala 173:49]
   assign auto_out_7_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_7_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_7_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_7_r_ready = auto_in_r_ready & _T_1965_7; // @[LazyModule.scala 173:49]
+  assign auto_out_7_r_ready = auto_in_r_ready & _T_1885_7; // @[LazyModule.scala 173:49]
   assign auto_out_6_aw_valid = in_0_aw_valid & requestAWIO_0_6; // @[LazyModule.scala 173:49]
   assign auto_out_6_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_6_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22377,12 +22186,12 @@ module AXI4Xbar_2(
   assign auto_out_6_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_6_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_6_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_6_b_ready = auto_in_b_ready & _T_2427_6; // @[LazyModule.scala 173:49]
+  assign auto_out_6_b_ready = auto_in_b_ready & _T_2329_6; // @[LazyModule.scala 173:49]
   assign auto_out_6_ar_valid = in_0_ar_valid & requestARIO_0_6; // @[LazyModule.scala 173:49]
   assign auto_out_6_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_6_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_6_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_6_r_ready = auto_in_r_ready & _T_1965_6; // @[LazyModule.scala 173:49]
+  assign auto_out_6_r_ready = auto_in_r_ready & _T_1885_6; // @[LazyModule.scala 173:49]
   assign auto_out_5_aw_valid = in_0_aw_valid & requestAWIO_0_5; // @[LazyModule.scala 173:49]
   assign auto_out_5_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_5_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22391,12 +22200,12 @@ module AXI4Xbar_2(
   assign auto_out_5_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_5_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_5_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_5_b_ready = auto_in_b_ready & _T_2427_5; // @[LazyModule.scala 173:49]
+  assign auto_out_5_b_ready = auto_in_b_ready & _T_2329_5; // @[LazyModule.scala 173:49]
   assign auto_out_5_ar_valid = in_0_ar_valid & requestARIO_0_5; // @[LazyModule.scala 173:49]
   assign auto_out_5_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_5_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_5_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_5_r_ready = auto_in_r_ready & _T_1965_5; // @[LazyModule.scala 173:49]
+  assign auto_out_5_r_ready = auto_in_r_ready & _T_1885_5; // @[LazyModule.scala 173:49]
   assign auto_out_4_aw_valid = in_0_aw_valid & requestAWIO_0_4; // @[LazyModule.scala 173:49]
   assign auto_out_4_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_4_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22405,12 +22214,12 @@ module AXI4Xbar_2(
   assign auto_out_4_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_4_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_4_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_4_b_ready = auto_in_b_ready & _T_2427_4; // @[LazyModule.scala 173:49]
+  assign auto_out_4_b_ready = auto_in_b_ready & _T_2329_4; // @[LazyModule.scala 173:49]
   assign auto_out_4_ar_valid = in_0_ar_valid & requestARIO_0_4; // @[LazyModule.scala 173:49]
   assign auto_out_4_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_4_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_4_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_4_r_ready = auto_in_r_ready & _T_1965_4; // @[LazyModule.scala 173:49]
+  assign auto_out_4_r_ready = auto_in_r_ready & _T_1885_4; // @[LazyModule.scala 173:49]
   assign auto_out_3_aw_valid = in_0_aw_valid & requestAWIO_0_3; // @[LazyModule.scala 173:49]
   assign auto_out_3_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_3_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22419,12 +22228,12 @@ module AXI4Xbar_2(
   assign auto_out_3_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_3_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_3_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_3_b_ready = auto_in_b_ready & _T_2427_3; // @[LazyModule.scala 173:49]
+  assign auto_out_3_b_ready = auto_in_b_ready & _T_2329_3; // @[LazyModule.scala 173:49]
   assign auto_out_3_ar_valid = in_0_ar_valid & requestARIO_0_3; // @[LazyModule.scala 173:49]
   assign auto_out_3_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_3_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_3_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_3_r_ready = auto_in_r_ready & _T_1965_3; // @[LazyModule.scala 173:49]
+  assign auto_out_3_r_ready = auto_in_r_ready & _T_1885_3; // @[LazyModule.scala 173:49]
   assign auto_out_2_aw_valid = in_0_aw_valid & requestAWIO_0_2; // @[LazyModule.scala 173:49]
   assign auto_out_2_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_2_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22433,12 +22242,12 @@ module AXI4Xbar_2(
   assign auto_out_2_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_2_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_2_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_2_b_ready = auto_in_b_ready & _T_2427_2; // @[LazyModule.scala 173:49]
+  assign auto_out_2_b_ready = auto_in_b_ready & _T_2329_2; // @[LazyModule.scala 173:49]
   assign auto_out_2_ar_valid = in_0_ar_valid & requestARIO_0_2; // @[LazyModule.scala 173:49]
   assign auto_out_2_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_2_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_2_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_2_r_ready = auto_in_r_ready & _T_1965_2; // @[LazyModule.scala 173:49]
+  assign auto_out_2_r_ready = auto_in_r_ready & _T_1885_2; // @[LazyModule.scala 173:49]
   assign auto_out_1_aw_valid = in_0_aw_valid & requestAWIO_0_1; // @[LazyModule.scala 173:49]
   assign auto_out_1_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_1_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22447,12 +22256,12 @@ module AXI4Xbar_2(
   assign auto_out_1_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_1_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_1_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_1_b_ready = auto_in_b_ready & _T_2427_1; // @[LazyModule.scala 173:49]
+  assign auto_out_1_b_ready = auto_in_b_ready & _T_2329_1; // @[LazyModule.scala 173:49]
   assign auto_out_1_ar_valid = in_0_ar_valid & requestARIO_0_1; // @[LazyModule.scala 173:49]
   assign auto_out_1_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_1_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_1_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_1_r_ready = auto_in_r_ready & _T_1965_1; // @[LazyModule.scala 173:49]
+  assign auto_out_1_r_ready = auto_in_r_ready & _T_1885_1; // @[LazyModule.scala 173:49]
   assign auto_out_0_aw_valid = in_0_aw_valid & requestAWIO_0_0; // @[LazyModule.scala 173:49]
   assign auto_out_0_aw_bits_id = auto_in_aw_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_0_aw_bits_addr = auto_in_aw_bits_addr; // @[LazyModule.scala 173:49]
@@ -22461,17 +22270,17 @@ module AXI4Xbar_2(
   assign auto_out_0_w_bits_data = auto_in_w_bits_data; // @[LazyModule.scala 173:49]
   assign auto_out_0_w_bits_strb = auto_in_w_bits_strb; // @[LazyModule.scala 173:49]
   assign auto_out_0_w_bits_last = auto_in_w_bits_last; // @[LazyModule.scala 173:49]
-  assign auto_out_0_b_ready = auto_in_b_ready & _T_2427_0; // @[LazyModule.scala 173:49]
+  assign auto_out_0_b_ready = auto_in_b_ready & _T_2329_0; // @[LazyModule.scala 173:49]
   assign auto_out_0_ar_valid = in_0_ar_valid & requestARIO_0_0; // @[LazyModule.scala 173:49]
   assign auto_out_0_ar_bits_id = auto_in_ar_bits_id; // @[LazyModule.scala 173:49]
   assign auto_out_0_ar_bits_addr = auto_in_ar_bits_addr; // @[LazyModule.scala 173:49]
   assign auto_out_0_ar_bits_size = auto_in_ar_bits_size; // @[LazyModule.scala 173:49]
-  assign auto_out_0_r_ready = auto_in_r_ready & _T_1965_0; // @[LazyModule.scala 173:49]
+  assign auto_out_0_r_ready = auto_in_r_ready & _T_1885_0; // @[LazyModule.scala 173:49]
   assign awIn_0_clock = clock;
   assign awIn_0_reset = reset;
-  assign awIn_0_io_enq_valid = auto_in_aw_valid & _T_421; // @[Xbar.scala 140:30]
-  assign awIn_0_io_enq_bits = {_T_263,_T_253}; // @[Xbar.scala 64:57]
-  assign awIn_0_io_deq_ready = _T_427 & in_0_w_ready; // @[Xbar.scala 147:30]
+  assign awIn_0_io_enq_valid = auto_in_aw_valid & _T_408; // @[Xbar.scala 140:30]
+  assign awIn_0_io_enq_bits = {_T_252,_T_242}; // @[Xbar.scala 64:57]
+  assign awIn_0_io_deq_ready = _T_414 & in_0_w_ready; // @[Xbar.scala 147:30]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -22505,480 +22314,462 @@ initial begin
     `endif
   `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {1{`RANDOM}};
-  _T_360 = _RAND_0[2:0];
+  _T_347 = _RAND_0[2:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_1 = {1{`RANDOM}};
-  _T_361 = _RAND_1[4:0];
+  _T_348 = _RAND_1[4:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_2 = {1{`RANDOM}};
-  _T_1686 = _RAND_2[0:0];
+  _T_1616 = _RAND_2[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_3 = {1{`RANDOM}};
-  _T_1962_0 = _RAND_3[0:0];
+  _T_1882_0 = _RAND_3[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_4 = {1{`RANDOM}};
-  _T_1962_1 = _RAND_4[0:0];
+  _T_1882_1 = _RAND_4[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_5 = {1{`RANDOM}};
-  _T_1962_2 = _RAND_5[0:0];
+  _T_1882_2 = _RAND_5[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_6 = {1{`RANDOM}};
-  _T_1962_3 = _RAND_6[0:0];
+  _T_1882_3 = _RAND_6[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_7 = {1{`RANDOM}};
-  _T_1962_4 = _RAND_7[0:0];
+  _T_1882_4 = _RAND_7[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_8 = {1{`RANDOM}};
-  _T_1962_5 = _RAND_8[0:0];
+  _T_1882_5 = _RAND_8[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_9 = {1{`RANDOM}};
-  _T_1962_6 = _RAND_9[0:0];
+  _T_1882_6 = _RAND_9[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_10 = {1{`RANDOM}};
-  _T_1962_7 = _RAND_10[0:0];
+  _T_1882_7 = _RAND_10[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_11 = {1{`RANDOM}};
-  _T_1962_8 = _RAND_11[0:0];
+  _T_1882_8 = _RAND_11[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_12 = {1{`RANDOM}};
-  _T_1962_9 = _RAND_12[0:0];
+  _T_1882_9 = _RAND_12[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_13 = {1{`RANDOM}};
-  _T_1962_10 = _RAND_13[0:0];
+  _T_1882_10 = _RAND_13[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_14 = {1{`RANDOM}};
-  _T_1962_11 = _RAND_14[0:0];
+  _T_1882_11 = _RAND_14[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_15 = {1{`RANDOM}};
-  _T_1962_12 = _RAND_15[0:0];
+  _T_1882_12 = _RAND_15[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_16 = {1{`RANDOM}};
-  _T_1962_13 = _RAND_16[0:0];
+  _T_1882_13 = _RAND_16[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_17 = {1{`RANDOM}};
-  _T_1962_14 = _RAND_17[0:0];
+  _T_1882_14 = _RAND_17[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_18 = {1{`RANDOM}};
-  _T_1962_15 = _RAND_18[0:0];
+  _T_1882_15 = _RAND_18[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_19 = {1{`RANDOM}};
-  _T_1962_16 = _RAND_19[0:0];
+  _T_1882_16 = _RAND_19[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_20 = {1{`RANDOM}};
-  _T_1962_17 = _RAND_20[0:0];
+  _T_1882_17 = _RAND_20[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_21 = {1{`RANDOM}};
-  _T_1962_18 = _RAND_21[0:0];
+  _T_1882_18 = _RAND_21[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_22 = {1{`RANDOM}};
-  _T_1962_19 = _RAND_22[0:0];
+  _T_1882_19 = _RAND_22[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_23 = {1{`RANDOM}};
-  _T_1962_20 = _RAND_23[0:0];
+  _T_1882_20 = _RAND_23[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_24 = {1{`RANDOM}};
-  _T_1962_21 = _RAND_24[0:0];
+  _T_1663 = _RAND_24[20:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_25 = {1{`RANDOM}};
-  _T_1735 = _RAND_25[21:0];
+  _T_401 = _RAND_25[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_26 = {1{`RANDOM}};
-  _T_414 = _RAND_26[0:0];
+  _T_375 = _RAND_26[2:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_27 = {1{`RANDOM}};
-  _T_388 = _RAND_27[2:0];
+  _T_376 = _RAND_27[4:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_28 = {1{`RANDOM}};
-  _T_389 = _RAND_28[4:0];
+  _T_2060 = _RAND_28[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_29 = {1{`RANDOM}};
-  _T_2148 = _RAND_29[0:0];
+  _T_2326_0 = _RAND_29[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_30 = {1{`RANDOM}};
-  _T_2424_0 = _RAND_30[0:0];
+  _T_2326_1 = _RAND_30[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_31 = {1{`RANDOM}};
-  _T_2424_1 = _RAND_31[0:0];
+  _T_2326_2 = _RAND_31[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_32 = {1{`RANDOM}};
-  _T_2424_2 = _RAND_32[0:0];
+  _T_2326_3 = _RAND_32[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_33 = {1{`RANDOM}};
-  _T_2424_3 = _RAND_33[0:0];
+  _T_2326_4 = _RAND_33[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_34 = {1{`RANDOM}};
-  _T_2424_4 = _RAND_34[0:0];
+  _T_2326_5 = _RAND_34[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_35 = {1{`RANDOM}};
-  _T_2424_5 = _RAND_35[0:0];
+  _T_2326_6 = _RAND_35[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_36 = {1{`RANDOM}};
-  _T_2424_6 = _RAND_36[0:0];
+  _T_2326_7 = _RAND_36[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_37 = {1{`RANDOM}};
-  _T_2424_7 = _RAND_37[0:0];
+  _T_2326_8 = _RAND_37[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_38 = {1{`RANDOM}};
-  _T_2424_8 = _RAND_38[0:0];
+  _T_2326_9 = _RAND_38[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_39 = {1{`RANDOM}};
-  _T_2424_9 = _RAND_39[0:0];
+  _T_2326_10 = _RAND_39[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_40 = {1{`RANDOM}};
-  _T_2424_10 = _RAND_40[0:0];
+  _T_2326_11 = _RAND_40[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_41 = {1{`RANDOM}};
-  _T_2424_11 = _RAND_41[0:0];
+  _T_2326_12 = _RAND_41[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_42 = {1{`RANDOM}};
-  _T_2424_12 = _RAND_42[0:0];
+  _T_2326_13 = _RAND_42[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_43 = {1{`RANDOM}};
-  _T_2424_13 = _RAND_43[0:0];
+  _T_2326_14 = _RAND_43[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_44 = {1{`RANDOM}};
-  _T_2424_14 = _RAND_44[0:0];
+  _T_2326_15 = _RAND_44[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_45 = {1{`RANDOM}};
-  _T_2424_15 = _RAND_45[0:0];
+  _T_2326_16 = _RAND_45[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_46 = {1{`RANDOM}};
-  _T_2424_16 = _RAND_46[0:0];
+  _T_2326_17 = _RAND_46[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_47 = {1{`RANDOM}};
-  _T_2424_17 = _RAND_47[0:0];
+  _T_2326_18 = _RAND_47[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_48 = {1{`RANDOM}};
-  _T_2424_18 = _RAND_48[0:0];
+  _T_2326_19 = _RAND_48[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_49 = {1{`RANDOM}};
-  _T_2424_19 = _RAND_49[0:0];
+  _T_2326_20 = _RAND_49[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_50 = {1{`RANDOM}};
-  _T_2424_20 = _RAND_50[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_51 = {1{`RANDOM}};
-  _T_2424_21 = _RAND_51[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_52 = {1{`RANDOM}};
-  _T_2197 = _RAND_52[21:0];
+  _T_2107 = _RAND_50[20:0];
   `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
 `endif // SYNTHESIS
   always @(posedge clock) begin
     if (reset) begin
-      _T_360 <= 3'h0;
+      _T_347 <= 3'h0;
     end else begin
-      _T_360 <= _T_365;
+      _T_347 <= _T_352;
     end
-    if (_T_355) begin
-      _T_361 <= _T_312;
+    if (_T_342) begin
+      _T_348 <= _T_300;
     end
-    _T_1686 <= reset | _GEN_94;
+    _T_1616 <= reset | _GEN_90;
     if (reset) begin
-      _T_1962_0 <= 1'h0;
+      _T_1882_0 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_0 <= _T_1727;
+    end
+    if (reset) begin
+      _T_1882_1 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_1 <= _T_1728;
+    end
+    if (reset) begin
+      _T_1882_2 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_2 <= _T_1729;
+    end
+    if (reset) begin
+      _T_1882_3 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_3 <= _T_1730;
+    end
+    if (reset) begin
+      _T_1882_4 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_4 <= _T_1731;
+    end
+    if (reset) begin
+      _T_1882_5 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_5 <= _T_1732;
+    end
+    if (reset) begin
+      _T_1882_6 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_6 <= _T_1733;
+    end
+    if (reset) begin
+      _T_1882_7 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_7 <= _T_1734;
+    end
+    if (reset) begin
+      _T_1882_8 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_8 <= _T_1735;
+    end
+    if (reset) begin
+      _T_1882_9 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_9 <= _T_1736;
+    end
+    if (reset) begin
+      _T_1882_10 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_10 <= _T_1737;
+    end
+    if (reset) begin
+      _T_1882_11 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_11 <= _T_1738;
+    end
+    if (reset) begin
+      _T_1882_12 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_12 <= _T_1739;
+    end
+    if (reset) begin
+      _T_1882_13 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_13 <= _T_1740;
+    end
+    if (reset) begin
+      _T_1882_14 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_14 <= _T_1741;
+    end
+    if (reset) begin
+      _T_1882_15 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_15 <= _T_1742;
+    end
+    if (reset) begin
+      _T_1882_16 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_16 <= _T_1743;
+    end
+    if (reset) begin
+      _T_1882_17 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_17 <= _T_1744;
+    end
+    if (reset) begin
+      _T_1882_18 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_18 <= _T_1745;
+    end
+    if (reset) begin
+      _T_1882_19 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_19 <= _T_1746;
+    end
+    if (reset) begin
+      _T_1882_20 <= 1'h0;
+    end else if (_T_1616) begin
+      _T_1882_20 <= _T_1747;
+    end
+    if (reset) begin
+      _T_1663 <= 21'h1fffff;
     end else if (_T_1686) begin
-      _T_1962_0 <= _T_1800;
+      _T_1663 <= _T_1702;
     end
     if (reset) begin
-      _T_1962_1 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_1 <= _T_1801;
-    end
-    if (reset) begin
-      _T_1962_2 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_2 <= _T_1802;
-    end
-    if (reset) begin
-      _T_1962_3 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_3 <= _T_1803;
-    end
-    if (reset) begin
-      _T_1962_4 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_4 <= _T_1804;
-    end
-    if (reset) begin
-      _T_1962_5 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_5 <= _T_1805;
-    end
-    if (reset) begin
-      _T_1962_6 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_6 <= _T_1806;
-    end
-    if (reset) begin
-      _T_1962_7 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_7 <= _T_1807;
-    end
-    if (reset) begin
-      _T_1962_8 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_8 <= _T_1808;
-    end
-    if (reset) begin
-      _T_1962_9 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_9 <= _T_1809;
-    end
-    if (reset) begin
-      _T_1962_10 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_10 <= _T_1810;
-    end
-    if (reset) begin
-      _T_1962_11 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_11 <= _T_1811;
-    end
-    if (reset) begin
-      _T_1962_12 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_12 <= _T_1812;
-    end
-    if (reset) begin
-      _T_1962_13 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_13 <= _T_1813;
-    end
-    if (reset) begin
-      _T_1962_14 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_14 <= _T_1814;
-    end
-    if (reset) begin
-      _T_1962_15 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_15 <= _T_1815;
-    end
-    if (reset) begin
-      _T_1962_16 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_16 <= _T_1816;
-    end
-    if (reset) begin
-      _T_1962_17 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_17 <= _T_1817;
-    end
-    if (reset) begin
-      _T_1962_18 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_18 <= _T_1818;
-    end
-    if (reset) begin
-      _T_1962_19 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_19 <= _T_1819;
-    end
-    if (reset) begin
-      _T_1962_20 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_20 <= _T_1820;
-    end
-    if (reset) begin
-      _T_1962_21 <= 1'h0;
-    end else if (_T_1686) begin
-      _T_1962_21 <= _T_1821;
-    end
-    if (reset) begin
-      _T_1735 <= 22'h3fffff;
-    end else if (_T_1758) begin
-      _T_1735 <= _T_1774;
-    end
-    if (reset) begin
-      _T_414 <= 1'h0;
-    end else if (_T_424) begin
-      _T_414 <= 1'h0;
+      _T_401 <= 1'h0;
+    end else if (_T_411) begin
+      _T_401 <= 1'h0;
     end else begin
-      _T_414 <= _GEN_2;
+      _T_401 <= _GEN_2;
     end
     if (reset) begin
-      _T_388 <= 3'h0;
+      _T_375 <= 3'h0;
     end else begin
-      _T_388 <= _T_393;
+      _T_375 <= _T_380;
     end
-    if (_T_384) begin
-      _T_389 <= _T_354;
+    if (_T_371) begin
+      _T_376 <= _T_341;
     end
-    _T_2148 <= reset | _GEN_97;
+    _T_2060 <= reset | _GEN_93;
     if (reset) begin
-      _T_2424_0 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_0 <= _T_2262;
-    end
-    if (reset) begin
-      _T_2424_1 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_1 <= _T_2263;
+      _T_2326_0 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_0 <= _T_2171;
     end
     if (reset) begin
-      _T_2424_2 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_2 <= _T_2264;
+      _T_2326_1 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_1 <= _T_2172;
     end
     if (reset) begin
-      _T_2424_3 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_3 <= _T_2265;
+      _T_2326_2 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_2 <= _T_2173;
     end
     if (reset) begin
-      _T_2424_4 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_4 <= _T_2266;
+      _T_2326_3 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_3 <= _T_2174;
     end
     if (reset) begin
-      _T_2424_5 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_5 <= _T_2267;
+      _T_2326_4 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_4 <= _T_2175;
     end
     if (reset) begin
-      _T_2424_6 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_6 <= _T_2268;
+      _T_2326_5 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_5 <= _T_2176;
     end
     if (reset) begin
-      _T_2424_7 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_7 <= _T_2269;
+      _T_2326_6 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_6 <= _T_2177;
     end
     if (reset) begin
-      _T_2424_8 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_8 <= _T_2270;
+      _T_2326_7 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_7 <= _T_2178;
     end
     if (reset) begin
-      _T_2424_9 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_9 <= _T_2271;
+      _T_2326_8 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_8 <= _T_2179;
     end
     if (reset) begin
-      _T_2424_10 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_10 <= _T_2272;
+      _T_2326_9 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_9 <= _T_2180;
     end
     if (reset) begin
-      _T_2424_11 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_11 <= _T_2273;
+      _T_2326_10 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_10 <= _T_2181;
     end
     if (reset) begin
-      _T_2424_12 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_12 <= _T_2274;
+      _T_2326_11 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_11 <= _T_2182;
     end
     if (reset) begin
-      _T_2424_13 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_13 <= _T_2275;
+      _T_2326_12 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_12 <= _T_2183;
     end
     if (reset) begin
-      _T_2424_14 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_14 <= _T_2276;
+      _T_2326_13 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_13 <= _T_2184;
     end
     if (reset) begin
-      _T_2424_15 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_15 <= _T_2277;
+      _T_2326_14 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_14 <= _T_2185;
     end
     if (reset) begin
-      _T_2424_16 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_16 <= _T_2278;
+      _T_2326_15 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_15 <= _T_2186;
     end
     if (reset) begin
-      _T_2424_17 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_17 <= _T_2279;
+      _T_2326_16 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_16 <= _T_2187;
     end
     if (reset) begin
-      _T_2424_18 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_18 <= _T_2280;
+      _T_2326_17 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_17 <= _T_2188;
     end
     if (reset) begin
-      _T_2424_19 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_19 <= _T_2281;
+      _T_2326_18 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_18 <= _T_2189;
     end
     if (reset) begin
-      _T_2424_20 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_20 <= _T_2282;
+      _T_2326_19 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_19 <= _T_2190;
     end
     if (reset) begin
-      _T_2424_21 <= 1'h0;
-    end else if (_T_2148) begin
-      _T_2424_21 <= _T_2283;
+      _T_2326_20 <= 1'h0;
+    end else if (_T_2060) begin
+      _T_2326_20 <= _T_2191;
     end
     if (reset) begin
-      _T_2197 <= 22'h3fffff;
-    end else if (_T_2220) begin
-      _T_2197 <= _T_2236;
+      _T_2107 <= 21'h1fffff;
+    end else if (_T_2130) begin
+      _T_2107 <= _T_2146;
     end
     `ifndef SYNTHESIS
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_371) begin
+        if (_T_358) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:107 assert (!resp_fire || count =/= UInt(0))\n"); // @[Xbar.scala 107:22]
         end
     `ifdef PRINTF_COND
@@ -22989,7 +22780,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_371) begin
+        if (_T_358) begin
           $fatal; // @[Xbar.scala 107:22]
         end
     `ifdef STOP_COND
@@ -23000,7 +22791,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_377) begin
+        if (_T_364) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:108 assert (!req_fire  || count =/= UInt(flight))\n"); // @[Xbar.scala 108:22]
         end
     `ifdef PRINTF_COND
@@ -23011,7 +22802,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_377) begin
+        if (_T_364) begin
           $fatal; // @[Xbar.scala 108:22]
         end
     `ifdef STOP_COND
@@ -23022,7 +22813,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_399) begin
+        if (_T_386) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:107 assert (!resp_fire || count =/= UInt(0))\n"); // @[Xbar.scala 107:22]
         end
     `ifdef PRINTF_COND
@@ -23033,7 +22824,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_399) begin
+        if (_T_386) begin
           $fatal; // @[Xbar.scala 107:22]
         end
     `ifdef STOP_COND
@@ -23044,7 +22835,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_405) begin
+        if (_T_392) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:108 assert (!req_fire  || count =/= UInt(flight))\n"); // @[Xbar.scala 108:22]
         end
     `ifdef PRINTF_COND
@@ -23055,7 +22846,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_405) begin
+        if (_T_392) begin
           $fatal; // @[Xbar.scala 108:22]
         end
     `ifdef STOP_COND
@@ -23066,7 +22857,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_733) begin
+        if (_T_707) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23077,7 +22868,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_733) begin
+        if (_T_707) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23088,7 +22879,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_754) begin
+        if (_T_728) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23099,7 +22890,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_754) begin
+        if (_T_728) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23110,7 +22901,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_777) begin
+        if (_T_751) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23121,7 +22912,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_777) begin
+        if (_T_751) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23132,7 +22923,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_798) begin
+        if (_T_772) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23143,7 +22934,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_798) begin
+        if (_T_772) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23154,7 +22945,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_821) begin
+        if (_T_795) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23165,7 +22956,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_821) begin
+        if (_T_795) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23176,7 +22967,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_842) begin
+        if (_T_816) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23187,7 +22978,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_842) begin
+        if (_T_816) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23198,7 +22989,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_865) begin
+        if (_T_839) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23209,7 +23000,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_865) begin
+        if (_T_839) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23220,7 +23011,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_886) begin
+        if (_T_860) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23231,7 +23022,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_886) begin
+        if (_T_860) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23242,7 +23033,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_909) begin
+        if (_T_883) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23253,7 +23044,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_909) begin
+        if (_T_883) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23264,7 +23055,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_930) begin
+        if (_T_904) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23275,7 +23066,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_930) begin
+        if (_T_904) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23286,7 +23077,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_953) begin
+        if (_T_927) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23297,7 +23088,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_953) begin
+        if (_T_927) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23308,7 +23099,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_974) begin
+        if (_T_948) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23319,7 +23110,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_974) begin
+        if (_T_948) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23330,7 +23121,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_997) begin
+        if (_T_971) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23341,7 +23132,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_997) begin
+        if (_T_971) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23352,7 +23143,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1018) begin
+        if (_T_992) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23363,7 +23154,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1018) begin
+        if (_T_992) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23374,7 +23165,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1041) begin
+        if (_T_1015) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23385,7 +23176,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1041) begin
+        if (_T_1015) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23396,7 +23187,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1062) begin
+        if (_T_1036) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23407,7 +23198,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1062) begin
+        if (_T_1036) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23418,7 +23209,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1085) begin
+        if (_T_1059) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23429,7 +23220,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1085) begin
+        if (_T_1059) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23440,7 +23231,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1106) begin
+        if (_T_1080) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23451,7 +23242,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1106) begin
+        if (_T_1080) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23462,7 +23253,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1129) begin
+        if (_T_1103) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23473,7 +23264,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1129) begin
+        if (_T_1103) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23484,7 +23275,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1150) begin
+        if (_T_1124) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23495,7 +23286,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1150) begin
+        if (_T_1124) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23506,7 +23297,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1173) begin
+        if (_T_1147) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23517,7 +23308,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1173) begin
+        if (_T_1147) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23528,7 +23319,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1194) begin
+        if (_T_1168) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23539,7 +23330,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1194) begin
+        if (_T_1168) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23550,7 +23341,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1217) begin
+        if (_T_1191) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23561,7 +23352,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1217) begin
+        if (_T_1191) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23572,7 +23363,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1238) begin
+        if (_T_1212) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23583,7 +23374,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1238) begin
+        if (_T_1212) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23594,7 +23385,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1261) begin
+        if (_T_1235) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23605,7 +23396,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1261) begin
+        if (_T_1235) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23616,7 +23407,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1282) begin
+        if (_T_1256) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23627,7 +23418,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1282) begin
+        if (_T_1256) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23638,7 +23429,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1305) begin
+        if (_T_1279) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23649,7 +23440,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1305) begin
+        if (_T_1279) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23660,7 +23451,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1326) begin
+        if (_T_1300) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23671,7 +23462,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1326) begin
+        if (_T_1300) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23682,7 +23473,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1349) begin
+        if (_T_1323) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23693,7 +23484,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1349) begin
+        if (_T_1323) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23704,7 +23495,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1370) begin
+        if (_T_1344) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23715,7 +23506,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1370) begin
+        if (_T_1344) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23726,7 +23517,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1393) begin
+        if (_T_1367) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23737,7 +23528,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1393) begin
+        if (_T_1367) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23748,7 +23539,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1414) begin
+        if (_T_1388) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23759,7 +23550,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1414) begin
+        if (_T_1388) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23770,7 +23561,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1437) begin
+        if (_T_1411) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23781,7 +23572,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1437) begin
+        if (_T_1411) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23792,7 +23583,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1458) begin
+        if (_T_1432) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23803,7 +23594,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1458) begin
+        if (_T_1432) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23814,7 +23605,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1481) begin
+        if (_T_1455) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23825,7 +23616,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1481) begin
+        if (_T_1455) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23836,7 +23627,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1502) begin
+        if (_T_1476) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23847,7 +23638,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1502) begin
+        if (_T_1476) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23858,7 +23649,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1525) begin
+        if (_T_1499) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23869,7 +23660,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1525) begin
+        if (_T_1499) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23880,7 +23671,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1546) begin
+        if (_T_1520) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23891,7 +23682,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1546) begin
+        if (_T_1520) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23902,7 +23693,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1569) begin
+        if (_T_1543) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23913,7 +23704,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1569) begin
+        if (_T_1543) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23924,7 +23715,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1590) begin
+        if (_T_1564) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23935,7 +23726,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1590) begin
+        if (_T_1564) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23946,7 +23737,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1613) begin
+        if (_T_1587) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23957,7 +23748,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1613) begin
+        if (_T_1587) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23968,7 +23759,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1634) begin
+        if (_T_1608) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -23979,7 +23770,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1634) begin
+        if (_T_1608) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -23990,51 +23781,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1657) begin
-          $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
-        end
-    `ifdef PRINTF_COND
-      end
-    `endif
-    `endif // SYNTHESIS
-    `ifndef SYNTHESIS
-    `ifdef STOP_COND
-      if (`STOP_COND) begin
-    `endif
-        if (_T_1657) begin
-          $fatal; // @[Xbar.scala 258:12]
-        end
-    `ifdef STOP_COND
-      end
-    `endif
-    `endif // SYNTHESIS
-    `ifndef SYNTHESIS
-    `ifdef PRINTF_COND
-      if (`PRINTF_COND) begin
-    `endif
-        if (_T_1678) begin
-          $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
-        end
-    `ifdef PRINTF_COND
-      end
-    `endif
-    `endif // SYNTHESIS
-    `ifndef SYNTHESIS
-    `ifdef STOP_COND
-      if (`STOP_COND) begin
-    `endif
-        if (_T_1678) begin
-          $fatal; // @[Xbar.scala 258:12]
-        end
-    `ifdef STOP_COND
-      end
-    `endif
-    `endif // SYNTHESIS
-    `ifndef SYNTHESIS
-    `ifdef PRINTF_COND
-      if (`PRINTF_COND) begin
-    `endif
-        if (_T_1934) begin
+        if (_T_1855) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:256 assert((prefixOR zip winner) map { case (p,w) => !p || !w } reduce {_ && _})\n"); // @[Xbar.scala 256:11]
         end
     `ifdef PRINTF_COND
@@ -24045,7 +23792,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1934) begin
+        if (_T_1855) begin
           $fatal; // @[Xbar.scala 256:11]
         end
     `ifdef STOP_COND
@@ -24056,7 +23803,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1960) begin
+        if (_T_1880) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -24067,7 +23814,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1960) begin
+        if (_T_1880) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -24078,7 +23825,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_2396) begin
+        if (_T_2299) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:256 assert((prefixOR zip winner) map { case (p,w) => !p || !w } reduce {_ && _})\n"); // @[Xbar.scala 256:11]
         end
     `ifdef PRINTF_COND
@@ -24089,7 +23836,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_2396) begin
+        if (_T_2299) begin
           $fatal; // @[Xbar.scala 256:11]
         end
     `ifdef STOP_COND
@@ -24100,7 +23847,7 @@ end // initial
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_2422) begin
+        if (_T_2324) begin
           $fwrite(32'h80000002,"Assertion failed\n    at Xbar.scala:258 assert (!anyValid || winner.reduce(_||_))\n"); // @[Xbar.scala 258:12]
         end
     `ifdef PRINTF_COND
@@ -24111,7 +23858,7 @@ end // initial
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_2422) begin
+        if (_T_2324) begin
           $fatal; // @[Xbar.scala 258:12]
         end
     `ifdef STOP_COND
@@ -24120,7 +23867,7 @@ end // initial
     `endif // SYNTHESIS
   end
 endmodule
-module Queue_147(
+module Queue_141(
   input         clock,
   input         reset,
   output        io_enq_ready,
@@ -24281,7 +24028,7 @@ module AXI4StreamBuffer(
   wire  Queue_io_deq_valid; // @[Decoupled.scala 296:21]
   wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
   wire  Queue_io_deq_bits_last; // @[Decoupled.scala 296:21]
-  Queue_147 Queue ( // @[Decoupled.scala 296:21]
+  Queue_141 Queue ( // @[Decoupled.scala 296:21]
     .clock(Queue_clock),
     .reset(Queue_reset),
     .io_enq_ready(Queue_io_enq_ready),
@@ -24304,7 +24051,7 @@ module AXI4StreamBuffer(
   assign Queue_io_enq_bits_last = auto_in_bits_last; // @[Decoupled.scala 298:21]
   assign Queue_io_deq_ready = auto_out_ready; // @[Decoupled.scala 320:15]
 endmodule
-module Queue_148(
+module Queue_142(
   input         clock,
   input         reset,
   output        io_enq_ready,
@@ -24465,7 +24212,7 @@ module AXI4StreamBuffer_1(
   wire  Queue_io_deq_valid; // @[Decoupled.scala 296:21]
   wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
   wire  Queue_io_deq_bits_last; // @[Decoupled.scala 296:21]
-  Queue_148 Queue ( // @[Decoupled.scala 296:21]
+  Queue_142 Queue ( // @[Decoupled.scala 296:21]
     .clock(Queue_clock),
     .reset(Queue_reset),
     .io_enq_ready(Queue_io_enq_ready),
@@ -24488,7 +24235,7 @@ module AXI4StreamBuffer_1(
   assign Queue_io_enq_bits_last = auto_in_bits_last; // @[Decoupled.scala 298:21]
   assign Queue_io_deq_ready = auto_out_ready; // @[Decoupled.scala 320:15]
 endmodule
-module Queue_149(
+module Queue_143(
   input         clock,
   input         reset,
   output        io_enq_ready,
@@ -24649,7 +24396,7 @@ module AXI4StreamBuffer_2(
   wire  Queue_io_deq_valid; // @[Decoupled.scala 296:21]
   wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
   wire  Queue_io_deq_bits_last; // @[Decoupled.scala 296:21]
-  Queue_149 Queue ( // @[Decoupled.scala 296:21]
+  Queue_143 Queue ( // @[Decoupled.scala 296:21]
     .clock(Queue_clock),
     .reset(Queue_reset),
     .io_enq_ready(Queue_io_enq_ready),
@@ -24672,7 +24419,7 @@ module AXI4StreamBuffer_2(
   assign Queue_io_enq_bits_last = auto_in_bits_last; // @[Decoupled.scala 298:21]
   assign Queue_io_deq_ready = auto_out_ready; // @[Decoupled.scala 320:15]
 endmodule
-module Queue_151(
+module Queue_145(
   input         clock,
   input         reset,
   output        io_enq_ready,
@@ -24833,7 +24580,7 @@ module AXI4StreamBuffer_4(
   wire  Queue_io_deq_valid; // @[Decoupled.scala 296:21]
   wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
   wire  Queue_io_deq_bits_last; // @[Decoupled.scala 296:21]
-  Queue_151 Queue ( // @[Decoupled.scala 296:21]
+  Queue_145 Queue ( // @[Decoupled.scala 296:21]
     .clock(Queue_clock),
     .reset(Queue_reset),
     .io_enq_ready(Queue_io_enq_ready),
@@ -24856,7 +24603,7 @@ module AXI4StreamBuffer_4(
   assign Queue_io_enq_bits_last = auto_in_bits_last; // @[Decoupled.scala 298:21]
   assign Queue_io_deq_ready = auto_out_ready; // @[Decoupled.scala 320:15]
 endmodule
-module Queue_152(
+module Queue_146(
   input         clock,
   input         reset,
   output        io_enq_ready,
@@ -25017,7 +24764,7 @@ module AXI4StreamBuffer_5(
   wire  Queue_io_deq_valid; // @[Decoupled.scala 296:21]
   wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
   wire  Queue_io_deq_bits_last; // @[Decoupled.scala 296:21]
-  Queue_152 Queue ( // @[Decoupled.scala 296:21]
+  Queue_146 Queue ( // @[Decoupled.scala 296:21]
     .clock(Queue_clock),
     .reset(Queue_reset),
     .io_enq_ready(Queue_io_enq_ready),
@@ -25040,7 +24787,7 @@ module AXI4StreamBuffer_5(
   assign Queue_io_enq_bits_last = auto_in_bits_last; // @[Decoupled.scala 298:21]
   assign Queue_io_deq_ready = auto_out_ready; // @[Decoupled.scala 320:15]
 endmodule
-module Queue_156(
+module Queue_150(
   input         clock,
   input         reset,
   output        io_enq_ready,
@@ -25201,7 +24948,7 @@ module AXI4StreamBuffer_9(
   wire  Queue_io_deq_valid; // @[Decoupled.scala 296:21]
   wire [31:0] Queue_io_deq_bits_data; // @[Decoupled.scala 296:21]
   wire  Queue_io_deq_bits_last; // @[Decoupled.scala 296:21]
-  Queue_156 Queue ( // @[Decoupled.scala 296:21]
+  Queue_150 Queue ( // @[Decoupled.scala 296:21]
     .clock(Queue_clock),
     .reset(Queue_reset),
     .io_enq_ready(Queue_io_enq_ready),
@@ -26247,29 +25994,6 @@ module SpectrometerTest(
   wire [31:0] bus_auto_in_r_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [1:0] bus_auto_in_r_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_in_r_bits_last; // @[SpectrometerTest.scala 181:23]
-  wire  bus_auto_out_21_aw_ready; // @[SpectrometerTest.scala 181:23]
-  wire  bus_auto_out_21_aw_valid; // @[SpectrometerTest.scala 181:23]
-  wire  bus_auto_out_21_aw_bits_id; // @[SpectrometerTest.scala 181:23]
-  wire [29:0] bus_auto_out_21_aw_bits_addr; // @[SpectrometerTest.scala 181:23]
-  wire [2:0] bus_auto_out_21_aw_bits_size; // @[SpectrometerTest.scala 181:23]
-  wire  bus_auto_out_21_w_ready; // @[SpectrometerTest.scala 181:23]
-  wire  bus_auto_out_21_w_valid; // @[SpectrometerTest.scala 181:23]
-  wire [31:0] bus_auto_out_21_w_bits_data; // @[SpectrometerTest.scala 181:23]
-  wire [3:0] bus_auto_out_21_w_bits_strb; // @[SpectrometerTest.scala 181:23]
-  wire  bus_auto_out_21_w_bits_last; // @[SpectrometerTest.scala 181:23]
-  wire  bus_auto_out_21_b_ready; // @[SpectrometerTest.scala 181:23]
-  wire  bus_auto_out_21_b_valid; // @[SpectrometerTest.scala 181:23]
-  wire [1:0] bus_auto_out_21_b_bits_resp; // @[SpectrometerTest.scala 181:23]
-  wire  bus_auto_out_21_ar_ready; // @[SpectrometerTest.scala 181:23]
-  wire  bus_auto_out_21_ar_valid; // @[SpectrometerTest.scala 181:23]
-  wire  bus_auto_out_21_ar_bits_id; // @[SpectrometerTest.scala 181:23]
-  wire [29:0] bus_auto_out_21_ar_bits_addr; // @[SpectrometerTest.scala 181:23]
-  wire [2:0] bus_auto_out_21_ar_bits_size; // @[SpectrometerTest.scala 181:23]
-  wire  bus_auto_out_21_r_ready; // @[SpectrometerTest.scala 181:23]
-  wire  bus_auto_out_21_r_valid; // @[SpectrometerTest.scala 181:23]
-  wire [31:0] bus_auto_out_21_r_bits_data; // @[SpectrometerTest.scala 181:23]
-  wire [1:0] bus_auto_out_21_r_bits_resp; // @[SpectrometerTest.scala 181:23]
-  wire  bus_auto_out_21_r_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_aw_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_aw_valid; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_aw_bits_id; // @[SpectrometerTest.scala 181:23]
@@ -26282,7 +26006,6 @@ module SpectrometerTest(
   wire  bus_auto_out_20_w_bits_last; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_b_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_b_valid; // @[SpectrometerTest.scala 181:23]
-  wire  bus_auto_out_20_b_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [1:0] bus_auto_out_20_b_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_ar_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_ar_valid; // @[SpectrometerTest.scala 181:23]
@@ -26291,7 +26014,6 @@ module SpectrometerTest(
   wire [2:0] bus_auto_out_20_ar_bits_size; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_r_ready; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_r_valid; // @[SpectrometerTest.scala 181:23]
-  wire  bus_auto_out_20_r_bits_id; // @[SpectrometerTest.scala 181:23]
   wire [31:0] bus_auto_out_20_r_bits_data; // @[SpectrometerTest.scala 181:23]
   wire [1:0] bus_auto_out_20_r_bits_resp; // @[SpectrometerTest.scala 181:23]
   wire  bus_auto_out_20_r_bits_last; // @[SpectrometerTest.scala 181:23]
@@ -27815,57 +27537,6 @@ module SpectrometerTest(
   wire [31:0] axi4buf_19_auto_out_r_bits_data; // @[Buffer.scala 58:29]
   wire [1:0] axi4buf_19_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
   wire  axi4buf_19_auto_out_r_bits_last; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_clock; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_reset; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_in_aw_ready; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_in_aw_valid; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_in_aw_bits_id; // @[Buffer.scala 58:29]
-  wire [29:0] axi4buf_20_auto_in_aw_bits_addr; // @[Buffer.scala 58:29]
-  wire [2:0] axi4buf_20_auto_in_aw_bits_size; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_in_w_ready; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_in_w_valid; // @[Buffer.scala 58:29]
-  wire [31:0] axi4buf_20_auto_in_w_bits_data; // @[Buffer.scala 58:29]
-  wire [3:0] axi4buf_20_auto_in_w_bits_strb; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_in_w_bits_last; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_in_b_ready; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_in_b_valid; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_in_b_bits_id; // @[Buffer.scala 58:29]
-  wire [1:0] axi4buf_20_auto_in_b_bits_resp; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_in_ar_ready; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_in_ar_valid; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_in_ar_bits_id; // @[Buffer.scala 58:29]
-  wire [29:0] axi4buf_20_auto_in_ar_bits_addr; // @[Buffer.scala 58:29]
-  wire [2:0] axi4buf_20_auto_in_ar_bits_size; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_in_r_ready; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_in_r_valid; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_in_r_bits_id; // @[Buffer.scala 58:29]
-  wire [31:0] axi4buf_20_auto_in_r_bits_data; // @[Buffer.scala 58:29]
-  wire [1:0] axi4buf_20_auto_in_r_bits_resp; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_in_r_bits_last; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_out_aw_ready; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_out_aw_valid; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_out_aw_bits_id; // @[Buffer.scala 58:29]
-  wire [29:0] axi4buf_20_auto_out_aw_bits_addr; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_out_w_ready; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_out_w_valid; // @[Buffer.scala 58:29]
-  wire [31:0] axi4buf_20_auto_out_w_bits_data; // @[Buffer.scala 58:29]
-  wire [3:0] axi4buf_20_auto_out_w_bits_strb; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_out_w_bits_last; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_out_b_ready; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_out_b_valid; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_out_b_bits_id; // @[Buffer.scala 58:29]
-  wire [1:0] axi4buf_20_auto_out_b_bits_resp; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_out_ar_ready; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_out_ar_valid; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_out_ar_bits_id; // @[Buffer.scala 58:29]
-  wire [29:0] axi4buf_20_auto_out_ar_bits_addr; // @[Buffer.scala 58:29]
-  wire [2:0] axi4buf_20_auto_out_ar_bits_size; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_out_r_ready; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_out_r_valid; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_out_r_bits_id; // @[Buffer.scala 58:29]
-  wire [31:0] axi4buf_20_auto_out_r_bits_data; // @[Buffer.scala 58:29]
-  wire [1:0] axi4buf_20_auto_out_r_bits_resp; // @[Buffer.scala 58:29]
-  wire  axi4buf_20_auto_out_r_bits_last; // @[Buffer.scala 58:29]
   wire  buffer_clock; // @[Buffer.scala 29:28]
   wire  buffer_reset; // @[Buffer.scala 29:28]
   wire  buffer_auto_in_ready; // @[Buffer.scala 29:28]
@@ -28968,29 +28639,6 @@ module SpectrometerTest(
     .auto_in_r_bits_data(bus_auto_in_r_bits_data),
     .auto_in_r_bits_resp(bus_auto_in_r_bits_resp),
     .auto_in_r_bits_last(bus_auto_in_r_bits_last),
-    .auto_out_21_aw_ready(bus_auto_out_21_aw_ready),
-    .auto_out_21_aw_valid(bus_auto_out_21_aw_valid),
-    .auto_out_21_aw_bits_id(bus_auto_out_21_aw_bits_id),
-    .auto_out_21_aw_bits_addr(bus_auto_out_21_aw_bits_addr),
-    .auto_out_21_aw_bits_size(bus_auto_out_21_aw_bits_size),
-    .auto_out_21_w_ready(bus_auto_out_21_w_ready),
-    .auto_out_21_w_valid(bus_auto_out_21_w_valid),
-    .auto_out_21_w_bits_data(bus_auto_out_21_w_bits_data),
-    .auto_out_21_w_bits_strb(bus_auto_out_21_w_bits_strb),
-    .auto_out_21_w_bits_last(bus_auto_out_21_w_bits_last),
-    .auto_out_21_b_ready(bus_auto_out_21_b_ready),
-    .auto_out_21_b_valid(bus_auto_out_21_b_valid),
-    .auto_out_21_b_bits_resp(bus_auto_out_21_b_bits_resp),
-    .auto_out_21_ar_ready(bus_auto_out_21_ar_ready),
-    .auto_out_21_ar_valid(bus_auto_out_21_ar_valid),
-    .auto_out_21_ar_bits_id(bus_auto_out_21_ar_bits_id),
-    .auto_out_21_ar_bits_addr(bus_auto_out_21_ar_bits_addr),
-    .auto_out_21_ar_bits_size(bus_auto_out_21_ar_bits_size),
-    .auto_out_21_r_ready(bus_auto_out_21_r_ready),
-    .auto_out_21_r_valid(bus_auto_out_21_r_valid),
-    .auto_out_21_r_bits_data(bus_auto_out_21_r_bits_data),
-    .auto_out_21_r_bits_resp(bus_auto_out_21_r_bits_resp),
-    .auto_out_21_r_bits_last(bus_auto_out_21_r_bits_last),
     .auto_out_20_aw_ready(bus_auto_out_20_aw_ready),
     .auto_out_20_aw_valid(bus_auto_out_20_aw_valid),
     .auto_out_20_aw_bits_id(bus_auto_out_20_aw_bits_id),
@@ -29003,7 +28651,6 @@ module SpectrometerTest(
     .auto_out_20_w_bits_last(bus_auto_out_20_w_bits_last),
     .auto_out_20_b_ready(bus_auto_out_20_b_ready),
     .auto_out_20_b_valid(bus_auto_out_20_b_valid),
-    .auto_out_20_b_bits_id(bus_auto_out_20_b_bits_id),
     .auto_out_20_b_bits_resp(bus_auto_out_20_b_bits_resp),
     .auto_out_20_ar_ready(bus_auto_out_20_ar_ready),
     .auto_out_20_ar_valid(bus_auto_out_20_ar_valid),
@@ -29012,7 +28659,6 @@ module SpectrometerTest(
     .auto_out_20_ar_bits_size(bus_auto_out_20_ar_bits_size),
     .auto_out_20_r_ready(bus_auto_out_20_r_ready),
     .auto_out_20_r_valid(bus_auto_out_20_r_valid),
-    .auto_out_20_r_bits_id(bus_auto_out_20_r_bits_id),
     .auto_out_20_r_bits_data(bus_auto_out_20_r_bits_data),
     .auto_out_20_r_bits_resp(bus_auto_out_20_r_bits_resp),
     .auto_out_20_r_bits_last(bus_auto_out_20_r_bits_last),
@@ -30577,59 +30223,6 @@ module SpectrometerTest(
     .auto_out_r_bits_resp(axi4buf_19_auto_out_r_bits_resp),
     .auto_out_r_bits_last(axi4buf_19_auto_out_r_bits_last)
   );
-  AXI4Buffer axi4buf_20 ( // @[Buffer.scala 58:29]
-    .clock(axi4buf_20_clock),
-    .reset(axi4buf_20_reset),
-    .auto_in_aw_ready(axi4buf_20_auto_in_aw_ready),
-    .auto_in_aw_valid(axi4buf_20_auto_in_aw_valid),
-    .auto_in_aw_bits_id(axi4buf_20_auto_in_aw_bits_id),
-    .auto_in_aw_bits_addr(axi4buf_20_auto_in_aw_bits_addr),
-    .auto_in_aw_bits_size(axi4buf_20_auto_in_aw_bits_size),
-    .auto_in_w_ready(axi4buf_20_auto_in_w_ready),
-    .auto_in_w_valid(axi4buf_20_auto_in_w_valid),
-    .auto_in_w_bits_data(axi4buf_20_auto_in_w_bits_data),
-    .auto_in_w_bits_strb(axi4buf_20_auto_in_w_bits_strb),
-    .auto_in_w_bits_last(axi4buf_20_auto_in_w_bits_last),
-    .auto_in_b_ready(axi4buf_20_auto_in_b_ready),
-    .auto_in_b_valid(axi4buf_20_auto_in_b_valid),
-    .auto_in_b_bits_id(axi4buf_20_auto_in_b_bits_id),
-    .auto_in_b_bits_resp(axi4buf_20_auto_in_b_bits_resp),
-    .auto_in_ar_ready(axi4buf_20_auto_in_ar_ready),
-    .auto_in_ar_valid(axi4buf_20_auto_in_ar_valid),
-    .auto_in_ar_bits_id(axi4buf_20_auto_in_ar_bits_id),
-    .auto_in_ar_bits_addr(axi4buf_20_auto_in_ar_bits_addr),
-    .auto_in_ar_bits_size(axi4buf_20_auto_in_ar_bits_size),
-    .auto_in_r_ready(axi4buf_20_auto_in_r_ready),
-    .auto_in_r_valid(axi4buf_20_auto_in_r_valid),
-    .auto_in_r_bits_id(axi4buf_20_auto_in_r_bits_id),
-    .auto_in_r_bits_data(axi4buf_20_auto_in_r_bits_data),
-    .auto_in_r_bits_resp(axi4buf_20_auto_in_r_bits_resp),
-    .auto_in_r_bits_last(axi4buf_20_auto_in_r_bits_last),
-    .auto_out_aw_ready(axi4buf_20_auto_out_aw_ready),
-    .auto_out_aw_valid(axi4buf_20_auto_out_aw_valid),
-    .auto_out_aw_bits_id(axi4buf_20_auto_out_aw_bits_id),
-    .auto_out_aw_bits_addr(axi4buf_20_auto_out_aw_bits_addr),
-    .auto_out_w_ready(axi4buf_20_auto_out_w_ready),
-    .auto_out_w_valid(axi4buf_20_auto_out_w_valid),
-    .auto_out_w_bits_data(axi4buf_20_auto_out_w_bits_data),
-    .auto_out_w_bits_strb(axi4buf_20_auto_out_w_bits_strb),
-    .auto_out_w_bits_last(axi4buf_20_auto_out_w_bits_last),
-    .auto_out_b_ready(axi4buf_20_auto_out_b_ready),
-    .auto_out_b_valid(axi4buf_20_auto_out_b_valid),
-    .auto_out_b_bits_id(axi4buf_20_auto_out_b_bits_id),
-    .auto_out_b_bits_resp(axi4buf_20_auto_out_b_bits_resp),
-    .auto_out_ar_ready(axi4buf_20_auto_out_ar_ready),
-    .auto_out_ar_valid(axi4buf_20_auto_out_ar_valid),
-    .auto_out_ar_bits_id(axi4buf_20_auto_out_ar_bits_id),
-    .auto_out_ar_bits_addr(axi4buf_20_auto_out_ar_bits_addr),
-    .auto_out_ar_bits_size(axi4buf_20_auto_out_ar_bits_size),
-    .auto_out_r_ready(axi4buf_20_auto_out_r_ready),
-    .auto_out_r_valid(axi4buf_20_auto_out_r_valid),
-    .auto_out_r_bits_id(axi4buf_20_auto_out_r_bits_id),
-    .auto_out_r_bits_data(axi4buf_20_auto_out_r_bits_data),
-    .auto_out_r_bits_resp(axi4buf_20_auto_out_r_bits_resp),
-    .auto_out_r_bits_last(axi4buf_20_auto_out_r_bits_last)
-  );
   AXI4StreamBuffer buffer ( // @[Buffer.scala 29:28]
     .clock(buffer_clock),
     .reset(buffer_reset),
@@ -30980,18 +30573,18 @@ module SpectrometerTest(
   assign nco_auto_freq_in_bits_last = plfg_mux_0_auto_stream_out_0_bits_last; // @[LazyModule.scala 167:57]
   assign nco_split_clock = clock;
   assign nco_split_reset = reset;
-  assign nco_split_auto_mem_in_aw_valid = axi4buf_6_auto_out_aw_valid; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_aw_bits_id = axi4buf_6_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_aw_bits_addr = axi4buf_6_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_w_valid = axi4buf_6_auto_out_w_valid; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_w_bits_data = axi4buf_6_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_w_bits_strb = axi4buf_6_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_b_ready = axi4buf_6_auto_out_b_ready; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_ar_valid = axi4buf_6_auto_out_ar_valid; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_ar_bits_id = axi4buf_6_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_ar_bits_addr = axi4buf_6_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_ar_bits_size = axi4buf_6_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign nco_split_auto_mem_in_r_ready = axi4buf_6_auto_out_r_ready; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_aw_valid = axi4buf_5_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_aw_bits_id = axi4buf_5_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_aw_bits_addr = axi4buf_5_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_w_valid = axi4buf_5_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_w_bits_data = axi4buf_5_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_w_bits_strb = axi4buf_5_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_b_ready = axi4buf_5_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_ar_valid = axi4buf_5_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_ar_bits_id = axi4buf_5_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_ar_bits_addr = axi4buf_5_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_ar_bits_size = axi4buf_5_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign nco_split_auto_mem_in_r_ready = axi4buf_5_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign nco_split_auto_stream_in_valid = nco_auto_stream_out_valid; // @[LazyModule.scala 167:57]
   assign nco_split_auto_stream_in_bits_data = nco_auto_stream_out_bits_data; // @[LazyModule.scala 167:57]
   assign nco_split_auto_stream_in_bits_last = nco_auto_stream_out_bits_last; // @[LazyModule.scala 167:57]
@@ -30999,18 +30592,18 @@ module SpectrometerTest(
   assign nco_split_auto_stream_out_0_ready = nco_mux_1_auto_stream_in_ready; // @[LazyModule.scala 167:57]
   assign nco_mux_0_clock = clock;
   assign nco_mux_0_reset = reset;
-  assign nco_mux_0_auto_register_in_aw_valid = axi4buf_7_auto_out_aw_valid; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_aw_bits_id = axi4buf_7_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_aw_bits_addr = axi4buf_7_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_w_valid = axi4buf_7_auto_out_w_valid; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_w_bits_data = axi4buf_7_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_w_bits_strb = axi4buf_7_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_b_ready = axi4buf_7_auto_out_b_ready; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_ar_valid = axi4buf_7_auto_out_ar_valid; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_ar_bits_id = axi4buf_7_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_ar_bits_addr = axi4buf_7_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_ar_bits_size = axi4buf_7_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign nco_mux_0_auto_register_in_r_ready = axi4buf_7_auto_out_r_ready; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_aw_valid = axi4buf_6_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_aw_bits_id = axi4buf_6_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_aw_bits_addr = axi4buf_6_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_w_valid = axi4buf_6_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_w_bits_data = axi4buf_6_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_w_bits_strb = axi4buf_6_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_b_ready = axi4buf_6_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_ar_valid = axi4buf_6_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_ar_bits_id = axi4buf_6_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_ar_bits_addr = axi4buf_6_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_ar_bits_size = axi4buf_6_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign nco_mux_0_auto_register_in_r_ready = axi4buf_6_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign nco_mux_0_auto_stream_in_2_valid = uRx_split_auto_stream_out_1_valid; // @[LazyModule.scala 167:31]
   assign nco_mux_0_auto_stream_in_2_bits_data = uRx_split_auto_stream_out_1_bits_data; // @[LazyModule.scala 167:31]
   assign nco_mux_0_auto_stream_in_1_valid = in_split_auto_stream_out_1_valid; // @[LazyModule.scala 167:57]
@@ -31022,54 +30615,54 @@ module SpectrometerTest(
   assign nco_mux_0_auto_stream_out_0_ready = buffer_auto_in_ready; // @[LazyModule.scala 167:57]
   assign nco_mux_1_clock = clock;
   assign nco_mux_1_reset = reset;
-  assign nco_mux_1_auto_register_in_aw_valid = axi4buf_8_auto_out_aw_valid; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_aw_bits_id = axi4buf_8_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_aw_bits_addr = axi4buf_8_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_w_valid = axi4buf_8_auto_out_w_valid; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_w_bits_data = axi4buf_8_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_w_bits_strb = axi4buf_8_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_b_ready = axi4buf_8_auto_out_b_ready; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_ar_valid = axi4buf_8_auto_out_ar_valid; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_ar_bits_id = axi4buf_8_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_ar_bits_addr = axi4buf_8_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_ar_bits_size = axi4buf_8_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign nco_mux_1_auto_register_in_r_ready = axi4buf_8_auto_out_r_ready; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_aw_valid = axi4buf_7_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_aw_bits_id = axi4buf_7_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_aw_bits_addr = axi4buf_7_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_w_valid = axi4buf_7_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_w_bits_data = axi4buf_7_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_w_bits_strb = axi4buf_7_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_b_ready = axi4buf_7_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_ar_valid = axi4buf_7_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_ar_bits_id = axi4buf_7_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_ar_bits_addr = axi4buf_7_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_ar_bits_size = axi4buf_7_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign nco_mux_1_auto_register_in_r_ready = axi4buf_7_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign nco_mux_1_auto_stream_in_valid = nco_split_auto_stream_out_0_valid; // @[LazyModule.scala 167:57]
   assign nco_mux_1_auto_stream_in_bits_data = nco_split_auto_stream_out_0_bits_data; // @[LazyModule.scala 167:57]
   assign nco_mux_1_auto_stream_in_bits_last = nco_split_auto_stream_out_0_bits_last; // @[LazyModule.scala 167:57]
   assign nco_mux_1_auto_stream_out_1_ready = buffer_5_auto_in_ready; // @[LazyModule.scala 167:57]
   assign fft_clock = clock;
   assign fft_reset = reset;
-  assign fft_auto_mem_in_aw_valid = axi4buf_9_auto_out_aw_valid; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_aw_bits_id = axi4buf_9_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_aw_bits_addr = axi4buf_9_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_w_valid = axi4buf_9_auto_out_w_valid; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_w_bits_data = axi4buf_9_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_w_bits_strb = axi4buf_9_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_b_ready = axi4buf_9_auto_out_b_ready; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_ar_valid = axi4buf_9_auto_out_ar_valid; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_ar_bits_id = axi4buf_9_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_ar_bits_addr = axi4buf_9_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_ar_bits_size = axi4buf_9_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign fft_auto_mem_in_r_ready = axi4buf_9_auto_out_r_ready; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_aw_valid = axi4buf_8_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_aw_bits_id = axi4buf_8_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_aw_bits_addr = axi4buf_8_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_w_valid = axi4buf_8_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_w_bits_data = axi4buf_8_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_w_bits_strb = axi4buf_8_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_b_ready = axi4buf_8_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_ar_valid = axi4buf_8_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_ar_bits_id = axi4buf_8_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_ar_bits_addr = axi4buf_8_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_ar_bits_size = axi4buf_8_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign fft_auto_mem_in_r_ready = axi4buf_8_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign fft_auto_stream_in_valid = buffer_auto_out_valid; // @[LazyModule.scala 167:31]
   assign fft_auto_stream_in_bits_data = buffer_auto_out_bits_data; // @[LazyModule.scala 167:31]
   assign fft_auto_stream_in_bits_last = buffer_auto_out_bits_last; // @[LazyModule.scala 167:31]
   assign fft_auto_stream_out_ready = fft_split_auto_stream_in_ready; // @[LazyModule.scala 167:57]
   assign fft_split_clock = clock;
   assign fft_split_reset = reset;
-  assign fft_split_auto_mem_in_aw_valid = axi4buf_10_auto_out_aw_valid; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_aw_bits_id = axi4buf_10_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_aw_bits_addr = axi4buf_10_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_w_valid = axi4buf_10_auto_out_w_valid; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_w_bits_data = axi4buf_10_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_w_bits_strb = axi4buf_10_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_b_ready = axi4buf_10_auto_out_b_ready; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_ar_valid = axi4buf_10_auto_out_ar_valid; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_ar_bits_id = axi4buf_10_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_ar_bits_addr = axi4buf_10_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_ar_bits_size = axi4buf_10_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign fft_split_auto_mem_in_r_ready = axi4buf_10_auto_out_r_ready; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_aw_valid = axi4buf_9_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_aw_bits_id = axi4buf_9_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_aw_bits_addr = axi4buf_9_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_w_valid = axi4buf_9_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_w_bits_data = axi4buf_9_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_w_bits_strb = axi4buf_9_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_b_ready = axi4buf_9_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_ar_valid = axi4buf_9_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_ar_bits_id = axi4buf_9_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_ar_bits_addr = axi4buf_9_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_ar_bits_size = axi4buf_9_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign fft_split_auto_mem_in_r_ready = axi4buf_9_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign fft_split_auto_stream_in_valid = fft_auto_stream_out_valid; // @[LazyModule.scala 167:57]
   assign fft_split_auto_stream_in_bits_data = fft_auto_stream_out_bits_data; // @[LazyModule.scala 167:57]
   assign fft_split_auto_stream_in_bits_last = fft_auto_stream_out_bits_last; // @[LazyModule.scala 167:57]
@@ -31077,18 +30670,18 @@ module SpectrometerTest(
   assign fft_split_auto_stream_out_0_ready = fft_mux_1_auto_stream_in_ready; // @[LazyModule.scala 167:57]
   assign fft_mux_0_clock = clock;
   assign fft_mux_0_reset = reset;
-  assign fft_mux_0_auto_register_in_aw_valid = axi4buf_11_auto_out_aw_valid; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_aw_bits_id = axi4buf_11_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_aw_bits_addr = axi4buf_11_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_w_valid = axi4buf_11_auto_out_w_valid; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_w_bits_data = axi4buf_11_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_w_bits_strb = axi4buf_11_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_b_ready = axi4buf_11_auto_out_b_ready; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_ar_valid = axi4buf_11_auto_out_ar_valid; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_ar_bits_id = axi4buf_11_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_ar_bits_addr = axi4buf_11_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_ar_bits_size = axi4buf_11_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign fft_mux_0_auto_register_in_r_ready = axi4buf_11_auto_out_r_ready; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_aw_valid = axi4buf_10_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_aw_bits_id = axi4buf_10_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_aw_bits_addr = axi4buf_10_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_w_valid = axi4buf_10_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_w_bits_data = axi4buf_10_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_w_bits_strb = axi4buf_10_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_b_ready = axi4buf_10_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_ar_valid = axi4buf_10_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_ar_bits_id = axi4buf_10_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_ar_bits_addr = axi4buf_10_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_ar_bits_size = axi4buf_10_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign fft_mux_0_auto_register_in_r_ready = axi4buf_10_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign fft_mux_0_auto_stream_in_2_valid = uRx_split_auto_stream_out_2_valid; // @[LazyModule.scala 167:31]
   assign fft_mux_0_auto_stream_in_2_bits_data = uRx_split_auto_stream_out_2_bits_data; // @[LazyModule.scala 167:31]
   assign fft_mux_0_auto_stream_in_1_valid = in_split_auto_stream_out_2_valid; // @[LazyModule.scala 167:57]
@@ -31100,54 +30693,54 @@ module SpectrometerTest(
   assign fft_mux_0_auto_stream_out_0_ready = buffer_1_auto_in_ready; // @[LazyModule.scala 167:57]
   assign fft_mux_1_clock = clock;
   assign fft_mux_1_reset = reset;
-  assign fft_mux_1_auto_register_in_aw_valid = axi4buf_12_auto_out_aw_valid; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_aw_bits_id = axi4buf_12_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_aw_bits_addr = axi4buf_12_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_w_valid = axi4buf_12_auto_out_w_valid; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_w_bits_data = axi4buf_12_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_w_bits_strb = axi4buf_12_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_b_ready = axi4buf_12_auto_out_b_ready; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_ar_valid = axi4buf_12_auto_out_ar_valid; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_ar_bits_id = axi4buf_12_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_ar_bits_addr = axi4buf_12_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_ar_bits_size = axi4buf_12_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign fft_mux_1_auto_register_in_r_ready = axi4buf_12_auto_out_r_ready; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_aw_valid = axi4buf_11_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_aw_bits_id = axi4buf_11_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_aw_bits_addr = axi4buf_11_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_w_valid = axi4buf_11_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_w_bits_data = axi4buf_11_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_w_bits_strb = axi4buf_11_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_b_ready = axi4buf_11_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_ar_valid = axi4buf_11_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_ar_bits_id = axi4buf_11_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_ar_bits_addr = axi4buf_11_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_ar_bits_size = axi4buf_11_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign fft_mux_1_auto_register_in_r_ready = axi4buf_11_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign fft_mux_1_auto_stream_in_valid = fft_split_auto_stream_out_0_valid; // @[LazyModule.scala 167:57]
   assign fft_mux_1_auto_stream_in_bits_data = fft_split_auto_stream_out_0_bits_data; // @[LazyModule.scala 167:57]
   assign fft_mux_1_auto_stream_in_bits_last = fft_split_auto_stream_out_0_bits_last; // @[LazyModule.scala 167:57]
   assign fft_mux_1_auto_stream_out_1_ready = buffer_4_auto_in_ready; // @[LazyModule.scala 167:57]
   assign mag_clock = clock;
   assign mag_reset = reset;
-  assign mag_auto_mem_in_aw_valid = axi4buf_13_auto_out_aw_valid; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_aw_bits_id = axi4buf_13_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_aw_bits_addr = axi4buf_13_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_w_valid = axi4buf_13_auto_out_w_valid; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_w_bits_data = axi4buf_13_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_w_bits_strb = axi4buf_13_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_b_ready = axi4buf_13_auto_out_b_ready; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_ar_valid = axi4buf_13_auto_out_ar_valid; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_ar_bits_id = axi4buf_13_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_ar_bits_addr = axi4buf_13_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_ar_bits_size = axi4buf_13_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign mag_auto_mem_in_r_ready = axi4buf_13_auto_out_r_ready; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_aw_valid = axi4buf_12_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_aw_bits_id = axi4buf_12_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_aw_bits_addr = axi4buf_12_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_w_valid = axi4buf_12_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_w_bits_data = axi4buf_12_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_w_bits_strb = axi4buf_12_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_b_ready = axi4buf_12_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_ar_valid = axi4buf_12_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_ar_bits_id = axi4buf_12_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_ar_bits_addr = axi4buf_12_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_ar_bits_size = axi4buf_12_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign mag_auto_mem_in_r_ready = axi4buf_12_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign mag_auto_stream_in_valid = buffer_1_auto_out_valid; // @[LazyModule.scala 167:31]
   assign mag_auto_stream_in_bits_data = buffer_1_auto_out_bits_data; // @[LazyModule.scala 167:31]
   assign mag_auto_stream_in_bits_last = buffer_1_auto_out_bits_last; // @[LazyModule.scala 167:31]
   assign mag_auto_stream_out_ready = mag_split_auto_stream_in_ready; // @[LazyModule.scala 167:57]
   assign mag_split_clock = clock;
   assign mag_split_reset = reset;
-  assign mag_split_auto_mem_in_aw_valid = axi4buf_14_auto_out_aw_valid; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_aw_bits_id = axi4buf_14_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_aw_bits_addr = axi4buf_14_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_w_valid = axi4buf_14_auto_out_w_valid; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_w_bits_data = axi4buf_14_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_w_bits_strb = axi4buf_14_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_b_ready = axi4buf_14_auto_out_b_ready; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_ar_valid = axi4buf_14_auto_out_ar_valid; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_ar_bits_id = axi4buf_14_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_ar_bits_addr = axi4buf_14_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_ar_bits_size = axi4buf_14_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign mag_split_auto_mem_in_r_ready = axi4buf_14_auto_out_r_ready; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_aw_valid = axi4buf_13_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_aw_bits_id = axi4buf_13_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_aw_bits_addr = axi4buf_13_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_w_valid = axi4buf_13_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_w_bits_data = axi4buf_13_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_w_bits_strb = axi4buf_13_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_b_ready = axi4buf_13_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_ar_valid = axi4buf_13_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_ar_bits_id = axi4buf_13_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_ar_bits_addr = axi4buf_13_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_ar_bits_size = axi4buf_13_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign mag_split_auto_mem_in_r_ready = axi4buf_13_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign mag_split_auto_stream_in_valid = mag_auto_stream_out_valid; // @[LazyModule.scala 167:57]
   assign mag_split_auto_stream_in_bits_data = mag_auto_stream_out_bits_data; // @[LazyModule.scala 167:57]
   assign mag_split_auto_stream_in_bits_last = mag_auto_stream_out_bits_last; // @[LazyModule.scala 167:57]
@@ -31155,18 +30748,18 @@ module SpectrometerTest(
   assign mag_split_auto_stream_out_0_ready = mag_mux_1_auto_stream_in_ready; // @[LazyModule.scala 167:57]
   assign mag_mux_0_clock = clock;
   assign mag_mux_0_reset = reset;
-  assign mag_mux_0_auto_register_in_aw_valid = axi4buf_15_auto_out_aw_valid; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_aw_bits_id = axi4buf_15_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_aw_bits_addr = axi4buf_15_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_w_valid = axi4buf_15_auto_out_w_valid; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_w_bits_data = axi4buf_15_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_w_bits_strb = axi4buf_15_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_b_ready = axi4buf_15_auto_out_b_ready; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_ar_valid = axi4buf_15_auto_out_ar_valid; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_ar_bits_id = axi4buf_15_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_ar_bits_addr = axi4buf_15_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_ar_bits_size = axi4buf_15_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign mag_mux_0_auto_register_in_r_ready = axi4buf_15_auto_out_r_ready; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_aw_valid = axi4buf_14_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_aw_bits_id = axi4buf_14_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_aw_bits_addr = axi4buf_14_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_w_valid = axi4buf_14_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_w_bits_data = axi4buf_14_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_w_bits_strb = axi4buf_14_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_b_ready = axi4buf_14_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_ar_valid = axi4buf_14_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_ar_bits_id = axi4buf_14_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_ar_bits_addr = axi4buf_14_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_ar_bits_size = axi4buf_14_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign mag_mux_0_auto_register_in_r_ready = axi4buf_14_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign mag_mux_0_auto_stream_in_2_valid = uRx_split_auto_stream_out_3_valid; // @[LazyModule.scala 167:31]
   assign mag_mux_0_auto_stream_in_2_bits_data = uRx_split_auto_stream_out_3_bits_data; // @[LazyModule.scala 167:31]
   assign mag_mux_0_auto_stream_in_1_valid = in_split_auto_stream_out_3_valid; // @[LazyModule.scala 167:57]
@@ -31178,38 +30771,38 @@ module SpectrometerTest(
   assign mag_mux_0_auto_stream_out_0_ready = buffer_2_auto_in_ready; // @[LazyModule.scala 167:57]
   assign mag_mux_1_clock = clock;
   assign mag_mux_1_reset = reset;
-  assign mag_mux_1_auto_register_in_aw_valid = axi4buf_16_auto_out_aw_valid; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_aw_bits_id = axi4buf_16_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_aw_bits_addr = axi4buf_16_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_w_valid = axi4buf_16_auto_out_w_valid; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_w_bits_data = axi4buf_16_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_w_bits_strb = axi4buf_16_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_b_ready = axi4buf_16_auto_out_b_ready; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_ar_valid = axi4buf_16_auto_out_ar_valid; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_ar_bits_id = axi4buf_16_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_ar_bits_addr = axi4buf_16_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_ar_bits_size = axi4buf_16_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign mag_mux_1_auto_register_in_r_ready = axi4buf_16_auto_out_r_ready; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_aw_valid = axi4buf_15_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_aw_bits_id = axi4buf_15_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_aw_bits_addr = axi4buf_15_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_w_valid = axi4buf_15_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_w_bits_data = axi4buf_15_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_w_bits_strb = axi4buf_15_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_b_ready = axi4buf_15_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_ar_valid = axi4buf_15_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_ar_bits_id = axi4buf_15_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_ar_bits_addr = axi4buf_15_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_ar_bits_size = axi4buf_15_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign mag_mux_1_auto_register_in_r_ready = axi4buf_15_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign mag_mux_1_auto_stream_in_valid = mag_split_auto_stream_out_0_valid; // @[LazyModule.scala 167:57]
   assign mag_mux_1_auto_stream_in_bits_data = mag_split_auto_stream_out_0_bits_data; // @[LazyModule.scala 167:57]
   assign mag_mux_1_auto_stream_in_bits_last = mag_split_auto_stream_out_0_bits_last; // @[LazyModule.scala 167:57]
   assign mag_mux_1_auto_stream_out_1_ready = buffer_3_auto_in_ready; // @[LazyModule.scala 167:57]
   assign acc_clock = clock;
   assign acc_reset = reset;
-  assign acc_auto_bus_in_aw_valid = bus_auto_out_21_aw_valid; // @[LazyModule.scala 167:31]
-  assign acc_auto_bus_in_aw_bits_id = bus_auto_out_21_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign acc_auto_bus_in_aw_bits_addr = bus_auto_out_21_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign acc_auto_bus_in_aw_bits_size = bus_auto_out_21_aw_bits_size; // @[LazyModule.scala 167:31]
-  assign acc_auto_bus_in_w_valid = bus_auto_out_21_w_valid; // @[LazyModule.scala 167:31]
-  assign acc_auto_bus_in_w_bits_data = bus_auto_out_21_w_bits_data; // @[LazyModule.scala 167:31]
-  assign acc_auto_bus_in_w_bits_strb = bus_auto_out_21_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign acc_auto_bus_in_w_bits_last = bus_auto_out_21_w_bits_last; // @[LazyModule.scala 167:31]
-  assign acc_auto_bus_in_b_ready = bus_auto_out_21_b_ready; // @[LazyModule.scala 167:31]
-  assign acc_auto_bus_in_ar_valid = bus_auto_out_21_ar_valid; // @[LazyModule.scala 167:31]
-  assign acc_auto_bus_in_ar_bits_id = bus_auto_out_21_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign acc_auto_bus_in_ar_bits_addr = bus_auto_out_21_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign acc_auto_bus_in_ar_bits_size = bus_auto_out_21_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign acc_auto_bus_in_r_ready = bus_auto_out_21_r_ready; // @[LazyModule.scala 167:31]
+  assign acc_auto_bus_in_aw_valid = bus_auto_out_20_aw_valid; // @[LazyModule.scala 167:31]
+  assign acc_auto_bus_in_aw_bits_id = bus_auto_out_20_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign acc_auto_bus_in_aw_bits_addr = bus_auto_out_20_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign acc_auto_bus_in_aw_bits_size = bus_auto_out_20_aw_bits_size; // @[LazyModule.scala 167:31]
+  assign acc_auto_bus_in_w_valid = bus_auto_out_20_w_valid; // @[LazyModule.scala 167:31]
+  assign acc_auto_bus_in_w_bits_data = bus_auto_out_20_w_bits_data; // @[LazyModule.scala 167:31]
+  assign acc_auto_bus_in_w_bits_strb = bus_auto_out_20_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign acc_auto_bus_in_w_bits_last = bus_auto_out_20_w_bits_last; // @[LazyModule.scala 167:31]
+  assign acc_auto_bus_in_b_ready = bus_auto_out_20_b_ready; // @[LazyModule.scala 167:31]
+  assign acc_auto_bus_in_ar_valid = bus_auto_out_20_ar_valid; // @[LazyModule.scala 167:31]
+  assign acc_auto_bus_in_ar_bits_id = bus_auto_out_20_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign acc_auto_bus_in_ar_bits_addr = bus_auto_out_20_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign acc_auto_bus_in_ar_bits_size = bus_auto_out_20_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign acc_auto_bus_in_r_ready = bus_auto_out_20_r_ready; // @[LazyModule.scala 167:31]
   assign acc_auto_dspQueue_stream_out_ready = widthAdapter_1_auto_in_ready; // @[LazyModule.scala 167:57]
   assign acc_auto_accumulator_slave_in_valid = buffer_2_auto_out_valid; // @[LazyModule.scala 167:31]
   assign acc_auto_accumulator_slave_in_bits_data = buffer_2_auto_out_bits_data; // @[LazyModule.scala 167:31]
@@ -31228,18 +30821,18 @@ module SpectrometerTest(
   assign acc_queue_auto_in_in_bits_last = widthAdapter_1_auto_out_bits_last; // @[LazyModule.scala 167:57]
   assign out_mux_clock = clock;
   assign out_mux_reset = reset;
-  assign out_mux_auto_register_in_aw_valid = axi4buf_17_auto_out_aw_valid; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_aw_bits_id = axi4buf_17_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_aw_bits_addr = axi4buf_17_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_w_valid = axi4buf_17_auto_out_w_valid; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_w_bits_data = axi4buf_17_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_w_bits_strb = axi4buf_17_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_b_ready = axi4buf_17_auto_out_b_ready; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_ar_valid = axi4buf_17_auto_out_ar_valid; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_ar_bits_id = axi4buf_17_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_ar_bits_addr = axi4buf_17_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_ar_bits_size = axi4buf_17_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign out_mux_auto_register_in_r_ready = axi4buf_17_auto_out_r_ready; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_aw_valid = axi4buf_16_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_aw_bits_id = axi4buf_16_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_aw_bits_addr = axi4buf_16_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_w_valid = axi4buf_16_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_w_bits_data = axi4buf_16_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_w_bits_strb = axi4buf_16_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_b_ready = axi4buf_16_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_ar_valid = axi4buf_16_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_ar_bits_id = axi4buf_16_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_ar_bits_addr = axi4buf_16_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_ar_bits_size = axi4buf_16_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign out_mux_auto_register_in_r_ready = axi4buf_16_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign out_mux_auto_stream_in_6_valid = buffer_8_auto_out_valid; // @[LazyModule.scala 167:31]
   assign out_mux_auto_stream_in_6_bits_data = buffer_8_auto_out_bits_data; // @[LazyModule.scala 167:31]
   assign out_mux_auto_stream_in_6_bits_last = buffer_8_auto_out_bits_last; // @[LazyModule.scala 167:31]
@@ -31265,18 +30858,18 @@ module SpectrometerTest(
   assign out_mux_auto_stream_out_0_ready = buffer_9_auto_in_ready; // @[LazyModule.scala 167:57]
   assign out_split_clock = clock;
   assign out_split_reset = reset;
-  assign out_split_auto_mem_in_aw_valid = axi4buf_18_auto_out_aw_valid; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_aw_bits_id = axi4buf_18_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_aw_bits_addr = axi4buf_18_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_w_valid = axi4buf_18_auto_out_w_valid; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_w_bits_data = axi4buf_18_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_w_bits_strb = axi4buf_18_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_b_ready = axi4buf_18_auto_out_b_ready; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_ar_valid = axi4buf_18_auto_out_ar_valid; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_ar_bits_id = axi4buf_18_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_ar_bits_addr = axi4buf_18_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_ar_bits_size = axi4buf_18_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign out_split_auto_mem_in_r_ready = axi4buf_18_auto_out_r_ready; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_aw_valid = axi4buf_17_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_aw_bits_id = axi4buf_17_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_aw_bits_addr = axi4buf_17_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_w_valid = axi4buf_17_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_w_bits_data = axi4buf_17_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_w_bits_strb = axi4buf_17_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_b_ready = axi4buf_17_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_ar_valid = axi4buf_17_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_ar_bits_id = axi4buf_17_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_ar_bits_addr = axi4buf_17_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_ar_bits_size = axi4buf_17_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign out_split_auto_mem_in_r_ready = axi4buf_17_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign out_split_auto_stream_in_valid = out_queue_auto_out_out_valid; // @[LazyModule.scala 167:31]
   assign out_split_auto_stream_in_bits_data = out_queue_auto_out_out_bits_data; // @[LazyModule.scala 167:31]
   assign out_split_auto_stream_in_bits_last = out_queue_auto_out_out_bits_last; // @[LazyModule.scala 167:31]
@@ -31313,18 +30906,18 @@ module SpectrometerTest(
   assign widthAdapter_4_auto_out_ready = uRx_split_auto_stream_in_ready; // @[LazyModule.scala 167:57]
   assign uRx_split_clock = clock;
   assign uRx_split_reset = reset;
-  assign uRx_split_auto_mem_in_aw_valid = axi4buf_20_auto_out_aw_valid; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_aw_bits_id = axi4buf_20_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_aw_bits_addr = axi4buf_20_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_w_valid = axi4buf_20_auto_out_w_valid; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_w_bits_data = axi4buf_20_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_w_bits_strb = axi4buf_20_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_b_ready = axi4buf_20_auto_out_b_ready; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_ar_valid = axi4buf_20_auto_out_ar_valid; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_ar_bits_id = axi4buf_20_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_ar_bits_addr = axi4buf_20_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_ar_bits_size = axi4buf_20_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign uRx_split_auto_mem_in_r_ready = axi4buf_20_auto_out_r_ready; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_aw_valid = axi4buf_19_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_aw_bits_id = axi4buf_19_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_aw_bits_addr = axi4buf_19_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_w_valid = axi4buf_19_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_w_bits_data = axi4buf_19_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_w_bits_strb = axi4buf_19_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_b_ready = axi4buf_19_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_ar_valid = axi4buf_19_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_ar_bits_id = axi4buf_19_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_ar_bits_addr = axi4buf_19_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_ar_bits_size = axi4buf_19_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign uRx_split_auto_mem_in_r_ready = axi4buf_19_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign uRx_split_auto_stream_in_valid = widthAdapter_4_auto_out_valid; // @[LazyModule.scala 167:57]
   assign uRx_split_auto_stream_in_bits_data = widthAdapter_4_auto_out_bits_data; // @[LazyModule.scala 167:57]
   assign uRx_split_auto_stream_out_4_ready = buffer_8_auto_in_ready; // @[LazyModule.scala 167:57]
@@ -31334,18 +30927,18 @@ module SpectrometerTest(
   assign uRx_split_auto_stream_out_0_ready = plfg_mux_0_auto_stream_in_2_ready; // @[LazyModule.scala 167:31]
   assign uart_clock = clock;
   assign uart_reset = reset;
-  assign uart_auto_mem_in_aw_valid = axi4buf_19_auto_out_aw_valid; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_aw_bits_id = axi4buf_19_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_aw_bits_addr = axi4buf_19_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_w_valid = axi4buf_19_auto_out_w_valid; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_w_bits_data = axi4buf_19_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_w_bits_strb = axi4buf_19_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_b_ready = axi4buf_19_auto_out_b_ready; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_ar_valid = axi4buf_19_auto_out_ar_valid; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_ar_bits_id = axi4buf_19_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_ar_bits_addr = axi4buf_19_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_ar_bits_size = axi4buf_19_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
-  assign uart_auto_mem_in_r_ready = axi4buf_19_auto_out_r_ready; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_aw_valid = axi4buf_18_auto_out_aw_valid; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_aw_bits_id = axi4buf_18_auto_out_aw_bits_id; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_aw_bits_addr = axi4buf_18_auto_out_aw_bits_addr; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_w_valid = axi4buf_18_auto_out_w_valid; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_w_bits_data = axi4buf_18_auto_out_w_bits_data; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_w_bits_strb = axi4buf_18_auto_out_w_bits_strb; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_b_ready = axi4buf_18_auto_out_b_ready; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_ar_valid = axi4buf_18_auto_out_ar_valid; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_ar_bits_id = axi4buf_18_auto_out_ar_bits_id; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_ar_bits_addr = axi4buf_18_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_ar_bits_size = axi4buf_18_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
+  assign uart_auto_mem_in_r_ready = axi4buf_18_auto_out_r_ready; // @[LazyModule.scala 167:31]
   assign uart_auto_in_in_valid = widthAdapter_3_auto_out_valid; // @[LazyModule.scala 167:57]
   assign uart_auto_in_in_bits_data = widthAdapter_3_auto_out_bits_data; // @[LazyModule.scala 167:57]
   assign uart_auto_out_out_ready = widthAdapter_4_auto_in_ready; // @[LazyModule.scala 167:31]
@@ -31366,26 +30959,15 @@ module SpectrometerTest(
   assign bus_auto_in_ar_bits_addr = converter_auto_out_ar_bits_addr; // @[LazyModule.scala 167:31]
   assign bus_auto_in_ar_bits_size = converter_auto_out_ar_bits_size; // @[LazyModule.scala 167:31]
   assign bus_auto_in_r_ready = converter_auto_out_r_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_21_aw_ready = acc_auto_bus_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_21_w_ready = acc_auto_bus_in_w_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_21_b_valid = acc_auto_bus_in_b_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_21_b_bits_resp = acc_auto_bus_in_b_bits_resp; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_21_ar_ready = acc_auto_bus_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_21_r_valid = acc_auto_bus_in_r_valid; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_21_r_bits_data = acc_auto_bus_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_21_r_bits_resp = acc_auto_bus_in_r_bits_resp; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_21_r_bits_last = acc_auto_bus_in_r_bits_last; // @[LazyModule.scala 167:31]
-  assign bus_auto_out_20_aw_ready = axi4buf_20_auto_in_aw_ready; // @[LazyModule.scala 167:57]
-  assign bus_auto_out_20_w_ready = axi4buf_20_auto_in_w_ready; // @[LazyModule.scala 167:57]
-  assign bus_auto_out_20_b_valid = axi4buf_20_auto_in_b_valid; // @[LazyModule.scala 167:57]
-  assign bus_auto_out_20_b_bits_id = axi4buf_20_auto_in_b_bits_id; // @[LazyModule.scala 167:57]
-  assign bus_auto_out_20_b_bits_resp = axi4buf_20_auto_in_b_bits_resp; // @[LazyModule.scala 167:57]
-  assign bus_auto_out_20_ar_ready = axi4buf_20_auto_in_ar_ready; // @[LazyModule.scala 167:57]
-  assign bus_auto_out_20_r_valid = axi4buf_20_auto_in_r_valid; // @[LazyModule.scala 167:57]
-  assign bus_auto_out_20_r_bits_id = axi4buf_20_auto_in_r_bits_id; // @[LazyModule.scala 167:57]
-  assign bus_auto_out_20_r_bits_data = axi4buf_20_auto_in_r_bits_data; // @[LazyModule.scala 167:57]
-  assign bus_auto_out_20_r_bits_resp = axi4buf_20_auto_in_r_bits_resp; // @[LazyModule.scala 167:57]
-  assign bus_auto_out_20_r_bits_last = axi4buf_20_auto_in_r_bits_last; // @[LazyModule.scala 167:57]
+  assign bus_auto_out_20_aw_ready = acc_auto_bus_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign bus_auto_out_20_w_ready = acc_auto_bus_in_w_ready; // @[LazyModule.scala 167:31]
+  assign bus_auto_out_20_b_valid = acc_auto_bus_in_b_valid; // @[LazyModule.scala 167:31]
+  assign bus_auto_out_20_b_bits_resp = acc_auto_bus_in_b_bits_resp; // @[LazyModule.scala 167:31]
+  assign bus_auto_out_20_ar_ready = acc_auto_bus_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign bus_auto_out_20_r_valid = acc_auto_bus_in_r_valid; // @[LazyModule.scala 167:31]
+  assign bus_auto_out_20_r_bits_data = acc_auto_bus_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign bus_auto_out_20_r_bits_resp = acc_auto_bus_in_r_bits_resp; // @[LazyModule.scala 167:31]
+  assign bus_auto_out_20_r_bits_last = acc_auto_bus_in_r_bits_last; // @[LazyModule.scala 167:31]
   assign bus_auto_out_19_aw_ready = axi4buf_19_auto_in_aw_ready; // @[LazyModule.scala 167:57]
   assign bus_auto_out_19_w_ready = axi4buf_19_auto_in_w_ready; // @[LazyModule.scala 167:57]
   assign bus_auto_out_19_b_valid = axi4buf_19_auto_in_b_valid; // @[LazyModule.scala 167:57]
@@ -31757,17 +31339,17 @@ module SpectrometerTest(
   assign axi4buf_5_auto_in_ar_bits_addr = bus_auto_out_5_ar_bits_addr; // @[LazyModule.scala 167:57]
   assign axi4buf_5_auto_in_ar_bits_size = bus_auto_out_5_ar_bits_size; // @[LazyModule.scala 167:57]
   assign axi4buf_5_auto_in_r_ready = bus_auto_out_5_r_ready; // @[LazyModule.scala 167:57]
-  assign axi4buf_5_auto_out_aw_ready = 1'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_5_auto_out_w_ready = 1'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_5_auto_out_b_valid = 1'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_5_auto_out_b_bits_id = 1'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_aw_ready = nco_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_w_ready = nco_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_b_valid = nco_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_b_bits_id = nco_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
   assign axi4buf_5_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_5_auto_out_ar_ready = 1'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_5_auto_out_r_valid = 1'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_5_auto_out_r_bits_id = 1'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_5_auto_out_r_bits_data = 32'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_ar_ready = nco_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_r_valid = nco_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_r_bits_id = nco_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_r_bits_data = nco_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
   assign axi4buf_5_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_5_auto_out_r_bits_last = 1'h0; // @[LazyModule.scala 167:31]
+  assign axi4buf_5_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
   assign axi4buf_6_clock = clock;
   assign axi4buf_6_reset = reset;
   assign axi4buf_6_auto_in_aw_valid = bus_auto_out_6_aw_valid; // @[LazyModule.scala 167:57]
@@ -31784,15 +31366,15 @@ module SpectrometerTest(
   assign axi4buf_6_auto_in_ar_bits_addr = bus_auto_out_6_ar_bits_addr; // @[LazyModule.scala 167:57]
   assign axi4buf_6_auto_in_ar_bits_size = bus_auto_out_6_ar_bits_size; // @[LazyModule.scala 167:57]
   assign axi4buf_6_auto_in_r_ready = bus_auto_out_6_r_ready; // @[LazyModule.scala 167:57]
-  assign axi4buf_6_auto_out_aw_ready = nco_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_6_auto_out_w_ready = nco_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_6_auto_out_b_valid = nco_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_6_auto_out_b_bits_id = nco_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_auto_out_aw_ready = nco_mux_0_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_auto_out_w_ready = nco_mux_0_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_auto_out_b_valid = nco_mux_0_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_auto_out_b_bits_id = nco_mux_0_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
   assign axi4buf_6_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_6_auto_out_ar_ready = nco_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_6_auto_out_r_valid = nco_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_6_auto_out_r_bits_id = nco_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign axi4buf_6_auto_out_r_bits_data = nco_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_auto_out_ar_ready = nco_mux_0_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_auto_out_r_valid = nco_mux_0_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_auto_out_r_bits_id = nco_mux_0_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_6_auto_out_r_bits_data = nco_mux_0_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
   assign axi4buf_6_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
   assign axi4buf_6_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
   assign axi4buf_7_clock = clock;
@@ -31811,15 +31393,15 @@ module SpectrometerTest(
   assign axi4buf_7_auto_in_ar_bits_addr = bus_auto_out_7_ar_bits_addr; // @[LazyModule.scala 167:57]
   assign axi4buf_7_auto_in_ar_bits_size = bus_auto_out_7_ar_bits_size; // @[LazyModule.scala 167:57]
   assign axi4buf_7_auto_in_r_ready = bus_auto_out_7_r_ready; // @[LazyModule.scala 167:57]
-  assign axi4buf_7_auto_out_aw_ready = nco_mux_0_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_7_auto_out_w_ready = nco_mux_0_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_7_auto_out_b_valid = nco_mux_0_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_7_auto_out_b_bits_id = nco_mux_0_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_auto_out_aw_ready = nco_mux_1_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_auto_out_w_ready = nco_mux_1_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_auto_out_b_valid = nco_mux_1_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_auto_out_b_bits_id = nco_mux_1_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
   assign axi4buf_7_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_7_auto_out_ar_ready = nco_mux_0_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_7_auto_out_r_valid = nco_mux_0_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_7_auto_out_r_bits_id = nco_mux_0_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign axi4buf_7_auto_out_r_bits_data = nco_mux_0_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_auto_out_ar_ready = nco_mux_1_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_auto_out_r_valid = nco_mux_1_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_auto_out_r_bits_id = nco_mux_1_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_7_auto_out_r_bits_data = nco_mux_1_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
   assign axi4buf_7_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
   assign axi4buf_7_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
   assign axi4buf_8_clock = clock;
@@ -31838,15 +31420,15 @@ module SpectrometerTest(
   assign axi4buf_8_auto_in_ar_bits_addr = bus_auto_out_8_ar_bits_addr; // @[LazyModule.scala 167:57]
   assign axi4buf_8_auto_in_ar_bits_size = bus_auto_out_8_ar_bits_size; // @[LazyModule.scala 167:57]
   assign axi4buf_8_auto_in_r_ready = bus_auto_out_8_r_ready; // @[LazyModule.scala 167:57]
-  assign axi4buf_8_auto_out_aw_ready = nco_mux_1_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_8_auto_out_w_ready = nco_mux_1_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_8_auto_out_b_valid = nco_mux_1_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_8_auto_out_b_bits_id = nco_mux_1_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_auto_out_aw_ready = fft_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_auto_out_w_ready = fft_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_auto_out_b_valid = fft_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_auto_out_b_bits_id = fft_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
   assign axi4buf_8_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_8_auto_out_ar_ready = nco_mux_1_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_8_auto_out_r_valid = nco_mux_1_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_8_auto_out_r_bits_id = nco_mux_1_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign axi4buf_8_auto_out_r_bits_data = nco_mux_1_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_auto_out_ar_ready = fft_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_auto_out_r_valid = fft_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_auto_out_r_bits_id = fft_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_8_auto_out_r_bits_data = fft_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
   assign axi4buf_8_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
   assign axi4buf_8_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
   assign axi4buf_9_clock = clock;
@@ -31865,15 +31447,15 @@ module SpectrometerTest(
   assign axi4buf_9_auto_in_ar_bits_addr = bus_auto_out_9_ar_bits_addr; // @[LazyModule.scala 167:57]
   assign axi4buf_9_auto_in_ar_bits_size = bus_auto_out_9_ar_bits_size; // @[LazyModule.scala 167:57]
   assign axi4buf_9_auto_in_r_ready = bus_auto_out_9_r_ready; // @[LazyModule.scala 167:57]
-  assign axi4buf_9_auto_out_aw_ready = fft_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_9_auto_out_w_ready = fft_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_9_auto_out_b_valid = fft_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_9_auto_out_b_bits_id = fft_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_auto_out_aw_ready = fft_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_auto_out_w_ready = fft_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_auto_out_b_valid = fft_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_auto_out_b_bits_id = fft_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
   assign axi4buf_9_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_9_auto_out_ar_ready = fft_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_9_auto_out_r_valid = fft_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_9_auto_out_r_bits_id = fft_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign axi4buf_9_auto_out_r_bits_data = fft_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_auto_out_ar_ready = fft_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_auto_out_r_valid = fft_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_auto_out_r_bits_id = fft_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_9_auto_out_r_bits_data = fft_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
   assign axi4buf_9_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
   assign axi4buf_9_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
   assign axi4buf_10_clock = clock;
@@ -31892,15 +31474,15 @@ module SpectrometerTest(
   assign axi4buf_10_auto_in_ar_bits_addr = bus_auto_out_10_ar_bits_addr; // @[LazyModule.scala 167:57]
   assign axi4buf_10_auto_in_ar_bits_size = bus_auto_out_10_ar_bits_size; // @[LazyModule.scala 167:57]
   assign axi4buf_10_auto_in_r_ready = bus_auto_out_10_r_ready; // @[LazyModule.scala 167:57]
-  assign axi4buf_10_auto_out_aw_ready = fft_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_10_auto_out_w_ready = fft_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_10_auto_out_b_valid = fft_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_10_auto_out_b_bits_id = fft_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_auto_out_aw_ready = fft_mux_0_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_auto_out_w_ready = fft_mux_0_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_auto_out_b_valid = fft_mux_0_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_auto_out_b_bits_id = fft_mux_0_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
   assign axi4buf_10_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_10_auto_out_ar_ready = fft_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_10_auto_out_r_valid = fft_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_10_auto_out_r_bits_id = fft_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign axi4buf_10_auto_out_r_bits_data = fft_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_auto_out_ar_ready = fft_mux_0_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_auto_out_r_valid = fft_mux_0_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_auto_out_r_bits_id = fft_mux_0_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_10_auto_out_r_bits_data = fft_mux_0_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
   assign axi4buf_10_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
   assign axi4buf_10_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
   assign axi4buf_11_clock = clock;
@@ -31919,15 +31501,15 @@ module SpectrometerTest(
   assign axi4buf_11_auto_in_ar_bits_addr = bus_auto_out_11_ar_bits_addr; // @[LazyModule.scala 167:57]
   assign axi4buf_11_auto_in_ar_bits_size = bus_auto_out_11_ar_bits_size; // @[LazyModule.scala 167:57]
   assign axi4buf_11_auto_in_r_ready = bus_auto_out_11_r_ready; // @[LazyModule.scala 167:57]
-  assign axi4buf_11_auto_out_aw_ready = fft_mux_0_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_11_auto_out_w_ready = fft_mux_0_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_11_auto_out_b_valid = fft_mux_0_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_11_auto_out_b_bits_id = fft_mux_0_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_auto_out_aw_ready = fft_mux_1_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_auto_out_w_ready = fft_mux_1_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_auto_out_b_valid = fft_mux_1_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_auto_out_b_bits_id = fft_mux_1_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
   assign axi4buf_11_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_11_auto_out_ar_ready = fft_mux_0_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_11_auto_out_r_valid = fft_mux_0_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_11_auto_out_r_bits_id = fft_mux_0_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign axi4buf_11_auto_out_r_bits_data = fft_mux_0_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_auto_out_ar_ready = fft_mux_1_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_auto_out_r_valid = fft_mux_1_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_auto_out_r_bits_id = fft_mux_1_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_11_auto_out_r_bits_data = fft_mux_1_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
   assign axi4buf_11_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
   assign axi4buf_11_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
   assign axi4buf_12_clock = clock;
@@ -31946,15 +31528,15 @@ module SpectrometerTest(
   assign axi4buf_12_auto_in_ar_bits_addr = bus_auto_out_12_ar_bits_addr; // @[LazyModule.scala 167:57]
   assign axi4buf_12_auto_in_ar_bits_size = bus_auto_out_12_ar_bits_size; // @[LazyModule.scala 167:57]
   assign axi4buf_12_auto_in_r_ready = bus_auto_out_12_r_ready; // @[LazyModule.scala 167:57]
-  assign axi4buf_12_auto_out_aw_ready = fft_mux_1_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_12_auto_out_w_ready = fft_mux_1_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_12_auto_out_b_valid = fft_mux_1_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_12_auto_out_b_bits_id = fft_mux_1_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_auto_out_aw_ready = mag_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_auto_out_w_ready = mag_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_auto_out_b_valid = mag_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_auto_out_b_bits_id = mag_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
   assign axi4buf_12_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_12_auto_out_ar_ready = fft_mux_1_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_12_auto_out_r_valid = fft_mux_1_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_12_auto_out_r_bits_id = fft_mux_1_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign axi4buf_12_auto_out_r_bits_data = fft_mux_1_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_auto_out_ar_ready = mag_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_auto_out_r_valid = mag_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_auto_out_r_bits_id = mag_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_12_auto_out_r_bits_data = mag_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
   assign axi4buf_12_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
   assign axi4buf_12_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
   assign axi4buf_13_clock = clock;
@@ -31973,15 +31555,15 @@ module SpectrometerTest(
   assign axi4buf_13_auto_in_ar_bits_addr = bus_auto_out_13_ar_bits_addr; // @[LazyModule.scala 167:57]
   assign axi4buf_13_auto_in_ar_bits_size = bus_auto_out_13_ar_bits_size; // @[LazyModule.scala 167:57]
   assign axi4buf_13_auto_in_r_ready = bus_auto_out_13_r_ready; // @[LazyModule.scala 167:57]
-  assign axi4buf_13_auto_out_aw_ready = mag_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_13_auto_out_w_ready = mag_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_13_auto_out_b_valid = mag_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_13_auto_out_b_bits_id = mag_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_auto_out_aw_ready = mag_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_auto_out_w_ready = mag_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_auto_out_b_valid = mag_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_auto_out_b_bits_id = mag_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
   assign axi4buf_13_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_13_auto_out_ar_ready = mag_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_13_auto_out_r_valid = mag_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_13_auto_out_r_bits_id = mag_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign axi4buf_13_auto_out_r_bits_data = mag_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_auto_out_ar_ready = mag_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_auto_out_r_valid = mag_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_auto_out_r_bits_id = mag_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_13_auto_out_r_bits_data = mag_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
   assign axi4buf_13_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
   assign axi4buf_13_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
   assign axi4buf_14_clock = clock;
@@ -32000,15 +31582,15 @@ module SpectrometerTest(
   assign axi4buf_14_auto_in_ar_bits_addr = bus_auto_out_14_ar_bits_addr; // @[LazyModule.scala 167:57]
   assign axi4buf_14_auto_in_ar_bits_size = bus_auto_out_14_ar_bits_size; // @[LazyModule.scala 167:57]
   assign axi4buf_14_auto_in_r_ready = bus_auto_out_14_r_ready; // @[LazyModule.scala 167:57]
-  assign axi4buf_14_auto_out_aw_ready = mag_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_14_auto_out_w_ready = mag_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_14_auto_out_b_valid = mag_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_14_auto_out_b_bits_id = mag_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_auto_out_aw_ready = mag_mux_0_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_auto_out_w_ready = mag_mux_0_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_auto_out_b_valid = mag_mux_0_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_auto_out_b_bits_id = mag_mux_0_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
   assign axi4buf_14_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_14_auto_out_ar_ready = mag_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_14_auto_out_r_valid = mag_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_14_auto_out_r_bits_id = mag_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign axi4buf_14_auto_out_r_bits_data = mag_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_auto_out_ar_ready = mag_mux_0_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_auto_out_r_valid = mag_mux_0_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_auto_out_r_bits_id = mag_mux_0_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_14_auto_out_r_bits_data = mag_mux_0_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
   assign axi4buf_14_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
   assign axi4buf_14_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
   assign axi4buf_15_clock = clock;
@@ -32027,15 +31609,15 @@ module SpectrometerTest(
   assign axi4buf_15_auto_in_ar_bits_addr = bus_auto_out_15_ar_bits_addr; // @[LazyModule.scala 167:57]
   assign axi4buf_15_auto_in_ar_bits_size = bus_auto_out_15_ar_bits_size; // @[LazyModule.scala 167:57]
   assign axi4buf_15_auto_in_r_ready = bus_auto_out_15_r_ready; // @[LazyModule.scala 167:57]
-  assign axi4buf_15_auto_out_aw_ready = mag_mux_0_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_15_auto_out_w_ready = mag_mux_0_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_15_auto_out_b_valid = mag_mux_0_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_15_auto_out_b_bits_id = mag_mux_0_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_auto_out_aw_ready = mag_mux_1_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_auto_out_w_ready = mag_mux_1_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_auto_out_b_valid = mag_mux_1_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_auto_out_b_bits_id = mag_mux_1_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
   assign axi4buf_15_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_15_auto_out_ar_ready = mag_mux_0_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_15_auto_out_r_valid = mag_mux_0_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_15_auto_out_r_bits_id = mag_mux_0_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign axi4buf_15_auto_out_r_bits_data = mag_mux_0_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_auto_out_ar_ready = mag_mux_1_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_auto_out_r_valid = mag_mux_1_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_auto_out_r_bits_id = mag_mux_1_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_15_auto_out_r_bits_data = mag_mux_1_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
   assign axi4buf_15_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
   assign axi4buf_15_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
   assign axi4buf_16_clock = clock;
@@ -32054,15 +31636,15 @@ module SpectrometerTest(
   assign axi4buf_16_auto_in_ar_bits_addr = bus_auto_out_16_ar_bits_addr; // @[LazyModule.scala 167:57]
   assign axi4buf_16_auto_in_ar_bits_size = bus_auto_out_16_ar_bits_size; // @[LazyModule.scala 167:57]
   assign axi4buf_16_auto_in_r_ready = bus_auto_out_16_r_ready; // @[LazyModule.scala 167:57]
-  assign axi4buf_16_auto_out_aw_ready = mag_mux_1_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_16_auto_out_w_ready = mag_mux_1_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_16_auto_out_b_valid = mag_mux_1_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_16_auto_out_b_bits_id = mag_mux_1_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_auto_out_aw_ready = out_mux_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_auto_out_w_ready = out_mux_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_auto_out_b_valid = out_mux_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_auto_out_b_bits_id = out_mux_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
   assign axi4buf_16_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_16_auto_out_ar_ready = mag_mux_1_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_16_auto_out_r_valid = mag_mux_1_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_16_auto_out_r_bits_id = mag_mux_1_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign axi4buf_16_auto_out_r_bits_data = mag_mux_1_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_auto_out_ar_ready = out_mux_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_auto_out_r_valid = out_mux_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_auto_out_r_bits_id = out_mux_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_16_auto_out_r_bits_data = out_mux_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
   assign axi4buf_16_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
   assign axi4buf_16_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
   assign axi4buf_17_clock = clock;
@@ -32081,15 +31663,15 @@ module SpectrometerTest(
   assign axi4buf_17_auto_in_ar_bits_addr = bus_auto_out_17_ar_bits_addr; // @[LazyModule.scala 167:57]
   assign axi4buf_17_auto_in_ar_bits_size = bus_auto_out_17_ar_bits_size; // @[LazyModule.scala 167:57]
   assign axi4buf_17_auto_in_r_ready = bus_auto_out_17_r_ready; // @[LazyModule.scala 167:57]
-  assign axi4buf_17_auto_out_aw_ready = out_mux_auto_register_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_17_auto_out_w_ready = out_mux_auto_register_in_w_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_17_auto_out_b_valid = out_mux_auto_register_in_b_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_17_auto_out_b_bits_id = out_mux_auto_register_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_auto_out_aw_ready = out_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_auto_out_w_ready = out_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_auto_out_b_valid = out_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_auto_out_b_bits_id = out_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
   assign axi4buf_17_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_17_auto_out_ar_ready = out_mux_auto_register_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_17_auto_out_r_valid = out_mux_auto_register_in_r_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_17_auto_out_r_bits_id = out_mux_auto_register_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign axi4buf_17_auto_out_r_bits_data = out_mux_auto_register_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_auto_out_ar_ready = out_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_auto_out_r_valid = out_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_auto_out_r_bits_id = out_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_17_auto_out_r_bits_data = out_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
   assign axi4buf_17_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
   assign axi4buf_17_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
   assign axi4buf_18_clock = clock;
@@ -32108,15 +31690,15 @@ module SpectrometerTest(
   assign axi4buf_18_auto_in_ar_bits_addr = bus_auto_out_18_ar_bits_addr; // @[LazyModule.scala 167:57]
   assign axi4buf_18_auto_in_ar_bits_size = bus_auto_out_18_ar_bits_size; // @[LazyModule.scala 167:57]
   assign axi4buf_18_auto_in_r_ready = bus_auto_out_18_r_ready; // @[LazyModule.scala 167:57]
-  assign axi4buf_18_auto_out_aw_ready = out_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_18_auto_out_w_ready = out_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_18_auto_out_b_valid = out_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_18_auto_out_b_bits_id = out_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_auto_out_aw_ready = uart_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_auto_out_w_ready = uart_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_auto_out_b_valid = uart_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_auto_out_b_bits_id = uart_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
   assign axi4buf_18_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_18_auto_out_ar_ready = out_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_18_auto_out_r_valid = out_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_18_auto_out_r_bits_id = out_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign axi4buf_18_auto_out_r_bits_data = out_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_auto_out_ar_ready = uart_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_auto_out_r_valid = uart_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_auto_out_r_bits_id = uart_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_18_auto_out_r_bits_data = uart_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
   assign axi4buf_18_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
   assign axi4buf_18_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
   assign axi4buf_19_clock = clock;
@@ -32135,44 +31717,17 @@ module SpectrometerTest(
   assign axi4buf_19_auto_in_ar_bits_addr = bus_auto_out_19_ar_bits_addr; // @[LazyModule.scala 167:57]
   assign axi4buf_19_auto_in_ar_bits_size = bus_auto_out_19_ar_bits_size; // @[LazyModule.scala 167:57]
   assign axi4buf_19_auto_in_r_ready = bus_auto_out_19_r_ready; // @[LazyModule.scala 167:57]
-  assign axi4buf_19_auto_out_aw_ready = uart_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_19_auto_out_w_ready = uart_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_19_auto_out_b_valid = uart_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_19_auto_out_b_bits_id = uart_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_auto_out_aw_ready = uRx_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_auto_out_w_ready = uRx_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_auto_out_b_valid = uRx_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_auto_out_b_bits_id = uRx_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
   assign axi4buf_19_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_19_auto_out_ar_ready = uart_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_19_auto_out_r_valid = uart_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_19_auto_out_r_bits_id = uart_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign axi4buf_19_auto_out_r_bits_data = uart_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_auto_out_ar_ready = uRx_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_auto_out_r_valid = uRx_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_auto_out_r_bits_id = uRx_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
+  assign axi4buf_19_auto_out_r_bits_data = uRx_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
   assign axi4buf_19_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
   assign axi4buf_19_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
-  assign axi4buf_20_clock = clock;
-  assign axi4buf_20_reset = reset;
-  assign axi4buf_20_auto_in_aw_valid = bus_auto_out_20_aw_valid; // @[LazyModule.scala 167:57]
-  assign axi4buf_20_auto_in_aw_bits_id = bus_auto_out_20_aw_bits_id; // @[LazyModule.scala 167:57]
-  assign axi4buf_20_auto_in_aw_bits_addr = bus_auto_out_20_aw_bits_addr; // @[LazyModule.scala 167:57]
-  assign axi4buf_20_auto_in_aw_bits_size = bus_auto_out_20_aw_bits_size; // @[LazyModule.scala 167:57]
-  assign axi4buf_20_auto_in_w_valid = bus_auto_out_20_w_valid; // @[LazyModule.scala 167:57]
-  assign axi4buf_20_auto_in_w_bits_data = bus_auto_out_20_w_bits_data; // @[LazyModule.scala 167:57]
-  assign axi4buf_20_auto_in_w_bits_strb = bus_auto_out_20_w_bits_strb; // @[LazyModule.scala 167:57]
-  assign axi4buf_20_auto_in_w_bits_last = bus_auto_out_20_w_bits_last; // @[LazyModule.scala 167:57]
-  assign axi4buf_20_auto_in_b_ready = bus_auto_out_20_b_ready; // @[LazyModule.scala 167:57]
-  assign axi4buf_20_auto_in_ar_valid = bus_auto_out_20_ar_valid; // @[LazyModule.scala 167:57]
-  assign axi4buf_20_auto_in_ar_bits_id = bus_auto_out_20_ar_bits_id; // @[LazyModule.scala 167:57]
-  assign axi4buf_20_auto_in_ar_bits_addr = bus_auto_out_20_ar_bits_addr; // @[LazyModule.scala 167:57]
-  assign axi4buf_20_auto_in_ar_bits_size = bus_auto_out_20_ar_bits_size; // @[LazyModule.scala 167:57]
-  assign axi4buf_20_auto_in_r_ready = bus_auto_out_20_r_ready; // @[LazyModule.scala 167:57]
-  assign axi4buf_20_auto_out_aw_ready = uRx_split_auto_mem_in_aw_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_20_auto_out_w_ready = uRx_split_auto_mem_in_w_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_20_auto_out_b_valid = uRx_split_auto_mem_in_b_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_20_auto_out_b_bits_id = uRx_split_auto_mem_in_b_bits_id; // @[LazyModule.scala 167:31]
-  assign axi4buf_20_auto_out_b_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_20_auto_out_ar_ready = uRx_split_auto_mem_in_ar_ready; // @[LazyModule.scala 167:31]
-  assign axi4buf_20_auto_out_r_valid = uRx_split_auto_mem_in_r_valid; // @[LazyModule.scala 167:31]
-  assign axi4buf_20_auto_out_r_bits_id = uRx_split_auto_mem_in_r_bits_id; // @[LazyModule.scala 167:31]
-  assign axi4buf_20_auto_out_r_bits_data = uRx_split_auto_mem_in_r_bits_data; // @[LazyModule.scala 167:31]
-  assign axi4buf_20_auto_out_r_bits_resp = 2'h0; // @[LazyModule.scala 167:31]
-  assign axi4buf_20_auto_out_r_bits_last = 1'h1; // @[LazyModule.scala 167:31]
   assign buffer_clock = clock;
   assign buffer_reset = reset;
   assign buffer_auto_in_valid = nco_mux_0_auto_stream_out_0_valid; // @[LazyModule.scala 167:57]
