@@ -59,12 +59,6 @@ lazy val plfg = (project in file("generators/plfg"))
 lazy val nco = (project in file("generators/nco"))
   .settings(commonSettings: _*)
 
-lazy val uart = (project in file("generators/uart"))
-  .settings(commonSettings: _*)
-
-lazy val splitter = (project in file("generators/splitter"))
-  .settings(commonSettings: _*)
-
 lazy val rspChain = (project in file("."))
-  .dependsOn(fft, logMagMux, accumulator, nco, plfg, uart, splitter)
+  .dependsOn(fft, logMagMux, accumulator, nco, plfg)
   .settings(commonSettings: _*)
