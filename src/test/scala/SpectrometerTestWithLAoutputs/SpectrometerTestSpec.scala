@@ -39,8 +39,10 @@ import java.io._
 class SpectrometerTestSpec extends FlatSpec with Matchers {
   implicit val p: Parameters = Parameters.empty
 
+  val fftSize = sys.props("fftSize.property")
+
   // here just define parameters
-  val params = (new SpectrometerTestParams).params
+  val params = (new SpectrometerTestParams(fftSize.toInt)).params
     
   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   // PLFG -> NCO -> parallel_out

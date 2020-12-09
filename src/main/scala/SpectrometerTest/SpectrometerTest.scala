@@ -291,7 +291,7 @@ trait SpectrometerTestPins extends SpectrometerTest {
     val inStream = InModuleBody { ioparallelin.makeIO() }
 }
 
-class SpectrometerTestParams {
+class SpectrometerTestParams(fftSize: Int) {
  val params = 
     SpectrometerTestParameters (
       plfgParams = FixedPLFGParams(
@@ -320,14 +320,14 @@ class SpectrometerTestParams {
       fftParams = FFTParams.fixed(
         dataWidth = 16,
         twiddleWidth = 16,
-        numPoints = 64,
+        numPoints = fftSize,
         useBitReverse = false,
         runTime = true,
         numAddPipes = 1,
         numMulPipes = 1,
-        expandLogic = Array.fill(log2Up(64))(0),
-        keepMSBorLSB = Array.fill(log2Up(64))(true),
-        minSRAMdepth = 64,
+        expandLogic = Array.fill(log2Up(fftSize))(0),
+        keepMSBorLSB = Array.fill(log2Up(fftSize))(true),
+        minSRAMdepth = fftSize,
         binPoint = 0
       ),
       magParams = MAGParams.fixed(
@@ -343,7 +343,7 @@ class SpectrometerTestParams {
       accParams = AccParams(
         proto = FixedPoint(16.W, 0.BP),
         protoAcc = FixedPoint(32.W, 0.BP),
-        accDepth = 64
+        accDepth = fftSize
       ),
       inSplitAddress   = AddressSet(0x30000000, 0xF),
       plfgRAM          = AddressSet(0x30001000, 0xFFF),
@@ -375,7 +375,8 @@ class SpectrometerTestParams {
 
 object SpectrometerTestApp extends App
 {
-  val params = (new SpectrometerTestParams).params
+  val fftSize = args(0).toInt
+  val params = (new SpectrometerTestParams(fftSize)).params
 
   implicit val p: Parameters = Parameters.empty
   val standaloneModule = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
