@@ -43,46 +43,6 @@ class SpectrometerTestSpec extends FlatSpec with Matchers {
 
   // here just define parameters
   val params = (new SpectrometerTestParams(fftSize.toInt)).params
-    
-  //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  // PLFG -> NCO -> parallel_out
-  //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  behavior of "PLFG_NCO_POUT_Spectrometer" 
-  
-  it should "work" in {
-    
-    val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
-    chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/plfg_nco_pout", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
-      c => new PLFG_NCO_POUT_SpectrometerTester(lazyDut, params, true)
-    } should be (true)
-  }
-
-  //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  // PLFG -> NCO -> FFT -> parallel_out
-  //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  behavior of "PLFG_NCO_FFT_POUT_Spectrometer" 
-  
-  it should "work" in {
-  
-    val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
-    chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/plfg_nco_fft_pout", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
-      c => new PLFG_NCO_FFT_POUT_SpectrometerTester(lazyDut, params, true)
-    } should be (true)
-  }
-
-  //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  // PLFG -> NCO -> FFT -> MAG -> parallel_out
-  //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  behavior of "PLFG_NCO_FFT_MAG_POUT_Spectrometer" 
-  
-  it should "work" in {
-    
-    val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
-    chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/plfg_nco_fft_mag_pout", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
-      c => new PLFG_NCO_FFT_MAG_POUT_SpectrometerTester(lazyDut, params, true)
-    } should be (true)
-  }
 
   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   // PLFG -> NCO -> FFT -> MAG -> ACC -> parallel_out
@@ -137,6 +97,46 @@ class SpectrometerTestSpec extends FlatSpec with Matchers {
       c => new PIN_NCO_FFT_MAG_ACC_POUT_SpectrometerTester(lazyDut, params, true)
     } should be (true)
   }
+
+//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//   // PLFG -> NCO -> parallel_out
+//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//   behavior of "PLFG_NCO_POUT_Spectrometer" 
+  
+//   it should "work" in {
+    
+//     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
+//     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/plfg_nco_pout", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
+//       c => new PLFG_NCO_POUT_SpectrometerTester(lazyDut, params, true)
+//     } should be (true)
+//   }
+
+//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//   // PLFG -> NCO -> FFT -> parallel_out
+//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//   behavior of "PLFG_NCO_FFT_POUT_Spectrometer" 
+  
+//   it should "work" in {
+  
+//     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
+//     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/plfg_nco_fft_pout", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
+//       c => new PLFG_NCO_FFT_POUT_SpectrometerTester(lazyDut, params, true)
+//     } should be (true)
+//   }
+
+//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//   // PLFG -> NCO -> FFT -> MAG -> parallel_out
+//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//   behavior of "PLFG_NCO_FFT_MAG_POUT_Spectrometer" 
+  
+//   it should "work" in {
+    
+//     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
+//     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/plfg_nco_fft_mag_pout", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
+//       c => new PLFG_NCO_FFT_MAG_POUT_SpectrometerTester(lazyDut, params, true)
+//     } should be (true)
+//   }
 
 // //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //   // PIN -> POUT
