@@ -1,4 +1,5 @@
 // See LICENSE for license details.
+
 package uart
 
 import freechips.rocketchip.diplomaticobjectmodel.model.{OMDevice, OMInterrupt, OMMemoryRegion}

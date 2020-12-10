@@ -1,4 +1,5 @@
 // See LICENSE for license details.
+
 package uart
 
 import Chisel._
