@@ -246,7 +246,7 @@ val params =
         roundingMode = RoundHalfUp,
         pincType = Streaming,
         poffType = Fixed,
-        useMultiplier = false
+        useMultiplier = true
       ),
       fftParams = FFTParams.fixed(
         dataWidth = 16,
