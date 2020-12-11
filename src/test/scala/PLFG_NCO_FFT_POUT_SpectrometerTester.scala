@@ -130,7 +130,7 @@ class PLFG_NCO_FFT_POUT_SpectrometerTester
   val chiselFFTForPlot = complexOut.map(c => c.abs.toLong).toSeq
 
   // Plot accelerator data
-  SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PLFG -> NCO -> FFT -> POUT", fileName = "SpectrometerTest/plfg_nco_fft_pout/data.pdf")
+ //SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PLFG -> NCO -> FFT -> POUT", fileName = "SpectrometerTest/plfg_nco_fft_pout/data.pdf")
 
   // Write output data to text file
   val file = new File("./test_run_dir/SpectrometerTest/plfg_nco_fft_pout/data.txt")

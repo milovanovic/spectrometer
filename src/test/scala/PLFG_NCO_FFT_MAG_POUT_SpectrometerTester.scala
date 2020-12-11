@@ -129,7 +129,7 @@ class PLFG_NCO_FFT_MAG_POUT_SpectrometerTester
   }
 
   // Plot accelerator data
-  SpectrometerTesterUtils.plot_data(inputData = imagSeq.map(c => c.toInt), plotName = "PLFG -> NCO -> FFT -> MAG -> POUT", fileName = "SpectrometerTest/plfg_nco_fft_mag_pout/data.pdf")
+  //SpectrometerTesterUtils.plot_data(inputData = imagSeq.map(c => c.toInt), plotName = "PLFG -> NCO -> FFT -> MAG -> POUT", fileName = "SpectrometerTest/plfg_nco_fft_mag_pout/data.pdf")
 
   // Write output data to text file
   val file = new File("./test_run_dir/SpectrometerTest/plfg_nco_fft_mag_pout/data.txt")

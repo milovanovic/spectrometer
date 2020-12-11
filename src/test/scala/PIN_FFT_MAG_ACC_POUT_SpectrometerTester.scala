@@ -139,7 +139,7 @@ class PIN_FFT_MAG_ACC_POUT_SpectrometerTester
   val chiselFFTForPlot = if (params.accParams.bitReversal || params.fftParams.useBitReverse) realSeq.map(c => c.toLong).toSeq else SpectrometerTesterUtils.bitrevorder_data(realSeq).map(c => c.toLong)
 
   // Plot accelerator data
-  SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PIN -> FFT -> MAG -> ACC -> POUT", fileName = "SpectrometerTest/pin_fft_mag_acc_pout.pdf")
+  //SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PIN -> FFT -> MAG -> ACC -> POUT", fileName = "SpectrometerTest/pin_fft_mag_acc_pout.pdf")
 
   // Write output data to text file
   val file = new File("./test_run_dir/SpectrometerTest/data.txt")

@@ -102,8 +102,8 @@ class SpectrometerTestSpec extends FlatSpec with Matchers {
   }
 
 // //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//   // PIN -> POUT
-//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  PIN -> POUT
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   it should "test pin -> pout streaming path" in {
   
@@ -115,8 +115,8 @@ class SpectrometerTestSpec extends FlatSpec with Matchers {
 
 
 //   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//   // PIN -> FFT -> POUT
-//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  PIN -> FFT -> POUT
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   it should "test pin -> fft -> pout streaming path" in {
     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/PIN_FFT_POUT", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
@@ -125,8 +125,8 @@ class SpectrometerTestSpec extends FlatSpec with Matchers {
   }
 
 //   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//   // PIN -> FFT -> MAG -> POUT
-//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  PIN -> FFT -> MAG -> POUT
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   it should "test pin -> fft -> mag -> pout streaming path" in {
     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/PIN_FFT_MAG_POUT", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
@@ -135,8 +135,8 @@ class SpectrometerTestSpec extends FlatSpec with Matchers {
   }
 
 //   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// //   // PIN -> FFT -> MAG -> ACC -> POUT
-// //   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  PIN -> FFT -> MAG -> ACC -> POUT
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   it should "test pin -> fft -> mag -> acc -> pout streaming path" in {
     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/PIN_FFT_MAG_ACC_POUT", "--top-name", "SpectrometerTest"), () => lazyDut.module) {

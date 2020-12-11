@@ -123,10 +123,10 @@ class PIN_POUT_SpectrometerTester
   }
 
   // Plot input data
-  SpectrometerTesterUtils.plot_data(inputData = inData, plotName = "inData", fileName = "SpectrometerTest/pin_pout_inData.pdf")
+  //SpectrometerTesterUtils.plot_data(inputData = inData, plotName = "inData", fileName = "SpectrometerTest/pin_pout_inData.pdf")
 
   // Plot output data
-  SpectrometerTesterUtils.plot_data(inputData = outputSeq, plotName = "PIN -> POUT", fileName = "SpectrometerTest/pin_pout.pdf")
+  //SpectrometerTesterUtils.plot_data(inputData = outputSeq, plotName = "PIN -> POUT", fileName = "SpectrometerTest/pin_pout.pdf")
 
   stepToCompletion(silentFail = silentFail)
 }

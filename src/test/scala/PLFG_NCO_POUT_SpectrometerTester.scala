@@ -120,8 +120,8 @@ class PLFG_NCO_POUT_SpectrometerTester
     imagSeq = imagSeq :+ tmpImag.toInt
   }
   // Plot accelerator data
-  SpectrometerTesterUtils.plot_data(inputData = realSeq.map(c => c.toInt), plotName = "PLFG -> NCO -> POUT (COS)", fileName = "SpectrometerTest/plfg_nco_pout/plot_cos.pdf")
-  SpectrometerTesterUtils.plot_data(inputData = imagSeq.map(c => c.toInt), plotName = "PLFG -> NCO -> POUT (SIN)", fileName = "SpectrometerTest/plfg_nco_pout/plot_sin.pdf")
+//  SpectrometerTesterUtils.plot_data(inputData = realSeq.map(c => c.toInt), plotName = "PLFG -> NCO -> POUT (COS)", fileName = "SpectrometerTest/plfg_nco_pout/plot_cos.pdf")
+ // SpectrometerTesterUtils.plot_data(inputData = imagSeq.map(c => c.toInt), plotName = "PLFG -> NCO -> POUT (SIN)", fileName = "SpectrometerTest/plfg_nco_pout/plot_sin.pdf")
 
   // Write output data to text file
   val file = new File("./test_run_dir/SpectrometerTest/plfg_nco_pout/data_cos.txt")

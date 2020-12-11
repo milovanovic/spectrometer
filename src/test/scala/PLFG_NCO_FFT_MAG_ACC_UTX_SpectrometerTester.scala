@@ -179,7 +179,7 @@ class PLFG_NCO_FFT_MAG_ACC_UTX_SpectrometerTester
   val chiselFFTForPlot = realSeq.map(c => c.toLong).toSeq
 
   // Plot accelerator data
-  SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PLFG -> NCO -> FFT -> MAG -> ACC -> UTX", fileName = "SpectrometerTest/plfg_nco_fft_mag_acc_utx/plot.pdf")
+ // SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PLFG -> NCO -> FFT -> MAG -> ACC -> UTX", fileName = "SpectrometerTest/plfg_nco_fft_mag_acc_utx/plot.pdf")
 
   // Write output data to text file
   val file = new File("./test_run_dir/SpectrometerTest/plfg_nco_fft_mag_acc_utx/data.txt")

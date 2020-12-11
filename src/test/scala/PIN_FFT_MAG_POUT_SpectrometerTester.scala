@@ -142,12 +142,12 @@ class PIN_FFT_MAG_POUT_SpectrometerTester
   //val chiselFFTForPlot = complexOut.map(c => c.abs.toLong).toSeq
 
   // Plot scala FFT
-  SpectrometerTesterUtils.plot_fft(inputData = scalaPlot, plotName = "Scala FFT", fileName = "SpectrometerTest/pin_fft_mag_pout_scalaFFT.pdf")
+  //SpectrometerTesterUtils.plot_fft(inputData = scalaPlot, plotName = "Scala FFT", fileName = "SpectrometerTest/pin_fft_mag_pout_scalaFFT.pdf")
   // Plot input data
-  SpectrometerTesterUtils.plot_data(inputData = inData, plotName = "inData", fileName = "SpectrometerTest/pin_fft_mag_pout_inData.pdf")
+ // SpectrometerTesterUtils.plot_data(inputData = inData, plotName = "inData", fileName = "SpectrometerTest/pin_fft_mag_pout_inData.pdf")
   // Plot accelerator data -> HERE PERHAPS ERROR -> should plot only imag part
   //SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PIN -> FFT -> MAG -> POUT", fileName = "SpectrometerTest/pin_fft_mag_pout.pdf")
-  SpectrometerTesterUtils.plot_data(inputData = imagSeq.map(c => c.toInt), plotName = "PIN -> FFT -> MAG -> POUT", fileName = "SpectrometerTest/pin_fft_mag_pout.pdf")
+ // SpectrometerTesterUtils.plot_data(inputData = imagSeq.map(c => c.toInt), plotName = "PIN -> FFT -> MAG -> POUT", fileName = "SpectrometerTest/pin_fft_mag_pout.pdf")
 
   stepToCompletion(silentFail = silentFail)
 }

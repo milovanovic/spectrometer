@@ -97,7 +97,7 @@ class SpectrometerVanillaTester
     step(1)
   }
   val out = if (params.fftParams.useBitReverse) outSeq else SpectrometerTesterUtils.bitrevorder_data(outSeq)
-  SpectrometerTesterUtils.plot_fft(out.map(c =>    c.toLong), "PLFG -> NCO -> FFT -> MAG -> ACC", fileName = "SpectrometerVanilla/SpectrometerVanillaPlot.pdf")
+  //SpectrometerTesterUtils.plot_fft(out.map(c =>    c.toLong), "PLFG -> NCO -> FFT -> MAG -> ACC", fileName = "SpectrometerVanilla/SpectrometerVanillaPlot.pdf")
   
 //   val pwMagnitude = new PrintWriter(new File("printWriterRes/SpectrometerVanillaOut.txt"))
 //   outSeq.foreach(x => pwMagnitude.println(x.toDouble.toString))
