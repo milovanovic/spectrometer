@@ -327,7 +327,8 @@ class SpectrometerTestParams(fftSize: Int) {
         phaseAccEnable = true,
         roundingMode = RoundHalfUp,
         pincType = Streaming,
-        poffType = Fixed
+        poffType = Fixed,
+        useMultiplier = true
       ),
       fftParams = FFTParams.fixed(
         dataWidth = 16,
