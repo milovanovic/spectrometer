@@ -39,7 +39,9 @@ import java.io._
 class SpectrometerTestSpec extends FlatSpec with Matchers {
   implicit val p: Parameters = Parameters.empty
 
-  val fftSize = sys.props("fftSize.property")
+  val fftSize = sys.props.getOrElse("fftSize", "64")
+
+  val enablePlot = sys.props.getOrElse("enablePlot", "false")
 
   // here just define parameters
   val params = (new SpectrometerTestParams(fftSize.toInt)).params
@@ -54,7 +56,7 @@ class SpectrometerTestSpec extends FlatSpec with Matchers {
     
     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/plfg_nco_fft_mag_acc_pout", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
-      c => new PLFG_NCO_FFT_MAG_ACC_POUT_SpectrometerTester(lazyDut, params, true)
+      c => new PLFG_NCO_FFT_MAG_ACC_POUT_SpectrometerTester(lazyDut, params, enablePlot.toBoolean, true)
     } should be (true)
   }
 
@@ -68,7 +70,7 @@ class SpectrometerTestSpec extends FlatSpec with Matchers {
     
     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/plfg_nco_fft_mag_acc_utx", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
-      c => new PLFG_NCO_FFT_MAG_ACC_UTX_SpectrometerTester(lazyDut, params, true)
+      c => new PLFG_NCO_FFT_MAG_ACC_UTX_SpectrometerTester(lazyDut, params, enablePlot.toBoolean, true)
     } should be (true)
   }
 
@@ -81,7 +83,7 @@ class SpectrometerTestSpec extends FlatSpec with Matchers {
 
     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/pin_fft_mag_acc_pout", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
-      c => new PIN_FFT_MAG_ACC_POUT_SpectrometerTester(lazyDut, params, true)
+      c => new PIN_FFT_MAG_ACC_POUT_SpectrometerTester(lazyDut, params, enablePlot.toBoolean, true)
     } should be (true)
   }
 
@@ -94,90 +96,9 @@ class SpectrometerTestSpec extends FlatSpec with Matchers {
 
     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/pin_nco_fft_mag_acc_pout", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
-      c => new PIN_NCO_FFT_MAG_ACC_POUT_SpectrometerTester(lazyDut, params, true)
+      c => new PIN_NCO_FFT_MAG_ACC_POUT_SpectrometerTester(lazyDut, params, enablePlot.toBoolean, true)
     } should be (true)
   }
-
-//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//   // PLFG -> NCO -> parallel_out
-//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//   behavior of "PLFG_NCO_POUT_Spectrometer" 
-  
-//   it should "work" in {
-    
-//     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
-//     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/plfg_nco_pout", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
-//       c => new PLFG_NCO_POUT_SpectrometerTester(lazyDut, params, true)
-//     } should be (true)
-//   }
-
-//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//   // PLFG -> NCO -> FFT -> parallel_out
-//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//   behavior of "PLFG_NCO_FFT_POUT_Spectrometer" 
-  
-//   it should "work" in {
-  
-//     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
-//     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/plfg_nco_fft_pout", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
-//       c => new PLFG_NCO_FFT_POUT_SpectrometerTester(lazyDut, params, true)
-//     } should be (true)
-//   }
-
-//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//   // PLFG -> NCO -> FFT -> MAG -> parallel_out
-//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-//   behavior of "PLFG_NCO_FFT_MAG_POUT_Spectrometer" 
-  
-//   it should "work" in {
-    
-//     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
-//     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/plfg_nco_fft_mag_pout", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
-//       c => new PLFG_NCO_FFT_MAG_POUT_SpectrometerTester(lazyDut, params, true)
-//     } should be (true)
-//   }
-
-// //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//   // PIN -> POUT
-//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//   behavior of "PIN_POUT_Spectrometer" 
-  
-//   it should "work" in {
-  
-//     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
-//     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/PIN_POUT", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
-//       c => new PIN_POUT_SpectrometerTester(lazyDut, params, true)
-//     } should be (true)
-//   }
-
-
-//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//   // PIN -> FFT -> POUT
-//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//   behavior of "PIN_FFT_POUT_Spectrometer" 
-  
-//   it should "work" in {
-
-//     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
-//     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/PIN_FFT_POUT", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
-//       c => new PIN_FFT_POUT_SpectrometerTester(lazyDut, params, true)
-//     } should be (true)
-//   }
-
-//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//   // PIN -> FFT -> MAG -> POUT
-//   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//   behavior of "PIN_FFT_MAG_POUT_Spectrometer" 
-  
-//   it should "work" in {
-
-//     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
-//     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerTest/PIN_FFT_MAG_POUT", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
-//       c => new PIN_FFT_MAG_POUT_SpectrometerTester(lazyDut, params, true)
-//     } should be (true)
-//   }
-
   
 }
 

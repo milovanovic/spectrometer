@@ -38,6 +38,7 @@ class PLFG_NCO_FFT_MAG_ACC_POUT_SpectrometerTester
 (
   dut: SpectrometerTest with SpectrometerTestPins,
   params: SpectrometerTestParameters,
+  enablePlot: Boolean = false,
   silentFail: Boolean = false
 ) extends PeekPokeTester(dut.module) with AXI4MasterModel {
   
@@ -136,7 +137,8 @@ class PLFG_NCO_FFT_MAG_ACC_POUT_SpectrometerTester
   val chiselFFTForPlot = realSeq.map(c => c.toLong).toSeq
 
   // Plot accelerator data
-  SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PLFG -> NCO -> FFT -> MAG -> ACC -> POUT", fileName = "SpectrometerTestWithLAoutputs/plfg_nco_fft_mag_acc_pout/plot.pdf")
+  if (enablePlot == true)
+    SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PLFG -> NCO -> FFT -> MAG -> ACC -> POUT", fileName = "SpectrometerTestWithLAoutputs/plfg_nco_fft_mag_acc_pout/plot.pdf")
 
   // Write output data to text file
   val file = new File("./test_run_dir/SpectrometerTestWithLAoutputs/plfg_nco_fft_mag_acc_pout/GoldenData.txt")
