@@ -166,7 +166,7 @@ object SpectrometerTesterUtils {
   }
   
   /**
-  * Check magnitude error
+  * Check magnitude error, used also for checking output from accumulator
   */
   def checkMagError(expected: Seq[Int], received: Seq[Int], tolerance: Int = 2) {
     expected.zip(received).foreach {

@@ -167,8 +167,7 @@ class SpectrometerVanillaSpec extends FlatSpec with Matchers {
     accQueueBase    = 0x30002000,
     beatBytes      = 4)
     
- behavior of "Spectrometer Vanilla"
-  it should "work" in {
+  it should "test spectrometer vanilla module" ignore {
     val lazyDut = LazyModule(new SpectrometerVanilla(params) with SpectrometerVanillaPins)
     chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerVanilla/", "--top-name", "SpectrometerVanilla"), () => lazyDut.module) {
     c => new SpectrometerVanillaTester(lazyDut, params, true)
