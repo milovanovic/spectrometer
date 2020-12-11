@@ -161,7 +161,7 @@ class PIN_NCO_FFT_MAG_ACC_POUT_SpectrometerTester
   SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PIN -> NCO -> FFT -> MAG -> ACC -> POUT", fileName = "SpectrometerTest/pin_nco_fft_mag_acc_pout/plot.pdf")
 
   // Write output data to text file
-  val file = new File("./../top/dv/SpectrometerTest/spectrometer/pin_nco_fft_mag_acc_pout/GoldenData.txt")
+  val file = new File("./test_run_dir/SpectrometerTest/pin_nco_fft_mag_acc_pout/GoldenData.txt")
   val w = new BufferedWriter(new FileWriter(file))
   for (i <- 0 until realSeq.length ) {
     w.write(f"${realSeq(i)}%04x" + "\n")

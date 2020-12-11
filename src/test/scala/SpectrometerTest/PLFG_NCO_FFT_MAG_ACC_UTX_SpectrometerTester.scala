@@ -176,7 +176,7 @@ class PLFG_NCO_FFT_MAG_ACC_UTX_SpectrometerTester
   SpectrometerTesterUtils.plot_fft(inputData = chiselFFTForPlot, plotName = "PLFG -> NCO -> FFT -> MAG -> ACC -> UTX", fileName = "SpectrometerTest/plfg_nco_fft_mag_acc_utx/plot.pdf")
 
   // Write output data to text file
-  val file = new File("./../top/dv/SpectrometerTest/spectrometer/plfg_nco_fft_mag_acc_utx/GoldenData.txt")
+  val file = new File("./test_run_dir/SpectrometerTest/plfg_nco_fft_mag_acc_utx/GoldenData.txt")
   val w = new BufferedWriter(new FileWriter(file))
   for (i <- 0 until realSeq.length ) {
     w.write(f"${realSeq(i)}%04x" + "\n")
