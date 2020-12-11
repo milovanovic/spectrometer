@@ -166,9 +166,9 @@ object SpectrometerTesterUtils {
   }
   
   /**
-  * Check magnitude error, used also for checking output from accumulator
+  * Check magnitude error, nco error, used also for checking output of the accumulator
   */
-  def checkMagError(expected: Seq[Int], received: Seq[Int], tolerance: Int = 2) {
+  def checkDataError(expected: Seq[Int], received: Seq[Int], tolerance: Int = 2) {
     expected.zip(received).foreach {
       case (in, out) => {
         require(math.abs(in - out) <= tolerance, "Tolerance is not satisfied")

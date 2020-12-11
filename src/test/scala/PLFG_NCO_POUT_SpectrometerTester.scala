@@ -41,7 +41,15 @@ class PLFG_NCO_POUT_SpectrometerTester
   
   val mod = dut.module
   def memAXI: AXI4Bundle = dut.ioMem.get
+  val numSamples = params.fftParams.numPoints
   
+  val binWithPeak = 2
+  val startValue = (binWithPeak * 4 * params.ncoParams.tableSize)/params.fftParams.numPoints
+  
+  
+  
+  val expectedSin = (0 until numSamples).map(i => (math.sin(2 * math.Pi * binWithPeak/params.fftParams.numPoints * i) * scala.math.pow(2, 14)).toInt).tail
+  val expectedCos = (0 until numSamples).map(i => (math.sin(2 * math.Pi * binWithPeak/params.fftParams.numPoints * i) * scala.math.pow(2, 14)).toInt).tail
   // This signals should be always ready!
   poke(dut.laInside.ready, true.B)
   poke(dut.laOutside.ready, true.B)
@@ -122,8 +130,12 @@ class PLFG_NCO_POUT_SpectrometerTester
   // Plot accelerator data
 //  SpectrometerTesterUtils.plot_data(inputData = realSeq.map(c => c.toInt), plotName = "PLFG -> NCO -> POUT (COS)", fileName = "SpectrometerTest/plfg_nco_pout/plot_cos.pdf")
  // SpectrometerTesterUtils.plot_data(inputData = imagSeq.map(c => c.toInt), plotName = "PLFG -> NCO -> POUT (SIN)", fileName = "SpectrometerTest/plfg_nco_pout/plot_sin.pdf")
-
-  // Write output data to text file
+  expectedCos.map(c => println(c.toString))
+  realSeq.map(c => println(c.toString))
+  //SpectrometerTesterUtils.checkDataError(expectedCos, realSeq)
+  //SpectrometerTesterUtils.checkDataError(expectedSin, imagSeq)
+  
+ // Write output data to text file
   val file = new File("./test_run_dir/SpectrometerTest/plfg_nco_pout/data_cos.txt")
   val w = new BufferedWriter(new FileWriter(file))
   for (i <- 0 until realSeq.length ) {

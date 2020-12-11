@@ -121,7 +121,12 @@ class PIN_POUT_SpectrometerTester
     }
     step(1)
   }
-
+  
+  inData.zip(outputSeq).foreach {
+    case (in, out) => require(in == out, "Input is not equal to output")
+  }
+  
+  
   // Plot input data
   //SpectrometerTesterUtils.plot_data(inputData = inData, plotName = "inData", fileName = "SpectrometerTest/pin_pout_inData.pdf")
 
