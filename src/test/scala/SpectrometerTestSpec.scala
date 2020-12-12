@@ -49,7 +49,7 @@ class SpectrometerTestSpec extends FlatSpec with Matchers {
   it should "test plfg -> nco -> pout streaming path" in {
     
     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
-    chisel3.iotesters.Driver.execute(Array( "verilator", "--target-dir", "test_run_dir/SpectrometerTest/plfg_nco_pout", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
+    chisel3.iotesters.Driver.execute(Array("--backend-name", "verilator", "--target-dir", "test_run_dir/SpectrometerTest/plfg_nco_pout", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
       c => new PLFG_NCO_POUT_SpectrometerTester(lazyDut, params, true)
     } should be (true)
   }
@@ -61,7 +61,7 @@ class SpectrometerTestSpec extends FlatSpec with Matchers {
   it should "test plfg -> nco -> fft -> pout streaming path" in {
   
     val lazyDut = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
-    chisel3.iotesters.Driver.execute(Array("verilator", "--target-dir", "test_run_dir/SpectrometerTest/plfg_nco_fft_pout", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
+    chisel3.iotesters.Driver.execute(Array("--backend-name", "verilator", "--target-dir", "test_run_dir/SpectrometerTest/plfg_nco_fft_pout", "--top-name", "SpectrometerTest"), () => lazyDut.module) {
       c => new PLFG_NCO_FFT_POUT_SpectrometerTester(lazyDut, params, true)
     } should be (true)
   }
