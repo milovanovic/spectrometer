@@ -65,6 +65,6 @@ lazy val uart = (project in file("generators/uart"))
 lazy val splitter = (project in file("generators/splitter"))
   .settings(commonSettings: _*)
 
-lazy val rspChain = (project in file("."))
+lazy val spectrometer = (project in file("."))
   .dependsOn(fft, logMagMux, accumulator, nco, plfg, uart, splitter)
   .settings(commonSettings: _*)
