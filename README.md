@@ -1,5 +1,6 @@
 Digital Spectrometer Generator designed in Chisel HDL
 ======================================================
+[![Build Status](https://travis-ci.org/milovanovic/spectrometer.svg?branch=master)](https://travis-ci.org/milovanovic/spectrometer)
 
 ## Overview
 
