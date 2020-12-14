@@ -20,7 +20,7 @@ class SpectrometerTestSpec extends FlatSpec with Matchers {
   implicit val p: Parameters = Parameters.empty
   
   val fftSize = sys.props.getOrElse("fftSize", "64")
-  val enablePlot = sys.props.getOrElse("enablePlot", "true") // temporary change enable plot value
+  val enablePlot = sys.props.getOrElse("enablePlot", "false") // temporary change enable plot value
   val params = (new SpectrometerTestParams(fftSize.toInt)).params
     
   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
