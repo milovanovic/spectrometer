@@ -2,34 +2,15 @@
 
 package spectrometer
 
-import freechips.rocketchip.interrupts._
-import dsptools._
-import dsptools.numbers._
 import chisel3._
 import chisel3.util._
-import chisel3.experimental._
 import chisel3.iotesters.{Driver, PeekPokeTester}
 
-import dspblocks.{AXI4DspBlock, AXI4StandaloneBlock, TLDspBlock, TLStandaloneBlock}
 import freechips.rocketchip.amba.axi4stream._
 import freechips.rocketchip.amba.axi4._
-import freechips.rocketchip.config.Parameters
-import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.system.BaseConfig
 
 import org.scalatest.{FlatSpec, Matchers}
-import breeze.math.Complex
-import breeze.signal.{fourierTr, iFourierTr}
-import breeze.linalg._
-import breeze.plot._
 
-import plfg._
-import nco._
-import fft._
-import uart._
-import splitter._
-import magnitude._
-import accumulator._
 
 import java.io._
 
@@ -48,7 +29,7 @@ class PIN_POUT_SpectrometerTester
   def memAXI: AXI4Bundle = dut.ioMem.get
   val master = bindMaster(dut.inStream)
   
-  // this can be random generated data
+  // Send real data
   val inData = SpectrometerTesterUtils.getTone(numSamples = params.fftParams.numPoints, 0.03125)
 
   // split 32 bit data to 4 bytes and send real sinusoid
@@ -68,7 +49,7 @@ class PIN_POUT_SpectrometerTester
   memWriteWord(params.magMuxAddress0.base + 0x4, 0x1)  // output1
   memWriteWord(params.outMuxAddress.base, 0x5)         // output0
   
-  poke(dut.outStream.ready, true.B)
+  poke(dut.outStream.ready, true)
 
   step(1)
    // add master transactions

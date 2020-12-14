@@ -2,36 +2,19 @@
 
 package spectrometer
 
-import freechips.rocketchip.interrupts._
-import dsptools._
-import dsptools.numbers._
-import chisel3._
-import chisel3.util._
-import chisel3.experimental._
-import chisel3.iotesters.{Driver, PeekPokeTester}
 
-import dspblocks.{AXI4DspBlock, AXI4StandaloneBlock, TLDspBlock, TLStandaloneBlock}
+import chisel3.iotesters.PeekPokeTester
+
 import freechips.rocketchip.amba.axi4stream._
 import freechips.rocketchip.amba.axi4._
-import freechips.rocketchip.config.Parameters
 import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.system.BaseConfig
 
-import org.scalatest.{FlatSpec, Matchers}
 import breeze.math.Complex
-import breeze.signal.{fourierTr, iFourierTr}
+import breeze.signal.{fourierTr}
 import breeze.linalg._
-import breeze.plot._
-
-import plfg._
-import nco._
-import fft._
-import uart._
-import splitter._
-import magnitude._
-import accumulator._
 
 import java.io._
+
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
 // PIN -> FFT -> MAG -> POUT
@@ -50,8 +33,8 @@ class PIN_FFT_MAG_POUT_SpectrometerTester
   
   val binWithPeak = 2
   val fftSize = params.fftParams.numPoints
-  val inData = SpectrometerTesterUtils.getTone(numSamples = fftSize, binWithPeak/fftSize)
-
+  val inData = SpectrometerTesterUtils.getTone(numSamples = fftSize, binWithPeak.toDouble/fftSize.toDouble)
+  
   // split 32 bit data to 4 bytes and send real sinusoid
   var dataByte = Seq[Int]()
   for (i <- inData) {
@@ -63,26 +46,20 @@ class PIN_FFT_MAG_POUT_SpectrometerTester
     dataByte = dataByte :+ ((i >>> 8)  & 0xFF)
   }
 
-  memWriteWord(params.magSplitAddress.base + 0x0, 1) // set ready to OR
-  memWriteWord(params.plfgMuxAddress0.base + 0x4, 0x1) //in split must have ready active
-
+  memWriteWord(params.magSplitAddress.base + 0x0, 1)   // set ready to OR
+  memWriteWord(params.plfgMuxAddress0.base + 0x4, 0x1) // in split must have ready active
+  memWriteWord(params.fftMuxAddress1.base, 0x0)        // output0
+  memWriteWord(params.magMuxAddress1.base + 0x4, 0x0)  // output1
+  memWriteWord(params.ncoMuxAddress0.base, 0x1)        // output0
   
-  memWriteWord(params.fftMuxAddress1.base,       0x0) // output0
-  memWriteWord(params.magMuxAddress1.base + 0x4, 0x0) // output1
-
-  memWriteWord(params.ncoMuxAddress0.base,       0x1) // output0
-
-  memWriteWord(params.fftMuxAddress0.base,       0x0) // output0
-  memWriteWord(params.fftMuxAddress0.base + 0x4, 0x1) // output1
-
-  memWriteWord(params.magMuxAddress0.base + 0x4, 0x1) // output1
-
-  memWriteWord(params.outMuxAddress.base,       0x1)  // output0
-
-  memWriteWord(params.outMuxAddress.base + 0x8, 0x5)  // output2 MP - added!
+  memWriteWord(params.fftMuxAddress0.base, 0x0)        // output0
+  memWriteWord(params.fftMuxAddress0.base + 0x4, 0x1)  // output1
+  memWriteWord(params.magMuxAddress0.base + 0x4, 0x1)  // output1
+  memWriteWord(params.outMuxAddress.base, 0x1)         // output0
+  memWriteWord(params.outMuxAddress.base + 0x8, 0x5)   // output2
   // magAddress
-  memWriteWord(params.magAddress.base, 0x2) // set jpl magnitude
-  poke(dut.outStream.ready, true.B)
+  memWriteWord(params.magAddress.base, 0x2)            // set jpl magnitude
+  poke(dut.outStream.ready, true)
 
   step(1)
    // add master transactions
@@ -112,10 +89,23 @@ class PIN_FFT_MAG_POUT_SpectrometerTester
     realSeq = realSeq :+ tmpReal.toInt
     imagSeq = imagSeq :+ tmpImag.toInt
   }
+  
   // Scala fft
-  val scalaFFT = fourierTr(DenseVector(inData.toArray)).toScalaVector
-  val scalaPlot = scalaFFT.map(c => c.abs.toLong).toSeq
-
+  val fftScala = fourierTr(DenseVector(inData.toArray)).toScalaVector.map(c => Complex(c.real/fftSize, c.imag/fftSize))
+  val fftMagScala = fftScala.map(c => c.abs.toInt)
+  
+  imagSeq.foreach( c => println(c.toString))
+  fftMagScala.foreach( c => println(c.toString))
+  
+  // check tolerance
+  if (params.fftParams.useBitReverse) {
+    SpectrometerTesterUtils.checkDataError(imagSeq, fftMagScala, 3)
+  }
+  else {
+    val bRImag = SpectrometerTesterUtils.bitrevorder_data(imagSeq)
+    SpectrometerTesterUtils.checkDataError(bRImag, fftMagScala, 3)
+  }
+  
   if (enablePlot) {
     SpectrometerTesterUtils.plot_data(inputData = inData, plotName = "Input data", fileName = "SpectrometerTest/pin_fft_mag_pout/plot_in.pdf")
     SpectrometerTesterUtils.plot_data(inputData = imagSeq.map(c => c.toInt), plotName = "PIN -> FFT -> MAG -> POUT", fileName = "SpectrometerTest/pin_fft_mag_pout/plot_mag.pdf")

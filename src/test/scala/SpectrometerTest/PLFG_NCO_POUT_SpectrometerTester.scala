@@ -2,30 +2,11 @@
 
 package spectrometer
 
-import freechips.rocketchip.interrupts._
-import dsptools._
-import dsptools.numbers._
-import chisel3._
-import chisel3.util._
-import chisel3.experimental._
-import chisel3.iotesters.{Driver, PeekPokeTester}
+import chisel3.iotesters.PeekPokeTester
 
-import dspblocks.{AXI4DspBlock, AXI4StandaloneBlock, TLDspBlock, TLStandaloneBlock}
 import freechips.rocketchip.amba.axi4stream._
 import freechips.rocketchip.amba.axi4._
-import freechips.rocketchip.config.Parameters
 import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.system.BaseConfig
-
-import org.scalatest.{FlatSpec, Matchers}
-
-import plfg._
-import nco._
-import fft._
-import uart._
-import splitter._
-import magnitude._
-import accumulator._
 
 import java.io._
 
@@ -76,7 +57,7 @@ class PLFG_NCO_POUT_SpectrometerTester
   memWriteWord(params.ncoMuxAddress0.base + 0x4, 0x0)  // output1
   memWriteWord(params.outMuxAddress.base, 0x3)         // output0
 
-  poke(dut.outStream.ready, true.B)
+  poke(dut.outStream.ready, true)
 
   var outSeq = Seq[Int]()
   var peekedVal: BigInt = 0

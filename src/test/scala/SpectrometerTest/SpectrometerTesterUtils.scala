@@ -3,9 +3,10 @@
 package spectrometer
 
 import breeze.math.Complex
-import breeze.signal.{fourierTr, iFourierTr}
+import breeze.signal.fourierTr
 import breeze.linalg._
 import breeze.plot._
+
 import chisel3.util.log2Up
 
 
@@ -112,7 +113,23 @@ object SpectrometerTesterUtils {
   }
 
  /*******************************************************/
+  
+  /**
+  * Calculate log2
+  */
   def log2(x: Double): Double =  scala.math.log(x)/scala.math.log(2)
+  
+  /**
+  * Calculate jpl magnitude of the complex input data
+  */
+  def jplMag(in: Complex): Int = {
+    import scala.math._
+    
+    val u = abs(in.real).max(abs(in.imag))
+    val v = abs(in.real).min(abs(in.imag))
+    val jpl = (u + v/8).max(7 * u/8 + v/2).toInt
+    jpl
+  }
 
   /****************************************************************
   * Plot functions
@@ -180,11 +197,27 @@ object SpectrometerTesterUtils {
   }
   
   /**
-  * Calculate magnitude of the fft -> TODO:Replace it with JPL mag calculation
+  * Calculate jpl magnitude, square magnitude or log2 magnitude
   */
-  def calcExpectedMagOut(fftSize: Int, binWithPeak: Int, scale: Int = 1): Seq[Int] = {
+  def calcExpectedMagOut(fftSize: Int, binWithPeak: Int, scale: Int = 1, magType: String = "jplMag"): Seq[Int] = {
     require(binWithPeak < fftSize, "Index of expected peak can not be larger than fftSize")
-    calcExpectedFFTOut(fftSize, binWithPeak, scale).map(c => c.abs.toInt).toSeq
+    val fft = calcExpectedFFTOut(fftSize, binWithPeak, scale)
+    val mag = magType match {
+      case "jplMag" => {
+        val jpl = fft.map(c => jplMag(c))
+        jpl
+      }
+      case "sqrMag" => {
+        val magSqr = fft.map(c => (c.real * c.real + c.imag * c.imag).toInt)
+        magSqr
+      }
+      case "log2Mag" => {
+        val log2Mag = fft.map(c => log2(jplMag(c).toDouble).toInt)
+        log2Mag
+      }
+      case _ => fft.map(c => c.abs.toInt).toSeq
+    }
+    mag
   }
   
   /**

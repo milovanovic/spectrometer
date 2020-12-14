@@ -2,34 +2,18 @@
 
 package spectrometer
 
-import freechips.rocketchip.interrupts._
-import dsptools._
-import dsptools.numbers._
-import chisel3._
-import chisel3.util._
-import chisel3.experimental._
-import chisel3.iotesters.{Driver, PeekPokeTester}
+import chisel3.iotesters.PeekPokeTester
 
-import dspblocks.{AXI4DspBlock, AXI4StandaloneBlock, TLDspBlock, TLStandaloneBlock}
 import freechips.rocketchip.amba.axi4stream._
 import freechips.rocketchip.amba.axi4._
-import freechips.rocketchip.config.Parameters
 import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.system.BaseConfig
 
-import org.scalatest.{FlatSpec, Matchers}
 import breeze.math.Complex
-import breeze.signal.{fourierTr, iFourierTr}
+import breeze.signal.fourierTr
 import breeze.linalg._
 
-import plfg._
-import nco._
-import fft._
-import uart._
-import splitter._
-import magnitude._
-import accumulator._
 import java.io._
+
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
 // PLFG -> NCO -> FFT -> parallel_out
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -53,7 +37,7 @@ class PLFG_NCO_FFT_POUT_SpectrometerTester
   val startValue = (binWithPeak * 4 * params.ncoParams.tableSize)/fftSize
   val fftScala = SpectrometerTesterUtils.calcExpectedFFTOut(fftSize, binWithPeak, fftSize)
   
-  
+  // configure plfg module
   memWriteWord(params.plfgRAM.base, 0x24001004)
   memWriteWord(params.plfgAddress.base + 2*params.beatBytes, 4)            // number of frames
   memWriteWord(params.plfgAddress.base + 4*params.beatBytes, 1)            // number of chirps
@@ -75,7 +59,7 @@ class PLFG_NCO_FFT_POUT_SpectrometerTester
 
   memWriteWord(params.outMuxAddress.base,       0x2)   // output0
   
-  poke(dut.outStream.ready, true.B)
+  poke(dut.outStream.ready, true)
 
   var outSeq = Seq[Int]()
   var peekedVal: BigInt = 0
