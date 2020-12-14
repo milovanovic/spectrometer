@@ -67,60 +67,20 @@ class PIN_NCO_FFT_MAG_ACC_POUT_SpectrometerTester
   }
   win.close
 
-  // Splitters
-  // memWriteWord(params.inSplitAddress.base + 0x0, 0)   // set ready to AND
-  // memWriteWord(params.plfgSplitAddress.base + 0x0, 0) // set ready to AND
-  // memWriteWord(params.ncoSplitAddress.base + 0x0, 0)  // set ready to AND
-  // memWriteWord(params.fftSplitAddress.base + 0x0, 0)  // set ready to AND
-  // memWriteWord(params.magSplitAddress.base + 0x0, 0)  // set ready to AND
-  // memWriteWord(params.uRxSplitAddress.base + 0x0, 0)  // set ready to AND
-  // memWriteWord(params.outSplitAddress.base + 0x0, 0)  // set ready to AND
-
   val numAccuWin = 4 // Number of accumulator windows
 
-  // plfg setup
-  val segmentNumsArrayOffset = 6 * params.beatBytes
-  val repeatedChirpNumsArrayOffset = segmentNumsArrayOffset + 4 * params.beatBytes
-  val chirpOrdinalNumsArrayOffset = repeatedChirpNumsArrayOffset + 8 * params.beatBytes
-    
-  memWriteWord(params.plfgRAM.base, 0x24000000)
-  memWriteWord(params.plfgAddress.base + 2*params.beatBytes, numAccuWin*2) // number of frames
-  memWriteWord(params.plfgAddress.base + 4*params.beatBytes, 1)            // number of chirps
-  //memWriteWord(params.plfgAddress.base + 5*params.beatBytes, 1)          // start value
-  memWriteWord(params.plfgAddress.base + 5*params.beatBytes, 4)            // start value
-  memWriteWord(params.plfgAddress.base + segmentNumsArrayOffset, 1)        // number of segments for first chirp
-  memWriteWord(params.plfgAddress.base + repeatedChirpNumsArrayOffset, 1)  // determines number of repeated chirps
-  memWriteWord(params.plfgAddress.base + chirpOrdinalNumsArrayOffset, 0) 
-  memWriteWord(params.plfgAddress.base + params.beatBytes, 0)              // set reset bit to zero
-  memWriteWord(params.plfgAddress.base, 1)                                 // enable bit becomes 1
-  
   // Mux
-  // memWriteWord(params.plfgMuxAddress1.base,       0x0) // output0
-  // memWriteWord(params.plfgMuxAddress1.base + 0x4, 0x0) // output1
-
   memWriteWord(params.ncoMuxAddress1.base,       0x0) // output0
-  // memWriteWord(params.ncoMuxAddress1.base + 0x4, 0x0) // output1
-
   memWriteWord(params.fftMuxAddress1.base,       0x0) // output0
-  // memWriteWord(params.fftMuxAddress1.base + 0x4, 0x0) // output1
-
-    memWriteWord(params.magMuxAddress1.base,       0x0) // output0
-  // memWriteWord(params.magMuxAddress1.base + 0x4, 0x0) // output1
-
-  memWriteWord(params.plfgMuxAddress0.base,       0x1) // output0
-  // memWriteWord(params.plfgMuxAddress0.base + 0x4, 0x1) // output1
-
+  memWriteWord(params.magMuxAddress1.base,       0x0) // output0
+  memWriteWord(params.plfgMuxAddress0.base,      0x1) // output0
   memWriteWord(params.ncoMuxAddress0.base,       0x0) // output0
   memWriteWord(params.ncoMuxAddress0.base + 0x4, 0x1) // output1
-
   memWriteWord(params.fftMuxAddress0.base,       0x0) // output0
   memWriteWord(params.fftMuxAddress0.base + 0x4, 0x1) // output1
-
   memWriteWord(params.magMuxAddress0.base,       0x0) // output0
   memWriteWord(params.magMuxAddress0.base + 0x4, 0x1) // output1
-
   memWriteWord(params.outMuxAddress.base,       0x0) // output0
-  // memWriteWord(params.outMuxAddress.base + 0x4, 0x0) // output1
   memWriteWord(params.outMuxAddress.base + 0x8, 0x5) // output2
   
   // magAddress
