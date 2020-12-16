@@ -2,34 +2,24 @@
 
 package spectrometer
 
-import chisel3.DontCare
-import freechips.rocketchip.interrupts._
 import dsptools._
 import dsptools.numbers._
-import chisel3.experimental._
+
 import chisel3._
 import chisel3.util._
 import chisel3.iotesters.Driver
+import chisel3.experimental._
 
 import chisel3.iotesters.PeekPokeTester
-import dspblocks.{AXI4DspBlock, AXI4StandaloneBlock, TLDspBlock, TLStandaloneBlock}
-import freechips.rocketchip.amba.axi4stream._
 import freechips.rocketchip.amba.axi4._
 import freechips.rocketchip.config.Parameters
 import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.system.BaseConfig
 
 import org.scalatest.{FlatSpec, Matchers}
-import breeze.math.Complex
-import breeze.signal.{fourierTr, iFourierTr}
-import breeze.linalg._
-import breeze.plot._
 
 import plfg._
 import nco._
 import fft._
-import uart._
-import splitter._
 import magnitude._
 import accumulator._
 
@@ -39,35 +29,34 @@ class SpectrometerVanillaTester
 (
   dut: SpectrometerVanilla with SpectrometerVanillaPins,
   params: SpectrometerVanillaParameters,
-  silentFail: Boolean = false
+  enablePlots: Boolean = false
 ) extends PeekPokeTester(dut.module) with AXI4MasterModel {
 
   def memAXI: AXI4Bundle = dut.ioMem.get
-  val numAccuWin = 4
-  
+  val fftSize = params.fftParams.numPoints
+  val binWithPeak = 24
+  val startValue = (binWithPeak * 4 * params.ncoParams.tableSize)/fftSize
+  val fftMagScala = SpectrometerTesterUtils.calcExpectedMagOut(fftSize, binWithPeak, fftSize, "jplMag")
+  val numAccWin = 4 // Number of accumulated windows
+
   // plfg setup
   val segmentNumsArrayOffset = 6 * params.beatBytes
   val repeatedChirpNumsArrayOffset = segmentNumsArrayOffset + 4 * params.beatBytes
   val chirpOrdinalNumsArrayOffset = repeatedChirpNumsArrayOffset + 8 * params.beatBytes
-  
-  // configure plfg registers
-  // peak is expected on frequency bin equal to startingPoint * (numOfPoints / (4*tableSize))
+    
   memWriteWord(params.plfgRAM.base, 0x24000000)
-  memWriteWord(params.plfgAddress.base + 2*params.beatBytes, numAccuWin*2) // number of frames
-  memWriteWord(params.plfgAddress.base + 4*params.beatBytes, 1)            // number of chirps
-  memWriteWord(params.plfgAddress.base + 5*params.beatBytes, 16)           // start value
-  memWriteWord(params.plfgAddress.base + segmentNumsArrayOffset, 1)        // number of segments for first chirp
-  memWriteWord(params.plfgAddress.base + repeatedChirpNumsArrayOffset, 1)  // determines number of repeated chirps
-  memWriteWord(params.plfgAddress.base + chirpOrdinalNumsArrayOffset, 0) 
-  memWriteWord(params.plfgAddress.base + params.beatBytes, 0)              // set reset bit to zero
-  memWriteWord(params.plfgAddress.base, 1)                                 // enable bit becomes 1
-  // configure registers inside fft
-  memWriteWord(params.fftAddress.base, 10)                                 // 10 stages are active 
-  // configure registers inside LogMagMux
-  memWriteWord(params.magAddress.base, 2)                                  // configure jpl magnitude aproximation
+  memWriteWord(params.plfgAddress.base + 2*params.beatBytes, numAccWin*2) // number of frames
+  memWriteWord(params.plfgAddress.base + 4*params.beatBytes, 1)           // number of chirps
+  memWriteWord(params.plfgAddress.base + 5*params.beatBytes, startValue)  // start value
+  memWriteWord(params.plfgAddress.base + segmentNumsArrayOffset, 1)       // number of segments for first chirp
+  memWriteWord(params.plfgAddress.base + repeatedChirpNumsArrayOffset, 1) // determines number of repeated chirps
+  memWriteWord(params.plfgAddress.base + chirpOrdinalNumsArrayOffset, 0)
+  memWriteWord(params.plfgAddress.base + params.beatBytes, 0)             // set reset bit to zero
+  memWriteWord(params.plfgAddress.base, 1)
+  memWriteWord(params.magAddress.base, 2)                                 // configure jpl magnitude 
   // configure registers inside accumulator
-  memWriteWord(params.accAddress.base, 1024)                               // accDepth is 1024
-  memWriteWord(params.accAddress.base + params.beatBytes, 2)               // accumulate 2 fft windows
+  memWriteWord(params.accAddress.base, fftSize)                           // accDepth is equal to fftSize
+  memWriteWord(params.accAddress.base + params.beatBytes, numAccWin)      // accumulate numAccWin fft windows
  
   step(40)
   poke(dut.outStream.ready, true.B)
@@ -82,16 +71,14 @@ class SpectrometerVanillaTester
     }
     step(1)
   }
-  val out = if (params.fftParams.useBitReverse) outSeq else SpectrometerTesterUtils.bitrevorder_data(outSeq)
-  SpectrometerTesterUtils.plot_fft(out.map(c =>    c.toLong), "PLFG -> NCO -> FFT -> MAG -> ACC", fileName = "SpectrometerVanilla/SpectrometerVanillaPlot.pdf")
+  val out = if (params.fftParams.useBitReverse || params.accParams.bitReversal) outSeq else SpectrometerTesterUtils.bitrevorder_data(outSeq)
   
-//   val pwMagnitude = new PrintWriter(new File("printWriterRes/SpectrometerVanillaOut.txt"))
-//   outSeq.foreach(x => pwMagnitude.println(x.toDouble.toString))
-//   pwMagnitude.close
+  if (enablePlots) {
+    SpectrometerTesterUtils.plot_fft(out.map(c =>c.toLong), "PLFG -> NCO -> FFT -> MAG -> ACC", fileName = "SpectrometerVanilla/SpectrometerVanillaPlot.pdf")
+  }
 }
 
 class SpectrometerVanillaSpec extends FlatSpec with Matchers {
-  implicit val p: Parameters = Parameters.empty
 
   val params = SpectrometerVanillaParameters (
     plfgParams = FixedPLFGParams(
@@ -153,11 +140,10 @@ class SpectrometerVanillaSpec extends FlatSpec with Matchers {
     accQueueBase    = 0x30002000,
     beatBytes      = 4)
     
- behavior of "Spectrometer Vanilla"
-  it should "work" in {
+  it should "test SpectrometerVanilla module" in {
     val lazyDut = LazyModule(new SpectrometerVanilla(params) with SpectrometerVanillaPins)
-    chisel3.iotesters.Driver.execute(Array("-tiwv", "-tbn", "verilator", "-tivsuv", "--target-dir", "test_run_dir/SpectrometerVanilla/", "--top-name", "SpectrometerVanilla"), () => lazyDut.module) {
-    c => new SpectrometerVanillaTester(lazyDut, params, true)
+    chisel3.iotesters.Driver.execute(Array("--backend-name", "verilator", "--target-dir", "test_run_dir/SpectrometerVanilla/", "--top-name", "SpectrometerVanilla"), () => lazyDut.module) {
+    c => new SpectrometerVanillaTester(lazyDut, params, false)
     } should be (true)
   }
 }
