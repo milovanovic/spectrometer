@@ -273,108 +273,108 @@ class SpectrometerTest(params: SpectrometerTestParameters) extends LazyModule()(
 trait SpectrometerTestPins extends SpectrometerTest {
   val beatBytes = 4
 
-  // Generate AXI4 slave output
-    def standaloneParams = AXI4BundleParameters(addrBits = beatBytes*8, dataBits = beatBytes*8, idBits = 1)
-    val ioMem = mem.map { m => {
-      val ioMemNode = BundleBridgeSource(() => AXI4Bundle(standaloneParams))
-      m := BundleBridgeToAXI4(AXI4MasterPortParameters(Seq(AXI4MasterParameters("bundleBridgeToAXI4")))) := ioMemNode
-      val ioMem = InModuleBody { ioMemNode.makeIO() }
-      ioMem
-    }}
+// Generate AXI4 slave output
+  def standaloneParams = AXI4BundleParameters(addrBits = beatBytes*8, dataBits = beatBytes*8, idBits = 1)
+  val ioMem = mem.map { m => {
+    val ioMemNode = BundleBridgeSource(() => AXI4Bundle(standaloneParams))
+    m := BundleBridgeToAXI4(AXI4MasterPortParameters(Seq(AXI4MasterParameters("bundleBridgeToAXI4")))) := ioMemNode
+    val ioMem = InModuleBody { ioMemNode.makeIO() }
+    ioMem
+  }}
 
-    // Generate AXI-stream output
-    val ioStreamNode = BundleBridgeSink[AXI4StreamBundle]()
-    ioStreamNode := AXI4StreamToBundleBridge(AXI4StreamSlaveParameters()) := out_adapt
-    val outStream = InModuleBody { ioStreamNode.makeIO() }
+  // Generate AXI-stream output
+  val ioStreamNode = BundleBridgeSink[AXI4StreamBundle]()
+  ioStreamNode := AXI4StreamToBundleBridge(AXI4StreamSlaveParameters()) := out_adapt
+  val outStream = InModuleBody { ioStreamNode.makeIO() }
 
-    // Generate AXI-stream input
-    val ioparallelin = BundleBridgeSource(() => new AXI4StreamBundle(AXI4StreamBundleParameters(n = 1)))
-    in_queue.node := BundleBridgeToAXI4Stream(AXI4StreamMasterParameters(n = 1)) := ioparallelin
-    val inStream = InModuleBody { ioparallelin.makeIO() }
+  // Generate AXI-stream input
+  val ioparallelin = BundleBridgeSource(() => new AXI4StreamBundle(AXI4StreamBundleParameters(n = 1)))
+  in_queue.node := BundleBridgeToAXI4Stream(AXI4StreamMasterParameters(n = 1)) := ioparallelin
+  val inStream = InModuleBody { ioparallelin.makeIO() }
 }
 
 class SpectrometerTestParams(fftSize: Int) {
  val params = 
-    SpectrometerTestParameters (
-      plfgParams = FixedPLFGParams(
-        maxNumOfSegments = 4,
-        maxNumOfDifferentChirps = 8,
-        maxNumOfRepeatedChirps = 8,
-        maxChirpOrdinalNum = 4,
-        maxNumOfFrames = 4,
-        maxNumOfSamplesWidth = 8,
-        outputWidthInt = 16,
-        outputWidthFrac = 0
-      ),
-      ncoParams = FixedNCOParams(
-        tableSize = 128,
-        tableWidth = 16,
-        phaseWidth = 9,
-        rasterizedMode = false,
-        nInterpolationTerms = 0,
-        ditherEnable = false,
-        syncROMEnable = false,
-        phaseAccEnable = true,
-        roundingMode = RoundHalfUp,
-        pincType = Streaming,
-        poffType = Fixed,
-        useMultiplier = true
-      ),
-      fftParams = FFTParams.fixed(
-        dataWidth = 16,
-        twiddleWidth = 16,
-        numPoints = fftSize,
-        useBitReverse = false,
-        runTime = true,
-        numAddPipes = 1,
-        numMulPipes = 1,
-        expandLogic = Array.fill(log2Up(fftSize))(0),
-        keepMSBorLSB = Array.fill(log2Up(fftSize))(true),
-        minSRAMdepth = fftSize,
-        binPoint = 0
-      ),
-      magParams = MAGParams.fixed(
-        dataWidth       = 16,
-        binPoint        = 0,
-        dataWidthLog    = 16,
-        binPointLog     = 9,
-        log2LookUpWidth = 9,
-        useLast         = true,
-        numAddPipes     = 1,
-        numMulPipes     = 1
-      ),
-      accParams = AccParams(
-        proto = FixedPoint(16.W, 0.BP),
-        protoAcc = FixedPoint(32.W, 0.BP),
-        accDepth = fftSize,
-        bitReversal = true
-      ),
-      inSplitAddress   = AddressSet(0x30000000, 0xF),
-      plfgRAM          = AddressSet(0x30001000, 0xFFF),
-      plfgAddress      = AddressSet(0x30002100, 0xFF),
-      plfgSplitAddress = AddressSet(0x30002200, 0xF),
-      plfgMuxAddress0  = AddressSet(0x30002210, 0xF),
-      plfgMuxAddress1  = AddressSet(0x30002220, 0xF),
-      ncoAddress       = AddressSet(0x30003000, 0xF),
-      ncoSplitAddress  = AddressSet(0x30003100, 0xF),
-      ncoMuxAddress0   = AddressSet(0x30003110, 0xF),
-      ncoMuxAddress1   = AddressSet(0x30003120, 0xF),
-      fftAddress       = AddressSet(0x30004000, 0xFF),
-      fftSplitAddress  = AddressSet(0x30004100, 0xF),
-      fftMuxAddress0   = AddressSet(0x30004110, 0xF),
-      fftMuxAddress1   = AddressSet(0x30004120, 0xF),
-      magAddress       = AddressSet(0x30005000, 0xFF),
-      magSplitAddress  = AddressSet(0x30005100, 0xF),
-      magMuxAddress0   = AddressSet(0x30005110, 0xF),
-      magMuxAddress1   = AddressSet(0x30005120, 0xF),
-      accQueueBase     =            0x30006000,
-      accAddress       = AddressSet(0x30007000, 0xF),
-      outMuxAddress    = AddressSet(0x30008000, 0xF),
-      outSplitAddress  = AddressSet(0x30008010, 0xF),
-      uartParams       = UARTParams(address = 0x30009000, nTxEntries = 16, nRxEntries = 16),
-      uRxSplitAddress  = AddressSet(0x30009100, 0xF),
-      divisorInit      = (173).toInt, // baudrate = 115200 for 20MHz
-      beatBytes        = 4)
+  SpectrometerTestParameters (
+    plfgParams = FixedPLFGParams(
+      maxNumOfSegments = 4,
+      maxNumOfDifferentChirps = 8,
+      maxNumOfRepeatedChirps = 8,
+      maxChirpOrdinalNum = 4,
+      maxNumOfFrames = 4,
+      maxNumOfSamplesWidth = 8,
+      outputWidthInt = 16,
+      outputWidthFrac = 0
+    ),
+    ncoParams = FixedNCOParams(
+      tableSize = 128,
+      tableWidth = 16,
+      phaseWidth = 9,
+      rasterizedMode = false,
+      nInterpolationTerms = 0,
+      ditherEnable = false,
+      syncROMEnable = false,
+      phaseAccEnable = true,
+      roundingMode = RoundHalfUp,
+      pincType = Streaming,
+      poffType = Fixed,
+      useMultiplier = true
+    ),
+    fftParams = FFTParams.fixed(
+      dataWidth = 16,
+      twiddleWidth = 16,
+      numPoints = fftSize,
+      useBitReverse = false,
+      runTime = true,
+      numAddPipes = 1,
+      numMulPipes = 1,
+      expandLogic = Array.fill(log2Up(fftSize))(0),
+      keepMSBorLSB = Array.fill(log2Up(fftSize))(true),
+      minSRAMdepth = fftSize,
+      binPoint = 0
+    ),
+    magParams = MAGParams.fixed(
+      dataWidth       = 16,
+      binPoint        = 0,
+      dataWidthLog    = 16,
+      binPointLog     = 9,
+      log2LookUpWidth = 9,
+      useLast         = true,
+      numAddPipes     = 1,
+      numMulPipes     = 1
+    ),
+    accParams = AccParams(
+      proto = FixedPoint(16.W, 0.BP),
+      protoAcc = FixedPoint(32.W, 0.BP),
+      accDepth = fftSize,
+      bitReversal = true
+    ),
+    inSplitAddress   = AddressSet(0x30000000, 0xF),
+    plfgRAM          = AddressSet(0x30001000, 0xFFF),
+    plfgAddress      = AddressSet(0x30002100, 0xFF),
+    plfgSplitAddress = AddressSet(0x30002200, 0xF),
+    plfgMuxAddress0  = AddressSet(0x30002210, 0xF),
+    plfgMuxAddress1  = AddressSet(0x30002220, 0xF),
+    ncoAddress       = AddressSet(0x30003000, 0xF),
+    ncoSplitAddress  = AddressSet(0x30003100, 0xF),
+    ncoMuxAddress0   = AddressSet(0x30003110, 0xF),
+    ncoMuxAddress1   = AddressSet(0x30003120, 0xF),
+    fftAddress       = AddressSet(0x30004000, 0xFF),
+    fftSplitAddress  = AddressSet(0x30004100, 0xF),
+    fftMuxAddress0   = AddressSet(0x30004110, 0xF),
+    fftMuxAddress1   = AddressSet(0x30004120, 0xF),
+    magAddress       = AddressSet(0x30005000, 0xFF),
+    magSplitAddress  = AddressSet(0x30005100, 0xF),
+    magMuxAddress0   = AddressSet(0x30005110, 0xF),
+    magMuxAddress1   = AddressSet(0x30005120, 0xF),
+    accQueueBase     =            0x30006000,
+    accAddress       = AddressSet(0x30007000, 0xF),
+    outMuxAddress    = AddressSet(0x30008000, 0xF),
+    outSplitAddress  = AddressSet(0x30008010, 0xF),
+    uartParams       = UARTParams(address = 0x30009000, nTxEntries = 16, nRxEntries = 16),
+    uRxSplitAddress  = AddressSet(0x30009100, 0xF),
+    divisorInit      = (173).toInt, // baudrate = 115200 for 20MHz
+    beatBytes        = 4)
 }
 
 object SpectrometerTestApp extends App
