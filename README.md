@@ -27,8 +27,8 @@ Block diagram of the `SpectrometerTest`module (check `SpectrometerTest.scala` in
 
 ![SpectrometerTets block scheme](./doc/images/SpectrometerTest.svg)
 
-Despite generators mentioned in the previous paragraph, this system comprises following blocks:
-* UART transmitter and UART receiver  written in Chisel3 (available inside directory `generators/uart`) and mostly taken from [sifive-blocks](https://github.com/sifive/sifive-blocks/tree/master/src/main/scala/devices/uart ) .
+Besides generators mentioned in the previous paragraph, this system comprises following blocks:
+* UART transmitter and UART receiver  written in Chisel3 (available inside directory `generators/uart`) and mostly taken from [sifive-blocks](https://github.com/sifive/sifive-blocks/tree/master/src/main/scala/devices/uart ).
 * A lot of AXI4-stream splitters  (check `generators/splitter`) 
 * A lot of AXI4-stream multiplexers, AXI4-stream adapters and AXI4/AXI4-stream buffers are extensively used which together with AXI4-stream splitters make easier to test whole system. Those modules are available inside [rocket](https://github.com/ucb-bar/dsptools/tree/master/rocket/src/main/scala/amba/axi4stream) directory of the dsptools library.
 * Blocks `always_ready`, `all_ones` and `all_zeros`which are self-explanatory.
