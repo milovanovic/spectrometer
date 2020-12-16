@@ -29,19 +29,19 @@ import accumulator._
 
 
 case class SpectrometerVanillaParameters (
-    plfgParams      : PLFGParams[FixedPoint],
-    ncoParams       : NCOParams[FixedPoint],
-    fftParams       : FFTParams[FixedPoint],
-    magParams       : MAGParams[FixedPoint],
-    accParams       : AccParams[FixedPoint],
-    plfgAddress     : AddressSet,
-    plfgRAM         : AddressSet,
-    ncoAddress      : AddressSet,
-    fftAddress      : AddressSet,
-    magAddress      : AddressSet,
-    accAddress      : AddressSet,
-    accQueueBase    : BigInt,
-    beatBytes       : Int
+  plfgParams      : PLFGParams[FixedPoint],
+  ncoParams       : NCOParams[FixedPoint],
+  fftParams       : FFTParams[FixedPoint],
+  magParams       : MAGParams[FixedPoint],
+  accParams       : AccParams[FixedPoint],
+  plfgAddress     : AddressSet,
+  plfgRAM         : AddressSet,
+  ncoAddress      : AddressSet,
+  fftAddress      : AddressSet,
+  magAddress      : AddressSet,
+  accAddress      : AddressSet,
+  accQueueBase    : BigInt,
+  beatBytes       : Int
 )
 
 class SpectrometerVanilla(params: SpectrometerVanillaParameters) extends LazyModule()(Parameters.empty) {
@@ -72,6 +72,25 @@ class SpectrometerVanilla(params: SpectrometerVanillaParameters) extends LazyMod
   
   lazy val module = new LazyModuleImp(this) {}
 }
+
+trait SpectrometerVanillaPins extends SpectrometerVanilla {
+  val beatBytes = 4
+  def standaloneParams = AXI4BundleParameters(addrBits = beatBytes*8, dataBits = beatBytes*8, idBits = 1)
+  
+  val ioMem = mem.map { m => {
+    val ioMemNode = BundleBridgeSource(() => AXI4Bundle(standaloneParams))
+    m := BundleBridgeToAXI4(AXI4MasterPortParameters(Seq(AXI4MasterParameters("bundleBridgeToAXI4")))) := ioMemNode
+    val ioMem = InModuleBody { ioMemNode.makeIO() }
+    ioMem
+  }}
+
+  // Generate AXI-stream output
+  val ioStreamNode = BundleBridgeSink[AXI4StreamBundle]()
+  ioStreamNode := AXI4StreamToBundleBridge(AXI4StreamSlaveParameters()) := acc.streamNode
+  val outStream = InModuleBody { ioStreamNode.makeIO() }
+}
+
+
 
 object SpectrometerVanillaApp extends App
 {
@@ -137,22 +156,7 @@ object SpectrometerVanillaApp extends App
     beatBytes      = 4)
 
   implicit val p: Parameters = Parameters.empty
-  val standaloneModule = LazyModule(new SpectrometerVanilla(params) {
-
-    // Generate AXI4 slave output
-    def standaloneParams = AXI4BundleParameters(addrBits = params.beatBytes*8, dataBits = params.beatBytes*8, idBits = 1)
-    val ioMem = mem.map { m => {
-      val ioMemNode = BundleBridgeSource(() => AXI4Bundle(standaloneParams))
-      m := BundleBridgeToAXI4(AXI4MasterPortParameters(Seq(AXI4MasterParameters("bundleBridgeToAXI4")))) := ioMemNode
-      val ioMem = InModuleBody { ioMemNode.makeIO() }
-      ioMem
-    }}
-
-    // Generate AXI-stream output
-    val ioStreamNode = BundleBridgeSink[AXI4StreamBundle]()
-    ioStreamNode := AXI4StreamToBundleBridge(AXI4StreamSlaveParameters()) := acc.streamNode
-    val outStream = InModuleBody { ioStreamNode.makeIO() }
-  })
+  val standaloneModule = LazyModule(new SpectrometerVanilla(params) with SpectrometerVanillaPins) 
   chisel3.Driver.execute(Array("--target-dir", "verilog/SpectrometerVanilla", "--top-name", "SpectrometerVanilla"), ()=> standaloneModule.module) // generate verilog code
 }
 
