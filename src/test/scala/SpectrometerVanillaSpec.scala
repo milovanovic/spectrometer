@@ -35,20 +35,6 @@ import accumulator._
 
 import java.io._
 
-trait SpectrometerVanillaPins extends SpectrometerVanilla {
-  def standaloneParams = AXI4BundleParameters(addrBits = 32, dataBits = 32, idBits = 1)
-  val ioMem = mem.map { m => {
-    val ioMemNode = BundleBridgeSource(() => AXI4Bundle(standaloneParams))
-    m := BundleBridgeToAXI4(AXI4MasterPortParameters(Seq(AXI4MasterParameters("bundleBridgeToAXI4")))) := ioMemNode
-    val ioMem = InModuleBody { ioMemNode.makeIO() }
-    ioMem
-  }}
-  // Generate AXI-stream output
-  val ioStreamNode = BundleBridgeSink[AXI4StreamBundle]()
-  ioStreamNode := AXI4StreamToBundleBridge(AXI4StreamSlaveParameters()) := acc.streamNode
-  val outStream = InModuleBody { ioStreamNode.makeIO() }
-}
-
 class SpectrometerVanillaTester
 (
   dut: SpectrometerVanilla with SpectrometerVanillaPins,
