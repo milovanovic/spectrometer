@@ -6,6 +6,7 @@ import dspblocks._
 import dsptools._
 import dsptools.numbers._
 import chisel3._
+import chisel3.stage.{ChiselStage,ChiselGeneratorAnnotation}
 import chisel3.experimental._
 import chisel3.util._
 import freechips.rocketchip.amba.axi4._
@@ -55,7 +56,8 @@ case class SpectrometerTestParameters (
     uartParams      : UARTParams,
     uRxSplitAddress : AddressSet,
     divisorInit     : Int,
-    beatBytes       : Int
+    beatBytes       : Int,
+
 )
 
 class AllOnes(beatBytes: Int) extends LazyModule()(Parameters.empty) {
@@ -293,7 +295,7 @@ trait SpectrometerTestPins extends SpectrometerTest {
   val inStream = InModuleBody { ioparallelin.makeIO() }
 }
 
-class SpectrometerTestParams(fftSize: Int) {
+class SpectrometerTestParams(fftSize: Int, minSRAMDepth: Int) {
  val params = 
   SpectrometerTestParameters (
     plfgParams = FixedPLFGParams(
@@ -330,7 +332,7 @@ class SpectrometerTestParams(fftSize: Int) {
       numMulPipes = 1,
       expandLogic = Array.fill(log2Up(fftSize))(0),
       keepMSBorLSB = Array.fill(log2Up(fftSize))(true),
-      minSRAMdepth = fftSize,
+      minSRAMdepth = minSRAMDepth,
       binPoint = 0
     ),
     magParams = MAGParams.fixed(
@@ -380,10 +382,18 @@ class SpectrometerTestParams(fftSize: Int) {
 object SpectrometerTestApp extends App
 {
   val fftSize = args(0).toInt
-  val params = (new SpectrometerTestParams(fftSize)).params
+  val minSRAMDepth = args(1).toInt
+  val params = (new SpectrometerTestParams(fftSize, minSRAMDepth)).params
+
+  val arguments = Array(
+    "-X", "verilog",
+    "--repl-seq-mem","-c:SpectrometerTest:-o:./rtl/SpectrometerTest/mem.conf",
+    "--log-level", "info",
+    "--target-dir", "./rtl/SpectrometerTest"
+  )
 
   implicit val p: Parameters = Parameters.empty
   val standaloneModule = LazyModule(new SpectrometerTest(params) with SpectrometerTestPins)
 
-  chisel3.Driver.execute(Array("--target-dir", "./rtl/SpectrometerTest", "--top-name", "SpectrometerTest"), ()=> standaloneModule.module) // generate verilog code
+  (new ChiselStage).execute(arguments, Seq(ChiselGeneratorAnnotation(() => standaloneModule.module)))
 }

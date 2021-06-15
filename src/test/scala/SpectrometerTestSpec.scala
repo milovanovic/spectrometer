@@ -19,9 +19,10 @@ import java.io._
 class SpectrometerTestSpec extends FlatSpec with Matchers {
   implicit val p: Parameters = Parameters.empty
   
-  val fftSize = sys.props.getOrElse("fftSize", "64")
+  val fftSize = sys.props.getOrElse("fftSize", "1024")
+  val minSRAMDepth = sys.props.getOrElse("minSRAMDepth", "1024")
   val enablePlot = sys.props.getOrElse("enablePlot", "false") // temporary change enable plot value
-  val params = (new SpectrometerTestParams(fftSize.toInt)).params
+  val params = (new SpectrometerTestParams(fftSize.toInt, minSRAMDepth.toInt)).params
     
   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   // PLFG -> NCO -> parallel_out
