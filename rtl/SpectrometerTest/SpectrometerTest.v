@@ -5282,82 +5282,549 @@ module SDFStageRadix22_1(
   input  [8:0]  io_cntr,
   input         io_en
 );
-  wire [6:0] SDFStageRadix22_1_mem_R0_addr; // @[ShiftRegMem.scala 53:28]
-  wire  SDFStageRadix22_1_mem_R0_en; // @[ShiftRegMem.scala 53:28]
-  wire  SDFStageRadix22_1_mem_R0_clk; // @[ShiftRegMem.scala 53:28]
-  wire [15:0] SDFStageRadix22_1_mem_R0_data_real; // @[ShiftRegMem.scala 53:28]
-  wire [15:0] SDFStageRadix22_1_mem_R0_data_imag; // @[ShiftRegMem.scala 53:28]
-  wire [6:0] SDFStageRadix22_1_mem_W0_addr; // @[ShiftRegMem.scala 53:28]
-  wire  SDFStageRadix22_1_mem_W0_en; // @[ShiftRegMem.scala 53:28]
-  wire  SDFStageRadix22_1_mem_W0_clk; // @[ShiftRegMem.scala 53:28]
-  wire [15:0] SDFStageRadix22_1_mem_W0_data_real; // @[ShiftRegMem.scala 53:28]
-  wire [15:0] SDFStageRadix22_1_mem_W0_data_imag; // @[ShiftRegMem.scala 53:28]
   wire  load_input = io_cntr < 9'h80; // @[SDFChainRadix22.scala 428:66]
-  reg  _T_40; // @[ShiftRegMem.scala 69:30]
+  reg [15:0] shift_out_real; // @[Reg.scala 15:16]
   reg [31:0] _RAND_0;
-  reg [15:0] out_reg_real; // @[ShiftRegMem.scala 49:28]
-  reg [31:0] _RAND_1;
-  wire [15:0] shift_out_real = _T_40 ? $signed(SDFStageRadix22_1_mem_R0_data_real) : $signed(out_reg_real); // @[ShiftRegMem.scala 69:22]
   wire [16:0] butt_outputs_1_real = $signed(shift_out_real) - $signed(io_in_real); // @[FixedPointTypeClass.scala 33:22]
-  wire [17:0] _T_69 = {$signed(butt_outputs_1_real), 1'h0}; // @[FixedPointTypeClass.scala 129:22 FixedPointTypeClass.scala 130:12]
-  wire [16:0] _T_71 = _T_69[17:1]; // @[FixedPointTypeClass.scala 133:23]
-  wire [16:0] _T_74 = $signed(_T_71) + 17'sh1; // @[FixedPointTypeClass.scala 20:58]
-  wire [15:0] butterfly_outputs_1_real = _T_74[16:1]; // @[FixedPointTypeClass.scala 176:41]
-  reg [15:0] out_reg_imag; // @[ShiftRegMem.scala 49:28]
-  reg [31:0] _RAND_2;
-  wire [15:0] shift_out_imag = _T_40 ? $signed(SDFStageRadix22_1_mem_R0_data_imag) : $signed(out_reg_imag); // @[ShiftRegMem.scala 69:22]
+  wire [17:0] _T_428 = {$signed(butt_outputs_1_real), 1'h0}; // @[FixedPointTypeClass.scala 129:22 FixedPointTypeClass.scala 130:12]
+  wire [16:0] _T_430 = _T_428[17:1]; // @[FixedPointTypeClass.scala 133:23]
+  wire [16:0] _T_433 = $signed(_T_430) + 17'sh1; // @[FixedPointTypeClass.scala 20:58]
+  wire [15:0] butterfly_outputs_1_real = _T_433[16:1]; // @[FixedPointTypeClass.scala 176:41]
+  reg [15:0] shift_out_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_1;
   wire [16:0] butt_outputs_1_imag = $signed(shift_out_imag) - $signed(io_in_imag); // @[FixedPointTypeClass.scala 33:22]
-  wire [17:0] _T_76 = {$signed(butt_outputs_1_imag), 1'h0}; // @[FixedPointTypeClass.scala 129:22 FixedPointTypeClass.scala 130:12]
-  wire [16:0] _T_78 = _T_76[17:1]; // @[FixedPointTypeClass.scala 133:23]
-  wire [16:0] _T_81 = $signed(_T_78) + 17'sh1; // @[FixedPointTypeClass.scala 20:58]
-  wire [15:0] butterfly_outputs_1_imag = _T_81[16:1]; // @[FixedPointTypeClass.scala 176:41]
-  reg [6:0] value; // @[Counter.scala 29:33]
+  wire [17:0] _T_435 = {$signed(butt_outputs_1_imag), 1'h0}; // @[FixedPointTypeClass.scala 129:22 FixedPointTypeClass.scala 130:12]
+  wire [16:0] _T_437 = _T_435[17:1]; // @[FixedPointTypeClass.scala 133:23]
+  wire [16:0] _T_440 = $signed(_T_437) + 17'sh1; // @[FixedPointTypeClass.scala 20:58]
+  wire [15:0] butterfly_outputs_1_imag = _T_440[16:1]; // @[FixedPointTypeClass.scala 176:41]
+  reg [15:0] _T_21_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_2;
+  reg [15:0] _T_21_imag; // @[Reg.scala 15:16]
   reg [31:0] _RAND_3;
-  wire [6:0] _T_29 = value + 7'h1; // @[Counter.scala 39:22]
-  reg  _T_33; // @[ShiftRegMem.scala 60:20]
+  reg [15:0] _T_24_real; // @[Reg.scala 15:16]
   reg [31:0] _RAND_4;
-  reg [6:0] _T_34; // @[Reg.scala 27:20]
+  reg [15:0] _T_24_imag; // @[Reg.scala 15:16]
   reg [31:0] _RAND_5;
+  reg [15:0] _T_27_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_6;
+  reg [15:0] _T_27_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_7;
+  reg [15:0] _T_30_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_8;
+  reg [15:0] _T_30_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_9;
+  reg [15:0] _T_33_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_10;
+  reg [15:0] _T_33_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_11;
+  reg [15:0] _T_36_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_12;
+  reg [15:0] _T_36_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_13;
+  reg [15:0] _T_39_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_14;
+  reg [15:0] _T_39_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_15;
+  reg [15:0] _T_42_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_16;
+  reg [15:0] _T_42_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_17;
+  reg [15:0] _T_45_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_18;
+  reg [15:0] _T_45_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_19;
+  reg [15:0] _T_48_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_20;
+  reg [15:0] _T_48_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_21;
+  reg [15:0] _T_51_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_22;
+  reg [15:0] _T_51_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_23;
+  reg [15:0] _T_54_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_24;
+  reg [15:0] _T_54_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_25;
+  reg [15:0] _T_57_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_26;
+  reg [15:0] _T_57_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_27;
+  reg [15:0] _T_60_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_28;
+  reg [15:0] _T_60_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_29;
+  reg [15:0] _T_63_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_30;
+  reg [15:0] _T_63_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_31;
+  reg [15:0] _T_66_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_32;
+  reg [15:0] _T_66_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_33;
+  reg [15:0] _T_69_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_34;
+  reg [15:0] _T_69_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_35;
+  reg [15:0] _T_72_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_36;
+  reg [15:0] _T_72_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_37;
+  reg [15:0] _T_75_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_38;
+  reg [15:0] _T_75_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_39;
+  reg [15:0] _T_78_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_40;
+  reg [15:0] _T_78_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_41;
+  reg [15:0] _T_81_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_42;
+  reg [15:0] _T_81_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_43;
+  reg [15:0] _T_84_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_44;
+  reg [15:0] _T_84_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_45;
+  reg [15:0] _T_87_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_46;
+  reg [15:0] _T_87_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_47;
+  reg [15:0] _T_90_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_48;
+  reg [15:0] _T_90_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_49;
+  reg [15:0] _T_93_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_50;
+  reg [15:0] _T_93_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_51;
+  reg [15:0] _T_96_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_52;
+  reg [15:0] _T_96_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_53;
+  reg [15:0] _T_99_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_54;
+  reg [15:0] _T_99_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_55;
+  reg [15:0] _T_102_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_56;
+  reg [15:0] _T_102_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_57;
+  reg [15:0] _T_105_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_58;
+  reg [15:0] _T_105_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_59;
+  reg [15:0] _T_108_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_60;
+  reg [15:0] _T_108_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_61;
+  reg [15:0] _T_111_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_62;
+  reg [15:0] _T_111_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_63;
+  reg [15:0] _T_114_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_64;
+  reg [15:0] _T_114_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_65;
+  reg [15:0] _T_117_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_66;
+  reg [15:0] _T_117_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_67;
+  reg [15:0] _T_120_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_68;
+  reg [15:0] _T_120_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_69;
+  reg [15:0] _T_123_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_70;
+  reg [15:0] _T_123_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_71;
+  reg [15:0] _T_126_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_72;
+  reg [15:0] _T_126_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_73;
+  reg [15:0] _T_129_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_74;
+  reg [15:0] _T_129_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_75;
+  reg [15:0] _T_132_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_76;
+  reg [15:0] _T_132_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_77;
+  reg [15:0] _T_135_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_78;
+  reg [15:0] _T_135_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_79;
+  reg [15:0] _T_138_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_80;
+  reg [15:0] _T_138_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_81;
+  reg [15:0] _T_141_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_82;
+  reg [15:0] _T_141_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_83;
+  reg [15:0] _T_144_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_84;
+  reg [15:0] _T_144_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_85;
+  reg [15:0] _T_147_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_86;
+  reg [15:0] _T_147_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_87;
+  reg [15:0] _T_150_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_88;
+  reg [15:0] _T_150_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_89;
+  reg [15:0] _T_153_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_90;
+  reg [15:0] _T_153_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_91;
+  reg [15:0] _T_156_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_92;
+  reg [15:0] _T_156_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_93;
+  reg [15:0] _T_159_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_94;
+  reg [15:0] _T_159_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_95;
+  reg [15:0] _T_162_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_96;
+  reg [15:0] _T_162_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_97;
+  reg [15:0] _T_165_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_98;
+  reg [15:0] _T_165_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_99;
+  reg [15:0] _T_168_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_100;
+  reg [15:0] _T_168_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_101;
+  reg [15:0] _T_171_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_102;
+  reg [15:0] _T_171_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_103;
+  reg [15:0] _T_174_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_104;
+  reg [15:0] _T_174_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_105;
+  reg [15:0] _T_177_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_106;
+  reg [15:0] _T_177_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_107;
+  reg [15:0] _T_180_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_108;
+  reg [15:0] _T_180_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_109;
+  reg [15:0] _T_183_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_110;
+  reg [15:0] _T_183_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_111;
+  reg [15:0] _T_186_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_112;
+  reg [15:0] _T_186_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_113;
+  reg [15:0] _T_189_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_114;
+  reg [15:0] _T_189_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_115;
+  reg [15:0] _T_192_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_116;
+  reg [15:0] _T_192_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_117;
+  reg [15:0] _T_195_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_118;
+  reg [15:0] _T_195_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_119;
+  reg [15:0] _T_198_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_120;
+  reg [15:0] _T_198_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_121;
+  reg [15:0] _T_201_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_122;
+  reg [15:0] _T_201_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_123;
+  reg [15:0] _T_204_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_124;
+  reg [15:0] _T_204_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_125;
+  reg [15:0] _T_207_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_126;
+  reg [15:0] _T_207_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_127;
+  reg [15:0] _T_210_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_128;
+  reg [15:0] _T_210_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_129;
+  reg [15:0] _T_213_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_130;
+  reg [15:0] _T_213_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_131;
+  reg [15:0] _T_216_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_132;
+  reg [15:0] _T_216_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_133;
+  reg [15:0] _T_219_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_134;
+  reg [15:0] _T_219_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_135;
+  reg [15:0] _T_222_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_136;
+  reg [15:0] _T_222_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_137;
+  reg [15:0] _T_225_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_138;
+  reg [15:0] _T_225_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_139;
+  reg [15:0] _T_228_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_140;
+  reg [15:0] _T_228_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_141;
+  reg [15:0] _T_231_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_142;
+  reg [15:0] _T_231_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_143;
+  reg [15:0] _T_234_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_144;
+  reg [15:0] _T_234_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_145;
+  reg [15:0] _T_237_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_146;
+  reg [15:0] _T_237_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_147;
+  reg [15:0] _T_240_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_148;
+  reg [15:0] _T_240_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_149;
+  reg [15:0] _T_243_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_150;
+  reg [15:0] _T_243_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_151;
+  reg [15:0] _T_246_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_152;
+  reg [15:0] _T_246_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_153;
+  reg [15:0] _T_249_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_154;
+  reg [15:0] _T_249_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_155;
+  reg [15:0] _T_252_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_156;
+  reg [15:0] _T_252_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_157;
+  reg [15:0] _T_255_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_158;
+  reg [15:0] _T_255_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_159;
+  reg [15:0] _T_258_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_160;
+  reg [15:0] _T_258_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_161;
+  reg [15:0] _T_261_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_162;
+  reg [15:0] _T_261_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_163;
+  reg [15:0] _T_264_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_164;
+  reg [15:0] _T_264_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_165;
+  reg [15:0] _T_267_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_166;
+  reg [15:0] _T_267_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_167;
+  reg [15:0] _T_270_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_168;
+  reg [15:0] _T_270_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_169;
+  reg [15:0] _T_273_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_170;
+  reg [15:0] _T_273_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_171;
+  reg [15:0] _T_276_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_172;
+  reg [15:0] _T_276_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_173;
+  reg [15:0] _T_279_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_174;
+  reg [15:0] _T_279_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_175;
+  reg [15:0] _T_282_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_176;
+  reg [15:0] _T_282_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_177;
+  reg [15:0] _T_285_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_178;
+  reg [15:0] _T_285_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_179;
+  reg [15:0] _T_288_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_180;
+  reg [15:0] _T_288_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_181;
+  reg [15:0] _T_291_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_182;
+  reg [15:0] _T_291_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_183;
+  reg [15:0] _T_294_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_184;
+  reg [15:0] _T_294_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_185;
+  reg [15:0] _T_297_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_186;
+  reg [15:0] _T_297_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_187;
+  reg [15:0] _T_300_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_188;
+  reg [15:0] _T_300_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_189;
+  reg [15:0] _T_303_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_190;
+  reg [15:0] _T_303_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_191;
+  reg [15:0] _T_306_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_192;
+  reg [15:0] _T_306_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_193;
+  reg [15:0] _T_309_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_194;
+  reg [15:0] _T_309_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_195;
+  reg [15:0] _T_312_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_196;
+  reg [15:0] _T_312_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_197;
+  reg [15:0] _T_315_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_198;
+  reg [15:0] _T_315_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_199;
+  reg [15:0] _T_318_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_200;
+  reg [15:0] _T_318_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_201;
+  reg [15:0] _T_321_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_202;
+  reg [15:0] _T_321_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_203;
+  reg [15:0] _T_324_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_204;
+  reg [15:0] _T_324_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_205;
+  reg [15:0] _T_327_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_206;
+  reg [15:0] _T_327_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_207;
+  reg [15:0] _T_330_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_208;
+  reg [15:0] _T_330_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_209;
+  reg [15:0] _T_333_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_210;
+  reg [15:0] _T_333_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_211;
+  reg [15:0] _T_336_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_212;
+  reg [15:0] _T_336_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_213;
+  reg [15:0] _T_339_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_214;
+  reg [15:0] _T_339_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_215;
+  reg [15:0] _T_342_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_216;
+  reg [15:0] _T_342_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_217;
+  reg [15:0] _T_345_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_218;
+  reg [15:0] _T_345_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_219;
+  reg [15:0] _T_348_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_220;
+  reg [15:0] _T_348_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_221;
+  reg [15:0] _T_351_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_222;
+  reg [15:0] _T_351_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_223;
+  reg [15:0] _T_354_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_224;
+  reg [15:0] _T_354_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_225;
+  reg [15:0] _T_357_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_226;
+  reg [15:0] _T_357_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_227;
+  reg [15:0] _T_360_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_228;
+  reg [15:0] _T_360_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_229;
+  reg [15:0] _T_363_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_230;
+  reg [15:0] _T_363_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_231;
+  reg [15:0] _T_366_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_232;
+  reg [15:0] _T_366_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_233;
+  reg [15:0] _T_369_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_234;
+  reg [15:0] _T_369_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_235;
+  reg [15:0] _T_372_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_236;
+  reg [15:0] _T_372_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_237;
+  reg [15:0] _T_375_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_238;
+  reg [15:0] _T_375_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_239;
+  reg [15:0] _T_378_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_240;
+  reg [15:0] _T_378_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_241;
+  reg [15:0] _T_381_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_242;
+  reg [15:0] _T_381_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_243;
+  reg [15:0] _T_384_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_244;
+  reg [15:0] _T_384_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_245;
+  reg [15:0] _T_387_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_246;
+  reg [15:0] _T_387_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_247;
+  reg [15:0] _T_390_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_248;
+  reg [15:0] _T_390_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_249;
+  reg [15:0] _T_393_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_250;
+  reg [15:0] _T_393_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_251;
+  reg [15:0] _T_396_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_252;
+  reg [15:0] _T_396_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_253;
+  reg [15:0] _T_399_real; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_254;
+  reg [15:0] _T_399_imag; // @[Reg.scala 15:16]
+  reg [31:0] _RAND_255;
   wire [16:0] butt_outputs_0_real = $signed(shift_out_real) + $signed(io_in_real); // @[FixedPointTypeClass.scala 24:22]
   wire [16:0] butt_outputs_0_imag = $signed(shift_out_imag) + $signed(io_in_imag); // @[FixedPointTypeClass.scala 24:22]
-  wire [17:0] _T_52 = {$signed(butt_outputs_0_real), 1'h0}; // @[FixedPointTypeClass.scala 129:22 FixedPointTypeClass.scala 130:12]
-  wire [16:0] _T_54 = _T_52[17:1]; // @[FixedPointTypeClass.scala 133:23]
-  wire [16:0] _T_57 = $signed(_T_54) + 17'sh1; // @[FixedPointTypeClass.scala 20:58]
-  wire [17:0] _T_59 = {$signed(butt_outputs_0_imag), 1'h0}; // @[FixedPointTypeClass.scala 129:22 FixedPointTypeClass.scala 130:12]
-  wire [16:0] _T_61 = _T_59[17:1]; // @[FixedPointTypeClass.scala 133:23]
-  wire [16:0] _T_64 = $signed(_T_61) + 17'sh1; // @[FixedPointTypeClass.scala 20:58]
+  wire [17:0] _T_411 = {$signed(butt_outputs_0_real), 1'h0}; // @[FixedPointTypeClass.scala 129:22 FixedPointTypeClass.scala 130:12]
+  wire [16:0] _T_413 = _T_411[17:1]; // @[FixedPointTypeClass.scala 133:23]
+  wire [16:0] _T_416 = $signed(_T_413) + 17'sh1; // @[FixedPointTypeClass.scala 20:58]
+  wire [17:0] _T_418 = {$signed(butt_outputs_0_imag), 1'h0}; // @[FixedPointTypeClass.scala 129:22 FixedPointTypeClass.scala 130:12]
+  wire [16:0] _T_420 = _T_418[17:1]; // @[FixedPointTypeClass.scala 133:23]
+  wire [16:0] _T_423 = $signed(_T_420) + 17'sh1; // @[FixedPointTypeClass.scala 20:58]
   reg [15:0] feedback_real; // @[Reg.scala 15:16]
-  reg [31:0] _RAND_6;
+  reg [31:0] _RAND_256;
   reg [15:0] feedback_imag; // @[Reg.scala 15:16]
-  reg [31:0] _RAND_7;
+  reg [31:0] _RAND_257;
   reg [15:0] butt_out_0_real; // @[Reg.scala 15:16]
-  reg [31:0] _RAND_8;
+  reg [31:0] _RAND_258;
   reg [15:0] butt_out_0_imag; // @[Reg.scala 15:16]
-  reg [31:0] _RAND_9;
+  reg [31:0] _RAND_259;
   reg  load_output; // @[Reg.scala 27:20]
-  reg [31:0] _RAND_10;
-  SDFStageRadix22_1_mem SDFStageRadix22_1_mem ( // @[ShiftRegMem.scala 53:28]
-    .R0_addr(SDFStageRadix22_1_mem_R0_addr),
-    .R0_en(SDFStageRadix22_1_mem_R0_en),
-    .R0_clk(SDFStageRadix22_1_mem_R0_clk),
-    .R0_data_real(SDFStageRadix22_1_mem_R0_data_real),
-    .R0_data_imag(SDFStageRadix22_1_mem_R0_data_imag),
-    .W0_addr(SDFStageRadix22_1_mem_W0_addr),
-    .W0_en(SDFStageRadix22_1_mem_W0_en),
-    .W0_clk(SDFStageRadix22_1_mem_W0_clk),
-    .W0_data_real(SDFStageRadix22_1_mem_W0_data_real),
-    .W0_data_imag(SDFStageRadix22_1_mem_W0_data_imag)
-  );
+  reg [31:0] _RAND_260;
   assign io_out_real = load_output ? $signed(feedback_real) : $signed(butt_out_0_real); // @[SDFChainRadix22.scala 424:10]
   assign io_out_imag = load_output ? $signed(feedback_imag) : $signed(butt_out_0_imag); // @[SDFChainRadix22.scala 424:10]
-  assign SDFStageRadix22_1_mem_R0_addr = value; // @[ShiftRegMem.scala 58:25]
-  assign SDFStageRadix22_1_mem_R0_en = io_en; // @[ShiftRegMem.scala 53:28 Counter.scala 39:13]
-  assign SDFStageRadix22_1_mem_R0_clk = clock; // @[ShiftRegMem.scala 58:25]
-  assign SDFStageRadix22_1_mem_W0_addr = _T_34;
-  assign SDFStageRadix22_1_mem_W0_en = io_en; // @[ShiftRegMem.scala 53:28]
-  assign SDFStageRadix22_1_mem_W0_clk = clock;
-  assign SDFStageRadix22_1_mem_W0_data_real = load_input ? $signed(io_in_real) : $signed(butterfly_outputs_1_real);
-  assign SDFStageRadix22_1_mem_W0_data_imag = load_input ? $signed(io_in_imag) : $signed(butterfly_outputs_1_imag);
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -5391,94 +5858,1832 @@ initial begin
     `endif
   `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {1{`RANDOM}};
-  _T_40 = _RAND_0[0:0];
+  shift_out_real = _RAND_0[15:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_1 = {1{`RANDOM}};
-  out_reg_real = _RAND_1[15:0];
+  shift_out_imag = _RAND_1[15:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_2 = {1{`RANDOM}};
-  out_reg_imag = _RAND_2[15:0];
+  _T_21_real = _RAND_2[15:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_3 = {1{`RANDOM}};
-  value = _RAND_3[6:0];
+  _T_21_imag = _RAND_3[15:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_4 = {1{`RANDOM}};
-  _T_33 = _RAND_4[0:0];
+  _T_24_real = _RAND_4[15:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_5 = {1{`RANDOM}};
-  _T_34 = _RAND_5[6:0];
+  _T_24_imag = _RAND_5[15:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_6 = {1{`RANDOM}};
-  feedback_real = _RAND_6[15:0];
+  _T_27_real = _RAND_6[15:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_7 = {1{`RANDOM}};
-  feedback_imag = _RAND_7[15:0];
+  _T_27_imag = _RAND_7[15:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_8 = {1{`RANDOM}};
-  butt_out_0_real = _RAND_8[15:0];
+  _T_30_real = _RAND_8[15:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_9 = {1{`RANDOM}};
-  butt_out_0_imag = _RAND_9[15:0];
+  _T_30_imag = _RAND_9[15:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_10 = {1{`RANDOM}};
-  load_output = _RAND_10[0:0];
+  _T_33_real = _RAND_10[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_11 = {1{`RANDOM}};
+  _T_33_imag = _RAND_11[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_12 = {1{`RANDOM}};
+  _T_36_real = _RAND_12[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_13 = {1{`RANDOM}};
+  _T_36_imag = _RAND_13[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_14 = {1{`RANDOM}};
+  _T_39_real = _RAND_14[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_15 = {1{`RANDOM}};
+  _T_39_imag = _RAND_15[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_16 = {1{`RANDOM}};
+  _T_42_real = _RAND_16[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_17 = {1{`RANDOM}};
+  _T_42_imag = _RAND_17[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_18 = {1{`RANDOM}};
+  _T_45_real = _RAND_18[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_19 = {1{`RANDOM}};
+  _T_45_imag = _RAND_19[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_20 = {1{`RANDOM}};
+  _T_48_real = _RAND_20[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_21 = {1{`RANDOM}};
+  _T_48_imag = _RAND_21[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_22 = {1{`RANDOM}};
+  _T_51_real = _RAND_22[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_23 = {1{`RANDOM}};
+  _T_51_imag = _RAND_23[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_24 = {1{`RANDOM}};
+  _T_54_real = _RAND_24[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_25 = {1{`RANDOM}};
+  _T_54_imag = _RAND_25[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_26 = {1{`RANDOM}};
+  _T_57_real = _RAND_26[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_27 = {1{`RANDOM}};
+  _T_57_imag = _RAND_27[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_28 = {1{`RANDOM}};
+  _T_60_real = _RAND_28[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_29 = {1{`RANDOM}};
+  _T_60_imag = _RAND_29[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_30 = {1{`RANDOM}};
+  _T_63_real = _RAND_30[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_31 = {1{`RANDOM}};
+  _T_63_imag = _RAND_31[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_32 = {1{`RANDOM}};
+  _T_66_real = _RAND_32[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_33 = {1{`RANDOM}};
+  _T_66_imag = _RAND_33[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_34 = {1{`RANDOM}};
+  _T_69_real = _RAND_34[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_35 = {1{`RANDOM}};
+  _T_69_imag = _RAND_35[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_36 = {1{`RANDOM}};
+  _T_72_real = _RAND_36[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_37 = {1{`RANDOM}};
+  _T_72_imag = _RAND_37[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_38 = {1{`RANDOM}};
+  _T_75_real = _RAND_38[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_39 = {1{`RANDOM}};
+  _T_75_imag = _RAND_39[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_40 = {1{`RANDOM}};
+  _T_78_real = _RAND_40[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_41 = {1{`RANDOM}};
+  _T_78_imag = _RAND_41[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_42 = {1{`RANDOM}};
+  _T_81_real = _RAND_42[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_43 = {1{`RANDOM}};
+  _T_81_imag = _RAND_43[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_44 = {1{`RANDOM}};
+  _T_84_real = _RAND_44[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_45 = {1{`RANDOM}};
+  _T_84_imag = _RAND_45[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_46 = {1{`RANDOM}};
+  _T_87_real = _RAND_46[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_47 = {1{`RANDOM}};
+  _T_87_imag = _RAND_47[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_48 = {1{`RANDOM}};
+  _T_90_real = _RAND_48[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_49 = {1{`RANDOM}};
+  _T_90_imag = _RAND_49[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_50 = {1{`RANDOM}};
+  _T_93_real = _RAND_50[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_51 = {1{`RANDOM}};
+  _T_93_imag = _RAND_51[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_52 = {1{`RANDOM}};
+  _T_96_real = _RAND_52[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_53 = {1{`RANDOM}};
+  _T_96_imag = _RAND_53[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_54 = {1{`RANDOM}};
+  _T_99_real = _RAND_54[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_55 = {1{`RANDOM}};
+  _T_99_imag = _RAND_55[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_56 = {1{`RANDOM}};
+  _T_102_real = _RAND_56[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_57 = {1{`RANDOM}};
+  _T_102_imag = _RAND_57[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_58 = {1{`RANDOM}};
+  _T_105_real = _RAND_58[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_59 = {1{`RANDOM}};
+  _T_105_imag = _RAND_59[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_60 = {1{`RANDOM}};
+  _T_108_real = _RAND_60[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_61 = {1{`RANDOM}};
+  _T_108_imag = _RAND_61[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_62 = {1{`RANDOM}};
+  _T_111_real = _RAND_62[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_63 = {1{`RANDOM}};
+  _T_111_imag = _RAND_63[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_64 = {1{`RANDOM}};
+  _T_114_real = _RAND_64[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_65 = {1{`RANDOM}};
+  _T_114_imag = _RAND_65[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_66 = {1{`RANDOM}};
+  _T_117_real = _RAND_66[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_67 = {1{`RANDOM}};
+  _T_117_imag = _RAND_67[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_68 = {1{`RANDOM}};
+  _T_120_real = _RAND_68[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_69 = {1{`RANDOM}};
+  _T_120_imag = _RAND_69[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_70 = {1{`RANDOM}};
+  _T_123_real = _RAND_70[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_71 = {1{`RANDOM}};
+  _T_123_imag = _RAND_71[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_72 = {1{`RANDOM}};
+  _T_126_real = _RAND_72[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_73 = {1{`RANDOM}};
+  _T_126_imag = _RAND_73[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_74 = {1{`RANDOM}};
+  _T_129_real = _RAND_74[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_75 = {1{`RANDOM}};
+  _T_129_imag = _RAND_75[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_76 = {1{`RANDOM}};
+  _T_132_real = _RAND_76[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_77 = {1{`RANDOM}};
+  _T_132_imag = _RAND_77[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_78 = {1{`RANDOM}};
+  _T_135_real = _RAND_78[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_79 = {1{`RANDOM}};
+  _T_135_imag = _RAND_79[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_80 = {1{`RANDOM}};
+  _T_138_real = _RAND_80[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_81 = {1{`RANDOM}};
+  _T_138_imag = _RAND_81[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_82 = {1{`RANDOM}};
+  _T_141_real = _RAND_82[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_83 = {1{`RANDOM}};
+  _T_141_imag = _RAND_83[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_84 = {1{`RANDOM}};
+  _T_144_real = _RAND_84[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_85 = {1{`RANDOM}};
+  _T_144_imag = _RAND_85[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_86 = {1{`RANDOM}};
+  _T_147_real = _RAND_86[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_87 = {1{`RANDOM}};
+  _T_147_imag = _RAND_87[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_88 = {1{`RANDOM}};
+  _T_150_real = _RAND_88[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_89 = {1{`RANDOM}};
+  _T_150_imag = _RAND_89[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_90 = {1{`RANDOM}};
+  _T_153_real = _RAND_90[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_91 = {1{`RANDOM}};
+  _T_153_imag = _RAND_91[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_92 = {1{`RANDOM}};
+  _T_156_real = _RAND_92[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_93 = {1{`RANDOM}};
+  _T_156_imag = _RAND_93[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_94 = {1{`RANDOM}};
+  _T_159_real = _RAND_94[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_95 = {1{`RANDOM}};
+  _T_159_imag = _RAND_95[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_96 = {1{`RANDOM}};
+  _T_162_real = _RAND_96[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_97 = {1{`RANDOM}};
+  _T_162_imag = _RAND_97[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_98 = {1{`RANDOM}};
+  _T_165_real = _RAND_98[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_99 = {1{`RANDOM}};
+  _T_165_imag = _RAND_99[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_100 = {1{`RANDOM}};
+  _T_168_real = _RAND_100[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_101 = {1{`RANDOM}};
+  _T_168_imag = _RAND_101[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_102 = {1{`RANDOM}};
+  _T_171_real = _RAND_102[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_103 = {1{`RANDOM}};
+  _T_171_imag = _RAND_103[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_104 = {1{`RANDOM}};
+  _T_174_real = _RAND_104[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_105 = {1{`RANDOM}};
+  _T_174_imag = _RAND_105[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_106 = {1{`RANDOM}};
+  _T_177_real = _RAND_106[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_107 = {1{`RANDOM}};
+  _T_177_imag = _RAND_107[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_108 = {1{`RANDOM}};
+  _T_180_real = _RAND_108[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_109 = {1{`RANDOM}};
+  _T_180_imag = _RAND_109[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_110 = {1{`RANDOM}};
+  _T_183_real = _RAND_110[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_111 = {1{`RANDOM}};
+  _T_183_imag = _RAND_111[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_112 = {1{`RANDOM}};
+  _T_186_real = _RAND_112[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_113 = {1{`RANDOM}};
+  _T_186_imag = _RAND_113[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_114 = {1{`RANDOM}};
+  _T_189_real = _RAND_114[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_115 = {1{`RANDOM}};
+  _T_189_imag = _RAND_115[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_116 = {1{`RANDOM}};
+  _T_192_real = _RAND_116[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_117 = {1{`RANDOM}};
+  _T_192_imag = _RAND_117[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_118 = {1{`RANDOM}};
+  _T_195_real = _RAND_118[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_119 = {1{`RANDOM}};
+  _T_195_imag = _RAND_119[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_120 = {1{`RANDOM}};
+  _T_198_real = _RAND_120[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_121 = {1{`RANDOM}};
+  _T_198_imag = _RAND_121[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_122 = {1{`RANDOM}};
+  _T_201_real = _RAND_122[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_123 = {1{`RANDOM}};
+  _T_201_imag = _RAND_123[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_124 = {1{`RANDOM}};
+  _T_204_real = _RAND_124[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_125 = {1{`RANDOM}};
+  _T_204_imag = _RAND_125[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_126 = {1{`RANDOM}};
+  _T_207_real = _RAND_126[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_127 = {1{`RANDOM}};
+  _T_207_imag = _RAND_127[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_128 = {1{`RANDOM}};
+  _T_210_real = _RAND_128[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_129 = {1{`RANDOM}};
+  _T_210_imag = _RAND_129[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_130 = {1{`RANDOM}};
+  _T_213_real = _RAND_130[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_131 = {1{`RANDOM}};
+  _T_213_imag = _RAND_131[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_132 = {1{`RANDOM}};
+  _T_216_real = _RAND_132[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_133 = {1{`RANDOM}};
+  _T_216_imag = _RAND_133[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_134 = {1{`RANDOM}};
+  _T_219_real = _RAND_134[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_135 = {1{`RANDOM}};
+  _T_219_imag = _RAND_135[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_136 = {1{`RANDOM}};
+  _T_222_real = _RAND_136[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_137 = {1{`RANDOM}};
+  _T_222_imag = _RAND_137[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_138 = {1{`RANDOM}};
+  _T_225_real = _RAND_138[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_139 = {1{`RANDOM}};
+  _T_225_imag = _RAND_139[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_140 = {1{`RANDOM}};
+  _T_228_real = _RAND_140[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_141 = {1{`RANDOM}};
+  _T_228_imag = _RAND_141[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_142 = {1{`RANDOM}};
+  _T_231_real = _RAND_142[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_143 = {1{`RANDOM}};
+  _T_231_imag = _RAND_143[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_144 = {1{`RANDOM}};
+  _T_234_real = _RAND_144[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_145 = {1{`RANDOM}};
+  _T_234_imag = _RAND_145[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_146 = {1{`RANDOM}};
+  _T_237_real = _RAND_146[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_147 = {1{`RANDOM}};
+  _T_237_imag = _RAND_147[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_148 = {1{`RANDOM}};
+  _T_240_real = _RAND_148[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_149 = {1{`RANDOM}};
+  _T_240_imag = _RAND_149[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_150 = {1{`RANDOM}};
+  _T_243_real = _RAND_150[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_151 = {1{`RANDOM}};
+  _T_243_imag = _RAND_151[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_152 = {1{`RANDOM}};
+  _T_246_real = _RAND_152[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_153 = {1{`RANDOM}};
+  _T_246_imag = _RAND_153[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_154 = {1{`RANDOM}};
+  _T_249_real = _RAND_154[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_155 = {1{`RANDOM}};
+  _T_249_imag = _RAND_155[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_156 = {1{`RANDOM}};
+  _T_252_real = _RAND_156[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_157 = {1{`RANDOM}};
+  _T_252_imag = _RAND_157[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_158 = {1{`RANDOM}};
+  _T_255_real = _RAND_158[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_159 = {1{`RANDOM}};
+  _T_255_imag = _RAND_159[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_160 = {1{`RANDOM}};
+  _T_258_real = _RAND_160[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_161 = {1{`RANDOM}};
+  _T_258_imag = _RAND_161[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_162 = {1{`RANDOM}};
+  _T_261_real = _RAND_162[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_163 = {1{`RANDOM}};
+  _T_261_imag = _RAND_163[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_164 = {1{`RANDOM}};
+  _T_264_real = _RAND_164[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_165 = {1{`RANDOM}};
+  _T_264_imag = _RAND_165[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_166 = {1{`RANDOM}};
+  _T_267_real = _RAND_166[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_167 = {1{`RANDOM}};
+  _T_267_imag = _RAND_167[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_168 = {1{`RANDOM}};
+  _T_270_real = _RAND_168[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_169 = {1{`RANDOM}};
+  _T_270_imag = _RAND_169[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_170 = {1{`RANDOM}};
+  _T_273_real = _RAND_170[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_171 = {1{`RANDOM}};
+  _T_273_imag = _RAND_171[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_172 = {1{`RANDOM}};
+  _T_276_real = _RAND_172[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_173 = {1{`RANDOM}};
+  _T_276_imag = _RAND_173[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_174 = {1{`RANDOM}};
+  _T_279_real = _RAND_174[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_175 = {1{`RANDOM}};
+  _T_279_imag = _RAND_175[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_176 = {1{`RANDOM}};
+  _T_282_real = _RAND_176[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_177 = {1{`RANDOM}};
+  _T_282_imag = _RAND_177[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_178 = {1{`RANDOM}};
+  _T_285_real = _RAND_178[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_179 = {1{`RANDOM}};
+  _T_285_imag = _RAND_179[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_180 = {1{`RANDOM}};
+  _T_288_real = _RAND_180[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_181 = {1{`RANDOM}};
+  _T_288_imag = _RAND_181[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_182 = {1{`RANDOM}};
+  _T_291_real = _RAND_182[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_183 = {1{`RANDOM}};
+  _T_291_imag = _RAND_183[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_184 = {1{`RANDOM}};
+  _T_294_real = _RAND_184[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_185 = {1{`RANDOM}};
+  _T_294_imag = _RAND_185[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_186 = {1{`RANDOM}};
+  _T_297_real = _RAND_186[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_187 = {1{`RANDOM}};
+  _T_297_imag = _RAND_187[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_188 = {1{`RANDOM}};
+  _T_300_real = _RAND_188[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_189 = {1{`RANDOM}};
+  _T_300_imag = _RAND_189[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_190 = {1{`RANDOM}};
+  _T_303_real = _RAND_190[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_191 = {1{`RANDOM}};
+  _T_303_imag = _RAND_191[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_192 = {1{`RANDOM}};
+  _T_306_real = _RAND_192[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_193 = {1{`RANDOM}};
+  _T_306_imag = _RAND_193[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_194 = {1{`RANDOM}};
+  _T_309_real = _RAND_194[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_195 = {1{`RANDOM}};
+  _T_309_imag = _RAND_195[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_196 = {1{`RANDOM}};
+  _T_312_real = _RAND_196[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_197 = {1{`RANDOM}};
+  _T_312_imag = _RAND_197[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_198 = {1{`RANDOM}};
+  _T_315_real = _RAND_198[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_199 = {1{`RANDOM}};
+  _T_315_imag = _RAND_199[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_200 = {1{`RANDOM}};
+  _T_318_real = _RAND_200[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_201 = {1{`RANDOM}};
+  _T_318_imag = _RAND_201[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_202 = {1{`RANDOM}};
+  _T_321_real = _RAND_202[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_203 = {1{`RANDOM}};
+  _T_321_imag = _RAND_203[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_204 = {1{`RANDOM}};
+  _T_324_real = _RAND_204[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_205 = {1{`RANDOM}};
+  _T_324_imag = _RAND_205[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_206 = {1{`RANDOM}};
+  _T_327_real = _RAND_206[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_207 = {1{`RANDOM}};
+  _T_327_imag = _RAND_207[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_208 = {1{`RANDOM}};
+  _T_330_real = _RAND_208[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_209 = {1{`RANDOM}};
+  _T_330_imag = _RAND_209[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_210 = {1{`RANDOM}};
+  _T_333_real = _RAND_210[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_211 = {1{`RANDOM}};
+  _T_333_imag = _RAND_211[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_212 = {1{`RANDOM}};
+  _T_336_real = _RAND_212[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_213 = {1{`RANDOM}};
+  _T_336_imag = _RAND_213[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_214 = {1{`RANDOM}};
+  _T_339_real = _RAND_214[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_215 = {1{`RANDOM}};
+  _T_339_imag = _RAND_215[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_216 = {1{`RANDOM}};
+  _T_342_real = _RAND_216[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_217 = {1{`RANDOM}};
+  _T_342_imag = _RAND_217[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_218 = {1{`RANDOM}};
+  _T_345_real = _RAND_218[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_219 = {1{`RANDOM}};
+  _T_345_imag = _RAND_219[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_220 = {1{`RANDOM}};
+  _T_348_real = _RAND_220[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_221 = {1{`RANDOM}};
+  _T_348_imag = _RAND_221[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_222 = {1{`RANDOM}};
+  _T_351_real = _RAND_222[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_223 = {1{`RANDOM}};
+  _T_351_imag = _RAND_223[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_224 = {1{`RANDOM}};
+  _T_354_real = _RAND_224[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_225 = {1{`RANDOM}};
+  _T_354_imag = _RAND_225[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_226 = {1{`RANDOM}};
+  _T_357_real = _RAND_226[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_227 = {1{`RANDOM}};
+  _T_357_imag = _RAND_227[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_228 = {1{`RANDOM}};
+  _T_360_real = _RAND_228[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_229 = {1{`RANDOM}};
+  _T_360_imag = _RAND_229[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_230 = {1{`RANDOM}};
+  _T_363_real = _RAND_230[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_231 = {1{`RANDOM}};
+  _T_363_imag = _RAND_231[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_232 = {1{`RANDOM}};
+  _T_366_real = _RAND_232[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_233 = {1{`RANDOM}};
+  _T_366_imag = _RAND_233[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_234 = {1{`RANDOM}};
+  _T_369_real = _RAND_234[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_235 = {1{`RANDOM}};
+  _T_369_imag = _RAND_235[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_236 = {1{`RANDOM}};
+  _T_372_real = _RAND_236[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_237 = {1{`RANDOM}};
+  _T_372_imag = _RAND_237[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_238 = {1{`RANDOM}};
+  _T_375_real = _RAND_238[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_239 = {1{`RANDOM}};
+  _T_375_imag = _RAND_239[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_240 = {1{`RANDOM}};
+  _T_378_real = _RAND_240[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_241 = {1{`RANDOM}};
+  _T_378_imag = _RAND_241[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_242 = {1{`RANDOM}};
+  _T_381_real = _RAND_242[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_243 = {1{`RANDOM}};
+  _T_381_imag = _RAND_243[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_244 = {1{`RANDOM}};
+  _T_384_real = _RAND_244[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_245 = {1{`RANDOM}};
+  _T_384_imag = _RAND_245[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_246 = {1{`RANDOM}};
+  _T_387_real = _RAND_246[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_247 = {1{`RANDOM}};
+  _T_387_imag = _RAND_247[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_248 = {1{`RANDOM}};
+  _T_390_real = _RAND_248[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_249 = {1{`RANDOM}};
+  _T_390_imag = _RAND_249[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_250 = {1{`RANDOM}};
+  _T_393_real = _RAND_250[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_251 = {1{`RANDOM}};
+  _T_393_imag = _RAND_251[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_252 = {1{`RANDOM}};
+  _T_396_real = _RAND_252[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_253 = {1{`RANDOM}};
+  _T_396_imag = _RAND_253[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_254 = {1{`RANDOM}};
+  _T_399_real = _RAND_254[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_255 = {1{`RANDOM}};
+  _T_399_imag = _RAND_255[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_256 = {1{`RANDOM}};
+  feedback_real = _RAND_256[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_257 = {1{`RANDOM}};
+  feedback_imag = _RAND_257[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_258 = {1{`RANDOM}};
+  butt_out_0_real = _RAND_258[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_259 = {1{`RANDOM}};
+  butt_out_0_imag = _RAND_259[15:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_260 = {1{`RANDOM}};
+  load_output = _RAND_260[0:0];
   `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
 `endif // SYNTHESIS
   always @(posedge clock) begin
-    if (reset) begin
-      _T_40 <= 1'h0;
-    end else begin
-      _T_40 <= io_en;
+    if (io_en) begin
+      shift_out_real <= _T_399_real;
     end
-    if (reset) begin
-      out_reg_real <= 16'sh0;
-    end else if (_T_33) begin
-      out_reg_real <= SDFStageRadix22_1_mem_R0_data_real;
+    if (io_en) begin
+      shift_out_imag <= _T_399_imag;
     end
-    if (reset) begin
-      out_reg_imag <= 16'sh0;
-    end else if (_T_33) begin
-      out_reg_imag <= SDFStageRadix22_1_mem_R0_data_imag;
+    if (io_en) begin
+      if (load_input) begin
+        _T_21_real <= io_in_real;
+      end else begin
+        _T_21_real <= butterfly_outputs_1_real;
+      end
     end
-    if (reset) begin
-      value <= 7'h0;
-    end else if (io_en) begin
-      value <= _T_29;
+    if (io_en) begin
+      if (load_input) begin
+        _T_21_imag <= io_in_imag;
+      end else begin
+        _T_21_imag <= butterfly_outputs_1_imag;
+      end
     end
-    if (reset) begin
-      _T_33 <= 1'h0;
-    end else begin
-      _T_33 <= io_en;
+    if (io_en) begin
+      _T_24_real <= _T_21_real;
     end
-    if (reset) begin
-      _T_34 <= 7'h7f;
-    end else if (io_en) begin
-      _T_34 <= value;
+    if (io_en) begin
+      _T_24_imag <= _T_21_imag;
     end
-    if (_T_40) begin
-      feedback_real <= SDFStageRadix22_1_mem_R0_data_real;
-    end else begin
-      feedback_real <= out_reg_real;
+    if (io_en) begin
+      _T_27_real <= _T_24_real;
     end
-    if (_T_40) begin
-      feedback_imag <= SDFStageRadix22_1_mem_R0_data_imag;
-    end else begin
-      feedback_imag <= out_reg_imag;
+    if (io_en) begin
+      _T_27_imag <= _T_24_imag;
     end
-    butt_out_0_real <= _T_57[16:1];
-    butt_out_0_imag <= _T_64[16:1];
+    if (io_en) begin
+      _T_30_real <= _T_27_real;
+    end
+    if (io_en) begin
+      _T_30_imag <= _T_27_imag;
+    end
+    if (io_en) begin
+      _T_33_real <= _T_30_real;
+    end
+    if (io_en) begin
+      _T_33_imag <= _T_30_imag;
+    end
+    if (io_en) begin
+      _T_36_real <= _T_33_real;
+    end
+    if (io_en) begin
+      _T_36_imag <= _T_33_imag;
+    end
+    if (io_en) begin
+      _T_39_real <= _T_36_real;
+    end
+    if (io_en) begin
+      _T_39_imag <= _T_36_imag;
+    end
+    if (io_en) begin
+      _T_42_real <= _T_39_real;
+    end
+    if (io_en) begin
+      _T_42_imag <= _T_39_imag;
+    end
+    if (io_en) begin
+      _T_45_real <= _T_42_real;
+    end
+    if (io_en) begin
+      _T_45_imag <= _T_42_imag;
+    end
+    if (io_en) begin
+      _T_48_real <= _T_45_real;
+    end
+    if (io_en) begin
+      _T_48_imag <= _T_45_imag;
+    end
+    if (io_en) begin
+      _T_51_real <= _T_48_real;
+    end
+    if (io_en) begin
+      _T_51_imag <= _T_48_imag;
+    end
+    if (io_en) begin
+      _T_54_real <= _T_51_real;
+    end
+    if (io_en) begin
+      _T_54_imag <= _T_51_imag;
+    end
+    if (io_en) begin
+      _T_57_real <= _T_54_real;
+    end
+    if (io_en) begin
+      _T_57_imag <= _T_54_imag;
+    end
+    if (io_en) begin
+      _T_60_real <= _T_57_real;
+    end
+    if (io_en) begin
+      _T_60_imag <= _T_57_imag;
+    end
+    if (io_en) begin
+      _T_63_real <= _T_60_real;
+    end
+    if (io_en) begin
+      _T_63_imag <= _T_60_imag;
+    end
+    if (io_en) begin
+      _T_66_real <= _T_63_real;
+    end
+    if (io_en) begin
+      _T_66_imag <= _T_63_imag;
+    end
+    if (io_en) begin
+      _T_69_real <= _T_66_real;
+    end
+    if (io_en) begin
+      _T_69_imag <= _T_66_imag;
+    end
+    if (io_en) begin
+      _T_72_real <= _T_69_real;
+    end
+    if (io_en) begin
+      _T_72_imag <= _T_69_imag;
+    end
+    if (io_en) begin
+      _T_75_real <= _T_72_real;
+    end
+    if (io_en) begin
+      _T_75_imag <= _T_72_imag;
+    end
+    if (io_en) begin
+      _T_78_real <= _T_75_real;
+    end
+    if (io_en) begin
+      _T_78_imag <= _T_75_imag;
+    end
+    if (io_en) begin
+      _T_81_real <= _T_78_real;
+    end
+    if (io_en) begin
+      _T_81_imag <= _T_78_imag;
+    end
+    if (io_en) begin
+      _T_84_real <= _T_81_real;
+    end
+    if (io_en) begin
+      _T_84_imag <= _T_81_imag;
+    end
+    if (io_en) begin
+      _T_87_real <= _T_84_real;
+    end
+    if (io_en) begin
+      _T_87_imag <= _T_84_imag;
+    end
+    if (io_en) begin
+      _T_90_real <= _T_87_real;
+    end
+    if (io_en) begin
+      _T_90_imag <= _T_87_imag;
+    end
+    if (io_en) begin
+      _T_93_real <= _T_90_real;
+    end
+    if (io_en) begin
+      _T_93_imag <= _T_90_imag;
+    end
+    if (io_en) begin
+      _T_96_real <= _T_93_real;
+    end
+    if (io_en) begin
+      _T_96_imag <= _T_93_imag;
+    end
+    if (io_en) begin
+      _T_99_real <= _T_96_real;
+    end
+    if (io_en) begin
+      _T_99_imag <= _T_96_imag;
+    end
+    if (io_en) begin
+      _T_102_real <= _T_99_real;
+    end
+    if (io_en) begin
+      _T_102_imag <= _T_99_imag;
+    end
+    if (io_en) begin
+      _T_105_real <= _T_102_real;
+    end
+    if (io_en) begin
+      _T_105_imag <= _T_102_imag;
+    end
+    if (io_en) begin
+      _T_108_real <= _T_105_real;
+    end
+    if (io_en) begin
+      _T_108_imag <= _T_105_imag;
+    end
+    if (io_en) begin
+      _T_111_real <= _T_108_real;
+    end
+    if (io_en) begin
+      _T_111_imag <= _T_108_imag;
+    end
+    if (io_en) begin
+      _T_114_real <= _T_111_real;
+    end
+    if (io_en) begin
+      _T_114_imag <= _T_111_imag;
+    end
+    if (io_en) begin
+      _T_117_real <= _T_114_real;
+    end
+    if (io_en) begin
+      _T_117_imag <= _T_114_imag;
+    end
+    if (io_en) begin
+      _T_120_real <= _T_117_real;
+    end
+    if (io_en) begin
+      _T_120_imag <= _T_117_imag;
+    end
+    if (io_en) begin
+      _T_123_real <= _T_120_real;
+    end
+    if (io_en) begin
+      _T_123_imag <= _T_120_imag;
+    end
+    if (io_en) begin
+      _T_126_real <= _T_123_real;
+    end
+    if (io_en) begin
+      _T_126_imag <= _T_123_imag;
+    end
+    if (io_en) begin
+      _T_129_real <= _T_126_real;
+    end
+    if (io_en) begin
+      _T_129_imag <= _T_126_imag;
+    end
+    if (io_en) begin
+      _T_132_real <= _T_129_real;
+    end
+    if (io_en) begin
+      _T_132_imag <= _T_129_imag;
+    end
+    if (io_en) begin
+      _T_135_real <= _T_132_real;
+    end
+    if (io_en) begin
+      _T_135_imag <= _T_132_imag;
+    end
+    if (io_en) begin
+      _T_138_real <= _T_135_real;
+    end
+    if (io_en) begin
+      _T_138_imag <= _T_135_imag;
+    end
+    if (io_en) begin
+      _T_141_real <= _T_138_real;
+    end
+    if (io_en) begin
+      _T_141_imag <= _T_138_imag;
+    end
+    if (io_en) begin
+      _T_144_real <= _T_141_real;
+    end
+    if (io_en) begin
+      _T_144_imag <= _T_141_imag;
+    end
+    if (io_en) begin
+      _T_147_real <= _T_144_real;
+    end
+    if (io_en) begin
+      _T_147_imag <= _T_144_imag;
+    end
+    if (io_en) begin
+      _T_150_real <= _T_147_real;
+    end
+    if (io_en) begin
+      _T_150_imag <= _T_147_imag;
+    end
+    if (io_en) begin
+      _T_153_real <= _T_150_real;
+    end
+    if (io_en) begin
+      _T_153_imag <= _T_150_imag;
+    end
+    if (io_en) begin
+      _T_156_real <= _T_153_real;
+    end
+    if (io_en) begin
+      _T_156_imag <= _T_153_imag;
+    end
+    if (io_en) begin
+      _T_159_real <= _T_156_real;
+    end
+    if (io_en) begin
+      _T_159_imag <= _T_156_imag;
+    end
+    if (io_en) begin
+      _T_162_real <= _T_159_real;
+    end
+    if (io_en) begin
+      _T_162_imag <= _T_159_imag;
+    end
+    if (io_en) begin
+      _T_165_real <= _T_162_real;
+    end
+    if (io_en) begin
+      _T_165_imag <= _T_162_imag;
+    end
+    if (io_en) begin
+      _T_168_real <= _T_165_real;
+    end
+    if (io_en) begin
+      _T_168_imag <= _T_165_imag;
+    end
+    if (io_en) begin
+      _T_171_real <= _T_168_real;
+    end
+    if (io_en) begin
+      _T_171_imag <= _T_168_imag;
+    end
+    if (io_en) begin
+      _T_174_real <= _T_171_real;
+    end
+    if (io_en) begin
+      _T_174_imag <= _T_171_imag;
+    end
+    if (io_en) begin
+      _T_177_real <= _T_174_real;
+    end
+    if (io_en) begin
+      _T_177_imag <= _T_174_imag;
+    end
+    if (io_en) begin
+      _T_180_real <= _T_177_real;
+    end
+    if (io_en) begin
+      _T_180_imag <= _T_177_imag;
+    end
+    if (io_en) begin
+      _T_183_real <= _T_180_real;
+    end
+    if (io_en) begin
+      _T_183_imag <= _T_180_imag;
+    end
+    if (io_en) begin
+      _T_186_real <= _T_183_real;
+    end
+    if (io_en) begin
+      _T_186_imag <= _T_183_imag;
+    end
+    if (io_en) begin
+      _T_189_real <= _T_186_real;
+    end
+    if (io_en) begin
+      _T_189_imag <= _T_186_imag;
+    end
+    if (io_en) begin
+      _T_192_real <= _T_189_real;
+    end
+    if (io_en) begin
+      _T_192_imag <= _T_189_imag;
+    end
+    if (io_en) begin
+      _T_195_real <= _T_192_real;
+    end
+    if (io_en) begin
+      _T_195_imag <= _T_192_imag;
+    end
+    if (io_en) begin
+      _T_198_real <= _T_195_real;
+    end
+    if (io_en) begin
+      _T_198_imag <= _T_195_imag;
+    end
+    if (io_en) begin
+      _T_201_real <= _T_198_real;
+    end
+    if (io_en) begin
+      _T_201_imag <= _T_198_imag;
+    end
+    if (io_en) begin
+      _T_204_real <= _T_201_real;
+    end
+    if (io_en) begin
+      _T_204_imag <= _T_201_imag;
+    end
+    if (io_en) begin
+      _T_207_real <= _T_204_real;
+    end
+    if (io_en) begin
+      _T_207_imag <= _T_204_imag;
+    end
+    if (io_en) begin
+      _T_210_real <= _T_207_real;
+    end
+    if (io_en) begin
+      _T_210_imag <= _T_207_imag;
+    end
+    if (io_en) begin
+      _T_213_real <= _T_210_real;
+    end
+    if (io_en) begin
+      _T_213_imag <= _T_210_imag;
+    end
+    if (io_en) begin
+      _T_216_real <= _T_213_real;
+    end
+    if (io_en) begin
+      _T_216_imag <= _T_213_imag;
+    end
+    if (io_en) begin
+      _T_219_real <= _T_216_real;
+    end
+    if (io_en) begin
+      _T_219_imag <= _T_216_imag;
+    end
+    if (io_en) begin
+      _T_222_real <= _T_219_real;
+    end
+    if (io_en) begin
+      _T_222_imag <= _T_219_imag;
+    end
+    if (io_en) begin
+      _T_225_real <= _T_222_real;
+    end
+    if (io_en) begin
+      _T_225_imag <= _T_222_imag;
+    end
+    if (io_en) begin
+      _T_228_real <= _T_225_real;
+    end
+    if (io_en) begin
+      _T_228_imag <= _T_225_imag;
+    end
+    if (io_en) begin
+      _T_231_real <= _T_228_real;
+    end
+    if (io_en) begin
+      _T_231_imag <= _T_228_imag;
+    end
+    if (io_en) begin
+      _T_234_real <= _T_231_real;
+    end
+    if (io_en) begin
+      _T_234_imag <= _T_231_imag;
+    end
+    if (io_en) begin
+      _T_237_real <= _T_234_real;
+    end
+    if (io_en) begin
+      _T_237_imag <= _T_234_imag;
+    end
+    if (io_en) begin
+      _T_240_real <= _T_237_real;
+    end
+    if (io_en) begin
+      _T_240_imag <= _T_237_imag;
+    end
+    if (io_en) begin
+      _T_243_real <= _T_240_real;
+    end
+    if (io_en) begin
+      _T_243_imag <= _T_240_imag;
+    end
+    if (io_en) begin
+      _T_246_real <= _T_243_real;
+    end
+    if (io_en) begin
+      _T_246_imag <= _T_243_imag;
+    end
+    if (io_en) begin
+      _T_249_real <= _T_246_real;
+    end
+    if (io_en) begin
+      _T_249_imag <= _T_246_imag;
+    end
+    if (io_en) begin
+      _T_252_real <= _T_249_real;
+    end
+    if (io_en) begin
+      _T_252_imag <= _T_249_imag;
+    end
+    if (io_en) begin
+      _T_255_real <= _T_252_real;
+    end
+    if (io_en) begin
+      _T_255_imag <= _T_252_imag;
+    end
+    if (io_en) begin
+      _T_258_real <= _T_255_real;
+    end
+    if (io_en) begin
+      _T_258_imag <= _T_255_imag;
+    end
+    if (io_en) begin
+      _T_261_real <= _T_258_real;
+    end
+    if (io_en) begin
+      _T_261_imag <= _T_258_imag;
+    end
+    if (io_en) begin
+      _T_264_real <= _T_261_real;
+    end
+    if (io_en) begin
+      _T_264_imag <= _T_261_imag;
+    end
+    if (io_en) begin
+      _T_267_real <= _T_264_real;
+    end
+    if (io_en) begin
+      _T_267_imag <= _T_264_imag;
+    end
+    if (io_en) begin
+      _T_270_real <= _T_267_real;
+    end
+    if (io_en) begin
+      _T_270_imag <= _T_267_imag;
+    end
+    if (io_en) begin
+      _T_273_real <= _T_270_real;
+    end
+    if (io_en) begin
+      _T_273_imag <= _T_270_imag;
+    end
+    if (io_en) begin
+      _T_276_real <= _T_273_real;
+    end
+    if (io_en) begin
+      _T_276_imag <= _T_273_imag;
+    end
+    if (io_en) begin
+      _T_279_real <= _T_276_real;
+    end
+    if (io_en) begin
+      _T_279_imag <= _T_276_imag;
+    end
+    if (io_en) begin
+      _T_282_real <= _T_279_real;
+    end
+    if (io_en) begin
+      _T_282_imag <= _T_279_imag;
+    end
+    if (io_en) begin
+      _T_285_real <= _T_282_real;
+    end
+    if (io_en) begin
+      _T_285_imag <= _T_282_imag;
+    end
+    if (io_en) begin
+      _T_288_real <= _T_285_real;
+    end
+    if (io_en) begin
+      _T_288_imag <= _T_285_imag;
+    end
+    if (io_en) begin
+      _T_291_real <= _T_288_real;
+    end
+    if (io_en) begin
+      _T_291_imag <= _T_288_imag;
+    end
+    if (io_en) begin
+      _T_294_real <= _T_291_real;
+    end
+    if (io_en) begin
+      _T_294_imag <= _T_291_imag;
+    end
+    if (io_en) begin
+      _T_297_real <= _T_294_real;
+    end
+    if (io_en) begin
+      _T_297_imag <= _T_294_imag;
+    end
+    if (io_en) begin
+      _T_300_real <= _T_297_real;
+    end
+    if (io_en) begin
+      _T_300_imag <= _T_297_imag;
+    end
+    if (io_en) begin
+      _T_303_real <= _T_300_real;
+    end
+    if (io_en) begin
+      _T_303_imag <= _T_300_imag;
+    end
+    if (io_en) begin
+      _T_306_real <= _T_303_real;
+    end
+    if (io_en) begin
+      _T_306_imag <= _T_303_imag;
+    end
+    if (io_en) begin
+      _T_309_real <= _T_306_real;
+    end
+    if (io_en) begin
+      _T_309_imag <= _T_306_imag;
+    end
+    if (io_en) begin
+      _T_312_real <= _T_309_real;
+    end
+    if (io_en) begin
+      _T_312_imag <= _T_309_imag;
+    end
+    if (io_en) begin
+      _T_315_real <= _T_312_real;
+    end
+    if (io_en) begin
+      _T_315_imag <= _T_312_imag;
+    end
+    if (io_en) begin
+      _T_318_real <= _T_315_real;
+    end
+    if (io_en) begin
+      _T_318_imag <= _T_315_imag;
+    end
+    if (io_en) begin
+      _T_321_real <= _T_318_real;
+    end
+    if (io_en) begin
+      _T_321_imag <= _T_318_imag;
+    end
+    if (io_en) begin
+      _T_324_real <= _T_321_real;
+    end
+    if (io_en) begin
+      _T_324_imag <= _T_321_imag;
+    end
+    if (io_en) begin
+      _T_327_real <= _T_324_real;
+    end
+    if (io_en) begin
+      _T_327_imag <= _T_324_imag;
+    end
+    if (io_en) begin
+      _T_330_real <= _T_327_real;
+    end
+    if (io_en) begin
+      _T_330_imag <= _T_327_imag;
+    end
+    if (io_en) begin
+      _T_333_real <= _T_330_real;
+    end
+    if (io_en) begin
+      _T_333_imag <= _T_330_imag;
+    end
+    if (io_en) begin
+      _T_336_real <= _T_333_real;
+    end
+    if (io_en) begin
+      _T_336_imag <= _T_333_imag;
+    end
+    if (io_en) begin
+      _T_339_real <= _T_336_real;
+    end
+    if (io_en) begin
+      _T_339_imag <= _T_336_imag;
+    end
+    if (io_en) begin
+      _T_342_real <= _T_339_real;
+    end
+    if (io_en) begin
+      _T_342_imag <= _T_339_imag;
+    end
+    if (io_en) begin
+      _T_345_real <= _T_342_real;
+    end
+    if (io_en) begin
+      _T_345_imag <= _T_342_imag;
+    end
+    if (io_en) begin
+      _T_348_real <= _T_345_real;
+    end
+    if (io_en) begin
+      _T_348_imag <= _T_345_imag;
+    end
+    if (io_en) begin
+      _T_351_real <= _T_348_real;
+    end
+    if (io_en) begin
+      _T_351_imag <= _T_348_imag;
+    end
+    if (io_en) begin
+      _T_354_real <= _T_351_real;
+    end
+    if (io_en) begin
+      _T_354_imag <= _T_351_imag;
+    end
+    if (io_en) begin
+      _T_357_real <= _T_354_real;
+    end
+    if (io_en) begin
+      _T_357_imag <= _T_354_imag;
+    end
+    if (io_en) begin
+      _T_360_real <= _T_357_real;
+    end
+    if (io_en) begin
+      _T_360_imag <= _T_357_imag;
+    end
+    if (io_en) begin
+      _T_363_real <= _T_360_real;
+    end
+    if (io_en) begin
+      _T_363_imag <= _T_360_imag;
+    end
+    if (io_en) begin
+      _T_366_real <= _T_363_real;
+    end
+    if (io_en) begin
+      _T_366_imag <= _T_363_imag;
+    end
+    if (io_en) begin
+      _T_369_real <= _T_366_real;
+    end
+    if (io_en) begin
+      _T_369_imag <= _T_366_imag;
+    end
+    if (io_en) begin
+      _T_372_real <= _T_369_real;
+    end
+    if (io_en) begin
+      _T_372_imag <= _T_369_imag;
+    end
+    if (io_en) begin
+      _T_375_real <= _T_372_real;
+    end
+    if (io_en) begin
+      _T_375_imag <= _T_372_imag;
+    end
+    if (io_en) begin
+      _T_378_real <= _T_375_real;
+    end
+    if (io_en) begin
+      _T_378_imag <= _T_375_imag;
+    end
+    if (io_en) begin
+      _T_381_real <= _T_378_real;
+    end
+    if (io_en) begin
+      _T_381_imag <= _T_378_imag;
+    end
+    if (io_en) begin
+      _T_384_real <= _T_381_real;
+    end
+    if (io_en) begin
+      _T_384_imag <= _T_381_imag;
+    end
+    if (io_en) begin
+      _T_387_real <= _T_384_real;
+    end
+    if (io_en) begin
+      _T_387_imag <= _T_384_imag;
+    end
+    if (io_en) begin
+      _T_390_real <= _T_387_real;
+    end
+    if (io_en) begin
+      _T_390_imag <= _T_387_imag;
+    end
+    if (io_en) begin
+      _T_393_real <= _T_390_real;
+    end
+    if (io_en) begin
+      _T_393_imag <= _T_390_imag;
+    end
+    if (io_en) begin
+      _T_396_real <= _T_393_real;
+    end
+    if (io_en) begin
+      _T_396_imag <= _T_393_imag;
+    end
+    if (io_en) begin
+      _T_399_real <= _T_396_real;
+    end
+    if (io_en) begin
+      _T_399_imag <= _T_396_imag;
+    end
+    feedback_real <= shift_out_real;
+    feedback_imag <= shift_out_imag;
+    butt_out_0_real <= _T_416[16:1];
+    butt_out_0_imag <= _T_423[16:1];
     if (reset) begin
       load_output <= 1'h0;
     end else begin
@@ -33821,46 +36026,6 @@ module SDFStageRadix22_mem(
   assign SDFStageRadix22_mem_ext_W0_en = W0_en;
   assign SDFStageRadix22_mem_ext_W0_addr = W0_addr;
   assign SDFStageRadix22_mem_ext_W0_data = {W0_data_real,W0_data_imag};
-endmodule
-module SDFStageRadix22_1_mem(
-  input  [6:0]  R0_addr,
-  input         R0_en,
-  input         R0_clk,
-  output [15:0] R0_data_real,
-  output [15:0] R0_data_imag,
-  input  [6:0]  W0_addr,
-  input         W0_en,
-  input         W0_clk,
-  input  [15:0] W0_data_real,
-  input  [15:0] W0_data_imag
-);
-  wire [6:0] SDFStageRadix22_1_mem_ext_R0_addr;
-  wire  SDFStageRadix22_1_mem_ext_R0_en;
-  wire  SDFStageRadix22_1_mem_ext_R0_clk;
-  wire [31:0] SDFStageRadix22_1_mem_ext_R0_data;
-  wire [6:0] SDFStageRadix22_1_mem_ext_W0_addr;
-  wire  SDFStageRadix22_1_mem_ext_W0_en;
-  wire  SDFStageRadix22_1_mem_ext_W0_clk;
-  wire [31:0] SDFStageRadix22_1_mem_ext_W0_data;
-  SDFStageRadix22_1_mem_ext SDFStageRadix22_1_mem_ext (
-    .R0_addr(SDFStageRadix22_1_mem_ext_R0_addr),
-    .R0_en(SDFStageRadix22_1_mem_ext_R0_en),
-    .R0_clk(SDFStageRadix22_1_mem_ext_R0_clk),
-    .R0_data(SDFStageRadix22_1_mem_ext_R0_data),
-    .W0_addr(SDFStageRadix22_1_mem_ext_W0_addr),
-    .W0_en(SDFStageRadix22_1_mem_ext_W0_en),
-    .W0_clk(SDFStageRadix22_1_mem_ext_W0_clk),
-    .W0_data(SDFStageRadix22_1_mem_ext_W0_data)
-  );
-  assign SDFStageRadix22_1_mem_ext_R0_clk = R0_clk;
-  assign SDFStageRadix22_1_mem_ext_R0_en = R0_en;
-  assign SDFStageRadix22_1_mem_ext_R0_addr = R0_addr;
-  assign R0_data_imag = SDFStageRadix22_1_mem_ext_R0_data[15:0];
-  assign R0_data_real = SDFStageRadix22_1_mem_ext_R0_data[31:16];
-  assign SDFStageRadix22_1_mem_ext_W0_clk = W0_clk;
-  assign SDFStageRadix22_1_mem_ext_W0_en = W0_en;
-  assign SDFStageRadix22_1_mem_ext_W0_addr = W0_addr;
-  assign SDFStageRadix22_1_mem_ext_W0_data = {W0_data_real,W0_data_imag};
 endmodule
 module mem(
   input  [8:0]  R0_addr,
