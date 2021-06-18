@@ -1,14 +1,14 @@
 module SDFStageRadix22_mem_ext(
-  input  [8:0]  R0_addr,
+  input  [7:0]  R0_addr,
   input         R0_clk,
   input         R0_en,
   output [31:0] R0_data,
-  input  [8:0]  W0_addr,
+  input  [7:0]  W0_addr,
   input         W0_en,
   input         W0_clk,
   input  [31:0] W0_data
 );
-  sky130_sram_2kbyte_1rw1r_32x512_8 #(.VERBOSE(0)) sram (
+  sky130_sram_1kbyte_1rw1r_32x256_8 #(.VERBOSE(0)) sram (
     .clk0  (W0_clk),    // input  - clock
     .csb0  (!W0_en),    // input  - active low chip select
     .web0  (!W0_en),    // input  - active low write control
